@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:let_tutor/common/action_button.dart';
+import 'package:let_tutor/common/custom_button.dart';
 import 'package:let_tutor/common/appbar_login.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -14,7 +14,7 @@ class WelcomeScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(
-          horizontal: 20,
+          horizontal: 30,
         ),
         child: Column(
           children: [
@@ -62,12 +62,12 @@ class WelcomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
             Row(
               children: [
                 Expanded(
-                  child: ActionButton(
+                  child: CustomButton(
                     title: 'Let\'s Start',
                     callback: () {},
                     textSize: 20,

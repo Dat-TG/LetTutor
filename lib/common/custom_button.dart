@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:let_tutor/utils/colors.dart';
 
 // A common button
-class ActionButton extends StatelessWidget {
+class CustomButton extends StatelessWidget {
   final String title;
   final VoidCallback callback;
   final Color backgroundColor;
@@ -10,7 +10,7 @@ class ActionButton extends StatelessWidget {
   final double textSize;
   final double borderRadius;
   final EdgeInsetsGeometry padding;
-  const ActionButton({
+  const CustomButton({
     super.key,
     required this.title,
     required this.callback,
