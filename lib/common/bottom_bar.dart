@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:let_tutor/common/appbar_main.dart';
+import 'package:let_tutor/presentation/home/home.dart';
 
 class BottomBar extends StatefulWidget {
   static const String routeName = '/actual-home';
@@ -12,7 +14,7 @@ class _BottomBarState extends State<BottomBar> {
   int _page = 0;
 
   List<Widget> pages = [
-    const Text('Home'),
+    const Home(),
     const Text('Tutor'),
     const Text('Courses'),
     const Text('History'),
@@ -28,6 +30,10 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBarMain(),
+      ),
       body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
