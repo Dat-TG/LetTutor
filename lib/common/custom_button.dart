@@ -10,6 +10,8 @@ class CustomButton extends StatelessWidget {
   final double textSize;
   final double borderRadius;
   final EdgeInsetsGeometry padding;
+  final Color borderColor;
+  final Icon? icon;
   const CustomButton({
     super.key,
     required this.title,
@@ -19,24 +21,46 @@ class CustomButton extends StatelessWidget {
     this.textSize = 16,
     this.borderRadius = 20,
     this.padding = const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+    this.borderColor = Colors.transparent,
+    this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
+        foregroundColor: borderColor,
         padding: padding,
         backgroundColor: backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
+          side: BorderSide(
+            color: borderColor,
+            width: 1,
+          ),
         ),
       ),
       onPressed: callback,
-      child: Text(
-        title,
-        style: TextStyle(
-          color: titleColor,
-          fontSize: textSize,
+      child: RichText(
+        text: TextSpan(
+          style: TextStyle(
+            color: titleColor,
+            fontSize: textSize,
+          ),
+          children: [
+            if (icon != null)
+              WidgetSpan(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    right: 5,
+                  ),
+                  child: icon,
+                ),
+              ),
+            TextSpan(
+              text: title,
+            ),
+          ],
         ),
       ),
     );

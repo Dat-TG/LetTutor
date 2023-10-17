@@ -11,6 +11,9 @@ class AppColors {
   /// main widget color blue
   static const Color primaryElement = Color.fromARGB(255, 0, 113, 240);
 
+  // secondary widget color orange
+  static const Color secondaryElement = Color.fromARGB(255, 252, 107, 16);
+
   /// main text color black
   static const Color primaryText = Color.fromARGB(255, 0, 0, 0);
   // video background color

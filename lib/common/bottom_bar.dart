@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor/common/appbar_main.dart';
-import 'package:let_tutor/presentation/home/home.dart';
+import 'package:let_tutor/presentation/home/home_screen.dart';
 
 class BottomBar extends StatefulWidget {
   static const String routeName = '/actual-home';
@@ -14,7 +14,7 @@ class _BottomBarState extends State<BottomBar> {
   int _page = 0;
 
   List<Widget> pages = [
-    const Home(),
+    const HomeScreen(),
     const Text('Tutor'),
     const Text('Courses'),
     const Text('History'),
@@ -30,8 +30,8 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(60),
         child: AppBarMain(),
       ),
       body: pages[_page],
@@ -73,8 +73,8 @@ class _BottomBarState extends State<BottomBar> {
         selectedItemColor: Theme.of(context).primaryColor,
         unselectedItemColor: Colors.grey,
         onTap: goToPage,
-        iconSize: 30,
-        selectedFontSize: 18,
+        iconSize: 25,
+        selectedFontSize: 15,
       ),
     );
   }

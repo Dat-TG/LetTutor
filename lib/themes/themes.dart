@@ -7,6 +7,7 @@ final ThemeData lightTheme = ThemeData(
     seedColor: AppColors.primaryElement,
   ),
   primaryColor: AppColors.primaryElement,
+  secondaryHeaderColor: AppColors.secondaryElement,
   scaffoldBackgroundColor: AppColors.primaryBackground,
   appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.primaryBackground,
