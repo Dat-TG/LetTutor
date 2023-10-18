@@ -4,14 +4,16 @@ import 'package:let_tutor/common/stars.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
 
 class TutorCard extends StatelessWidget {
-  const TutorCard({super.key});
+  final bool isExpanded;
+  const TutorCard({super.key, this.isExpanded = false});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Container(
-          width: 300,
+          width: isExpanded ? double.infinity : 300,
+          height: isExpanded ? null : 326,
           padding: const EdgeInsets.symmetric(
             horizontal: 10,
             vertical: 10,
@@ -98,28 +100,42 @@ class TutorCard extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Container(
-                constraints: const BoxConstraints(
-                  minHeight: 78,
-                  maxHeight: 78,
-                ),
-                child: const SingleChildScrollView(
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  child: Wrap(
-                    direction: Axis.horizontal,
-                    spacing: 10,
-                    runSpacing: 10,
-                    children: [
-                      TutorTag(name: 'English for Business'),
-                      TutorTag(name: 'Conversational'),
-                      TutorTag(name: 'English for Kids'),
-                      TutorTag(name: 'English for Business'),
-                      TutorTag(name: 'Conversational'),
-                      TutorTag(name: 'English for Kids'),
-                    ],
-                  ),
-                ),
-              ),
+              isExpanded
+                  ? const Wrap(
+                      direction: Axis.horizontal,
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: [
+                        TutorTag(name: 'English for Business'),
+                        TutorTag(name: 'Conversational'),
+                        TutorTag(name: 'English for Kids'),
+                        TutorTag(name: 'English for Business'),
+                        TutorTag(name: 'Conversational'),
+                        TutorTag(name: 'English for Kids'),
+                      ],
+                    )
+                  : Container(
+                      constraints: const BoxConstraints(
+                        minHeight: 78,
+                        maxHeight: 78,
+                      ),
+                      child: const SingleChildScrollView(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        child: Wrap(
+                          direction: Axis.horizontal,
+                          spacing: 10,
+                          runSpacing: 10,
+                          children: [
+                            TutorTag(name: 'English for Business'),
+                            TutorTag(name: 'Conversational'),
+                            TutorTag(name: 'English for Kids'),
+                            TutorTag(name: 'English for Business'),
+                            TutorTag(name: 'Conversational'),
+                            TutorTag(name: 'English for Kids'),
+                          ],
+                        ),
+                      ),
+                    ),
               const SizedBox(
                 height: 10,
               ),
@@ -138,22 +154,25 @@ class TutorCard extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              CustomButton(
-                title: 'Book now',
-                callback: () {},
-                backgroundColor: Colors.white,
-                titleColor: Theme.of(context).primaryColor,
-                borderRadius: 20,
-                textSize: 16,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
-                borderColor: Theme.of(context).primaryColor,
-                icon: Icon(
-                  Icons.perm_contact_calendar_rounded,
-                  color: Theme.of(context).primaryColor,
-                  size: 20,
+              Align(
+                alignment: Alignment.centerRight,
+                child: CustomButton(
+                  title: 'Book now',
+                  callback: () {},
+                  backgroundColor: Colors.white,
+                  titleColor: Theme.of(context).primaryColor,
+                  borderRadius: 20,
+                  textSize: 16,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 5,
+                  ),
+                  borderColor: Theme.of(context).primaryColor,
+                  icon: Icon(
+                    Icons.perm_contact_calendar_rounded,
+                    color: Theme.of(context).primaryColor,
+                    size: 20,
+                  ),
                 ),
               )
             ],

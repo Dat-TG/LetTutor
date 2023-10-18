@@ -41,6 +41,7 @@ class CourseCard extends StatelessWidget {
           color: Colors.white,
         ),
         width: 250,
+        height: 306,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

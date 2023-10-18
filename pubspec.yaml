@@ -38,6 +38,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   carousel_slider: ^4.2.1
   badges: ^3.1.2
+  filter_list: ^1.0.2
 
 dev_dependencies:
   flutter_test:

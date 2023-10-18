@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
             options: CarouselOptions(
               height: 326,
               padEnds: false,
-              viewportFraction: 0.8,
+              viewportFraction: 300 / MediaQuery.of(context).size.width + 0.05,
               initialPage: 0,
               enableInfiniteScroll: true,
               reverse: false,
@@ -86,7 +86,7 @@ class HomeScreen extends StatelessWidget {
             ],
             options: CarouselOptions(
               height: 306,
-              viewportFraction: 0.7,
+              viewportFraction: 250 / MediaQuery.of(context).size.width + 0.05,
               padEnds: false,
               initialPage: 0,
               enableInfiniteScroll: true,

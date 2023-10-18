@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor/common/appbar_main.dart';
 import 'package:let_tutor/presentation/home/home_screen.dart';
+import 'package:let_tutor/presentation/tutor/tutor_screen.dart';
 
 class BottomBar extends StatefulWidget {
   static const String routeName = '/actual-home';
@@ -15,7 +16,7 @@ class _BottomBarState extends State<BottomBar> {
 
   List<Widget> pages = [
     const HomeScreen(),
-    const Text('Tutor'),
+    const TutorScreen(),
     const Text('Courses'),
     const Text('History'),
     const Text('Profile'),
