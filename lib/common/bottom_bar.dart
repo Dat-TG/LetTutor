@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor/common/appbar_main.dart';
+import 'package:let_tutor/presentation/course/course_screen.dart';
 import 'package:let_tutor/presentation/home/home_screen.dart';
 import 'package:let_tutor/presentation/tutor/tutor_screen.dart';
 
@@ -17,7 +18,7 @@ class _BottomBarState extends State<BottomBar> {
   List<Widget> pages = [
     const HomeScreen(),
     const TutorScreen(),
-    const Text('Courses'),
+    const CourseScreen(),
     const Text('History'),
     const Text('Profile'),
   ];
