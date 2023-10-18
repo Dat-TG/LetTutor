@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 
 class CourseCard extends StatelessWidget {
-  const CourseCard({super.key});
+  final bool isExpanded;
+  const CourseCard({super.key, this.isExpanded = false});
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +41,8 @@ class CourseCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
         ),
-        width: 250,
-        height: 306,
+        width: isExpanded ? null : 250,
+        height: isExpanded ? null : 311,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -52,7 +53,6 @@ class CourseCard extends StatelessWidget {
               ),
               child: Image.asset(
                 'assets/images/course.png',
-                width: 250,
                 fit: BoxFit.cover,
               ),
             ),
@@ -73,6 +73,9 @@ class CourseCard extends StatelessWidget {
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
                     ),
+                  ),
+                  SizedBox(
+                    height: 5,
                   ),
                   Text(
                     '7 Lessons',

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor/common/bottom_bar.dart';
-import 'package:let_tutor/presentation/login/login_screen.dart';
-import 'package:let_tutor/presentation/welcome/welcome_screen.dart';
 import 'package:let_tutor/themes/themes.dart';
 
 void main() {

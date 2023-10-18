@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor/common/custom_button.dart';
-import 'package:let_tutor/common/custom_date_picker.dart';
-import 'package:let_tutor/common/custom_time_picker.dart';
 import 'package:let_tutor/presentation/course/widgets/choose_sort_option.dart';
-import 'package:let_tutor/presentation/tutor/widgets/choose_nationality.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
 import 'package:let_tutor/utils/constants.dart';
 import 'package:let_tutor/utils/helpers.dart';

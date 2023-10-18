@@ -4,7 +4,6 @@ import 'package:let_tutor/presentation/course/widgets/course_card.dart';
 import 'package:let_tutor/presentation/home/widgets/home_banner.dart';
 import 'package:let_tutor/presentation/home/widgets/recommended_row.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_card.dart';
-import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -85,7 +84,7 @@ class HomeScreen extends StatelessWidget {
               CourseCard(),
             ],
             options: CarouselOptions(
-              height: 306,
+              height: 311,
               viewportFraction: 250 / MediaQuery.of(context).size.width + 0.05,
               padEnds: false,
               initialPage: 0,
