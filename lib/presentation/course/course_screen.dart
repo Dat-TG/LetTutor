@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:let_tutor/presentation/course/widgets/course_banner.dart';
 import 'package:let_tutor/presentation/course/widgets/course_card.dart';
 import 'package:let_tutor/presentation/course/widgets/course_search.dart';
+import 'package:let_tutor/presentation/course/widgets/ebook_card.dart';
 
 class CourseScreen extends StatefulWidget {
   const CourseScreen({super.key});
@@ -138,7 +139,24 @@ class _CourseScreenState extends State<CourseScreen> {
                       ),
                     ],
                   )
-                : Column(),
+                : const Wrap(
+                    spacing: 20,
+                    runSpacing: 20,
+                    children: [
+                      EbookCard(
+                        isExpanded: true,
+                      ),
+                      EbookCard(
+                        isExpanded: true,
+                      ),
+                      EbookCard(
+                        isExpanded: true,
+                      ),
+                      EbookCard(
+                        isExpanded: true,
+                      ),
+                    ],
+                  ),
           ),
           const SizedBox(
             height: 20,
