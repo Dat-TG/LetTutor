@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:let_tutor/common/bottom_bar.dart';
 import 'package:let_tutor/l10n/l10n.dart';
+import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
 import 'package:let_tutor/themes/themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -20,14 +20,14 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       debugShowCheckedModeBanner: false,
       supportedLocales: L10n.all,
-      locale: const Locale('vi'),
+      locale: const Locale('en'),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      home: const BottomBar(),
+      home: const TutorDetails(),
     );
   }
 }

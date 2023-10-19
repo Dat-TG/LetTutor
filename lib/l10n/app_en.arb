@@ -56,5 +56,17 @@
     "course": "Course",
     "ebook": "Ebook",
     "levelASC": "Level ascending",
-    "levelDESC": "Level decreasing"
+    "levelDESC": "Level decreasing",
+    "tutorDetails": "Tutor Details",
+    "like": "Like",
+    "message": "Message",
+    "report": "Report",
+    "captions": "Captions",
+    "noCap": "No captions",
+    "quality": "Quality",
+    "auto": "Auto",
+    "dataSaver": "Data saver",
+    "speed": "Playback speed",
+    "normal": "Normal",
+    "off": "Off"
 }

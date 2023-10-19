@@ -56,5 +56,17 @@
     "course": "Khóa học",
     "ebook": "Sách điện tử",
     "levelASC": "Cấp độ tăng dần",
-    "levelDESC": "Cấp độ giảm dần"
+    "levelDESC": "Cấp độ giảm dần",
+    "tutorDetails": "Chi tiết gia sư",
+    "like": "Thích",
+    "message": "Nhắn tin",
+    "report": "Báo cáo",
+    "captions": "Phụ đề",
+    "noCap": "Không có phụ đề",
+    "quality": "Chất lượng",
+    "auto": "Tự động",
+    "dataSaver": "Trình tiết kiệm dữ liệu",
+    "speed": "Tốc độ phát lại",
+    "normal": "Bình thường",
+    "off": "Đang tắt"
 }

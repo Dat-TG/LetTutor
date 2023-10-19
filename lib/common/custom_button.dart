@@ -30,6 +30,7 @@ class CustomButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         foregroundColor: borderColor,
+        shadowColor: Colors.transparent,
         padding: padding,
         backgroundColor: backgroundColor,
         shape: RoundedRectangleBorder(
