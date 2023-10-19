@@ -6,6 +6,7 @@ import 'package:let_tutor/presentation/tutor/widgets/choose_nationality.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
 import 'package:let_tutor/utils/constants.dart';
 import 'package:let_tutor/utils/helpers.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TutorSearch extends StatefulWidget {
   const TutorSearch({super.key});
@@ -26,10 +27,10 @@ class _TutorSearchState extends State<TutorSearch> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const TextField(
+        TextField(
           decoration: InputDecoration(
-            hintText: 'Enter tutor name...',
-            border: OutlineInputBorder(
+            hintText: AppLocalizations.of(context)!.enterTutorName,
+            border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(10),
               ),
@@ -38,7 +39,7 @@ class _TutorSearchState extends State<TutorSearch> {
                 width: 1,
               ),
             ),
-            contentPadding: EdgeInsets.symmetric(
+            contentPadding: const EdgeInsets.symmetric(
               horizontal: 10,
               vertical: 15,
             ),
@@ -47,9 +48,9 @@ class _TutorSearchState extends State<TutorSearch> {
         const SizedBox(
           height: 10,
         ),
-        const Text(
-          'Nationality',
-          style: TextStyle(
+        Text(
+          AppLocalizations.of(context)!.nationality,
+          style: const TextStyle(
             fontSize: 18,
             color: Colors.black,
             fontWeight: FontWeight.w700,
@@ -72,9 +73,9 @@ class _TutorSearchState extends State<TutorSearch> {
         const SizedBox(
           height: 10,
         ),
-        const Text(
-          'Available tutoring time',
-          style: TextStyle(
+        Text(
+          AppLocalizations.of(context)!.availableTutoringTime,
+          style: const TextStyle(
             fontSize: 18,
             color: Colors.black,
             fontWeight: FontWeight.w700,
@@ -96,7 +97,7 @@ class _TutorSearchState extends State<TutorSearch> {
             Expanded(
               child: CustomTimePicker(
                 textEditingController: startTimeController,
-                label: 'Start time',
+                label: AppLocalizations.of(context)!.startTime,
               ),
             ),
             const Icon(
@@ -106,7 +107,7 @@ class _TutorSearchState extends State<TutorSearch> {
             Expanded(
               child: CustomTimePicker(
                 textEditingController: endTimeController,
-                label: 'End time',
+                label: AppLocalizations.of(context)!.endTime,
               ),
             ),
           ],
@@ -114,9 +115,9 @@ class _TutorSearchState extends State<TutorSearch> {
         const SizedBox(
           height: 10,
         ),
-        const Text(
-          'Specialties',
-          style: TextStyle(
+        Text(
+          AppLocalizations.of(context)!.specialities,
+          style: const TextStyle(
             fontSize: 18,
             color: Colors.black,
             fontWeight: FontWeight.w700,
@@ -126,7 +127,7 @@ class _TutorSearchState extends State<TutorSearch> {
           height: 10,
         ),
         CustomButton(
-            title: 'Choose Specialties',
+            title: AppLocalizations.of(context)!.chooseSpecialities,
             backgroundColor: Colors.white,
             titleColor: Theme.of(context).primaryColor,
             borderColor: Theme.of(context).primaryColor,
@@ -160,7 +161,7 @@ class _TutorSearchState extends State<TutorSearch> {
         Align(
           alignment: Alignment.centerRight,
           child: CustomButton(
-            title: 'Search',
+            title: AppLocalizations.of(context)!.search,
             icon: const Icon(
               Icons.search,
               color: Colors.white,

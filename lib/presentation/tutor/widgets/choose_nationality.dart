@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChooseNationality extends StatelessWidget {
   final bool isVN;
@@ -35,9 +36,9 @@ class ChooseNationality extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                const Text(
-                  'Vietnamese Tutor',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.vietnameseTutor,
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
                   ),
@@ -70,9 +71,9 @@ class ChooseNationality extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                const Text(
-                  'Native English Tutor',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.englishTutor,
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
                   ),

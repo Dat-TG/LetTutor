@@ -4,6 +4,7 @@ import 'package:let_tutor/presentation/course/widgets/choose_sort_option.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
 import 'package:let_tutor/utils/constants.dart';
 import 'package:let_tutor/utils/helpers.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CourseSearch extends StatefulWidget {
   const CourseSearch({super.key});
@@ -18,13 +19,18 @@ class _CourseSearchState extends State<CourseSearch> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> sortOptions = [
+      AppLocalizations.of(context)!.notSort,
+      AppLocalizations.of(context)!.levelASC,
+      AppLocalizations.of(context)!.levelDESC,
+    ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const TextField(
+        TextField(
           decoration: InputDecoration(
-            hintText: 'Enter course name...',
-            border: OutlineInputBorder(
+            hintText: AppLocalizations.of(context)!.enterCourseName,
+            border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(10),
               ),
@@ -33,7 +39,7 @@ class _CourseSearchState extends State<CourseSearch> {
                 width: 1,
               ),
             ),
-            contentPadding: EdgeInsets.symmetric(
+            contentPadding: const EdgeInsets.symmetric(
               horizontal: 10,
               vertical: 15,
             ),
@@ -42,9 +48,9 @@ class _CourseSearchState extends State<CourseSearch> {
         const SizedBox(
           height: 10,
         ),
-        const Text(
-          'Course level',
-          style: TextStyle(
+        Text(
+          AppLocalizations.of(context)!.courseLevel,
+          style: const TextStyle(
             fontSize: 18,
             color: Colors.black,
             fontWeight: FontWeight.w700,
@@ -54,7 +60,7 @@ class _CourseSearchState extends State<CourseSearch> {
           height: 10,
         ),
         CustomButton(
-            title: 'Choose level',
+            title: AppLocalizations.of(context)!.chooseLevel,
             backgroundColor: Colors.white,
             titleColor: Theme.of(context).primaryColor,
             borderColor: Theme.of(context).primaryColor,
@@ -84,9 +90,9 @@ class _CourseSearchState extends State<CourseSearch> {
         const SizedBox(
           height: 10,
         ),
-        const Text(
-          'Course category',
-          style: TextStyle(
+        Text(
+          AppLocalizations.of(context)!.courseCategory,
+          style: const TextStyle(
             fontSize: 18,
             color: Colors.black,
             fontWeight: FontWeight.w700,
@@ -96,7 +102,7 @@ class _CourseSearchState extends State<CourseSearch> {
           height: 10,
         ),
         CustomButton(
-            title: 'Choose category',
+            title: AppLocalizations.of(context)!.chooseCategory,
             backgroundColor: Colors.white,
             titleColor: Theme.of(context).primaryColor,
             borderColor: Theme.of(context).primaryColor,
@@ -127,14 +133,17 @@ class _CourseSearchState extends State<CourseSearch> {
         const SizedBox(
           height: 10,
         ),
-        ChooseSortOption(sortOptionController: sortOptionController),
+        ChooseSortOption(
+          sortOptionController: sortOptionController,
+          sortOptions: sortOptions,
+        ),
         const SizedBox(
           height: 10,
         ),
         Align(
           alignment: Alignment.centerRight,
           child: CustomButton(
-            title: 'Search',
+            title: AppLocalizations.of(context)!.search,
             icon: const Icon(
               Icons.search,
               color: Colors.white,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:let_tutor/common/custom_button.dart';
 import 'package:let_tutor/common/stars.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TutorCard extends StatelessWidget {
   final bool isExpanded;
@@ -74,9 +75,9 @@ class TutorCard extends StatelessWidget {
                           const SizedBox(
                             width: 5,
                           ),
-                          const Text(
-                            'Vietnam',
-                            style: TextStyle(
+                          Text(
+                            AppLocalizations.of(context)!.vietnam,
+                            style: const TextStyle(
                               color: Colors.grey,
                               fontSize: 16,
                             ),
@@ -157,7 +158,7 @@ class TutorCard extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: CustomButton(
-                  title: 'Book now',
+                  title: AppLocalizations.of(context)!.bookNow,
                   callback: () {},
                   backgroundColor: Colors.white,
                   titleColor: Theme.of(context).primaryColor,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CourseBanner extends StatelessWidget {
   const CourseBanner({super.key});
@@ -30,7 +31,7 @@ class CourseBanner extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'DISCOVER COURSES',
+                  AppLocalizations.of(context)!.discoverCourses,
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 20,
@@ -40,9 +41,9 @@ class CourseBanner extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                const Text(
-                  'LiveTutor has built the most quality, methodical and scientific courses in the fields of life for those who are in need of improving their knowledge of the fields.',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.discoverCoursesIntroduction,
+                  style: const TextStyle(
                     fontSize: 15,
                     color: Colors.black,
                     height: 1.4,

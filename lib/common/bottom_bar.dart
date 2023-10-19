@@ -3,6 +3,7 @@ import 'package:let_tutor/common/appbar_main.dart';
 import 'package:let_tutor/presentation/course/course_screen.dart';
 import 'package:let_tutor/presentation/home/home_screen.dart';
 import 'package:let_tutor/presentation/tutor/tutor_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BottomBar extends StatefulWidget {
   static const String routeName = '/actual-home';
@@ -39,36 +40,36 @@ class _BottomBarState extends State<BottomBar> {
       body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(
+            icon: const Icon(
               Icons.home_rounded,
             ),
-            label: 'Home',
+            label: AppLocalizations.of(context)!.home,
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(
+            icon: const ImageIcon(
               AssetImage('assets/images/tutor.png'),
             ),
-            label: 'Tutor',
+            label: AppLocalizations.of(context)!.tutors,
           ),
           BottomNavigationBarItem(
-            icon: Icon(
+            icon: const Icon(
               Icons.school_rounded,
             ),
-            label: 'Courses',
+            label: AppLocalizations.of(context)!.courses,
           ),
           BottomNavigationBarItem(
-            icon: Icon(
+            icon: const Icon(
               Icons.schedule_rounded,
             ),
-            label: 'Schedule',
+            label: AppLocalizations.of(context)!.schedule,
           ),
           BottomNavigationBarItem(
-            icon: Icon(
+            icon: const Icon(
               Icons.person_rounded,
             ),
-            label: 'Profile',
+            label: AppLocalizations.of(context)!.profile,
           ),
         ],
         currentIndex: _page,

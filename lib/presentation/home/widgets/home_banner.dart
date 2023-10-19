@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor/common/custom_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeBanner extends StatelessWidget {
   const HomeBanner({super.key});
@@ -22,7 +23,7 @@ class HomeBanner extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'LEARN ENGLISH,',
+                  AppLocalizations.of(context)!.learnEnglish,
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 20,
@@ -33,7 +34,7 @@ class HomeBanner extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  'ANYTIME,',
+                  AppLocalizations.of(context)!.anytime,
                   style: TextStyle(
                     color: Theme.of(context).secondaryHeaderColor,
                     fontSize: 20,
@@ -44,7 +45,7 @@ class HomeBanner extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  'ANYWHERE,',
+                  AppLocalizations.of(context)!.anywhere,
                   style: TextStyle(
                     color: Theme.of(context).secondaryHeaderColor,
                     fontSize: 20,
@@ -54,9 +55,9 @@ class HomeBanner extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const Text(
-                  'Start your 1-on-1',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.start1on1,
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
@@ -66,7 +67,7 @@ class HomeBanner extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  '25 Minute Lessons today!',
+                  AppLocalizations.of(context)!.twentyFiveMinuteLessonToday,
                   style: TextStyle(
                     color: Theme.of(context).secondaryHeaderColor,
                     fontSize: 16,
@@ -77,7 +78,7 @@ class HomeBanner extends StatelessWidget {
                   height: 10,
                 ),
                 CustomButton(
-                  title: 'BOOK A LESSON',
+                  title: AppLocalizations.of(context)!.bookALesson,
                   callback: () {},
                   backgroundColor: Theme.of(context).secondaryHeaderColor,
                   textSize: 16,

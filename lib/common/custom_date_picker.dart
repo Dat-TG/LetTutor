@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomDatePicker extends StatefulWidget {
   final TextEditingController textEditingController;
@@ -36,17 +37,17 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       style: const TextStyle(fontSize: 16),
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
-      decoration: const InputDecoration(
-        labelText: 'Date',
-        labelStyle: TextStyle(
+      decoration: InputDecoration(
+        labelText: AppLocalizations.of(context)!.date,
+        labelStyle: const TextStyle(
           fontSize: 18,
         ),
-        prefixIcon: Icon(
+        prefixIcon: const Icon(
           Icons.date_range_rounded,
           size: 20,
         ),
         errorText: null,
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(10),
           ),
@@ -55,7 +56,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
             width: 1,
           ),
         ),
-        contentPadding: EdgeInsets.symmetric(
+        contentPadding: const EdgeInsets.symmetric(
           horizontal: 5,
           vertical: 15,
         ),

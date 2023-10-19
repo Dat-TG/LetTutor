@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RecomendedRow extends StatelessWidget {
   final Widget icon;
@@ -33,7 +34,7 @@ class RecomendedRow extends StatelessWidget {
           ],
         ),
         Text(
-          'View more',
+          AppLocalizations.of(context)!.viewMore,
           style: TextStyle(
             color: Theme.of(context).primaryColor,
             fontSize: 16,

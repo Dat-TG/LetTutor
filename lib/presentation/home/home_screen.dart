@@ -4,6 +4,7 @@ import 'package:let_tutor/presentation/course/widgets/course_card.dart';
 import 'package:let_tutor/presentation/home/widgets/home_banner.dart';
 import 'package:let_tutor/presentation/home/widgets/recommended_row.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_card.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -27,7 +28,7 @@ class HomeScreen extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
                 size: 25,
               ),
-              title: 'Recommended Tutors',
+              title: AppLocalizations.of(context)!.recommendedTutors,
               routeName: '',
             ),
           ),
@@ -69,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
                 size: 25,
               ),
-              title: 'Recommended Courses',
+              title: AppLocalizations.of(context)!.recommendedCourses,
               routeName: '',
             ),
           ),

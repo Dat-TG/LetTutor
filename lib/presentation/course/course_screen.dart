@@ -3,6 +3,7 @@ import 'package:let_tutor/presentation/course/widgets/course_banner.dart';
 import 'package:let_tutor/presentation/course/widgets/course_card.dart';
 import 'package:let_tutor/presentation/course/widgets/course_search.dart';
 import 'package:let_tutor/presentation/course/widgets/ebook_card.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CourseScreen extends StatefulWidget {
   const CourseScreen({super.key});
@@ -63,7 +64,7 @@ class _CourseScreenState extends State<CourseScreen> {
                         ),
                       ),
                       child: Text(
-                        'Course',
+                        AppLocalizations.of(context)!.course,
                         style: TextStyle(
                           fontSize: 18,
                           color: index == 0 ? Colors.white : Colors.black,
@@ -99,7 +100,7 @@ class _CourseScreenState extends State<CourseScreen> {
                         ),
                       ),
                       child: Text(
-                        'Ebook',
+                        AppLocalizations.of(context)!.ebook,
                         style: TextStyle(
                           fontSize: 18,
                           color: index == 1

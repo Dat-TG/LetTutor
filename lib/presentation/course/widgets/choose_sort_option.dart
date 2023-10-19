@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChooseSortOption extends StatefulWidget {
   final TextEditingController sortOptionController;
-  const ChooseSortOption({super.key, required this.sortOptionController});
+  final List<String> sortOptions;
+  const ChooseSortOption(
+      {super.key,
+      required this.sortOptionController,
+      required this.sortOptions});
 
   @override
   State<ChooseSortOption> createState() => _ChooseSortOptionState();
@@ -10,15 +15,11 @@ class ChooseSortOption extends StatefulWidget {
 
 class _ChooseSortOptionState extends State<ChooseSortOption> {
   int index = 0;
-  List<String> options = [
-    'None',
-    'Level ascending',
-    'Level decreasing',
-  ];
+
   @override
   void initState() {
     super.initState();
-    widget.sortOptionController.text = options[0];
+    widget.sortOptionController.text = widget.sortOptions[0];
   }
 
   @override
@@ -29,14 +30,14 @@ class _ChooseSortOptionState extends State<ChooseSortOption> {
           (int id) => MenuItemButton(
               onPressed: () => setState(() {
                     index = id;
-                    widget.sortOptionController.text = options[id];
+                    widget.sortOptionController.text = widget.sortOptions[id];
                   }),
               child: SizedBox(
                 width: 200,
                 height: 50,
                 child: ListTile(
                   tileColor: Colors.white,
-                  title: Text(options[id]),
+                  title: Text(widget.sortOptions[id]),
                   titleTextStyle: const TextStyle(
                     color: Colors.black,
                     fontSize: 18,
@@ -59,17 +60,17 @@ class _ChooseSortOptionState extends State<ChooseSortOption> {
             style: const TextStyle(fontSize: 16),
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
-            decoration: const InputDecoration(
-              labelText: 'Sort By',
-              labelStyle: TextStyle(
+            decoration: InputDecoration(
+              labelText: AppLocalizations.of(context)!.sortBy,
+              labelStyle: const TextStyle(
                 fontSize: 18,
               ),
-              prefixIcon: Icon(
+              prefixIcon: const Icon(
                 Icons.sort_rounded,
                 size: 20,
               ),
               errorText: null,
-              border: OutlineInputBorder(
+              border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(10),
                 ),
@@ -78,7 +79,7 @@ class _ChooseSortOptionState extends State<ChooseSortOption> {
                   width: 1,
                 ),
               ),
-              contentPadding: EdgeInsets.symmetric(
+              contentPadding: const EdgeInsets.symmetric(
                 horizontal: 5,
                 vertical: 15,
               ),

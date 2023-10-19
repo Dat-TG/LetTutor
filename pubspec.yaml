@@ -39,6 +39,9 @@ dependencies:
   carousel_slider: ^4.2.1
   badges: ^3.1.2
   filter_list: ^1.0.2
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +59,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

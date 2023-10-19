@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor/common/appbar_login.dart';
 import 'package:let_tutor/presentation/login/widgets/login_form.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -21,7 +22,7 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              'LOG IN',
+              AppLocalizations.of(context)!.logInUpperCase,
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 30,
@@ -35,10 +36,10 @@ class LoginScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            const Center(
+            Center(
               child: Text(
-                'Or continue with',
-                style: TextStyle(
+                AppLocalizations.of(context)!.orContinueWith,
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
                 ),
@@ -91,15 +92,18 @@ class LoginScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'Not a member yet? ',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.notAMemberYet,
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 18,
                   ),
                 ),
+                const SizedBox(
+                  width: 5,
+                ),
                 Text(
-                  'Sign up',
+                  AppLocalizations.of(context)!.signUp,
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 18,

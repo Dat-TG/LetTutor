@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_card.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_search.dart';
 import 'package:let_tutor/presentation/tutor/widgets/upcoming_lesson.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TutorScreen extends StatefulWidget {
   const TutorScreen({super.key});
@@ -35,9 +36,9 @@ class _TutorScreenState extends State<TutorScreen> {
                 const SizedBox(
                   width: 10,
                 ),
-                const Text(
-                  'Find a tutor',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.findATutor,
+                  style: const TextStyle(
                     fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.w900,
@@ -56,11 +57,11 @@ class _TutorScreenState extends State<TutorScreen> {
           const SizedBox(
             height: 20,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              'Recommend Tutors',
-              style: TextStyle(
+              AppLocalizations.of(context)!.recommendedTutors,
+              style: const TextStyle(
                 fontSize: 20,
                 color: Colors.black,
                 fontWeight: FontWeight.w700,

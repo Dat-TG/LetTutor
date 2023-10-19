@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor/common/custom_button.dart';
 import 'package:let_tutor/common/appbar_login.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -35,7 +36,7 @@ class WelcomeScreen extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: Text(
-                'Say hello to your English tutors',
+                AppLocalizations.of(context)!.introduction,
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   fontWeight: FontWeight.w700,
@@ -48,11 +49,11 @@ class WelcomeScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const Align(
+            Align(
               alignment: Alignment.center,
               child: Text(
-                'Become fluent faster through one on one video chat lessons tailored to your goals.',
-                style: TextStyle(
+                AppLocalizations.of(context)!.introductionDescription,
+                style: const TextStyle(
                   color: Colors.black87,
                   fontWeight: FontWeight.w500,
                   fontSize: 21,
@@ -68,7 +69,7 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: CustomButton(
-                    title: 'Let\'s Start',
+                    title: AppLocalizations.of(context)!.letStart,
                     callback: () {},
                     textSize: 20,
                     borderRadius: 10,

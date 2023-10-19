@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor/common/custom_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -57,9 +58,9 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(
             height: 30,
           ),
-          const Text(
-            'PASSWORD',
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context)!.passwordUppercase,
+            style: const TextStyle(
               color: Colors.black54,
               fontSize: 18,
             ),
@@ -103,9 +104,9 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(
             height: 30,
           ),
-          const Text(
-            'Forgot Password?',
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context)!.forgotPassword,
+            style: const TextStyle(
               fontSize: 18,
               color: Color.fromRGBO(40, 106, 210, 1),
               fontWeight: FontWeight.w400,
@@ -118,7 +119,7 @@ class _LoginFormState extends State<LoginForm> {
             children: [
               Expanded(
                 child: CustomButton(
-                  title: 'LOG IN',
+                  title: AppLocalizations.of(context)!.logInUpperCase,
                   callback: () {},
                   textSize: 22,
                   borderRadius: 10,
