@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor/l10n/l10n.dart';
-import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
+import 'package:let_tutor/presentation/details-course/course_details.dart';
 import 'package:let_tutor/themes/themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      home: const TutorDetails(),
+      home: const CourseDetails(),
     );
   }
 }

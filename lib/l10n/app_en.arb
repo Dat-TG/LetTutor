@@ -75,5 +75,15 @@
     "suggestedCourses": "Suggested courses",
     "interests": "Interests",
     "teachingExperience":"Teaching experience",
-    "othersReview":"Others review"
+    "othersReview":"Others review",
+    "courseDetails": "Course Details",
+    "discover": "Discover",
+    "overview": "Overview",
+    "whyTakeThisCourse":"Why take this course",
+    "whatWillYouBeAbleToDo":"What will you be able to do",
+    "experienceLevel":"Experience Level",
+    "courseLength":"Course Length",
+    "listTopics":"List Topics",
+    "topics": "topics",
+    "suggestedTutors":"Suggested Tutors"
 }

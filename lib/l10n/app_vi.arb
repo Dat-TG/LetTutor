@@ -75,5 +75,15 @@
     "suggestedCourses": "Khóa học được đề xuất",
     "interests": "Sở thích",
     "teachingExperience":"Kinh nghiệm giảng dạy",
-    "othersReview":"Đánh giá từ người học"
+    "othersReview":"Đánh giá từ người học",
+    "courseDetails": "Chi tiết khóa học",
+    "discover": "Khám phá ngay",
+    "overview": "Tổng quan",
+    "whyTakeThisCourse":"Tại sao bạn nên tham gia khóa học này",
+    "whatWillYouBeAbleToDo":"Bạn sẽ có thể làm gì sau khóa học",
+    "experienceLevel":"Mức độ kinh nghiệm",
+    "courseLength":"Thời lượng khóa học",
+    "listTopics":"Danh sách chủ đề",
+    "topics": "chủ đề",
+    "suggestedTutors":"Gia sư đề xuất"
 }
