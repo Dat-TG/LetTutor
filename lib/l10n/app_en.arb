@@ -68,5 +68,12 @@
     "dataSaver": "Data saver",
     "speed": "Playback speed",
     "normal": "Normal",
-    "off": "Off"
+    "off": "Off",
+    "about": "About",
+    "education": "Education",
+    "languages": "Languages",
+    "suggestedCourses": "Suggested courses",
+    "interests": "Interests",
+    "teachingExperience":"Teaching experience",
+    "othersReview":"Others review"
 }

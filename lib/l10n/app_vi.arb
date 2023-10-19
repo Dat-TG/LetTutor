@@ -68,5 +68,12 @@
     "dataSaver": "Trình tiết kiệm dữ liệu",
     "speed": "Tốc độ phát lại",
     "normal": "Bình thường",
-    "off": "Đang tắt"
+    "off": "Đang tắt",
+    "about": "Giới thiệu",
+    "education": "Học vấn",
+    "languages": "Ngôn ngữ",
+    "suggestedCourses": "Khóa học được đề xuất",
+    "interests": "Sở thích",
+    "teachingExperience":"Kinh nghiệm giảng dạy",
+    "othersReview":"Đánh giá từ người học"
 }
