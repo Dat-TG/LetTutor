@@ -90,5 +90,9 @@
     "ofPage": "of",
     "scheduleIntro1":"Here is a list of the sessions you have booked",
     "scheduleIntro2": "You can track when the meeting starts, join the meeting with one click or can cancel the meeting before 2 hours",
-    "scheduleUppercase": "SCHEDULE"
+    "scheduleUppercase": "SCHEDULE",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "requestForLesson": "Request for lesson",
+    "goToMeeting": "Go to meeting"
 }

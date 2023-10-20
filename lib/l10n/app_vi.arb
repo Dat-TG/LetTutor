@@ -90,5 +90,9 @@
     "ofPage": "trên",
     "scheduleIntro1": "Đây là danh sách những khung giờ bạn đã đặt",
     "scheduleIntro2": "Bạn có thể theo dõi khi nào buổi học bắt đầu, tham gia buổi học bằng một cú nhấp chuột hoặc có thể hủy buổi học trước 2 tiếng.",
-    "scheduleUppercase": "LỊCH ĐÃ ĐẶT"
+    "scheduleUppercase": "LỊCH ĐÃ ĐẶT",
+    "cancel": "Hủy",
+    "edit": "Chỉnh sửa",
+    "requestForLesson": "Yêu cầu cho buổi học",
+    "goToMeeting": "Vào phòng học"
 }
