@@ -11,7 +11,7 @@
     "letStart": "Bắt đầu",
     "home": "Trang chủ",
     "profile":"Tài khoản",
-    "schedule":"Lịch",
+    "schedule":"Lịch đã đặt",
     "tutors": "Gia sư",
     "courses": "Khóa học",
     "recommendedCourses": "Khóa học được đề xuất",
@@ -87,5 +87,8 @@
     "topics": "chủ đề",
     "suggestedTutors":"Gia sư đề xuất",
     "lessonDetails": "Chi tiết bài học",
-    "ofPage": "trên"
+    "ofPage": "trên",
+    "scheduleIntro1": "Đây là danh sách những khung giờ bạn đã đặt",
+    "scheduleIntro2": "Bạn có thể theo dõi khi nào buổi học bắt đầu, tham gia buổi học bằng một cú nhấp chuột hoặc có thể hủy buổi học trước 2 tiếng.",
+    "scheduleUppercase": "LỊCH ĐÃ ĐẶT"
 }

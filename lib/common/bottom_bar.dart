@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:let_tutor/common/appbar_main.dart';
 import 'package:let_tutor/presentation/course/course_screen.dart';
 import 'package:let_tutor/presentation/home/home_screen.dart';
+import 'package:let_tutor/presentation/schedule/schedule_screen.dart';
 import 'package:let_tutor/presentation/tutor/tutor_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -20,7 +21,7 @@ class _BottomBarState extends State<BottomBar> {
     const HomeScreen(),
     const TutorScreen(),
     const CourseScreen(),
-    const Text('History'),
+    const ScheduleScreen(),
     const Text('Profile'),
   ];
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:let_tutor/common/bottom_bar.dart';
 import 'package:let_tutor/l10n/l10n.dart';
 import 'package:let_tutor/presentation/lesson/lesson_screen.dart';
 import 'package:let_tutor/themes/themes.dart';
@@ -20,14 +21,14 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       debugShowCheckedModeBanner: false,
       supportedLocales: L10n.all,
-      locale: const Locale('vi'),
+      locale: const Locale('en'),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      home: const LessonScreen(),
+      home: const BottomBar(),
     );
   }
 }
