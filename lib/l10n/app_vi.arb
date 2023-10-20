@@ -85,5 +85,6 @@
     "courseLength":"Thời lượng khóa học",
     "listTopics":"Danh sách chủ đề",
     "topics": "chủ đề",
-    "suggestedTutors":"Gia sư đề xuất"
+    "suggestedTutors":"Gia sư đề xuất",
+    "lessonDetails": "Chi tiết bài học"
 }

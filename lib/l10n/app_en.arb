@@ -85,5 +85,6 @@
     "courseLength":"Course Length",
     "listTopics":"List Topics",
     "topics": "topics",
-    "suggestedTutors":"Suggested Tutors"
+    "suggestedTutors":"Suggested Tutors",
+    "lessonDetails": "Lesson Details"
 }

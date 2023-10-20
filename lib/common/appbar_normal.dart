@@ -7,6 +7,9 @@ class AppBarNormal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
         centerTitle: true,
         toolbarHeight: 60,
         title: Text(
