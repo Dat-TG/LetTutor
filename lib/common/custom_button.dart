@@ -29,8 +29,10 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
+        minimumSize: Size.zero,
         foregroundColor: borderColor,
         shadowColor: Colors.transparent,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         padding: padding,
         backgroundColor: backgroundColor,
         shape: RoundedRectangleBorder(
