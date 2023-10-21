@@ -94,5 +94,7 @@
     "cancel": "Cancel",
     "edit": "Edit",
     "requestForLesson": "Request for lesson",
-    "goToMeeting": "Go to meeting"
+    "goToMeeting": "Go to meeting",
+    "meetingRoom": "Meeting Room",
+    "end": "End"
 }

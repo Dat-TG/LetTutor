@@ -94,5 +94,7 @@
     "cancel": "Hủy",
     "edit": "Chỉnh sửa",
     "requestForLesson": "Yêu cầu cho buổi học",
-    "goToMeeting": "Vào phòng học"
+    "goToMeeting": "Vào phòng học",
+    "meetingRoom": "Phòng Học",
+    "end": "Kết thúc"
 }

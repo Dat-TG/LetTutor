@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor/common/custom_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MeetingAppBar extends StatelessWidget {
   const MeetingAppBar({super.key});
@@ -32,40 +33,41 @@ class MeetingAppBar extends StatelessWidget {
       ),
       actions: [
         Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 10,
+          padding: const EdgeInsets.only(
+            top: 10,
+            bottom: 10,
+            right: 10,
           ),
           child: CustomButton(
-            title: 'Kết thúc',
+            title: AppLocalizations.of(context)!.end,
             callback: () {},
             backgroundColor: Colors.red,
             titleColor: Colors.white,
             textSize: 16,
             borderRadius: 5,
             padding: const EdgeInsets.symmetric(
-              horizontal: 5,
+              horizontal: 10,
             ),
           ),
         ),
       ],
       title: GestureDetector(
         onTap: () {},
-        child: const Row(
+        child: Row(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Meeting Room',
-              style: TextStyle(
+              AppLocalizations.of(context)!.meetingRoom,
+              style: const TextStyle(
                 fontSize: 18,
                 color: Colors.white,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
-            Icon(
+            const Icon(
               Icons.keyboard_arrow_down_rounded,
               size: 20,
               color: Colors.white,

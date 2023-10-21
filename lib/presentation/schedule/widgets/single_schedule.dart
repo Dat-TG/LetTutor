@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/common/custom_button.dart';
 import 'package:let_tutor/common/expanded_paragraph.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
+import 'package:let_tutor/utils/jitsi_meet_methods.dart';
 
 class SingleSchedule extends StatefulWidget {
   const SingleSchedule({super.key});
@@ -169,7 +172,14 @@ class _SingleScheduleState extends State<SingleSchedule> {
                     CustomButton(
                       title: AppLocalizations.of(context)!.goToMeeting,
                       titleColor: Colors.white,
-                      callback: () {},
+                      callback: () => JitsiMeetMethods.joinMeeting(
+                          roomNameOrUrl: (Random().nextInt(10000000) + 10000000)
+                              .toString(),
+                          subject: 'Lesson Room',
+                          userDisplayName: 'Hai Pham',
+                          userEmail: 'student@lettutor.com',
+                          userAvatarUrl:
+                              'https://sandbox.api.lettutor.com/avatar/f569c202-7bbf-4620-af77-ecc1419a6b28avatar1686033849227.jpeg'),
                       textSize: 16,
                       padding: const EdgeInsets.symmetric(
                         vertical: 10,

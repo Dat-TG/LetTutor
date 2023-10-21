@@ -46,6 +46,7 @@ dependencies:
   pdfx: ^2.4.0
   universal_platform: ^1.0.0+1
   internet_file: ^1.2.0
+  jitsi_meet_wrapper: ^0.2.0+1
 
 dev_dependencies:
   flutter_test:
