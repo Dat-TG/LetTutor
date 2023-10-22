@@ -1,8 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:let_tutor/presentation/course/widgets/all_courses.dart';
 import 'package:let_tutor/presentation/course/widgets/course_card.dart';
 import 'package:let_tutor/presentation/home/widgets/home_banner.dart';
 import 'package:let_tutor/presentation/home/widgets/recommended_row.dart';
+import 'package:let_tutor/presentation/tutor/widgets/all_tutors.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -29,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                 size: 25,
               ),
               title: AppLocalizations.of(context)!.recommendedTutors,
-              routeName: '',
+              routeName: AllTutors.routeName,
             ),
           ),
           const SizedBox(
@@ -71,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                 size: 25,
               ),
               title: AppLocalizations.of(context)!.recommendedCourses,
-              routeName: '',
+              routeName: AllCourses.routeName,
             ),
           ),
           const SizedBox(

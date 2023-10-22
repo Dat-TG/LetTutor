@@ -1,17 +1,18 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:let_tutor/common/appbar_normal.dart';
+import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:let_tutor/common/custom_button.dart';
-import 'package:let_tutor/common/video/single_video.dart';
+import 'package:let_tutor/core/common/custom_button.dart';
+import 'package:let_tutor/core/common/video/single_video.dart';
 import 'package:let_tutor/presentation/course/widgets/course_card.dart';
-import 'package:let_tutor/common/expanded_paragraph.dart';
+import 'package:let_tutor/core/common/expanded_paragraph.dart';
 import 'package:let_tutor/presentation/details-tutor/widgets/review.dart';
 import 'package:let_tutor/presentation/details-tutor/widgets/tutor_basic_info.dart';
 import 'package:let_tutor/presentation/details-tutor/widgets/tutor_details_title.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
 
 class TutorDetails extends StatefulWidget {
+  static const String routeName = 'tutorDetails';
   const TutorDetails({super.key});
 
   @override

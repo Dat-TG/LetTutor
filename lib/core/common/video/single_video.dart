@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:let_tutor/common/video/controls_overlay.dart';
+import 'package:let_tutor/core/common/video/controls_overlay.dart';
 import 'package:video_player/video_player.dart';
 
 class SingleVideo extends StatefulWidget {

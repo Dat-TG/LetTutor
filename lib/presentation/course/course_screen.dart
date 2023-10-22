@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:let_tutor/presentation/course/widgets/all_courses.dart';
+import 'package:let_tutor/presentation/course/widgets/all_ebooks.dart';
 import 'package:let_tutor/presentation/course/widgets/course_banner.dart';
-import 'package:let_tutor/presentation/course/widgets/course_card.dart';
 import 'package:let_tutor/presentation/course/widgets/course_search.dart';
-import 'package:let_tutor/presentation/course/widgets/ebook_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CourseScreen extends StatefulWidget {
@@ -116,52 +116,7 @@ class _CourseScreenState extends State<CourseScreen> {
               ],
             ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: index == 0
-                ? const Wrap(
-                    spacing: 20,
-                    runSpacing: 20,
-                    children: [
-                      CourseCard(
-                        isExpanded: true,
-                      ),
-                      CourseCard(
-                        isExpanded: true,
-                      ),
-                      CourseCard(
-                        isExpanded: true,
-                      ),
-                      CourseCard(
-                        isExpanded: true,
-                      ),
-                    ],
-                  )
-                : const Wrap(
-                    spacing: 20,
-                    runSpacing: 20,
-                    children: [
-                      EbookCard(
-                        isExpanded: true,
-                      ),
-                      EbookCard(
-                        isExpanded: true,
-                      ),
-                      EbookCard(
-                        isExpanded: true,
-                      ),
-                      EbookCard(
-                        isExpanded: true,
-                      ),
-                    ],
-                  ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
+          index == 0 ? const AllCourses() : const AllEbooks(),
         ],
       ),
     );

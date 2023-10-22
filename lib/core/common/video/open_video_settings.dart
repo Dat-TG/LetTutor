@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:let_tutor/common/video/open_playback_speed_setting.dart';
+import 'package:let_tutor/core/common/video/open_playback_speed_setting.dart';
 
 void openVideoSettings(BuildContext context, double speed,
     List<double> speedVideoLists, Function callback) {

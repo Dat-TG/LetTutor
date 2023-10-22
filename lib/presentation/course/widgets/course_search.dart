@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:let_tutor/common/custom_button.dart';
+import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/presentation/course/widgets/choose_sort_option.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
 import 'package:let_tutor/utils/constants.dart';

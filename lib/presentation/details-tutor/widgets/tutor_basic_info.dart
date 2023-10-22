@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:let_tutor/common/stars.dart';
+import 'package:let_tutor/core/common/stars.dart';
 
 class TutorBasicInfo extends StatelessWidget {
   const TutorBasicInfo({super.key});

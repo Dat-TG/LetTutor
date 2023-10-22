@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:let_tutor/common/appbar_main.dart';
+import 'package:let_tutor/core/common/appbar_main.dart';
 import 'package:let_tutor/presentation/course/course_screen.dart';
 import 'package:let_tutor/presentation/home/home_screen.dart';
 import 'package:let_tutor/presentation/schedule/schedule_screen.dart';
@@ -7,8 +7,8 @@ import 'package:let_tutor/presentation/tutor/tutor_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BottomBar extends StatefulWidget {
-  static const String routeName = '/actual-home';
-  const BottomBar({super.key});
+  final int tab;
+  const BottomBar({super.key, this.tab = 0});
 
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -29,6 +29,12 @@ class _BottomBarState extends State<BottomBar> {
     setState(() {
       _page = page;
     });
+  }
+
+  @override
+  void initState() {
+    _page = widget.tab;
+    super.initState();
   }
 
   @override

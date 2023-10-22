@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:let_tutor/common/expanded_paragraph.dart';
-import 'package:let_tutor/common/stars.dart';
+import 'package:let_tutor/core/common/expanded_paragraph.dart';
+import 'package:let_tutor/core/common/stars.dart';
 
 class Review extends StatelessWidget {
   const Review({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:let_tutor/common/bottom_bar.dart';
+import 'package:let_tutor/core/routers/my_router.dart';
 import 'package:let_tutor/l10n/l10n.dart';
 import 'package:let_tutor/themes/themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,19 +15,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'LetTutor',
       theme: lightTheme,
       debugShowCheckedModeBanner: false,
       supportedLocales: L10n.all,
       locale: const Locale('en'),
+      routerConfig: MyRouter.router,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      home: const BottomBar(),
     );
   }
 }

@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:let_tutor/common/custom_button.dart';
-import 'package:let_tutor/common/expanded_paragraph.dart';
+import 'package:let_tutor/core/common/custom_button.dart';
+import 'package:let_tutor/core/common/expanded_paragraph.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
 import 'package:let_tutor/utils/jitsi_meet_methods.dart';
 

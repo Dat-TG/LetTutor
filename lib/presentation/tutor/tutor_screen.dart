@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:let_tutor/presentation/tutor/widgets/tutor_card.dart';
+import 'package:let_tutor/presentation/tutor/widgets/all_tutors.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_search.dart';
 import 'package:let_tutor/presentation/tutor/widgets/upcoming_lesson.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -68,30 +68,7 @@ class _TutorScreenState extends State<TutorScreen> {
               ),
             ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
-          const Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20,
-              ),
-              child: Wrap(
-                spacing: 20,
-                runSpacing: 20,
-                children: [
-                  TutorCard(isExpanded: true),
-                  TutorCard(isExpanded: true),
-                  TutorCard(isExpanded: true),
-                  TutorCard(isExpanded: true),
-                  TutorCard(isExpanded: true),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
+          const AllTutors(),
         ],
       ),
     );
