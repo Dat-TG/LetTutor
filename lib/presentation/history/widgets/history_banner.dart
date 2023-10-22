@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:go_router/go_router.dart';
-import 'package:let_tutor/core/common/custom_button.dart';
-import 'package:let_tutor/presentation/history/history_screen.dart';
 
-class ScheduleBanner extends StatelessWidget {
-  const ScheduleBanner({super.key});
+class HistoryBanner extends StatelessWidget {
+  const HistoryBanner({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,29 +18,8 @@ class ScheduleBanner extends StatelessWidget {
         children: [
           Expanded(
             flex: 2,
-            child: Column(
-              children: [
-                Image.asset(
-                  'assets/images/schedule_banner.png',
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                CustomButton(
-                  title: AppLocalizations.of(context)!.historyLesson,
-                  titleColor: Theme.of(context).primaryColor,
-                  borderColor: Theme.of(context).primaryColor,
-                  backgroundColor: Colors.transparent,
-                  icon: Icon(
-                    Icons.history,
-                    size: 20,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  callback: () {
-                    GoRouter.of(context).pushNamed(HistoryScreen.routeName);
-                  },
-                ),
-              ],
+            child: Image.asset(
+              'assets/images/history.png',
             ),
           ),
           const SizedBox(
@@ -55,7 +31,7 @@ class ScheduleBanner extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  AppLocalizations.of(context)!.scheduleUppercase,
+                  AppLocalizations.of(context)!.historyLessonUppercase,
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 20,
@@ -66,7 +42,7 @@ class ScheduleBanner extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  AppLocalizations.of(context)!.scheduleIntro1,
+                  AppLocalizations.of(context)!.historyIntro1,
                   style: const TextStyle(
                     fontSize: 15,
                     color: Colors.black,
@@ -77,7 +53,7 @@ class ScheduleBanner extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  AppLocalizations.of(context)!.scheduleIntro2,
+                  AppLocalizations.of(context)!.historyIntro2,
                   style: const TextStyle(
                     fontSize: 15,
                     color: Colors.black,

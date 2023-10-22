@@ -116,5 +116,12 @@
     "history": "Lịch sử",
     "changePassword": "Thay đổi mật khẩu",
     "englishLanguage": "Tiếng Anh",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+    "historyLesson": "Lịch sử",
+    "historyLessonUppercase": "LỊCH SỬ CÁC BUỔI HỌC",
+    "historyIntro1": "Đây là danh sách các bài học bạn đã tham gia",
+    "historyIntro2": "Bạn có thể xem lại thông tin chi tiết về các buổi học đã tham gia đã tham gia",
+    "rateStudent": "Đánh giá từ gia sư",
+    "rateTutor": "Đánh giá",
+    "rateStudentNotYet":"Gia sư chưa có đánh giá"
 }

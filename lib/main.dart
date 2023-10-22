@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       debugShowCheckedModeBanner: false,
       supportedLocales: L10n.all,
-      locale: const Locale('vi'),
+      locale: const Locale('en'),
       routerConfig: MyRouter.router,
       localizationsDelegates: const [
         AppLocalizations.delegate,

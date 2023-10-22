@@ -116,5 +116,12 @@
     "history": "History",
     "changePassword": "Change password",
     "englishLanguage": "English",
-    "vietnamese": "Vietnamese"
+    "vietnamese": "Vietnamese",
+    "historyLesson": "History",
+    "historyLessonUppercase": "HISTORY OF LESSONS",
+    "historyIntro1": "The following is a list of lessons you have attended",
+    "historyIntro2": "You can review the details of the lessons you have attended",
+    "rateStudent": "Review from tutor",
+    "rateTutor": "Add a rating",
+    "rateStudentNotYet":"Tutor haven't reviewed yet"
 }

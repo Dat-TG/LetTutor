@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/expanded_paragraph.dart';
+import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
 import 'package:let_tutor/utils/jitsi_meet_methods.dart';
 
@@ -44,11 +46,19 @@ class _SingleScheduleState extends State<SingleSchedule> {
               children: [
                 Row(
                   children: [
-                    const CircleAvatar(
-                      backgroundImage: AssetImage(
-                        'assets/images/hero_img.png',
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(100),
+                        onTap: () => GoRouter.of(context)
+                            .pushNamed(TutorDetails.routeName),
+                        child: const CircleAvatar(
+                          backgroundImage: AssetImage(
+                            'assets/images/hero_img.png',
+                          ),
+                          radius: 30,
+                        ),
                       ),
-                      radius: 30,
                     ),
                     const SizedBox(
                       width: 10,
@@ -56,12 +66,19 @@ class _SingleScheduleState extends State<SingleSchedule> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Hai Pham',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
+                        Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () => GoRouter.of(context)
+                                .pushNamed(TutorDetails.routeName),
+                            child: const Text(
+                              'Hai Pham',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -154,7 +171,7 @@ class _SingleScheduleState extends State<SingleSchedule> {
                           ],
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
                 const SizedBox(
@@ -222,16 +239,16 @@ class _SingleScheduleState extends State<SingleSchedule> {
           child: CustomButton(
             title: AppLocalizations.of(context)!.cancel,
             callback: () {},
-            borderColor: Colors.red,
-            backgroundColor: Colors.white,
-            titleColor: Colors.red,
+            backgroundColor: Colors.red,
+            titleColor: Colors.white,
             borderRadius: 5,
             textSize: 16,
             icon: const Icon(
               Icons.cancel_presentation_rounded,
               size: 20,
-              color: Colors.red,
+              color: Colors.white,
             ),
+            padding: const EdgeInsets.all(5),
           ),
         ),
       ],
