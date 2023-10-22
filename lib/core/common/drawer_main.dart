@@ -1,13 +1,81 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:let_tutor/core/common/bottom_bar.dart';
+import 'package:let_tutor/presentation/settings/settings_screen.dart';
+import 'package:let_tutor/utils/listtile_item.dart';
 
 class DrawerMain extends StatelessWidget {
-  final List<ListTileItem> options;
-  const DrawerMain({super.key, required this.options});
+  const DrawerMain({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final List<ListTileItem> options = [
+      ListTileItem(
+          title: AppLocalizations.of(context)!.editAccount,
+          leading: Icon(
+            Icons.edit_rounded,
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {}),
+      ListTileItem(
+          title: AppLocalizations.of(context)!.myWallet,
+          leading: Icon(
+            Icons.wallet_rounded,
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {}),
+      ListTileItem(
+          title: AppLocalizations.of(context)!.settings,
+          leading: Icon(
+            Icons.settings_rounded,
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {
+            GoRouter.of(context).pushNamed(SettingsScreen.routeName);
+          }),
+      ListTileItem(
+          title: AppLocalizations.of(context)!.history,
+          leading: Icon(
+            Icons.history_rounded,
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {}),
+      ListTileItem(
+          title: AppLocalizations.of(context)!.becomeATutor,
+          leading: ImageIcon(
+            const AssetImage('assets/images/tutor.png'),
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {}),
+      ListTileItem(
+          title: AppLocalizations.of(context)!.shareApp,
+          leading: Icon(
+            Icons.share_rounded,
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {}),
+      ListTileItem(
+          title: AppLocalizations.of(context)!.facebookPage,
+          leading: Icon(
+            Icons.facebook_rounded,
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {}),
+      ListTileItem(
+          title: AppLocalizations.of(context)!.rateApp,
+          leading: Icon(
+            Icons.star_rounded,
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {}),
+      ListTileItem(
+          title: AppLocalizations.of(context)!.logOut,
+          leading: Icon(
+            Icons.logout_rounded,
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {}),
+    ];
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -76,6 +144,7 @@ class DrawerMain extends StatelessWidget {
                 ),
               ),
               leading: options[i].leading,
+              trailing: options[i].trailing,
               onTap: () {
                 // Update the state of the app
                 // Then close the drawer

@@ -111,5 +111,10 @@
     "darkMode": "Dark mode",
     "settings": "Settings",
     "logOut": "Log out",
-    "aboutUs": "About"
+    "aboutUs": "About",
+    "myWallet": "My wallet",
+    "history": "History",
+    "changePassword": "Change password",
+    "englishLanguage": "English",
+    "vietnamese": "Vietnamese"
 }

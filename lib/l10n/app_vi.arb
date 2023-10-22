@@ -111,5 +111,10 @@
     "darkMode": "Chế độ tối",
     "settings": "Cài đặt",
     "logOut": "Đăng xuất",
-    "aboutUs": "Về ứng dụng"
+    "aboutUs": "Về ứng dụng",
+    "myWallet": "Ví của tôi",
+    "history": "Lịch sử",
+    "changePassword": "Thay đổi mật khẩu",
+    "englishLanguage": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt"
 }
