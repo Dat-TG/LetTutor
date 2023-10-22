@@ -96,5 +96,20 @@
     "requestForLesson": "Request for lesson",
     "goToMeeting": "Go to meeting",
     "meetingRoom": "Meeting Room",
-    "end": "End"
+    "end": "End",
+    "recommendedEbooks": "Recommended Ebooks",
+    "editAccount": "Edit account",
+    "privacyPolicy": "Privacy policy",
+    "termsAndConditions": "Terms and conditions",
+    "becomeATutor": "Become a tutor",
+    "version": "Version",
+    "facebookPage": "Facebook page",
+    "shareApp": "Share this app",
+    "feedback": "Feedback",
+    "rateApp": "Rate us",
+    "language": "Language",
+    "darkMode": "Dark mode",
+    "settings": "Settings",
+    "logOut": "Log out",
+    "aboutUs": "About"
 }

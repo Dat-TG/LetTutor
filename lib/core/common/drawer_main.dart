@@ -1,1 +1,90 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/core/common/bottom_bar.dart';
+
+class DrawerMain extends StatelessWidget {
+  final List<ListTileItem> options;
+  const DrawerMain({super.key, required this.options});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const SizedBox(
+            height: 240,
+            child: DrawerHeader(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/drawerbg.jpeg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        'https://sandbox.api.lettutor.com/avatar/f569c202-7bbf-4620-af77-ecc1419a6b28avatar1686033849227.jpeg'),
+                    radius: 40,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Phhai123',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'student@lettutor.com',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    '842499996508',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          for (int i = 0; i < options.length; i++)
+            ListTile(
+              title: Text(
+                options[i].title,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+              leading: options[i].leading,
+              onTap: () {
+                // Update the state of the app
+                // Then close the drawer
+                options[i].callback();
+                Navigator.pop(context);
+              },
+            ),
+        ],
+      ),
+    );
+  }
+}

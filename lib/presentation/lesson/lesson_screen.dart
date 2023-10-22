@@ -8,6 +8,7 @@ import 'package:pdfx/pdfx.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 class LessonScreen extends StatefulWidget {
+  static const String routeName = 'lessonScreen';
   const LessonScreen({super.key});
 
   @override

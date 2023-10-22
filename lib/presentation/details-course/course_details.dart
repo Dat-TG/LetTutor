@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
@@ -7,6 +8,7 @@ import 'package:let_tutor/core/common/expanded_paragraph.dart';
 import 'package:let_tutor/presentation/details-course/widgets/course_details_title_big.dart';
 import 'package:let_tutor/presentation/details-course/widgets/course_details_title_small.dart';
 import 'package:let_tutor/presentation/details-course/widgets/list_topics.dart';
+import 'package:let_tutor/presentation/lesson/lesson_screen.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_card.dart';
 
 class CourseDetails extends StatelessWidget {
@@ -65,7 +67,8 @@ class CourseDetails extends StatelessWidget {
                           horizontal: 10,
                           vertical: 5,
                         ),
-                        callback: () {},
+                        callback: () => GoRouter.of(context)
+                            .pushNamed(LessonScreen.routeName),
                       ),
                       const SizedBox(
                         width: 20,

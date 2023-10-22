@@ -8,13 +8,14 @@ class AppBarMain extends StatefulWidget {
 }
 
 class _AppBarMainState extends State<AppBarMain> {
-  int index = 0;
-
   @override
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
       toolbarHeight: 60,
+      iconTheme: const IconThemeData(
+        color: Colors.black,
+      ),
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

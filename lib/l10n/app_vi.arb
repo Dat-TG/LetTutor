@@ -96,5 +96,20 @@
     "requestForLesson": "Yêu cầu cho buổi học",
     "goToMeeting": "Vào phòng học",
     "meetingRoom": "Phòng Học",
-    "end": "Kết thúc"
+    "end": "Kết thúc",
+    "recommendedEbooks": "Ebook được đề xuất",
+    "editAccount": "Chỉnh sửa tài khoản",
+    "privacyPolicy": "Chính sách",
+    "termsAndConditions": "Điều khoản",
+    "becomeATutor": "Trở thành gia sư",
+    "version": "Phiên bản",
+    "facebookPage": "Trang Facebook",
+    "shareApp": "Chia sẻ ứng dụng",
+    "feedback": "Phản hồi về ứng dụng",
+    "rateApp": "Đánh giá ứng dụng",
+    "language": "Ngôn ngữ",
+    "darkMode": "Chế độ tối",
+    "settings": "Cài đặt",
+    "logOut": "Đăng xuất",
+    "aboutUs": "Về ứng dụng"
 }

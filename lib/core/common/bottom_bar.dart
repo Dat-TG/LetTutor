@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/appbar_main.dart';
+import 'package:let_tutor/core/common/drawer_main.dart';
 import 'package:let_tutor/presentation/course/course_screen.dart';
 import 'package:let_tutor/presentation/home/home_screen.dart';
 import 'package:let_tutor/presentation/schedule/schedule_screen.dart';
@@ -22,7 +24,6 @@ class _BottomBarState extends State<BottomBar> {
     const TutorScreen(),
     const CourseScreen(),
     const ScheduleScreen(),
-    const Text('Profile'),
   ];
 
   void goToPage(int page) {
@@ -39,11 +40,84 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
+    final List<ListTileItem> options = [
+      ListTileItem(
+          title: AppLocalizations.of(context)!.editAccount,
+          leading: Icon(
+            Icons.edit_rounded,
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {}),
+      ListTileItem(
+          title: AppLocalizations.of(context)!.settings,
+          leading: Icon(
+            Icons.settings_rounded,
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {}),
+      ListTileItem(
+          title: AppLocalizations.of(context)!.shareApp,
+          leading: Icon(
+            Icons.share_rounded,
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {}),
+      ListTileItem(
+          title: AppLocalizations.of(context)!.facebookPage,
+          leading: Icon(
+            Icons.facebook_rounded,
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {}),
+      ListTileItem(
+          title: AppLocalizations.of(context)!.privacyPolicy,
+          leading: Icon(
+            Icons.privacy_tip_rounded,
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {}),
+      ListTileItem(
+          title: AppLocalizations.of(context)!.termsAndConditions,
+          leading: Icon(
+            Icons.my_library_books,
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {}),
+      ListTileItem(
+          title: AppLocalizations.of(context)!.feedback,
+          leading: Icon(
+            Icons.feedback_rounded,
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {}),
+      ListTileItem(
+          title: AppLocalizations.of(context)!.rateApp,
+          leading: Icon(
+            Icons.star_rounded,
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {}),
+      ListTileItem(
+          title: AppLocalizations.of(context)!.version,
+          leading: Icon(
+            Icons.collections_bookmark_rounded,
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {}),
+      ListTileItem(
+          title: AppLocalizations.of(context)!.logOut,
+          leading: Icon(
+            Icons.logout_rounded,
+            color: Theme.of(context).primaryColor,
+          ),
+          callback: () {}),
+    ];
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: AppBarMain(),
       ),
+      drawer: DrawerMain(options: options),
       body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -72,12 +146,6 @@ class _BottomBarState extends State<BottomBar> {
             ),
             label: AppLocalizations.of(context)!.schedule,
           ),
-          BottomNavigationBarItem(
-            icon: const Icon(
-              Icons.person_rounded,
-            ),
-            label: AppLocalizations.of(context)!.profile,
-          ),
         ],
         currentIndex: _page,
         selectedItemColor: Theme.of(context).primaryColor,
@@ -88,4 +156,16 @@ class _BottomBarState extends State<BottomBar> {
       ),
     );
   }
+}
+
+class ListTileItem {
+  final String title;
+  final Widget leading;
+  final Widget? trailing;
+  final VoidCallback callback;
+  ListTileItem(
+      {required this.title,
+      required this.leading,
+      this.trailing,
+      required this.callback});
 }

@@ -53,6 +53,8 @@ class EbookCard extends StatelessWidget {
               ),
               child: Image.asset(
                 'assets/images/ebook.jpeg',
+                width: isExpanded ? null : 250,
+                height: isExpanded ? null : 200,
                 fit: BoxFit.cover,
               ),
             ),

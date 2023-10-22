@@ -58,6 +58,8 @@ class CourseCard extends StatelessWidget {
                 ),
                 child: Image.asset(
                   'assets/images/course.png',
+                  width: isExpanded ? null : 250,
+                  height: isExpanded ? null : 185,
                   fit: BoxFit.cover,
                 ),
               ),

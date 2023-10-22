@@ -3,9 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:let_tutor/core/common/bottom_bar.dart';
 import 'package:let_tutor/presentation/course/widgets/all_courses.dart';
+import 'package:let_tutor/presentation/course/widgets/all_ebooks.dart';
 import 'package:let_tutor/presentation/details-course/course_details.dart';
 import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/presentation/lesson/lesson_screen.dart';
 import 'package:let_tutor/presentation/tutor/widgets/all_tutors.dart';
 import 'package:let_tutor/utils/helpers.dart';
 
@@ -19,6 +21,7 @@ class MyRouter {
     // Routes
     routes: [
       GoRoute(
+        name: 'home',
         path: '/home',
         builder: (context, state) => const BottomBar(),
       ),
@@ -82,7 +85,38 @@ class MyRouter {
             child: const CourseDetails(),
           );
         },
-      )
+      ),
+      GoRoute(
+        name: AllEbooks.routeName,
+        path: '/all-ebooks',
+        pageBuilder: (context, state) {
+          return Helpers.buildPageWithDefaultTransition(
+            context: context,
+            state: state,
+            child: Scaffold(
+              appBar: PreferredSize(
+                preferredSize: const Size.fromHeight(60),
+                child: AppBarNormal(
+                    title: AppLocalizations.of(context)!.recommendedEbooks),
+              ),
+              body: const SingleChildScrollView(
+                child: AllEbooks(),
+              ),
+            ),
+          );
+        },
+      ),
+      GoRoute(
+        name: LessonScreen.routeName,
+        path: '/lesson',
+        pageBuilder: (context, state) {
+          return Helpers.buildPageWithDefaultTransition(
+            context: context,
+            state: state,
+            child: const LessonScreen(),
+          );
+        },
+      ),
     ],
     // TODO: Add Error Handler
     // TODO Add Redirect
