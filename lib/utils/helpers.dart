@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -43,5 +46,19 @@ class Helpers {
         );
       },
     );
+  }
+
+  static Future<File?> pickImage() async {
+    File? images;
+    try {
+      var files = await FilePicker.platform
+          .pickFiles(type: FileType.image, allowMultiple: false);
+      if (files != null && files.files.isNotEmpty) {
+        images = File(files.files[0].path!);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    return images;
   }
 }

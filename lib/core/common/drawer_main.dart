@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/presentation/edit-account/edit_account_screen.dart';
 import 'package:let_tutor/presentation/history/history_screen.dart';
 import 'package:let_tutor/presentation/settings/settings_screen.dart';
 import 'package:let_tutor/utils/listtile_item.dart';
@@ -17,7 +18,9 @@ class DrawerMain extends StatelessWidget {
             Icons.edit_rounded,
             color: Theme.of(context).primaryColor,
           ),
-          callback: () {}),
+          callback: () {
+            GoRouter.of(context).pushNamed(EditAccountScreen.routeName);
+          }),
       ListTileItem(
           title: AppLocalizations.of(context)!.myWallet,
           leading: Icon(

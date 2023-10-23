@@ -40,4 +40,16 @@ class AppConstants {
     'TOEIC',
     'IELTS',
   ];
+
+  static const List<String> learnerLevels = [
+    'Pre A1 (Beginner)',
+    'A1 (Higher Beginner)',
+    'Upper A1 (High Beginner)',
+    'A2 (Pre-Intermediate)',
+    'Upper A2 (Pre Intermediate)',
+    'B1 (Intermediate)',
+    'B2 (Upper-Intermediate)',
+    'C1 (Advanced)',
+    'C2 (Proficiency)'
+  ];
 }

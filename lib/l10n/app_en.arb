@@ -123,5 +123,15 @@
     "historyIntro2": "You can review the details of the lessons you have attended",
     "rateStudent": "Review from tutor",
     "rateTutor": "Add a rating",
-    "rateStudentNotYet":"Tutor haven't reviewed yet"
+    "rateStudentNotYet":"Tutor haven't reviewed yet",
+    "name": "Name",
+    "country": "Country",
+    "phoneNumber": "Phone number",
+    "birthday": "Birthday",
+    "enterYourName": "Enter your name",
+    "myLevel": "My Level",
+    "wantToLearn": "Want to learn",
+    "studySchedule": "Study schedule",
+    "all": "All",
+    "saveChanges": "Save changes"
 }

@@ -123,5 +123,15 @@
     "historyIntro2": "Bạn có thể xem lại thông tin chi tiết về các buổi học đã tham gia đã tham gia",
     "rateStudent": "Đánh giá từ gia sư",
     "rateTutor": "Đánh giá",
-    "rateStudentNotYet":"Gia sư chưa có đánh giá"
+    "rateStudentNotYet":"Gia sư chưa có đánh giá",
+    "name": "Tên",
+    "country": "Quốc gia",
+    "phoneNumber": "Số điện thoại",
+    "birthday": "Ngày sinh",
+     "enterYourName": "Nhập tên của bạn",
+     "myLevel": "Trình độ",
+     "wantToLearn": "Muốn học",
+     "studySchedule": "Lịch học",
+     "all": "Tất cả",
+     "saveChanges": "Lưu thay đổi"
 }

@@ -85,6 +85,7 @@ class _TutorSearchState extends State<TutorSearch> {
           height: 20,
         ),
         CustomDatePicker(
+          labelText: AppLocalizations.of(context)!.date,
           textEditingController: dateController,
           minDate: DateTime.now(),
         ),
@@ -153,7 +154,7 @@ class _TutorSearchState extends State<TutorSearch> {
           children:
               (selectedSpecialties.length < AppConstants.specialties.length)
                   ? selectedSpecialties.map((e) => TutorTag(name: e)).toList()
-                  : [const TutorTag(name: 'All')],
+                  : [TutorTag(name: AppLocalizations.of(context)!.all)],
         ),
         const SizedBox(
           height: 10,

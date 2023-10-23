@@ -7,6 +7,7 @@ import 'package:let_tutor/presentation/course/widgets/all_ebooks.dart';
 import 'package:let_tutor/presentation/details-course/course_details.dart';
 import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/presentation/edit-account/edit_account_screen.dart';
 import 'package:let_tutor/presentation/history/history_screen.dart';
 import 'package:let_tutor/presentation/lesson/lesson_screen.dart';
 import 'package:let_tutor/presentation/settings/settings_screen.dart';
@@ -138,6 +139,17 @@ class MyRouter {
             context: context,
             state: state,
             child: const HistoryScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        name: EditAccountScreen.routeName,
+        path: '/profile',
+        pageBuilder: (context, state) {
+          return Helpers.buildPageWithDefaultTransition(
+            context: context,
+            state: state,
+            child: const EditAccountScreen(),
           );
         },
       ),
