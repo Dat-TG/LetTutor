@@ -87,7 +87,7 @@ class DrawerMain extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           const SizedBox(
-            height: 240,
+            height: 250,
             child: DrawerHeader(
               decoration: BoxDecoration(
                 image: DecorationImage(
