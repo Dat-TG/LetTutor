@@ -8,7 +8,6 @@ import 'package:let_tutor/themes/themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-<<<<<<< HEAD
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isAndroid) {
@@ -32,10 +31,6 @@ Future main() async {
       ));
     }
   }
-=======
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
->>>>>>> 949e851426b2255658738a8d45acfd801ac9b4d3
   runApp(const MyApp());
 }
 
