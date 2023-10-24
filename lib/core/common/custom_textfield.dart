@@ -10,18 +10,19 @@ class CustomTextField extends StatefulWidget {
   final TextInputAction? textInputAction;
   final bool readOnly;
   final VoidCallback? onTap;
-  const CustomTextField({
-    super.key,
-    required this.controller,
-    this.hintText,
-    this.labelText,
-    this.maxLines = 1,
-    this.style,
-    this.keyboardType,
-    this.textInputAction,
-    this.readOnly = false,
-    this.onTap,
-  });
+  final EdgeInsetsGeometry margin;
+  const CustomTextField(
+      {super.key,
+      required this.controller,
+      this.hintText,
+      this.labelText,
+      this.maxLines = 1,
+      this.style,
+      this.keyboardType,
+      this.textInputAction,
+      this.readOnly = false,
+      this.onTap,
+      this.margin = const EdgeInsets.all(8)});
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -60,7 +61,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(8),
+      margin: widget.margin,
       decoration: BoxDecoration(
         border: Border.all(color: _borderColor),
         borderRadius: BorderRadius.circular(5),

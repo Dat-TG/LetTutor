@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/presentation/become-tutor/become_tutor_screen.dart';
 import 'package:let_tutor/presentation/edit-account/edit_account_screen.dart';
 import 'package:let_tutor/presentation/history/history_screen.dart';
 import 'package:let_tutor/presentation/settings/settings_screen.dart';
@@ -52,7 +53,9 @@ class DrawerMain extends StatelessWidget {
             const AssetImage('assets/images/tutor.png'),
             color: Theme.of(context).primaryColor,
           ),
-          callback: () {}),
+          callback: () {
+            GoRouter.of(context).pushNamed(BecomeTutorScreen.routeName);
+          }),
       ListTileItem(
           title: AppLocalizations.of(context)!.shareApp,
           leading: Icon(

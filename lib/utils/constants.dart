@@ -52,4 +52,10 @@ class AppConstants {
     'C1 (Advanced)',
     'C2 (Proficiency)'
   ];
+
+  static const List<String> basicLevels = [
+    'Beginner',
+    'Intermediate',
+    'Advanced',
+  ];
 }

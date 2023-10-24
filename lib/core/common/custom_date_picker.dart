@@ -5,12 +5,19 @@ class CustomDatePicker extends StatefulWidget {
   final DateTime minDate;
   final String labelText;
   final bool showIcon;
+  final EdgeInsetsGeometry padding;
+  final double labelSize;
   const CustomDatePicker(
       {super.key,
       required this.textEditingController,
       required this.minDate,
       required this.labelText,
-      this.showIcon = true});
+      this.showIcon = true,
+      this.labelSize = 18,
+      this.padding = const EdgeInsets.symmetric(
+        horizontal: 10,
+        vertical: 15,
+      )});
 
   @override
   State<CustomDatePicker> createState() => _CustomDatePickerState();
@@ -74,8 +81,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           labelText: widget.labelText,
-          labelStyle: const TextStyle(
-            fontSize: 18,
+          labelStyle: TextStyle(
+            fontSize: widget.labelSize,
           ),
           prefixIcon: widget.showIcon
               ? const Icon(
@@ -85,10 +92,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               : null,
           errorText: null,
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 10,
-            vertical: 15,
-          ),
+          contentPadding: widget.padding,
         ),
       ),
     );
