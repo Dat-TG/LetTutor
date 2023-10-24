@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:let_tutor/presentation/course/widgets/ebook_card.dart';
+import 'package:let_tutor/presentation/ebook/widgets/ebook_card.dart';
 
 class AllEbooks extends StatelessWidget {
   static const String routeName = 'allEbooks';
@@ -19,31 +19,46 @@ class AllEbooks extends StatelessWidget {
               padding: EdgeInsets.only(
                 bottom: 20,
               ),
-              child: EbookCard(isExpanded: true),
+              child: EbookCard(
+                  isExpanded: true,
+                  url:
+                      'https://drive.google.com/drive/folders/1vdnKwSEr9v5yc3gEX90mqeuPdXkx3RY7'),
             ),
             Padding(
               padding: EdgeInsets.only(
                 bottom: 20,
               ),
-              child: EbookCard(isExpanded: true),
+              child: EbookCard(
+                  isExpanded: true,
+                  url:
+                      'https://drive.google.com/drive/folders/1vdnKwSEr9v5yc3gEX90mqeuPdXkx3RY7'),
             ),
             Padding(
               padding: EdgeInsets.only(
                 bottom: 20,
               ),
-              child: EbookCard(isExpanded: true),
+              child: EbookCard(
+                  isExpanded: true,
+                  url:
+                      'https://drive.google.com/drive/folders/1vdnKwSEr9v5yc3gEX90mqeuPdXkx3RY7'),
             ),
             Padding(
               padding: EdgeInsets.only(
                 bottom: 20,
               ),
-              child: EbookCard(isExpanded: true),
+              child: EbookCard(
+                  isExpanded: true,
+                  url:
+                      'https://drive.google.com/drive/folders/1vdnKwSEr9v5yc3gEX90mqeuPdXkx3RY7'),
             ),
             Padding(
               padding: EdgeInsets.only(
                 bottom: 20,
               ),
-              child: EbookCard(isExpanded: true),
+              child: EbookCard(
+                  isExpanded: true,
+                  url:
+                      'https://drive.google.com/drive/folders/1vdnKwSEr9v5yc3gEX90mqeuPdXkx3RY7'),
             ),
           ],
         ),

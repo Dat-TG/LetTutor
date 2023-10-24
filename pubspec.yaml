@@ -52,6 +52,7 @@ dependencies:
   country_picker: ^2.0.21
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.3.4
+  flutter_inappwebview: ^5.8.0
 
 flutter_launcher_icons:
   android: "launcher_icon"

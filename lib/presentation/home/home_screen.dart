@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:let_tutor/presentation/course/widgets/all_courses.dart';
 import 'package:let_tutor/presentation/course/widgets/all_ebooks.dart';
 import 'package:let_tutor/presentation/course/widgets/course_card.dart';
-import 'package:let_tutor/presentation/course/widgets/ebook_card.dart';
+import 'package:let_tutor/presentation/ebook/widgets/ebook_card.dart';
 import 'package:let_tutor/presentation/home/widgets/home_banner.dart';
 import 'package:let_tutor/presentation/home/widgets/recommended_row.dart';
 import 'package:let_tutor/presentation/tutor/widgets/all_tutors.dart';
@@ -129,10 +129,18 @@ class HomeScreen extends StatelessWidget {
           ),
           CarouselSlider(
             items: const [
-              EbookCard(),
-              EbookCard(),
-              EbookCard(),
-              EbookCard(),
+              EbookCard(
+                  url:
+                      'https://drive.google.com/drive/folders/1vdnKwSEr9v5yc3gEX90mqeuPdXkx3RY7'),
+              EbookCard(
+                  url:
+                      'https://drive.google.com/drive/folders/1vdnKwSEr9v5yc3gEX90mqeuPdXkx3RY7'),
+              EbookCard(
+                  url:
+                      'https://drive.google.com/drive/folders/1vdnKwSEr9v5yc3gEX90mqeuPdXkx3RY7'),
+              EbookCard(
+                  url:
+                      'https://drive.google.com/drive/folders/1vdnKwSEr9v5yc3gEX90mqeuPdXkx3RY7'),
             ],
             options: CarouselOptions(
               height: 311,
