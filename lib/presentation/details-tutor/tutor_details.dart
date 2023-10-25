@@ -8,6 +8,7 @@ import 'package:let_tutor/core/common/video/single_video.dart';
 import 'package:let_tutor/presentation/booking/book_lesson_screen.dart';
 import 'package:let_tutor/presentation/course/widgets/course_card.dart';
 import 'package:let_tutor/core/common/expanded_paragraph.dart';
+import 'package:let_tutor/presentation/details-tutor/widgets/report_tutor.dart';
 import 'package:let_tutor/presentation/details-tutor/widgets/review.dart';
 import 'package:let_tutor/presentation/details-tutor/widgets/tutor_basic_info.dart';
 import 'package:let_tutor/presentation/details-tutor/widgets/tutor_details_title.dart';
@@ -22,6 +23,15 @@ class TutorDetails extends StatefulWidget {
 }
 
 class _TutorDetailsState extends State<TutorDetails> {
+  Future<void> reportTutor(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return const ReportTutor();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,7 +111,7 @@ class _TutorDetailsState extends State<TutorDetails> {
                           title: AppLocalizations.of(context)!.report,
                           backgroundColor: Colors.grey[300]!,
                           titleColor: Colors.black,
-                          callback: () {},
+                          callback: () => reportTutor(context),
                           borderRadius: 10,
                           padding: const EdgeInsets.symmetric(
                             horizontal: 10,

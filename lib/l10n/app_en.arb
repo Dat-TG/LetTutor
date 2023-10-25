@@ -175,5 +175,11 @@
     "bookingTime":"Booking Time",
     "youHave": "You have",
     "lessonsLeft": "lessons left",
-    "lessonBookingDetails": "lesson"
+    "lessonBookingDetails": "lesson",
+    "helpUsUnderstandWhatsHappening":"Help us understand what's happening",
+    "thisTutorIsAnnoyingMe":"This tutor is annoying me",
+    "thisProfileIsPretendingBeSomeoneOrIsFake":"This profile is pretending be someone or is fake",
+    "inappropriateProfilePhoto":"Inappropriate profile photo",
+    "submitReport": "Submit",
+    "pleaseLetUsKnowDetailsAboutYourProblem":"Please let us know details about your problem"
 }

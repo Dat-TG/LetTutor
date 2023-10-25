@@ -175,5 +175,11 @@
     "bookingTime":"Thời gian đặt lịch",
     "youHave": "Bạn còn",
     "lessonsLeft": "buổi học",
-    "lessonBookingDetails": "buổi học"
+    "lessonBookingDetails": "buổi học",
+    "helpUsUnderstandWhatsHappening":"Bạn đang gặp phải vấn đề gì",
+    "thisTutorIsAnnoyingMe":"Gia sư này làm phiền tôi",
+    "thisProfileIsPretendingBeSomeoneOrIsFake":"Hồ sơ này là giả mạo",
+    "inappropriateProfilePhoto":"Ảnh hồ sơ không phù hợp",
+    "submitReport": "Gửi",
+    "pleaseLetUsKnowDetailsAboutYourProblem":"Vui lòng cho chúng tôi biết chi tiết về vấn đề của bạn"
 }
