@@ -192,5 +192,12 @@
     "emailCompany": "hello@lettutor.com",
     "password":"Password",
     "newPassword":"New Password",
-    "confirmPassword":"Confirm Password"
+    "confirmPassword":"Confirm Password",
+    "totalLessons": "Total Lessons",
+    "bonus": "Bonus",
+    "referralCode":"Referral code:",
+    "bonusInfo": "You and your referrer will get 5% commission when using this code at checkout",
+    "copy": "Copy",
+    "transactions":"Transactions",
+    "copiedToClipboard":"Copied to clipboard!"
 }

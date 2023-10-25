@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/presentation/become-tutor/become_tutor_screen.dart';
 import 'package:let_tutor/presentation/edit-account/edit_account_screen.dart';
 import 'package:let_tutor/presentation/history/history_screen.dart';
+import 'package:let_tutor/presentation/my-wallet/my_wallet_screen.dart';
 import 'package:let_tutor/presentation/settings/settings_screen.dart';
 import 'package:let_tutor/utils/listtile_item.dart';
 import 'package:let_tutor/utils/url_launcher.dart';
@@ -33,7 +34,9 @@ class DrawerMain extends StatelessWidget {
             Icons.wallet_rounded,
             color: Theme.of(context).primaryColor,
           ),
-          callback: () {}),
+          callback: () {
+            GoRouter.of(context).pushNamed(MyWalletScreen.routeName);
+          }),
       ListTileItem(
           title: AppLocalizations.of(context)!.settings,
           leading: Icon(

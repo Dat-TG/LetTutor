@@ -57,7 +57,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             width: 50,
           ),
           applicationLegalese:
-              'Become fluent faster through one on one video chat lessons tailored to your goals.\n\nDeveloper: Lê Công Đắt\ndat13102k2@gmail.com\nStudentID: 20120454',
+              '${AppLocalizations.of(context)!.introductionDescription}\n\nDeveloper: Lê Công Đắt\ndat13102k2@gmail.com\nStudentID: 20120454',
           applicationName: 'LetTutor',
           applicationVersion: '1.0.0',
         );
@@ -145,7 +145,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             color: Theme.of(context).primaryColor,
           ),
           callback: () {
-            UrlLauncher.launchInBrowser(
+            UrlLauncher.launchInBrowserView(
                 Uri.parse('https://lettutor.com/tos.html'));
           }),
       ListTileItem(
