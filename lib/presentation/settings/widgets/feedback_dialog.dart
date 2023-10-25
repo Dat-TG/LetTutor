@@ -62,6 +62,7 @@ class _FeedbackDialogState extends State<FeedbackDialog> {
               maxLines: 4,
               labelText: 'Feedback',
               margin: EdgeInsets.zero,
+              alignLabelWithHint: true,
             )
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
@@ -11,6 +12,7 @@ class CustomTextField extends StatefulWidget {
   final bool readOnly;
   final VoidCallback? onTap;
   final EdgeInsetsGeometry margin;
+  final bool? alignLabelWithHint;
   const CustomTextField(
       {super.key,
       required this.controller,
@@ -22,7 +24,8 @@ class CustomTextField extends StatefulWidget {
       this.textInputAction,
       this.readOnly = false,
       this.onTap,
-      this.margin = const EdgeInsets.all(8)});
+      this.margin = const EdgeInsets.all(8),
+      this.alignLabelWithHint = false});
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -75,28 +78,38 @@ class _CustomTextFieldState extends State<CustomTextField> {
         textInputAction: widget.textInputAction,
         controller: widget.controller,
         maxLines: widget.maxLines,
-        obscureText:
-            (widget.labelText == 'Password') ? !_isPasswordVisible : false,
+        obscureText: (widget.labelText ==
+                    AppLocalizations.of(context)!.password ||
+                widget.labelText == AppLocalizations.of(context)!.newPassword ||
+                widget.labelText ==
+                    AppLocalizations.of(context)!.confirmPassword)
+            ? !_isPasswordVisible
+            : false,
         decoration: InputDecoration(
+            alignLabelWithHint: widget.alignLabelWithHint,
             hintText: widget.hintText,
             labelText: widget.labelText,
-            alignLabelWithHint: true,
             border: InputBorder.none,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 10,
               vertical: 15,
             ),
-            suffixIcon: (widget.labelText == 'Password')
-                ? IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _isPasswordVisible = !_isPasswordVisible;
-                      });
-                    },
-                    icon: Icon(_isPasswordVisible
-                        ? Icons.visibility_off
-                        : Icons.visibility))
-                : null),
+            suffixIcon:
+                (widget.labelText == AppLocalizations.of(context)!.password ||
+                        widget.labelText ==
+                            AppLocalizations.of(context)!.newPassword ||
+                        widget.labelText ==
+                            AppLocalizations.of(context)!.confirmPassword)
+                    ? IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _isPasswordVisible = !_isPasswordVisible;
+                          });
+                        },
+                        icon: Icon(_isPasswordVisible
+                            ? Icons.visibility_off
+                            : Icons.visibility))
+                    : null),
         validator: (value) {
           if (value == null || value.isEmpty) {
             return widget.hintText;

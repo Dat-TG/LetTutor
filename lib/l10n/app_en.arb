@@ -189,5 +189,8 @@
     "headquartersDetails": "9 Street No. 3, KDC Cityland Park Hills, Ward 10, Go Vap District, Ho Chi Minh City.",
     "phone": "Phone",
     "phoneCompany": "+84 945 337 337",
-    "emailCompany": "hello@lettutor.com"
+    "emailCompany": "hello@lettutor.com",
+    "password":"Password",
+    "newPassword":"New Password",
+    "confirmPassword":"Confirm Password"
 }

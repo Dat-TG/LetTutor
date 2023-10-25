@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/presentation/settings/change_password_screen.dart';
 import 'package:let_tutor/presentation/settings/widgets/about_us_dialog.dart';
 import 'package:let_tutor/presentation/settings/widgets/change_language_dialog.dart';
 import 'package:let_tutor/presentation/settings/widgets/feedback_dialog.dart';
@@ -123,7 +125,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Icons.key_rounded,
             color: Theme.of(context).primaryColor,
           ),
-          callback: () {}),
+          callback: () {
+            GoRouter.of(context).pushNamed(ChangePasswordScreen.routeName);
+          }),
       ListTileItem(
           title: AppLocalizations.of(context)!.privacyPolicy,
           leading: Icon(

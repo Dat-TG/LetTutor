@@ -13,6 +13,7 @@ import 'package:let_tutor/presentation/edit-account/edit_account_screen.dart';
 import 'package:let_tutor/presentation/history/history_screen.dart';
 import 'package:let_tutor/presentation/lesson/lesson_screen.dart';
 import 'package:let_tutor/presentation/login/login_screen.dart';
+import 'package:let_tutor/presentation/settings/change_password_screen.dart';
 import 'package:let_tutor/presentation/settings/settings_screen.dart';
 import 'package:let_tutor/presentation/tutor/widgets/all_tutors.dart';
 import 'package:let_tutor/presentation/welcome/welcome_screen.dart';
@@ -193,6 +194,16 @@ class MyRouter {
           name: WelcomeScreen.routeName,
           path: '/welcome',
           builder: (context, state) => const WelcomeScreen()),
+      GoRoute(
+          name: ChangePasswordScreen.routeName,
+          path: '/change-password',
+          pageBuilder: (context, state) {
+            return Helpers.buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: const ChangePasswordScreen(),
+            );
+          }),
     ],
     // TODO: Add Error Handler
     // TODO Add Redirect

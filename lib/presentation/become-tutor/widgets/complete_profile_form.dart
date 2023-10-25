@@ -202,6 +202,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           maxLines: 4,
           hintText: AppLocalizations.of(context)!.interestsPlaceholder,
           margin: EdgeInsets.zero,
+          alignLabelWithHint: true,
         ),
         const SizedBox(
           height: 20,
@@ -212,6 +213,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           maxLines: 4,
           hintText: AppLocalizations.of(context)!.educationPlaceholder,
           margin: EdgeInsets.zero,
+          alignLabelWithHint: true,
         ),
         const SizedBox(
           height: 20,
@@ -221,6 +223,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           labelText: AppLocalizations.of(context)!.experience,
           maxLines: 4,
           margin: EdgeInsets.zero,
+          alignLabelWithHint: true,
         ),
         const SizedBox(
           height: 20,
@@ -229,6 +232,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           controller: _professionController,
           labelText: AppLocalizations.of(context)!.currentOrPreviousProfession,
           maxLines: 3,
+          alignLabelWithHint: true,
           margin: EdgeInsets.zero,
         ),
         const SizedBox(
@@ -242,6 +246,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           controller: _languageController,
           labelText: AppLocalizations.of(context)!.languages,
           maxLines: 3,
+          alignLabelWithHint: true,
           margin: EdgeInsets.zero,
         ),
         const SizedBox(
@@ -259,6 +264,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           controller: _introductionController,
           labelText: AppLocalizations.of(context)!.introductionTutor,
           maxLines: 5,
+          alignLabelWithHint: true,
           margin: EdgeInsets.zero,
           hintText: AppLocalizations.of(context)!.introductionPlaceholder,
         ),

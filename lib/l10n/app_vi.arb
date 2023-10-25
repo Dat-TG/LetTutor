@@ -189,5 +189,8 @@
     "headquartersDetails": "9 Đường Số 3, KDC Cityland Park Hills, Phường 10, Quận Gò Vấp, Thành phố Hồ Chí Minh.",
     "phone": "Điện thoại",
     "phoneCompany": "0945 337 337",
-    "emailCompany": "hello@lettutor.com"
+    "emailCompany": "hello@lettutor.com",
+    "password":"Mật khẩu",
+    "newPassword":"Mật khẩu mới",
+    "confirmPassword":"Nhập lại mật khẩu mới"
 }

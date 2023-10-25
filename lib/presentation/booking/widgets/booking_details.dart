@@ -194,6 +194,7 @@ class _BookingDetailsState extends State<BookingDetails> {
               maxLines: 4,
               labelText: AppLocalizations.of(context)!.note,
               margin: EdgeInsets.zero,
+              alignLabelWithHint: true,
             )
           ],
         ),
