@@ -124,7 +124,7 @@ class _LoginFormState extends State<LoginForm> {
                   callback: () {
                     GoRouter.of(context).goNamed('home');
                   },
-                  textSize: 22,
+                  textSize: 20,
                   borderRadius: 10,
                   padding: const EdgeInsets.symmetric(
                     vertical: 15,

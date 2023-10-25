@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/presentation/become-tutor/become_tutor_screen.dart';
-import 'package:let_tutor/presentation/ebook/widgets/ebook_web_browser.dart';
 import 'package:let_tutor/presentation/edit-account/edit_account_screen.dart';
 import 'package:let_tutor/presentation/history/history_screen.dart';
 import 'package:let_tutor/presentation/settings/settings_screen.dart';
 import 'package:let_tutor/utils/listtile_item.dart';
+import 'package:let_tutor/utils/url_launcher.dart';
 
 class DrawerMain extends StatelessWidget {
   const DrawerMain({super.key});
 
   @override
   Widget build(BuildContext context) {
+    String fbPageId = 'lettutorvn';
+    String facebookBaseUrl = 'https://www.facebook.com';
+    String fbProtocolUrl =
+        'fb://facewebmodal/f?href=$facebookBaseUrl/$fbPageId';
     final List<ListTileItem> options = [
       ListTileItem(
           title: AppLocalizations.of(context)!.editAccount,
@@ -71,7 +74,14 @@ class DrawerMain extends StatelessWidget {
             Icons.facebook_rounded,
             color: Theme.of(context).primaryColor,
           ),
-          callback: () {}),
+          callback: () async {
+            try {
+              UrlLauncher.launchInExternalApp(Uri.parse(fbProtocolUrl),
+                  Uri.parse('$facebookBaseUrl/$fbPageId'));
+            } catch (error) {
+              throw Exception('Cannot launch url $fbProtocolUrl');
+            }
+          }),
       ListTileItem(
           title: AppLocalizations.of(context)!.rateApp,
           leading: Icon(

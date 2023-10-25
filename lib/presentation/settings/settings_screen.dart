@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:let_tutor/presentation/ebook/widgets/ebook_web_browser.dart';
 import 'package:let_tutor/presentation/settings/widgets/about_us_dialog.dart';
 import 'package:let_tutor/presentation/settings/widgets/change_language_dialog.dart';
 import 'package:let_tutor/presentation/settings/widgets/feedback_dialog.dart';
 import 'package:let_tutor/utils/listtile_item.dart';
+import 'package:let_tutor/utils/url_launcher.dart';
 
 class SettingsScreen extends StatefulWidget {
   static const String routeName = 'settings';
@@ -63,18 +62,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       },
     );
   }
-
-  final EbookWebBrowser browser = EbookWebBrowser();
-  var browserOptions = InAppBrowserClassOptions(
-    crossPlatform: InAppBrowserOptions(
-      hideUrlBar: false,
-    ),
-    inAppWebViewGroupOptions: InAppWebViewGroupOptions(
-      crossPlatform: InAppWebViewOptions(
-        javaScriptEnabled: true,
-      ),
-    ),
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -144,11 +131,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             color: Theme.of(context).primaryColor,
           ),
           callback: () {
-            browser.openUrlRequest(
-              urlRequest:
-                  URLRequest(url: Uri.parse('https://lettutor.com/tos.html')),
-              options: browserOptions,
-            );
+            UrlLauncher.launchInBrowserView(
+                Uri.parse('https://lettutor.com/tos.html'));
           }),
       ListTileItem(
           title: AppLocalizations.of(context)!.termsAndConditions,
@@ -157,11 +141,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             color: Theme.of(context).primaryColor,
           ),
           callback: () {
-            browser.openUrlRequest(
-              urlRequest:
-                  URLRequest(url: Uri.parse('https://lettutor.com/tos.html')),
-              options: browserOptions,
-            );
+            UrlLauncher.launchInBrowser(
+                Uri.parse('https://lettutor.com/tos.html'));
           }),
       ListTileItem(
           title: AppLocalizations.of(context)!.feedback,

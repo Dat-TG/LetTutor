@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:let_tutor/presentation/ebook/widgets/ebook_web_browser.dart';
+import 'package:let_tutor/utils/url_launcher.dart';
 
 class EbookCard extends StatefulWidget {
   final bool isExpanded;
@@ -13,24 +12,11 @@ class EbookCard extends StatefulWidget {
 }
 
 class _EbookCardState extends State<EbookCard> {
-  final EbookWebBrowser browser = EbookWebBrowser();
-  var options = InAppBrowserClassOptions(
-    crossPlatform: InAppBrowserOptions(
-      hideUrlBar: false,
-    ),
-    inAppWebViewGroupOptions: InAppWebViewGroupOptions(
-      crossPlatform: InAppWebViewOptions(
-        javaScriptEnabled: true,
-      ),
-    ),
-  );
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        browser.openUrlRequest(
-            urlRequest: URLRequest(url: Uri.parse(widget.url)),
-            options: options);
+        UrlLauncher.launchInBrowserView(Uri.parse(widget.url));
       },
       child: badges.Badge(
         badgeContent: const Text(
