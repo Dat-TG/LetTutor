@@ -10,8 +10,16 @@ final ThemeData lightTheme = ThemeData(
   secondaryHeaderColor: AppColors.secondaryElement,
   scaffoldBackgroundColor: AppColors.primaryBackground,
   appBarTheme: const AppBarTheme(
-      backgroundColor: AppColors.primaryBackground,
-      titleTextStyle: TextStyle(color: AppColors.primaryElement)),
+    backgroundColor: AppColors.primaryBackground,
+    titleTextStyle: TextStyle(
+      color: AppColors.primaryElement,
+      fontSize: 20,
+    ),
+    iconTheme: IconThemeData(
+      color: Colors.black,
+    ),
+  ),
+  iconTheme: const IconThemeData(color: Colors.black),
   brightness: Brightness.light,
 );
 

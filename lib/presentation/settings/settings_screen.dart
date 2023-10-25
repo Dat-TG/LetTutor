@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/presentation/ebook/widgets/ebook_web_browser.dart';
+import 'package:let_tutor/presentation/settings/widgets/about_us_dialog.dart';
 import 'package:let_tutor/presentation/settings/widgets/change_language_dialog.dart';
+import 'package:let_tutor/presentation/settings/widgets/feedback_dialog.dart';
 import 'package:let_tutor/utils/listtile_item.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -14,6 +18,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool isDarkMode = false;
+
   Future<void> changeLanguage(BuildContext context) {
     return showDialog<void>(
       context: context,
@@ -22,6 +27,54 @@ class _SettingsScreenState extends State<SettingsScreen> {
       },
     );
   }
+
+  Future<void> feedback(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return const FeedbackDialog();
+      },
+    );
+  }
+
+  Future<void> openAboutUsDialog(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return const AboutUsDialog();
+      },
+    );
+  }
+
+  Future<void> openAboutDialog(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AboutDialog(
+          applicationIcon: Image.asset(
+            'assets/images/ic.png',
+            width: 50,
+          ),
+          applicationLegalese:
+              'Become fluent faster through one on one video chat lessons tailored to your goals.\n\nDeveloper: Lê Công Đắt\ndat13102k2@gmail.com\nStudentID: 20120454',
+          applicationName: 'LetTutor',
+          applicationVersion: '1.0.0',
+        );
+      },
+    );
+  }
+
+  final EbookWebBrowser browser = EbookWebBrowser();
+  var browserOptions = InAppBrowserClassOptions(
+    crossPlatform: InAppBrowserOptions(
+      hideUrlBar: false,
+    ),
+    inAppWebViewGroupOptions: InAppWebViewGroupOptions(
+      crossPlatform: InAppWebViewOptions(
+        javaScriptEnabled: true,
+      ),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -90,28 +143,44 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Icons.privacy_tip_rounded,
             color: Theme.of(context).primaryColor,
           ),
-          callback: () {}),
+          callback: () {
+            browser.openUrlRequest(
+              urlRequest:
+                  URLRequest(url: Uri.parse('https://lettutor.com/tos.html')),
+              options: browserOptions,
+            );
+          }),
       ListTileItem(
           title: AppLocalizations.of(context)!.termsAndConditions,
           leading: Icon(
             Icons.my_library_books,
             color: Theme.of(context).primaryColor,
           ),
-          callback: () {}),
+          callback: () {
+            browser.openUrlRequest(
+              urlRequest:
+                  URLRequest(url: Uri.parse('https://lettutor.com/tos.html')),
+              options: browserOptions,
+            );
+          }),
       ListTileItem(
           title: AppLocalizations.of(context)!.feedback,
           leading: Icon(
             Icons.feedback_rounded,
             color: Theme.of(context).primaryColor,
           ),
-          callback: () {}),
+          callback: () {
+            feedback(context);
+          }),
       ListTileItem(
           title: AppLocalizations.of(context)!.aboutUs,
           leading: Icon(
             Icons.info_rounded,
             color: Theme.of(context).primaryColor,
           ),
-          callback: () {}),
+          callback: () {
+            openAboutUsDialog(context);
+          }),
       ListTileItem(
           title: AppLocalizations.of(context)!.version,
           leading: Icon(
@@ -130,7 +199,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
           ),
-          callback: () {}),
+          callback: () {
+            openAboutDialog(context);
+          }),
     ];
     return Scaffold(
       appBar: PreferredSize(

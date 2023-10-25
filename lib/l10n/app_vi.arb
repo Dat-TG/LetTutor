@@ -182,5 +182,12 @@
     "inappropriateProfilePhoto":"Ảnh hồ sơ không phù hợp",
     "submitReport": "Gửi",
     "pleaseLetUsKnowDetailsAboutYourProblem":"Vui lòng cho chúng tôi biết chi tiết về vấn đề của bạn",
-    "selectLanguage": "Chọn ngôn ngữ"
+    "selectLanguage": "Chọn ngôn ngữ",
+    "companyName": "Công ty TNHH LetTutor Việt Nam",
+    "tc": "MST: 0317003289",
+    "headquarters": "Trụ sở chính",
+    "headquartersDetails": "9 Đường Số 3, KDC Cityland Park Hills, Phường 10, Quận Gò Vấp, Thành phố Hồ Chí Minh.",
+    "phone": "Điện thoại",
+    "phoneCompany": "0945 337 337",
+    "emailCompany": "hello@lettutor.com"
 }

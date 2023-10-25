@@ -16,6 +16,10 @@ class _BookingDetailsState extends State<BookingDetails> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      actionsPadding: const EdgeInsets.only(
+        right: 30,
+        bottom: 20,
+      ),
       titlePadding: EdgeInsets.zero,
       title: Container(
         decoration: const BoxDecoration(
@@ -210,6 +214,9 @@ class _BookingDetailsState extends State<BookingDetails> {
           callback: () {
             Navigator.pop(context);
           },
+        ),
+        const SizedBox(
+          width: 10,
         ),
         CustomButton(
           title: AppLocalizations.of(context)!.book,

@@ -1,31 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/custom_textfield.dart';
-import 'package:let_tutor/presentation/details-tutor/widgets/choose_reasons_report.dart';
 
-class ReportTutor extends StatefulWidget {
-  const ReportTutor({super.key});
+class FeedbackDialog extends StatefulWidget {
+  const FeedbackDialog({super.key});
 
   @override
-  State<ReportTutor> createState() => _ReportTutorState();
+  State<FeedbackDialog> createState() => _FeedbackDialogState();
 }
 
-class _ReportTutorState extends State<ReportTutor> {
-  final TextEditingController _noteController = TextEditingController();
-  List<String> reasons = [];
-  void setReasons(List<String> value) {
-    setState(() {
-      reasons = value;
-    });
-  }
-
+class _FeedbackDialogState extends State<FeedbackDialog> {
+  final TextEditingController _feedbackController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       actionsPadding: const EdgeInsets.only(
         bottom: 20,
-        right: 30,
+        right: 25,
       ),
       titlePadding: EdgeInsets.zero,
       title: Container(
@@ -46,7 +38,7 @@ class _ReportTutorState extends State<ReportTutor> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('${AppLocalizations.of(context)!.report} Keegan'),
+            Text(AppLocalizations.of(context)!.feedback),
             IconButton(
                 splashRadius: 20,
                 onPressed: () {
@@ -65,37 +57,11 @@ class _ReportTutorState extends State<ReportTutor> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.info_rounded,
-                  size: 30,
-                  color: Theme.of(context).primaryColor,
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: Text(
-                    AppLocalizations.of(context)!
-                        .helpUsUnderstandWhatsHappening,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            ChooseReasonReport(reasons: reasons, setState: setReasons),
             CustomTextField(
-              controller: _noteController,
+              controller: _feedbackController,
               maxLines: 4,
-              hintText: AppLocalizations.of(context)!
-                  .pleaseLetUsKnowDetailsAboutYourProblem,
+              labelText: 'Feedback',
+              margin: EdgeInsets.zero,
             )
           ],
         ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/presentation/become-tutor/become_tutor_screen.dart';
+import 'package:let_tutor/presentation/ebook/widgets/ebook_web_browser.dart';
 import 'package:let_tutor/presentation/edit-account/edit_account_screen.dart';
 import 'package:let_tutor/presentation/history/history_screen.dart';
 import 'package:let_tutor/presentation/settings/settings_screen.dart';
@@ -85,6 +87,7 @@ class DrawerMain extends StatelessWidget {
           ),
           callback: () {}),
     ];
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
