@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/presentation/settings/widgets/change_language_dialog.dart';
 import 'package:let_tutor/utils/listtile_item.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -13,6 +14,15 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool isDarkMode = false;
+  Future<void> changeLanguage(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return const ChangeLanguageDialog();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<ListTileItem> options = [
@@ -44,7 +54,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               )
             ],
           ),
-          callback: () {}),
+          callback: () {
+            changeLanguage(context);
+          }),
       ListTileItem(
           title: AppLocalizations.of(context)!.darkMode,
           leading: Icon(

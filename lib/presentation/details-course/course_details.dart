@@ -60,30 +60,18 @@ class CourseDetails extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      CustomButton(
-                        title: AppLocalizations.of(context)!.discover,
-                        borderRadius: 10,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 5,
+                      Expanded(
+                        child: CustomButton(
+                          title: AppLocalizations.of(context)!.discover,
+                          textSize: 18,
+                          borderRadius: 10,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 10,
+                          ),
+                          callback: () => GoRouter.of(context)
+                              .pushNamed(LessonScreen.routeName),
                         ),
-                        callback: () => GoRouter.of(context)
-                            .pushNamed(LessonScreen.routeName),
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      CustomButton(
-                        title: AppLocalizations.of(context)!.report,
-                        backgroundColor: Colors.grey[300]!,
-                        titleColor: Colors.black,
-                        callback: () {},
-                        borderRadius: 10,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 5,
-                        ),
-                        textSize: 16,
                       ),
                     ],
                   ),

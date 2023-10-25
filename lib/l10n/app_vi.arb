@@ -181,5 +181,6 @@
     "thisProfileIsPretendingBeSomeoneOrIsFake":"Hồ sơ này là giả mạo",
     "inappropriateProfilePhoto":"Ảnh hồ sơ không phù hợp",
     "submitReport": "Gửi",
-    "pleaseLetUsKnowDetailsAboutYourProblem":"Vui lòng cho chúng tôi biết chi tiết về vấn đề của bạn"
+    "pleaseLetUsKnowDetailsAboutYourProblem":"Vui lòng cho chúng tôi biết chi tiết về vấn đề của bạn",
+    "selectLanguage": "Chọn ngôn ngữ"
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -120,7 +121,9 @@ class _LoginFormState extends State<LoginForm> {
               Expanded(
                 child: CustomButton(
                   title: AppLocalizations.of(context)!.logInUpperCase,
-                  callback: () {},
+                  callback: () {
+                    GoRouter.of(context).goNamed('home');
+                  },
                   textSize: 22,
                   borderRadius: 10,
                   padding: const EdgeInsets.symmetric(

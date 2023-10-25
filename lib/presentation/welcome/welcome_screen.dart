@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/appbar_login.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/presentation/login/login_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
+  static const String routeName = 'welcome';
   const WelcomeScreen({super.key});
 
   @override
@@ -70,7 +73,9 @@ class WelcomeScreen extends StatelessWidget {
                 Expanded(
                   child: CustomButton(
                     title: AppLocalizations.of(context)!.letStart,
-                    callback: () {},
+                    callback: () {
+                      GoRouter.of(context).goNamed(LoginScreen.routeName);
+                    },
                     textSize: 20,
                     borderRadius: 10,
                     padding: const EdgeInsets.symmetric(

@@ -12,8 +12,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/presentation/edit-account/edit_account_screen.dart';
 import 'package:let_tutor/presentation/history/history_screen.dart';
 import 'package:let_tutor/presentation/lesson/lesson_screen.dart';
+import 'package:let_tutor/presentation/login/login_screen.dart';
 import 'package:let_tutor/presentation/settings/settings_screen.dart';
 import 'package:let_tutor/presentation/tutor/widgets/all_tutors.dart';
+import 'package:let_tutor/presentation/welcome/welcome_screen.dart';
 import 'package:let_tutor/utils/helpers.dart';
 
 class MyRouter {
@@ -22,7 +24,7 @@ class MyRouter {
     // refreshListenable: loginState,
     // Show debugging logs.
     debugLogDiagnostics: true,
-    initialLocation: '/home',
+    initialLocation: '/welcome',
     // Routes
     routes: [
       GoRoute(
@@ -177,6 +179,20 @@ class MyRouter {
               child: const BookLessonScreen(),
             );
           }),
+      GoRoute(
+          name: LoginScreen.routeName,
+          path: '/login',
+          pageBuilder: (context, state) {
+            return Helpers.buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: const LoginScreen(),
+            );
+          }),
+      GoRoute(
+          name: WelcomeScreen.routeName,
+          path: '/welcome',
+          builder: (context, state) => const WelcomeScreen()),
     ],
     // TODO: Add Error Handler
     // TODO Add Redirect
