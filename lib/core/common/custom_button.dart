@@ -4,7 +4,7 @@ import 'package:let_tutor/utils/colors.dart';
 // A common button
 class CustomButton extends StatelessWidget {
   final String title;
-  final VoidCallback callback;
+  final VoidCallback? callback;
   final Color backgroundColor;
   final Color titleColor;
   final double textSize;
@@ -15,7 +15,7 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
     required this.title,
-    required this.callback,
+    this.callback,
     this.backgroundColor = AppColors.primaryElement,
     this.titleColor = AppColors.primaryElementText,
     this.textSize = 16,

@@ -164,5 +164,16 @@
     "introductionVideo": "Video giới thiệu",
     "introductionVideoTips": "Một số mẹo hữu ích: \n 1. Tìm một không gian sạch sẽ và yên tĩnh\n 2. Cười và nhìn vào camera\n 3. Ăn mặc lịch sự\n 4. Nói trong 1-3 phút\n 5. Xây dựng thương hiệu cho bản thân và vui vẻ!",
     "chooseVideo": "Choose video",
-    "approvalInfo": "Bạn đã hoàn thành đăng ký\nVui lòng đợi phê duyệt"
+    "approvalInfo": "Bạn đã hoàn thành đăng ký\nVui lòng đợi phê duyệt",
+    "bookLessons":"Đặt lịch học",
+    "booked": "Đã đặt",
+    "book": "Đặt ngay",
+    "bookingDetails": "Chi tiết đặt lịch",
+    "balance": "Số dư",
+    "price":"Giá",
+    "note": "Ghi chú",
+    "bookingTime":"Thời gian đặt lịch",
+    "youHave": "Bạn còn",
+    "lessonsLeft": "buổi học",
+    "lessonBookingDetails": "buổi học"
 }

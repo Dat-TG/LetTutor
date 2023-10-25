@@ -1,9 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/video/single_video.dart';
+import 'package:let_tutor/presentation/booking/book_lesson_screen.dart';
 import 'package:let_tutor/presentation/course/widgets/course_card.dart';
 import 'package:let_tutor/core/common/expanded_paragraph.dart';
 import 'package:let_tutor/presentation/details-tutor/widgets/review.dart';
@@ -29,7 +31,9 @@ class _TutorDetailsState extends State<TutorDetails> {
       ),
       floatingActionButton: CustomButton(
         title: AppLocalizations.of(context)!.bookNow,
-        callback: () {},
+        callback: () {
+          GoRouter.of(context).pushNamed(BookLessonScreen.routeName);
+        },
         borderRadius: 20,
         textSize: 16,
         padding: const EdgeInsets.symmetric(

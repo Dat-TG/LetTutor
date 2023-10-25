@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:let_tutor/core/common/bottom_bar.dart';
 import 'package:let_tutor/presentation/become-tutor/become_tutor_screen.dart';
+import 'package:let_tutor/presentation/booking/book_lesson_screen.dart';
 import 'package:let_tutor/presentation/course/widgets/all_courses.dart';
 import 'package:let_tutor/presentation/course/widgets/all_ebooks.dart';
 import 'package:let_tutor/presentation/details-course/course_details.dart';
@@ -164,6 +165,16 @@ class MyRouter {
               context: context,
               state: state,
               child: const BecomeTutorScreen(),
+            );
+          }),
+      GoRoute(
+          name: BookLessonScreen.routeName,
+          path: '/book-lesson',
+          pageBuilder: (context, state) {
+            return Helpers.buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: const BookLessonScreen(),
             );
           }),
     ],
