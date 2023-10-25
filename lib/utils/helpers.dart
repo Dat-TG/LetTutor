@@ -61,4 +61,18 @@ class Helpers {
     }
     return images;
   }
+
+  static Future<File?> pickVideo() async {
+    File? video;
+    try {
+      var files = await FilePicker.platform
+          .pickFiles(type: FileType.video, allowMultiple: false);
+      if (files != null && files.files.isNotEmpty) {
+        video = File(files.files[0].path!);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    return video;
+  }
 }

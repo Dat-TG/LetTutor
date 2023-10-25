@@ -57,7 +57,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 20,
         ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,7 +66,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
               backgroundImage: AssetImage(
                 'assets/images/introduce_yourself.png',
               ),
-              radius: 30,
+              radius: 40,
             ),
             const SizedBox(
               width: 20,

@@ -27,7 +27,9 @@ class MyRouter {
       GoRoute(
         name: 'home',
         path: '/home',
-        builder: (context, state) => const BottomBar(),
+        builder: (context, state) => const BottomBar(
+          tab: 0,
+        ),
       ),
       GoRoute(
         name: TutorDetails.routeName,
