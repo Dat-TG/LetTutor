@@ -202,5 +202,8 @@
     "copiedToClipboard":"Copied to clipboard!",
     "messenger": "Messenger",
     "online":"Online",
-    "tutor": "Tutor"
+    "tutor": "Tutor",
+    "type": "Type",
+    "student": "Student",
+    "time": "Time"
 }

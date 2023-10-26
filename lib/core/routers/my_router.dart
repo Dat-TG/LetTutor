@@ -16,6 +16,7 @@ import 'package:let_tutor/presentation/lesson/lesson_screen.dart';
 import 'package:let_tutor/presentation/login/login_screen.dart';
 import 'package:let_tutor/presentation/messenger/messenger_screen.dart';
 import 'package:let_tutor/presentation/my-wallet/my_wallet_screen.dart';
+import 'package:let_tutor/presentation/my-wallet/transactions_screen.dart';
 import 'package:let_tutor/presentation/search/search_screen.dart';
 import 'package:let_tutor/presentation/settings/change_password_screen.dart';
 import 'package:let_tutor/presentation/settings/settings_screen.dart';
@@ -246,6 +247,16 @@ class MyRouter {
               context: context,
               state: state,
               child: const SearchScreen(),
+            );
+          }),
+      GoRoute(
+          name: TransactionsScreen.routeName,
+          path: '/transactions',
+          pageBuilder: (context, state) {
+            return Helpers.buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: const TransactionsScreen(),
             );
           }),
     ],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
+import 'package:let_tutor/presentation/my-wallet/transactions_screen.dart';
 import 'package:let_tutor/presentation/my-wallet/widgets/transaction_item.dart';
 
 class Transactions extends StatelessWidget {
@@ -44,11 +46,17 @@ class Transactions extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text(
-                  AppLocalizations.of(context)!.viewMore,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Theme.of(context).primaryColor,
+                InkWell(
+                  onTap: () {
+                    GoRouter.of(context)
+                        .pushNamed(TransactionsScreen.routeName);
+                  },
+                  child: Text(
+                    AppLocalizations.of(context)!.viewMore,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Theme.of(context).primaryColor,
+                    ),
                   ),
                 ),
               ],

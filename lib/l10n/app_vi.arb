@@ -202,5 +202,8 @@
     "copiedToClipboard":"Đã sao chép vào bộ nhớ tạm",
     "messenger":"Tin nhắn",
     "online": "Đang hoạt động",
-    "tutor": "Gia sư"
+    "tutor": "Gia sư",
+    "type": "Phân loại",
+    "student": "Học viên",
+    "time": "Thời gian"
 }

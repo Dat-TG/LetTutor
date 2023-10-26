@@ -113,7 +113,7 @@ class _ConversationBodyState extends State<ConversationBody> {
                       bottom: 5,
                     ),
                     child: Text(
-                        DateFormat(null, 'vi').format(messages[index].time)),
+                        DateFormat(null, 'en').format(messages[index].time)),
                   ),
                 ),
               InkWell(
