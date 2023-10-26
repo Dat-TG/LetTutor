@@ -200,5 +200,6 @@
     "copy": "Copy",
     "transactions":"Transactions",
     "copiedToClipboard":"Copied to clipboard!",
-    "messenger": "Messenger"
+    "messenger": "Messenger",
+    "online":"Online"
 }

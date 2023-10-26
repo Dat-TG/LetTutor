@@ -200,5 +200,6 @@
     "copy": "Sao chép",
     "transactions":"Giao dịch",
     "copiedToClipboard":"Đã sao chép vào bộ nhớ tạm",
-    "messenger":"Tin nhắn"
+    "messenger":"Tin nhắn",
+    "online": "Đang hoạt động"
 }

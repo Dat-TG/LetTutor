@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:let_tutor/presentation/conversation/conversation_screen.dart';
 
 class MessengerConversation extends StatelessWidget {
   const MessengerConversation({super.key});
@@ -7,7 +9,9 @@ class MessengerConversation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        GoRouter.of(context).pushNamed(ConversationScreen.routeName);
+      },
       child: Container(
         alignment: Alignment.center,
         padding: const EdgeInsets.all(20),

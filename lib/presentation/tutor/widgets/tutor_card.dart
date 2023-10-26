@@ -42,7 +42,8 @@ class TutorCard extends StatelessWidget {
                 Row(
                   children: [
                     const CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/hero_img.png'),
+                      backgroundImage: NetworkImage(
+                          'https://sandbox.api.lettutor.com/avatar/4d54d3d7-d2a9-42e5-97a2-5ed38af5789aavatar1684484879187.jpg'),
                       radius: 32,
                     ),
                     const SizedBox(
@@ -54,7 +55,7 @@ class TutorCard extends StatelessWidget {
                         const SizedBox(
                           width: 160,
                           child: Text(
-                            'Hai Pham',
+                            'Keegan',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(

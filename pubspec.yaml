@@ -55,6 +55,7 @@ dependencies:
   dotted_border: ^2.1.0
   table_calendar: ^3.0.9
   url_launcher: ^6.2.0
+  emoji_picker_flutter: ^1.6.2
 
 flutter_launcher_icons:
   android: "launcher_icon"
