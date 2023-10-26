@@ -31,10 +31,10 @@ class TutorCard extends StatelessWidget {
                     0,
                     0,
                   ),
-                  blurRadius: 8,
+                  blurRadius: 5,
                 ),
               ],
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(10),
               color: Colors.white,
             ),
             child: Column(

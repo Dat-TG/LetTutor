@@ -199,5 +199,6 @@
     "bonusInfo": "You and your referrer will get 5% commission when using this code at checkout",
     "copy": "Copy",
     "transactions":"Transactions",
-    "copiedToClipboard":"Copied to clipboard!"
+    "copiedToClipboard":"Copied to clipboard!",
+    "messenger": "Messenger"
 }

@@ -46,7 +46,7 @@ class _EbookCardState extends State<EbookCard> {
                   0,
                   0,
                 ),
-                blurRadius: 8,
+                blurRadius: 5,
               ),
             ],
             borderRadius: BorderRadius.circular(10),

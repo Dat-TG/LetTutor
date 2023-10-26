@@ -13,19 +13,24 @@ class CustomTextField extends StatefulWidget {
   final VoidCallback? onTap;
   final EdgeInsetsGeometry margin;
   final bool? alignLabelWithHint;
-  const CustomTextField(
-      {super.key,
-      required this.controller,
-      this.hintText,
-      this.labelText,
-      this.maxLines = 1,
-      this.style,
-      this.keyboardType,
-      this.textInputAction,
-      this.readOnly = false,
-      this.onTap,
-      this.margin = const EdgeInsets.all(8),
-      this.alignLabelWithHint = false});
+  final Icon? prefixIcon;
+  final double borderRadius;
+  const CustomTextField({
+    super.key,
+    required this.controller,
+    this.hintText,
+    this.labelText,
+    this.maxLines = 1,
+    this.style,
+    this.keyboardType,
+    this.textInputAction,
+    this.readOnly = false,
+    this.onTap,
+    this.margin = const EdgeInsets.all(8),
+    this.alignLabelWithHint = false,
+    this.prefixIcon,
+    this.borderRadius = 5,
+  });
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -67,7 +72,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       margin: widget.margin,
       decoration: BoxDecoration(
         border: Border.all(color: _borderColor),
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(widget.borderRadius),
       ),
       child: TextFormField(
         onTap: widget.onTap,
@@ -86,6 +91,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             ? !_isPasswordVisible
             : false,
         decoration: InputDecoration(
+            prefixIcon: widget.prefixIcon,
             alignLabelWithHint: widget.alignLabelWithHint,
             hintText: widget.hintText,
             labelText: widget.labelText,

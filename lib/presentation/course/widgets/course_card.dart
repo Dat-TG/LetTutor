@@ -40,7 +40,7 @@ class CourseCard extends StatelessWidget {
                   0,
                   0,
                 ),
-                blurRadius: 8,
+                blurRadius: 5,
               ),
             ],
             borderRadius: BorderRadius.circular(10),

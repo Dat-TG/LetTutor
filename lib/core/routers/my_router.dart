@@ -13,6 +13,7 @@ import 'package:let_tutor/presentation/edit-account/edit_account_screen.dart';
 import 'package:let_tutor/presentation/history/history_screen.dart';
 import 'package:let_tutor/presentation/lesson/lesson_screen.dart';
 import 'package:let_tutor/presentation/login/login_screen.dart';
+import 'package:let_tutor/presentation/messenger/messenger_screen.dart';
 import 'package:let_tutor/presentation/my-wallet/my_wallet_screen.dart';
 import 'package:let_tutor/presentation/settings/change_password_screen.dart';
 import 'package:let_tutor/presentation/settings/settings_screen.dart';
@@ -213,6 +214,16 @@ class MyRouter {
               context: context,
               state: state,
               child: const MyWalletScreen(),
+            );
+          }),
+      GoRoute(
+          name: MessengerScreen.routeName,
+          path: '/messenger',
+          pageBuilder: (context, state) {
+            return Helpers.buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: const MessengerScreen(),
             );
           }),
     ],
