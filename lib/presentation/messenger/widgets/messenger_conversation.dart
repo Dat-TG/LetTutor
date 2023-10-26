@@ -58,15 +58,12 @@ class MessengerConversation extends StatelessWidget {
                       const SizedBox(
                         width: 10,
                       ),
-                      Expanded(
-                        child: Text(
-                          DateFormat('d/M, hh:mm').format(
-                            DateTime.now(),
-                          ),
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w300,
-                          ),
+                      Text(
+                        DateFormat('d MMM', 'en').format(
+                          DateTime.now(),
+                        ),
+                        style: const TextStyle(
+                          fontSize: 16,
                         ),
                       )
                     ],

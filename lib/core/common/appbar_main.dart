@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_tutor/presentation/messenger/messenger_screen.dart';
+import 'package:let_tutor/presentation/search/search_screen.dart';
 
 class AppBarMain extends StatefulWidget {
   const AppBarMain({super.key});
@@ -40,7 +41,9 @@ class _AppBarMainState extends State<AppBarMain> {
                   color: Colors.black12,
                 ),
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    GoRouter.of(context).pushNamed(SearchScreen.routeName);
+                  },
                   splashRadius: 20,
                   icon: const Icon(
                     Icons.search,

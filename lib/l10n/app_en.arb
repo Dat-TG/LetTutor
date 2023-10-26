@@ -46,7 +46,7 @@
     "search": "Search",
     "discoverCourses": "DISCOVER COURSES",
     "discoverCoursesIntroduction": "LiveTutor has built the most quality, methodical and scientific courses in the fields of life for those who are in need of improving their knowledge of the fields.",
-    "enterCourseName": "Enter course name...",
+    "enterCourseName": "Enter course or ebook name...",
     "courseLevel": "Course Level",
     "courseCategory": "Course Category",
     "chooseLevel": "Choose level",
@@ -201,5 +201,6 @@
     "transactions":"Transactions",
     "copiedToClipboard":"Copied to clipboard!",
     "messenger": "Messenger",
-    "online":"Online"
+    "online":"Online",
+    "tutor": "Tutor"
 }

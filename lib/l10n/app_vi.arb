@@ -46,7 +46,7 @@
     "search": "Tìm kiếm",
     "discoverCourses": "KHÁM PHÁ CÁC KHÓA HỌC",
     "discoverCoursesIntroduction": "LiveTutor đã xây dựng nên các khóa học của các lĩnh vực trong cuộc sống chất lượng, bài bản và khoa học nhất cho những người đang có nhu cầu trau dồi thêm kiến thức về các lĩnh vực.",
-    "enterCourseName": "Nhập tên khóa học...",
+    "enterCourseName": "Nhập tên khóa học hoặc ebook...",
     "courseLevel": "Cấp độ",
     "courseCategory": "Phân loại",
     "chooseLevel": "Chọn cấp độ",
@@ -201,5 +201,6 @@
     "transactions":"Giao dịch",
     "copiedToClipboard":"Đã sao chép vào bộ nhớ tạm",
     "messenger":"Tin nhắn",
-    "online": "Đang hoạt động"
+    "online": "Đang hoạt động",
+    "tutor": "Gia sư"
 }
