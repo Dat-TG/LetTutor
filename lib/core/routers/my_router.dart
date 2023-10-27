@@ -24,7 +24,7 @@ import 'package:let_tutor/presentation/settings/settings_screen.dart';
 import 'package:let_tutor/presentation/tutor/tutor_screen.dart';
 import 'package:let_tutor/presentation/tutor/widgets/all_tutors.dart';
 import 'package:let_tutor/presentation/welcome/welcome_screen.dart';
-import 'package:let_tutor/utils/helpers.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
 
 class MyRouter {
   static final router = GoRouter(

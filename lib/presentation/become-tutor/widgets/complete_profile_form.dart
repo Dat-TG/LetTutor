@@ -10,8 +10,8 @@ import 'package:let_tutor/presentation/become-tutor/widgets/become_tutor_attenti
 import 'package:let_tutor/presentation/become-tutor/widgets/become_tutor_title.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
-import 'package:let_tutor/utils/constants.dart';
-import 'package:let_tutor/utils/helpers.dart';
+import 'package:let_tutor/core/utils/constants.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
 
 class CompleteProfileForm extends StatefulWidget {
   const CompleteProfileForm({super.key});

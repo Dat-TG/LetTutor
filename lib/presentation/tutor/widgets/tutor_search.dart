@@ -4,8 +4,8 @@ import 'package:let_tutor/core/common/custom_date_picker.dart';
 import 'package:let_tutor/core/common/custom_time_picker.dart';
 import 'package:let_tutor/presentation/tutor/widgets/choose_nationality.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
-import 'package:let_tutor/utils/constants.dart';
-import 'package:let_tutor/utils/helpers.dart';
+import 'package:let_tutor/core/utils/constants.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TutorSearch extends StatefulWidget {

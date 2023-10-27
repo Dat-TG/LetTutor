@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:let_tutor/utils/url_launcher.dart';
+import 'package:let_tutor/core/utils/url_launcher.dart';
 
 class MessengerHotline extends StatelessWidget {
   const MessengerHotline({super.key});

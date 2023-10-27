@@ -7,8 +7,8 @@ import 'package:let_tutor/presentation/history/history_screen.dart';
 import 'package:let_tutor/presentation/login/login_screen.dart';
 import 'package:let_tutor/presentation/my-wallet/my_wallet_screen.dart';
 import 'package:let_tutor/presentation/settings/settings_screen.dart';
-import 'package:let_tutor/utils/listtile_item.dart';
-import 'package:let_tutor/utils/url_launcher.dart';
+import 'package:let_tutor/core/utils/listtile_item.dart';
+import 'package:let_tutor/core/utils/url_launcher.dart';
 
 class DrawerMain extends StatelessWidget {
   const DrawerMain({super.key});

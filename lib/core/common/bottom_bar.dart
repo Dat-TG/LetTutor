@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor/core/common/appbar_main.dart';
 import 'package:let_tutor/core/common/drawer_main.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:let_tutor/presentation/course/course_screen.dart';
 import 'package:let_tutor/presentation/home/home_screen.dart';
 import 'package:let_tutor/presentation/schedule/schedule_screen.dart';
@@ -39,47 +40,56 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(60),
-        child: AppBarMain(),
-      ),
-      drawer: const DrawerMain(),
-      body: pages[_page],
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: const Icon(
-              Icons.home_rounded,
+    return WillPopScope(
+      onWillPop: () {
+        if (Navigator.canPop(context)) {
+          Navigator.pop(context);
+          return Future.delayed(Duration.zero);
+        }
+        return Helpers.showExitPopup(context);
+      },
+      child: Scaffold(
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(60),
+          child: AppBarMain(),
+        ),
+        drawer: const DrawerMain(),
+        body: pages[_page],
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: const Icon(
+                Icons.home_rounded,
+              ),
+              label: AppLocalizations.of(context)!.home,
             ),
-            label: AppLocalizations.of(context)!.home,
-          ),
-          BottomNavigationBarItem(
-            icon: const ImageIcon(
-              AssetImage('assets/images/tutor.png'),
+            BottomNavigationBarItem(
+              icon: const ImageIcon(
+                AssetImage('assets/images/tutor.png'),
+              ),
+              label: AppLocalizations.of(context)!.tutors,
             ),
-            label: AppLocalizations.of(context)!.tutors,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(
-              Icons.school_rounded,
+            BottomNavigationBarItem(
+              icon: const Icon(
+                Icons.school_rounded,
+              ),
+              label: AppLocalizations.of(context)!.courses,
             ),
-            label: AppLocalizations.of(context)!.courses,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(
-              Icons.schedule_rounded,
+            BottomNavigationBarItem(
+              icon: const Icon(
+                Icons.schedule_rounded,
+              ),
+              label: AppLocalizations.of(context)!.schedule,
             ),
-            label: AppLocalizations.of(context)!.schedule,
-          ),
-        ],
-        currentIndex: _page,
-        selectedItemColor: Theme.of(context).primaryColor,
-        unselectedItemColor: Colors.grey,
-        onTap: goToPage,
-        iconSize: 25,
-        selectedFontSize: 15,
+          ],
+          currentIndex: _page,
+          selectedItemColor: Theme.of(context).primaryColor,
+          unselectedItemColor: Colors.grey,
+          onTap: goToPage,
+          iconSize: 25,
+          selectedFontSize: 15,
+        ),
       ),
     );
   }

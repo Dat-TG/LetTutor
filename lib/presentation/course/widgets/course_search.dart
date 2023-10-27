@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/presentation/course/widgets/choose_sort_option.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
-import 'package:let_tutor/utils/constants.dart';
-import 'package:let_tutor/utils/helpers.dart';
+import 'package:let_tutor/core/utils/constants.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CourseSearch extends StatefulWidget {

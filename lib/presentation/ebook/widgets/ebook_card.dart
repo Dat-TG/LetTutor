@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:let_tutor/utils/url_launcher.dart';
+import 'package:let_tutor/core/utils/url_launcher.dart';
 
 class EbookCard extends StatefulWidget {
   final bool isExpanded;

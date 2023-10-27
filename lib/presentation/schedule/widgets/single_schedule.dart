@@ -7,7 +7,7 @@ import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/expanded_paragraph.dart';
 import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
-import 'package:let_tutor/utils/jitsi_meet_methods.dart';
+import 'package:let_tutor/core/utils/jitsi_meet_methods.dart';
 
 class SingleSchedule extends StatefulWidget {
   const SingleSchedule({super.key});

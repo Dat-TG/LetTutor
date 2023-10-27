@@ -9,8 +9,8 @@ import 'package:let_tutor/core/common/custom_date_picker.dart';
 import 'package:let_tutor/core/common/custom_textfield.dart';
 import 'package:let_tutor/core/common/dropdown_select.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
-import 'package:let_tutor/utils/constants.dart';
-import 'package:let_tutor/utils/helpers.dart';
+import 'package:let_tutor/core/utils/constants.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
 
 class EditAccountScreen extends StatefulWidget {
   static const String routeName = 'edit-account';

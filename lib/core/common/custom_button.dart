@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:let_tutor/utils/colors.dart';
+import 'package:let_tutor/core/utils/colors.dart';
 
 // A common button
 class CustomButton extends StatelessWidget {

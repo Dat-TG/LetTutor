@@ -6,8 +6,8 @@ import 'package:let_tutor/presentation/settings/change_password_screen.dart';
 import 'package:let_tutor/presentation/settings/widgets/about_us_dialog.dart';
 import 'package:let_tutor/presentation/settings/widgets/change_language_dialog.dart';
 import 'package:let_tutor/presentation/settings/widgets/feedback_dialog.dart';
-import 'package:let_tutor/utils/listtile_item.dart';
-import 'package:let_tutor/utils/url_launcher.dart';
+import 'package:let_tutor/core/utils/listtile_item.dart';
+import 'package:let_tutor/core/utils/url_launcher.dart';
 
 class SettingsScreen extends StatefulWidget {
   static const String routeName = 'settings';

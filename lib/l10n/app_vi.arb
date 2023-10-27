@@ -209,5 +209,8 @@
     "time": "Thời gian",
     "exit": "Thoát",
     "registerUppercase": "ĐĂNG KÝ",
-    "alreadyHaveAnAccount": "Đã có tài khoản?"
+    "alreadyHaveAnAccount": "Đã có tài khoản?",
+    "doYouWantToExit":"Bạn có muốn thoát ứng dụng?",
+    "yes": "Có",
+    "no": "Không"
 }

@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Helpers {
   static void openFilterDialog(BuildContext context, List<String> list,
@@ -82,5 +83,52 @@ class Helpers {
         content: Text(text),
       ),
     );
+  }
+
+  static Future<bool> showExitPopup(context) async {
+    return await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content: SizedBox(
+                  height: 90,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(AppLocalizations.of(context)!.doYouWantToExit),
+                      const SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                exit(0);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red.shade800),
+                              child: Text(AppLocalizations.of(context)!.yes),
+                            ),
+                          ),
+                          const SizedBox(width: 15),
+                          Expanded(
+                              child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                            ),
+                            child: Text(AppLocalizations.of(context)!.no,
+                                style: const TextStyle(color: Colors.black)),
+                          ))
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }) ??
+        false;
   }
 }

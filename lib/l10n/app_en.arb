@@ -209,5 +209,8 @@
     "time": "Time",
     "exit": "Exit",
     "registerUppercase": "SIGN UP",
-    "alreadyHaveAnAccount": "Already have an account?"
+    "alreadyHaveAnAccount": "Already have an account?",
+    "doYouWantToExit":"Do you want to exit?",
+    "yes": "Yes",
+    "no": "No"
 }
