@@ -205,5 +205,6 @@
     "tutor": "Gia sư",
     "type": "Phân loại",
     "student": "Học viên",
-    "time": "Thời gian"
+    "time": "Thời gian",
+    "exit": "Thoát"
 }

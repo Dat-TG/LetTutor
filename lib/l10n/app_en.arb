@@ -205,5 +205,6 @@
     "tutor": "Tutor",
     "type": "Type",
     "student": "Student",
-    "time": "Time"
+    "time": "Time",
+    "exit": "Exit"
 }

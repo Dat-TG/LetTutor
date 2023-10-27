@@ -16,6 +16,8 @@ class LessonScreen extends StatefulWidget {
 }
 
 class _LessonScreenState extends State<LessonScreen> {
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
   int _selectedIndex = 0;
   List<String> topics = [
     'The Internet',
@@ -49,6 +51,17 @@ class _LessonScreenState extends State<LessonScreen> {
     ),
   );
 
+  openDrawer() async {
+    await Future.delayed(Duration.zero);
+    _scaffoldKey.currentState!.openDrawer();
+  }
+
+  @override
+  void initState() {
+    openDrawer();
+    super.initState();
+  }
+
   @override
   void dispose() {
     pdfController.dispose();
@@ -59,6 +72,7 @@ class _LessonScreenState extends State<LessonScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: AppBarNormal(title: AppLocalizations.of(context)!.lessonDetails),
