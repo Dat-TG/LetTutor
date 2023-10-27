@@ -21,6 +21,7 @@ import 'package:let_tutor/presentation/register/register_screen.dart';
 import 'package:let_tutor/presentation/search/search_screen.dart';
 import 'package:let_tutor/presentation/settings/change_password_screen.dart';
 import 'package:let_tutor/presentation/settings/settings_screen.dart';
+import 'package:let_tutor/presentation/tutor/tutor_screen.dart';
 import 'package:let_tutor/presentation/tutor/widgets/all_tutors.dart';
 import 'package:let_tutor/presentation/welcome/welcome_screen.dart';
 import 'package:let_tutor/utils/helpers.dart';
@@ -39,6 +40,13 @@ class MyRouter {
         path: '/home',
         builder: (context, state) => const BottomBar(
           tab: 0,
+        ),
+      ),
+      GoRoute(
+        name: TutorScreen.routeName,
+        path: '/tutor-list',
+        builder: (context, state) => const BottomBar(
+          tab: 1,
         ),
       ),
       GoRoute(

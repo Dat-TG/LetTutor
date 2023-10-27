@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/presentation/tutor/tutor_screen.dart';
 
 class HomeBanner extends StatelessWidget {
   const HomeBanner({super.key});
@@ -79,13 +81,15 @@ class HomeBanner extends StatelessWidget {
                 ),
                 CustomButton(
                   title: AppLocalizations.of(context)!.bookALesson,
-                  callback: () {},
+                  callback: () {
+                    GoRouter.of(context).pushNamed(TutorScreen.routeName);
+                  },
                   backgroundColor: Theme.of(context).secondaryHeaderColor,
-                  textSize: 16,
+                  textSize: 15,
                   titleColor: Colors.white,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 10,
-                    vertical: 5,
+                    vertical: 10,
                   ),
                 ),
               ],

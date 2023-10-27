@@ -5,6 +5,7 @@ import 'package:let_tutor/presentation/tutor/widgets/upcoming_lesson.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TutorScreen extends StatefulWidget {
+  static const String routeName = 'tutorListScreen';
   const TutorScreen({super.key});
 
   @override
