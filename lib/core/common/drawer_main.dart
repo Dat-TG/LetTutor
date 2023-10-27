@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/presentation/become-tutor/become_tutor_screen.dart';
 import 'package:let_tutor/presentation/edit-account/edit_account_screen.dart';
 import 'package:let_tutor/presentation/history/history_screen.dart';
+import 'package:let_tutor/presentation/login/login_screen.dart';
 import 'package:let_tutor/presentation/my-wallet/my_wallet_screen.dart';
 import 'package:let_tutor/presentation/settings/settings_screen.dart';
 import 'package:let_tutor/utils/listtile_item.dart';
@@ -98,7 +99,9 @@ class DrawerMain extends StatelessWidget {
             Icons.logout_rounded,
             color: Theme.of(context).primaryColor,
           ),
-          callback: () {}),
+          callback: () {
+            GoRouter.of(context).goNamed(LoginScreen.routeName);
+          }),
     ];
 
     return Drawer(

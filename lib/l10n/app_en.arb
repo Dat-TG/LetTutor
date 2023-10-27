@@ -1,5 +1,6 @@
 {
     "recommendedTutors": "Recommended Tutors",
+    "login": "Log in",
     "logInUpperCase": "LOG IN",
     "passwordUppercase": "PASSWORD",
     "forgotPassword": "Forgot Password?",
@@ -206,5 +207,7 @@
     "type": "Type",
     "student": "Student",
     "time": "Time",
-    "exit": "Exit"
+    "exit": "Exit",
+    "registerUppercase": "SIGN UP",
+    "alreadyHaveAnAccount": "Already have an account?"
 }

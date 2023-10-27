@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:let_tutor/presentation/details-course/course_details.dart';
-import 'package:let_tutor/presentation/lesson/lesson_screen.dart';
 
 class DrawerLesson extends StatefulWidget {
   final int selectedIndex;

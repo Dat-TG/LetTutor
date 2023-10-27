@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/presentation/login/login_screen.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+  final bool isRegister;
+  const LoginForm({super.key, this.isRegister = false});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -120,9 +122,15 @@ class _LoginFormState extends State<LoginForm> {
             children: [
               Expanded(
                 child: CustomButton(
-                  title: AppLocalizations.of(context)!.logInUpperCase,
+                  title: widget.isRegister
+                      ? AppLocalizations.of(context)!.registerUppercase
+                      : AppLocalizations.of(context)!.logInUpperCase,
                   callback: () {
-                    GoRouter.of(context).goNamed('home');
+                    if (widget.isRegister) {
+                      GoRouter.of(context).goNamed(LoginScreen.routeName);
+                    } else {
+                      GoRouter.of(context).goNamed('home');
+                    }
                   },
                   textSize: 20,
                   borderRadius: 10,

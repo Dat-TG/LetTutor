@@ -1,5 +1,6 @@
 {
     "recommendedTutors": "Gia sư được đề xuất",
+    "login": "Đăng nhập",
     "logInUpperCase": "ĐĂNG NHẬP",
     "passwordUppercase": "MẬT KHẨU",
     "forgotPassword": "Quên mật khẩu?",
@@ -206,5 +207,7 @@
     "type": "Phân loại",
     "student": "Học viên",
     "time": "Thời gian",
-    "exit": "Thoát"
+    "exit": "Thoát",
+    "registerUppercase": "ĐĂNG KÝ",
+    "alreadyHaveAnAccount": "Đã có tài khoản?"
 }

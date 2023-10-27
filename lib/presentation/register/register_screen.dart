@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/appbar_login.dart';
+import 'package:let_tutor/presentation/login/login_screen.dart';
 import 'package:let_tutor/presentation/login/widgets/login_form.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:let_tutor/presentation/register/register_screen.dart';
 
-class LoginScreen extends StatelessWidget {
-  static const String routeName = 'login';
-  const LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  static const String routeName = 'register';
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              AppLocalizations.of(context)!.logInUpperCase,
+              AppLocalizations.of(context)!.registerUppercase,
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 30,
@@ -35,7 +35,7 @@ class LoginScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            const LoginForm(),
+            const LoginForm(isRegister: true),
             const SizedBox(
               height: 30,
             ),
@@ -96,7 +96,7 @@ class LoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  AppLocalizations.of(context)!.notAMemberYet,
+                  AppLocalizations.of(context)!.alreadyHaveAnAccount,
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 18,
@@ -107,10 +107,10 @@ class LoginScreen extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    GoRouter.of(context).pushNamed(RegisterScreen.routeName);
+                    GoRouter.of(context).pushNamed(LoginScreen.routeName);
                   },
                   child: Text(
-                    AppLocalizations.of(context)!.signUp,
+                    AppLocalizations.of(context)!.login,
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontSize: 18,
