@@ -106,7 +106,16 @@ class Helpers {
                                 exit(0);
                               },
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.red.shade800),
+                                shadowColor: Colors.transparent,
+                                backgroundColor: Colors.red.shade800,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  side: const BorderSide(
+                                    width: 1,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ),
                               child: Text(AppLocalizations.of(context)!.yes),
                             ),
                           ),
@@ -117,10 +126,22 @@ class Helpers {
                               Navigator.of(context).pop();
                             },
                             style: ElevatedButton.styleFrom(
+                              shadowColor: Colors.transparent,
                               backgroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                side: const BorderSide(
+                                  width: 1,
+                                  color: Colors.grey,
+                                ),
+                              ),
                             ),
-                            child: Text(AppLocalizations.of(context)!.no,
-                                style: const TextStyle(color: Colors.black)),
+                            child: Text(
+                              AppLocalizations.of(context)!.no,
+                              style: const TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
                           ))
                         ],
                       )

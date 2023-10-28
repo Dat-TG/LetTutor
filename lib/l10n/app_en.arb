@@ -212,5 +212,11 @@
     "alreadyHaveAnAccount": "Already have an account?",
     "doYouWantToExit":"Do you want to exit?",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "lessonTime": "Lesson Time",
+    "whatWasTheReasonYouCancelThisBooking": "What was the reason you cancel this booking?",
+    "rescheduleAtAnotherTime":"Reschedule at another time",
+    "busyAtThatTime":"Busy at that time",
+    "askedByTheTutor":"Asked by the tutor",
+    "other":"Other"
 }

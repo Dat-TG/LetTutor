@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/expanded_paragraph.dart';
 import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
+import 'package:let_tutor/presentation/schedule/widgets/cancel_schedule_dialog.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
 import 'package:let_tutor/core/utils/jitsi_meet_methods.dart';
 
@@ -17,6 +18,15 @@ class SingleSchedule extends StatefulWidget {
 }
 
 class _SingleScheduleState extends State<SingleSchedule> {
+  Future<void> cancelBooking(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return const CancelScheduleDialog();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -238,7 +248,9 @@ class _SingleScheduleState extends State<SingleSchedule> {
           top: 10,
           child: CustomButton(
             title: AppLocalizations.of(context)!.cancel,
-            callback: () {},
+            callback: () {
+              cancelBooking(context);
+            },
             backgroundColor: Colors.red,
             titleColor: Colors.white,
             borderRadius: 5,

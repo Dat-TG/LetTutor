@@ -212,5 +212,11 @@
     "alreadyHaveAnAccount": "Đã có tài khoản?",
     "doYouWantToExit":"Bạn có muốn thoát ứng dụng?",
     "yes": "Có",
-    "no": "Không"
+    "no": "Không",
+    "lessonTime": "Thời gian buổi học",
+    "whatWasTheReasonYouCancelThisBooking": "Lý do bạn hủy buổi học này là gì?",
+    "rescheduleAtAnotherTime":"Đặt lịch lại vào một thời gian khác",
+    "busyAtThatTime":"Lúc đó bận",
+    "askedByTheTutor":"Yêu cầu bởi gia sư",
+    "other":"Lý do khác"
 }
