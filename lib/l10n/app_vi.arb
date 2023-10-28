@@ -218,5 +218,6 @@
     "rescheduleAtAnotherTime":"Đặt lịch lại vào một thời gian khác",
     "busyAtThatTime":"Lúc đó bận",
     "askedByTheTutor":"Yêu cầu bởi gia sư",
-    "other":"Lý do khác"
+    "other":"Lý do khác",
+    "specialRequest":"Yêu cầu đặc biệt"
 }

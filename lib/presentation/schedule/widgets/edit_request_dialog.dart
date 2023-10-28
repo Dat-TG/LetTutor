@@ -3,15 +3,15 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/custom_textfield.dart';
 
-class FeedbackDialog extends StatefulWidget {
-  const FeedbackDialog({super.key});
+class EditRequestDialog extends StatefulWidget {
+  const EditRequestDialog({super.key});
 
   @override
-  State<FeedbackDialog> createState() => _FeedbackDialogState();
+  State<EditRequestDialog> createState() => _EditRequestDialogState();
 }
 
-class _FeedbackDialogState extends State<FeedbackDialog> {
-  final TextEditingController _feedbackController = TextEditingController();
+class _EditRequestDialogState extends State<EditRequestDialog> {
+  final TextEditingController _noteController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -41,7 +41,7 @@ class _FeedbackDialogState extends State<FeedbackDialog> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(AppLocalizations.of(context)!.feedback),
+            Text(AppLocalizations.of(context)!.specialRequest),
             IconButton(
                 splashRadius: 20,
                 onPressed: () {
@@ -61,9 +61,9 @@ class _FeedbackDialogState extends State<FeedbackDialog> {
           mainAxisSize: MainAxisSize.min,
           children: [
             CustomTextField(
-              controller: _feedbackController,
+              controller: _noteController,
               maxLines: 4,
-              labelText: AppLocalizations.of(context)!.feedback,
+              labelText: AppLocalizations.of(context)!.note,
               margin: EdgeInsets.zero,
               alignLabelWithHint: true,
             )

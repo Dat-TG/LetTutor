@@ -12,6 +12,9 @@ class _AboutUsDialogState extends State<AboutUsDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      insetPadding: const EdgeInsets.symmetric(
+        horizontal: 30,
+      ),
       titlePadding: EdgeInsets.zero,
       title: Container(
         decoration: const BoxDecoration(

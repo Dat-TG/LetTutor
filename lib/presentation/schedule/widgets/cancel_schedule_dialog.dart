@@ -23,6 +23,10 @@ class _CancelScheduleDialogState extends State<CancelScheduleDialog> {
       AppLocalizations.of(context)!.other,
     ];
     return AlertDialog(
+      insetPadding: const EdgeInsets.symmetric(
+        horizontal: 30,
+      ),
+      contentPadding: const EdgeInsets.all(20),
       actionsPadding: const EdgeInsets.only(
         bottom: 20,
         right: 25,
@@ -115,6 +119,7 @@ class _CancelScheduleDialogState extends State<CancelScheduleDialog> {
               height: 10,
             ),
             DropdownMenu<String>(
+              width: MediaQuery.of(context).size.width - 20 * 2 - 30 * 2,
               initialSelection: null,
               onSelected: (String? value) {
                 // This is called when the user selects an item.
