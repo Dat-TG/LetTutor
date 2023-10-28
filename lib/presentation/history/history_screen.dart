@@ -5,10 +5,15 @@ import 'package:let_tutor/presentation/details-course/widgets/course_details_tit
 import 'package:let_tutor/presentation/history/widgets/history_banner.dart';
 import 'package:let_tutor/presentation/history/widgets/history_card.dart';
 
-class HistoryScreen extends StatelessWidget {
+class HistoryScreen extends StatefulWidget {
   static const String routeName = 'history';
   const HistoryScreen({super.key});
 
+  @override
+  State<HistoryScreen> createState() => _HistoryScreenState();
+}
+
+class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

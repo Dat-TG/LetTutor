@@ -23,6 +23,9 @@ class _ReportTutorState extends State<ReportTutor> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      insetPadding: const EdgeInsets.symmetric(
+        horizontal: 30,
+      ),
       actionsPadding: const EdgeInsets.only(
         bottom: 20,
         right: 30,

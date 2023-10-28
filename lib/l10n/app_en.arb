@@ -219,5 +219,9 @@
     "busyAtThatTime":"Busy at that time",
     "askedByTheTutor":"Asked by the tutor",
     "other":"Other",
-    "specialRequest":"Special Request"
+    "specialRequest":"Special Request",
+    "tutorWasLate": "Tutor was late",
+    "tutorWasAbsent":"Tutor was absent",
+    "networkUnstable":"Network unstable",
+    "whatWasTheReasonYouReportedOnTheLesson":"What was the reason you reported on the lesson?"
 }

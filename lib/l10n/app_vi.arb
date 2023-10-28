@@ -219,5 +219,9 @@
     "busyAtThatTime":"Lúc đó bận",
     "askedByTheTutor":"Yêu cầu bởi gia sư",
     "other":"Lý do khác",
-    "specialRequest":"Yêu cầu đặc biệt"
+    "specialRequest":"Yêu cầu đặc biệt",
+    "tutorWasLate": "Gia sư trễ giờ",
+    "tutorWasAbsent":"Gia sư vắng mặt",
+    "networkUnstable":"Mạng không ổn định",
+    "whatWasTheReasonYouReportedOnTheLesson":"Lý do bạn báo cáo buổi học này là gì?"
 }

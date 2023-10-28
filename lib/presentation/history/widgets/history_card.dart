@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/expanded_paragraph.dart';
 import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
+import 'package:let_tutor/presentation/history/widgets/report_lesson_dialog.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
 
 class HistoryCard extends StatefulWidget {
@@ -14,6 +15,15 @@ class HistoryCard extends StatefulWidget {
 }
 
 class _HistoryCardState extends State<HistoryCard> {
+  Future<void> reportLesson(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return const ReportLessonDialog();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -194,7 +204,9 @@ class _HistoryCardState extends State<HistoryCard> {
                     vertical: 10,
                     horizontal: 20,
                   ),
-                  callback: () {},
+                  callback: () {
+                    reportLesson(context);
+                  },
                   icon: const Icon(
                     Icons.report_rounded,
                     size: 20,
