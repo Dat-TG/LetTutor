@@ -93,7 +93,16 @@ class _ReportLessonDialogState extends State<ReportLessonDialog> {
               height: 5,
             ),
             Text(
-              DateFormat().format(DateTime.now()),
+              DateFormat().format(
+                DateTime.utc(
+                  2023,
+                  10,
+                  29,
+                  8,
+                  25,
+                  0,
+                ),
+              ),
               style: const TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w600,

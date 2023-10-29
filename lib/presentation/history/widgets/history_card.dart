@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/expanded_paragraph.dart';
 import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
+import 'package:let_tutor/presentation/history/widgets/rating_dialog.dart';
 import 'package:let_tutor/presentation/history/widgets/report_lesson_dialog.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
 
@@ -20,6 +21,15 @@ class _HistoryCardState extends State<HistoryCard> {
       context: context,
       builder: (BuildContext context) {
         return const ReportLessonDialog();
+      },
+    );
+  }
+
+  Future<void> ratingLesson(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return const RatingDialog();
       },
     );
   }
@@ -180,7 +190,9 @@ class _HistoryCardState extends State<HistoryCard> {
                 CustomButton(
                   title: AppLocalizations.of(context)!.rateTutor,
                   titleColor: Colors.white,
-                  callback: () {},
+                  callback: () {
+                    ratingLesson(context);
+                  },
                   textSize: 16,
                   padding: const EdgeInsets.symmetric(
                     vertical: 10,

@@ -223,5 +223,12 @@
     "tutorWasLate": "Gia sư trễ giờ",
     "tutorWasAbsent":"Gia sư vắng mặt",
     "networkUnstable":"Mạng không ổn định",
-    "whatWasTheReasonYouReportedOnTheLesson":"Lý do bạn báo cáo buổi học này là gì?"
+    "whatWasTheReasonYouReportedOnTheLesson":"Lý do bạn báo cáo buổi học này là gì?",
+    "whatIsYourRatingFor":"Bạn đánh giá gì cho",
+    "contentReview":"Nội dung đánh giá",
+      "terrible":"Rất tệ",
+    "bad":"Không hài lòng",
+    "normal":"Bình thường",
+    "good":"Tốt",
+    "wonderful":"Tuyệt vời"
 }

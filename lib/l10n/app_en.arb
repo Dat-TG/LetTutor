@@ -223,5 +223,12 @@
     "tutorWasLate": "Tutor was late",
     "tutorWasAbsent":"Tutor was absent",
     "networkUnstable":"Network unstable",
-    "whatWasTheReasonYouReportedOnTheLesson":"What was the reason you reported on the lesson?"
+    "whatWasTheReasonYouReportedOnTheLesson":"What was the reason you reported on the lesson?",
+    "whatIsYourRatingFor":"What is your rating for",
+    "contentReview":"Content review",
+    "terrible":"Terrible",
+    "bad":"Bad",
+    "normal":"Normal",
+    "good":"Good",
+    "wonderful":"Wonderful"
 }

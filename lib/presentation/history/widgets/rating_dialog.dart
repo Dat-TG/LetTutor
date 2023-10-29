@@ -1,32 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/custom_textfield.dart';
 
-class CancelScheduleDialog extends StatefulWidget {
-  const CancelScheduleDialog({super.key});
+class RatingDialog extends StatefulWidget {
+  const RatingDialog({super.key});
 
   @override
-  State<CancelScheduleDialog> createState() => _CancelScheduleDialogState();
+  State<RatingDialog> createState() => _RatingDialogState();
 }
 
-class _CancelScheduleDialogState extends State<CancelScheduleDialog> {
+class _RatingDialogState extends State<RatingDialog> {
   final TextEditingController _noteController = TextEditingController();
-  String reason = '';
+  double rating = 5;
   @override
   Widget build(BuildContext context) {
-    final List<String> reasons = [
-      AppLocalizations.of(context)!.rescheduleAtAnotherTime,
-      AppLocalizations.of(context)!.busyAtThatTime,
-      AppLocalizations.of(context)!.askedByTheTutor,
-      AppLocalizations.of(context)!.other,
+    final List<String> ratingDescriptions = [
+      AppLocalizations.of(context)!.terrible,
+      AppLocalizations.of(context)!.bad,
+      AppLocalizations.of(context)!.normal,
+      AppLocalizations.of(context)!.good,
+      AppLocalizations.of(context)!.wonderful,
     ];
     return AlertDialog(
       insetPadding: const EdgeInsets.symmetric(
         horizontal: 30,
       ),
-      contentPadding: const EdgeInsets.all(20),
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: 30,
+        vertical: 20,
+      ),
       actionsPadding: const EdgeInsets.only(
         bottom: 20,
         right: 25,
@@ -117,8 +122,7 @@ class _CancelScheduleDialogState extends State<CancelScheduleDialog> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              AppLocalizations.of(context)!
-                  .whatWasTheReasonYouCancelThisBooking,
+              '${AppLocalizations.of(context)!.whatIsYourRatingFor} Keegan?',
               style: const TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w600,
@@ -127,26 +131,45 @@ class _CancelScheduleDialogState extends State<CancelScheduleDialog> {
             const SizedBox(
               height: 10,
             ),
-            DropdownMenu<String>(
-              width: MediaQuery.of(context).size.width - 20 * 2 - 30 * 2,
-              initialSelection: null,
-              onSelected: (String? value) {
-                // This is called when the user selects an item.
-                setState(() {
-                  reason = value!;
-                });
-              },
-              dropdownMenuEntries:
-                  reasons.map<DropdownMenuEntry<String>>((String value) {
-                return DropdownMenuEntry<String>(value: value, label: value);
-              }).toList(),
+            Center(
+              child: RatingBar.builder(
+                initialRating: 5,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: false,
+                itemCount: 5,
+                itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                itemBuilder: (context, _) => const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                  size: 20,
+                ),
+                onRatingUpdate: (value) {
+                  setState(() {
+                    rating = value;
+                  });
+                },
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Center(
+              child: Text(
+                ratingDescriptions[rating.ceil() - 1],
+                style: const TextStyle(
+                  fontSize: 17,
+                  color: Colors.amber,
+                ),
+              ),
             ),
             const SizedBox(
               height: 10,
             ),
             CustomTextField(
               controller: _noteController,
-              labelText: AppLocalizations.of(context)!.note,
+              alignLabelWithHint: true,
+              labelText: AppLocalizations.of(context)!.contentReview,
               maxLines: 3,
               margin: EdgeInsets.zero,
             ),
