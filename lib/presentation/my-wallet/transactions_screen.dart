@@ -68,7 +68,7 @@ class TransactionsScreen extends StatelessWidget {
                     flex: 2,
                     child: CellContent(
                       content: Text(
-                        AppLocalizations.of(context)!.book,
+                        AppLocalizations.of(context)!.bookTransaction,
                         style: const TextStyle(
                           fontSize: 15,
                         ),

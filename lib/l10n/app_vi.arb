@@ -230,5 +230,6 @@
     "bad":"Không hài lòng",
     "normal":"Bình thường",
     "good":"Tốt",
-    "wonderful":"Tuyệt vời"
+    "wonderful":"Tuyệt vời",
+    "bookTransaction": "Đặt lịch"
 }

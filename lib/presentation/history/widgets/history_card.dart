@@ -68,9 +68,8 @@ class _HistoryCardState extends State<HistoryCard> {
                     onTap: () =>
                         GoRouter.of(context).pushNamed(TutorDetails.routeName),
                     child: const CircleAvatar(
-                      backgroundImage: AssetImage(
-                        'assets/images/hero_img.png',
-                      ),
+                      backgroundImage: NetworkImage(
+                          'https://sandbox.api.lettutor.com/avatar/4d54d3d7-d2a9-42e5-97a2-5ed38af5789aavatar1684484879187.jpg'),
                       radius: 30,
                     ),
                   ),
@@ -87,7 +86,7 @@ class _HistoryCardState extends State<HistoryCard> {
                         onTap: () => GoRouter.of(context)
                             .pushNamed(TutorDetails.routeName),
                         child: const Text(
-                          'Hai Pham',
+                          'Keegan',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.black,

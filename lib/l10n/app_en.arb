@@ -230,5 +230,6 @@
     "bad":"Bad",
     "normal":"Normal",
     "good":"Good",
-    "wonderful":"Wonderful"
+    "wonderful":"Wonderful",
+    "bookTransaction": "Book"
 }

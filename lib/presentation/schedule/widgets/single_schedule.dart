@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/expanded_paragraph.dart';
+import 'package:let_tutor/presentation/conversation/conversation_screen.dart';
 import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
 import 'package:let_tutor/presentation/schedule/widgets/cancel_schedule_dialog.dart';
 import 'package:let_tutor/presentation/schedule/widgets/edit_request_dialog.dart';
@@ -73,9 +74,8 @@ class _SingleScheduleState extends State<SingleSchedule> {
                         onTap: () => GoRouter.of(context)
                             .pushNamed(TutorDetails.routeName),
                         child: const CircleAvatar(
-                          backgroundImage: AssetImage(
-                            'assets/images/hero_img.png',
-                          ),
+                          backgroundImage: NetworkImage(
+                              'https://sandbox.api.lettutor.com/avatar/4d54d3d7-d2a9-42e5-97a2-5ed38af5789aavatar1684484879187.jpg'),
                           radius: 30,
                         ),
                       ),
@@ -92,7 +92,7 @@ class _SingleScheduleState extends State<SingleSchedule> {
                             onTap: () => GoRouter.of(context)
                                 .pushNamed(TutorDetails.routeName),
                             child: const Text(
-                              'Hai Pham',
+                              'Keegan',
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
@@ -242,7 +242,10 @@ class _SingleScheduleState extends State<SingleSchedule> {
                         vertical: 10,
                         horizontal: 20,
                       ),
-                      callback: () {},
+                      callback: () {
+                        GoRouter.of(context)
+                            .pushNamed(ConversationScreen.routeName);
+                      },
                       icon: const Icon(
                         Icons.message_rounded,
                         size: 20,

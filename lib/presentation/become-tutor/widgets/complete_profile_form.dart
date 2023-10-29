@@ -279,6 +279,11 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         ),
         for (int i = 0; i < AppConstants.basicLevels.length; i++)
           ListTile(
+            onTap: () {
+              setState(() {
+                _level = AppConstants.basicLevels[i];
+              });
+            },
             contentPadding: EdgeInsets.zero,
             title: Text(
               AppConstants.basicLevels[i],
