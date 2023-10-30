@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/core/providers/locale_provider.dart';
 import 'package:let_tutor/presentation/settings/change_password_screen.dart';
 import 'package:let_tutor/presentation/settings/widgets/about_us_dialog.dart';
 import 'package:let_tutor/presentation/settings/widgets/change_language_dialog.dart';
 import 'package:let_tutor/presentation/settings/widgets/feedback_dialog.dart';
 import 'package:let_tutor/core/utils/listtile_item.dart';
 import 'package:let_tutor/core/utils/url_launcher.dart';
+import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   static const String routeName = 'settings';
@@ -67,6 +69,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String locale =
+        Provider.of<LocaleProvider>(context).locale?.languageCode ?? 'en';
     final List<ListTileItem> options = [
       ListTileItem(
           title: AppLocalizations.of(context)!.language,
@@ -78,7 +82,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                'assets/images/united-states.png',
+                locale == 'en'
+                    ? 'assets/images/united-states.png'
+                    : 'assets/images/vietnam.png',
                 width: 22.5,
                 height: 15,
                 fit: BoxFit.cover,
@@ -87,7 +93,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 width: 10,
               ),
               Text(
-                AppLocalizations.of(context)!.englishLanguage,
+                locale == 'en'
+                    ? AppLocalizations.of(context)!.englishLanguage
+                    : AppLocalizations.of(context)!.vietnamese,
                 style: const TextStyle(
                   color: Colors.black54,
                   fontSize: 15,

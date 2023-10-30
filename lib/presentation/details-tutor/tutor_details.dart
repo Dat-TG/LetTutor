@@ -40,15 +40,15 @@ class _TutorDetailsState extends State<TutorDetails> {
         child: AppBarNormal(title: AppLocalizations.of(context)!.tutorDetails),
       ),
       floatingActionButton: CustomButton(
-        title: AppLocalizations.of(context)!.bookNow,
+        title: ' ${AppLocalizations.of(context)!.bookNow}',
         callback: () {
           GoRouter.of(context).pushNamed(BookLessonScreen.routeName);
         },
         borderRadius: 20,
-        textSize: 16,
+        textSize: 18,
         padding: const EdgeInsets.symmetric(
-          horizontal: 10,
-          vertical: 5,
+          horizontal: 20,
+          vertical: 10,
         ),
         icon: const Icon(
           Icons.perm_contact_calendar_rounded,

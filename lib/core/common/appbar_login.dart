@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:let_tutor/core/providers/locale_provider.dart';
+import 'package:provider/provider.dart';
 
 class AppBarLogin extends StatefulWidget {
   const AppBarLogin({super.key});
@@ -8,7 +10,6 @@ class AppBarLogin extends StatefulWidget {
 }
 
 class _AppBarLoginState extends State<AppBarLogin> {
-  int index = 0;
   List<Language> languages = [
     Language(image: 'assets/images/united-states.png', name: 'English'),
     Language(image: 'assets/images/vietnam.png', name: 'Vietnamese'),
@@ -16,6 +17,12 @@ class _AppBarLoginState extends State<AppBarLogin> {
 
   @override
   Widget build(BuildContext context) {
+    int index = Provider.of<LocaleProvider>(context, listen: true)
+                .locale
+                ?.languageCode ==
+            'en'
+        ? 0
+        : 1;
     return AppBar(
       centerTitle: true,
       toolbarHeight: 80,
@@ -57,7 +64,13 @@ class _AppBarLoginState extends State<AppBarLogin> {
             menuChildren: List<MenuItemButton>.generate(
               2,
               (int id) => MenuItemButton(
-                onPressed: () => setState(() => index = id),
+                onPressed: () {
+                  if (id != index) {
+                    Provider.of<LocaleProvider>(context, listen: false)
+                        .changeLocaleSettings(Locale(id == 0 ? 'en' : 'vi'));
+                  }
+                  setState(() => index = id);
+                },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,

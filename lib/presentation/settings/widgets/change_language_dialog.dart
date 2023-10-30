@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/core/providers/locale_provider.dart';
+import 'package:provider/provider.dart';
 
 class ChangeLanguageDialog extends StatefulWidget {
   const ChangeLanguageDialog({super.key});
@@ -9,9 +11,31 @@ class ChangeLanguageDialog extends StatefulWidget {
 }
 
 class _ChangeLanguageDialogState extends State<ChangeLanguageDialog> {
-  String _language = 'English';
   @override
   Widget build(BuildContext context) {
+    String language = Provider.of<LocaleProvider>(context, listen: false)
+                .locale
+                ?.languageCode ==
+            'en'
+        ? AppLocalizations.of(context)!.englishLanguage
+        : AppLocalizations.of(context)!.vietnamese;
+
+    void setEnglish(String? value) {
+      setState(() {
+        language = value!;
+        Provider.of<LocaleProvider>(context, listen: false)
+            .changeLocaleSettings(const Locale('en'));
+      });
+    }
+
+    void setVietnamese(String? value) {
+      setState(() {
+        language = value!;
+        Provider.of<LocaleProvider>(context, listen: false)
+            .changeLocaleSettings(const Locale('vi'));
+      });
+    }
+
     return AlertDialog(
       titlePadding: EdgeInsets.zero,
       title: Container(
@@ -74,18 +98,13 @@ class _ChangeLanguageDialogState extends State<ChangeLanguageDialog> {
                 ],
               ),
               onTap: () {
-                setState(() {
-                  _language = 'English';
-                });
-                Navigator.pop(context);
+                setEnglish(AppLocalizations.of(context)!.englishLanguage);
               },
               leading: Radio<String>(
-                value: 'English',
-                groupValue: _language,
+                value: AppLocalizations.of(context)!.englishLanguage,
+                groupValue: language,
                 onChanged: (String? value) {
-                  setState(() {
-                    _language = value!;
-                  });
+                  setEnglish(value);
                 },
               ),
             ),
@@ -112,19 +131,13 @@ class _ChangeLanguageDialogState extends State<ChangeLanguageDialog> {
                 ],
               ),
               onTap: () {
-                setState(() {
-                  _language = 'Vietnamese';
-                });
-                Navigator.pop(context);
+                setVietnamese(AppLocalizations.of(context)!.vietnamese);
               },
               leading: Radio<String>(
-                value: 'Vietnamese',
-                groupValue: _language,
+                value: AppLocalizations.of(context)!.vietnamese,
+                groupValue: language,
                 onChanged: (String? value) {
-                  setState(() {
-                    _language = value!;
-                  });
-                  Navigator.pop(context);
+                  setVietnamese(value);
                 },
               ),
             ),
