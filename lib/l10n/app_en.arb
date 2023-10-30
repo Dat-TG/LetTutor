@@ -231,5 +231,8 @@
     "normal":"Normal",
     "good":"Good",
     "wonderful":"Wonderful",
-    "bookTransaction": "Book"
+    "bookTransaction": "Book",
+    "day": "day",
+    "days": "days",
+    "untilLessonStart":"until lesson start"
 }

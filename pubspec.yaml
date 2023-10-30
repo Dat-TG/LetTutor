@@ -59,6 +59,7 @@ dependencies:
   visibility_detector: ^0.4.0+2
   provider: ^6.0.5
   shared_preferences: ^2.2.2
+  fluttertoast: ^8.2.2
 
 flutter_launcher_icons:
   android: "launcher_icon"

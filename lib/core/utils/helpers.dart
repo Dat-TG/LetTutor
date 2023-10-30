@@ -77,11 +77,10 @@ class Helpers {
     return video;
   }
 
-  static void showSnackBar(BuildContext context, String text) {
+  static void showSnackBar(BuildContext context, String text,
+      [Duration duration = const Duration(seconds: 3)]) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(text),
-      ),
+      SnackBar(content: Text(text), duration: duration),
     );
   }
 
@@ -151,5 +150,18 @@ class Helpers {
               );
             }) ??
         false;
+  }
+
+  static String getUntilLessonTime(DateTime time, BuildContext context) {
+    final now = DateTime.now();
+    final difference = time.difference(now);
+    final days = difference.inDays;
+    final hours = difference.inHours - days * 24;
+    final minutes = difference.inMinutes - days * 24 * 60 - hours * 60;
+    final seconds = difference.inSeconds -
+        days * 24 * 60 * 60 -
+        hours * 60 * 60 -
+        minutes * 60;
+    return "${days > 0 ? days : ''} ${days > 1 ? AppLocalizations.of(context)!.days : days == 1 ? AppLocalizations.of(context)!.day : ''} ${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}";
   }
 }

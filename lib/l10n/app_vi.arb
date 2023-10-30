@@ -231,5 +231,8 @@
     "normal":"Bình thường",
     "good":"Tốt",
     "wonderful":"Tuyệt vời",
-    "bookTransaction": "Đặt lịch"
+    "bookTransaction": "Đặt lịch",
+    "day": "ngày",
+    "days": "ngày",
+    "untilLessonStart":"cho đến khi buổi học bắt đầu"
 }

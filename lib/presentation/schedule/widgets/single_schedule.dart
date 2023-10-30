@@ -211,7 +211,7 @@ class _SingleScheduleState extends State<SingleSchedule> {
                     CustomButton(
                       title: AppLocalizations.of(context)!.goToMeeting,
                       titleColor: Colors.white,
-                      callback: () => JitsiMeetMethods.joinMeeting(
+                      callback: () => JitsiMeetMethods.joinMeeting(context,
                           roomNameOrUrl: (Random().nextInt(10000000) + 10000000)
                               .toString(),
                           subject: 'Lesson Room',
