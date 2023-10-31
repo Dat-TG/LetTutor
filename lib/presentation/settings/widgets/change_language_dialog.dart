@@ -99,12 +99,14 @@ class _ChangeLanguageDialogState extends State<ChangeLanguageDialog> {
               ),
               onTap: () {
                 setEnglish(AppLocalizations.of(context)!.englishLanguage);
+                Navigator.pop(context);
               },
               leading: Radio<String>(
                 value: AppLocalizations.of(context)!.englishLanguage,
                 groupValue: language,
                 onChanged: (String? value) {
                   setEnglish(value);
+                  Navigator.pop(context);
                 },
               ),
             ),
@@ -132,12 +134,14 @@ class _ChangeLanguageDialogState extends State<ChangeLanguageDialog> {
               ),
               onTap: () {
                 setVietnamese(AppLocalizations.of(context)!.vietnamese);
+                Navigator.pop(context);
               },
               leading: Radio<String>(
                 value: AppLocalizations.of(context)!.vietnamese,
                 groupValue: language,
                 onChanged: (String? value) {
                   setVietnamese(value);
+                  Navigator.pop(context);
                 },
               ),
             ),

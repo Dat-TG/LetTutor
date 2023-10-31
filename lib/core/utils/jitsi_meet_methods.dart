@@ -75,7 +75,7 @@ class JitsiMeetMethods {
               Fluttertoast.showToast(
                 msg:
                     "$strTimeUntil ${AppLocalizations.of(context)!.untilLessonStart}\n(${DateFormat("EEEE, d MMMM y hh:mm", locale).format(nextLessonTime)})",
-                toastLength: Toast.LENGTH_LONG,
+                toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
                 backgroundColor: Colors.black.withOpacity(0.8),
                 textColor: Colors.white,
@@ -87,8 +87,8 @@ class JitsiMeetMethods {
         },
         onConferenceTerminated: (url, error) {
           debugPrint("onConferenceTerminated: url: $url, error: $error");
+          if (timer != null) timer!.cancel();
           Fluttertoast.cancel();
-          timer?.cancel();
         },
         onAudioMutedChanged: (isMuted) {
           debugPrint("onAudioMutedChanged: isMuted: $isMuted");
@@ -126,8 +126,8 @@ class JitsiMeetMethods {
         onChatToggled: (isOpen) => debugPrint("onChatToggled: isOpen: $isOpen"),
         onClosed: () {
           debugPrint("onClosed");
+          if (timer != null) timer!.cancel();
           Fluttertoast.cancel();
-          timer?.cancel();
         },
       ),
     );

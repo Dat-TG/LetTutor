@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/core/providers/dark_mode_provider.dart';
 import 'package:let_tutor/core/providers/locale_provider.dart';
 import 'package:let_tutor/presentation/settings/change_password_screen.dart';
 import 'package:let_tutor/presentation/settings/widgets/about_us_dialog.dart';
@@ -20,8 +21,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool isDarkMode = false;
-
   Future<void> changeLanguage(BuildContext context) {
     return showDialog<void>(
       context: context,
@@ -71,6 +70,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     String locale =
         Provider.of<LocaleProvider>(context).locale?.languageCode ?? 'en';
+    bool? isDark = Provider.of<DarkModeProvider>(context).isDarkModeOn;
+
     final List<ListTileItem> options = [
       ListTileItem(
           title: AppLocalizations.of(context)!.language,
@@ -114,18 +115,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
             color: Theme.of(context).primaryColor,
           ),
           trailing: Switch(
-            value: isDarkMode,
+            value: isDark ?? (ThemeMode.system == ThemeMode.dark),
             activeColor: Theme.of(context).primaryColor,
             onChanged: (value) {
-              setState(() {
-                isDarkMode = value;
-              });
+              Provider.of<DarkModeProvider>(context, listen: false)
+                  .changDarkModeSettings(value);
             },
           ),
           callback: () {
-            setState(() {
-              isDarkMode = !isDarkMode;
-            });
+            Provider.of<DarkModeProvider>(context, listen: false)
+                .changDarkModeSettings(isDark == null
+                    ? !(ThemeMode.system == ThemeMode.dark)
+                    : !isDark);
           }),
       ListTileItem(
           title: AppLocalizations.of(context)!.changePassword,
