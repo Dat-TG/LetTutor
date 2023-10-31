@@ -13,7 +13,7 @@ class TotalLessons extends StatelessWidget {
       height: 200,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).splashColor,
         boxShadow: const [
           BoxShadow(
             color: Colors.black54,

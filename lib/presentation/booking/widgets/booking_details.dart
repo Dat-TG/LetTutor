@@ -80,6 +80,7 @@ class _BookingDetailsState extends State<BookingDetails> {
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
+                  color: Colors.black,
                 ),
               ),
             ),
@@ -151,6 +152,7 @@ class _BookingDetailsState extends State<BookingDetails> {
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
+                      color: Colors.black,
                     ),
                   ),
                   const SizedBox(
@@ -174,6 +176,7 @@ class _BookingDetailsState extends State<BookingDetails> {
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
+                          color: Colors.black,
                         ),
                       ),
                       Text(

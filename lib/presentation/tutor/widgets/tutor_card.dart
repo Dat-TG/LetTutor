@@ -35,7 +35,7 @@ class TutorCard extends StatelessWidget {
                 ),
               ],
               borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
+              color: Theme.of(context).splashColor,
             ),
             child: Column(
               children: [
@@ -59,7 +59,6 @@ class TutorCard extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              color: Colors.black,
                               fontWeight: FontWeight.w700,
                               fontSize: 18,
                             ),
@@ -145,14 +144,14 @@ class TutorCard extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
                     'I am passionate about running and fitness, I often compete in trail/mountain running events and I love pushing myself. I am training to one day take part in ultra-endurance events. I also enjoy watching rugby on the weekends, reading and watching',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 4,
                     style: TextStyle(
-                      color: Colors.black54,
+                      color: Theme.of(context).iconTheme.color,
                       fontSize: 16,
                     ),
                   ),
@@ -165,7 +164,7 @@ class TutorCard extends StatelessWidget {
                   child: CustomButton(
                     title: AppLocalizations.of(context)!.bookNow,
                     callback: () {},
-                    backgroundColor: Colors.white,
+                    backgroundColor: Theme.of(context).splashColor,
                     titleColor: Theme.of(context).primaryColor,
                     borderRadius: 20,
                     textSize: 16,

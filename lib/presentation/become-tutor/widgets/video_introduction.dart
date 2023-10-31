@@ -80,7 +80,7 @@ class _VideoIntroductionState extends State<VideoIntroduction> {
         Center(
           child: CustomButton(
               title: AppLocalizations.of(context)!.chooseVideo,
-              backgroundColor: Colors.white,
+              backgroundColor: Theme.of(context).splashColor,
               titleColor: Theme.of(context).primaryColor,
               borderColor: Theme.of(context).primaryColor,
               padding: const EdgeInsets.symmetric(

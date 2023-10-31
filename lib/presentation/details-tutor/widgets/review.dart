@@ -7,14 +7,14 @@ class Review extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CircleAvatar(
+        const CircleAvatar(
           backgroundImage: AssetImage('assets/images/hero_img.png'),
           radius: 25,
         ),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
         Column(
@@ -22,37 +22,36 @@ class Review extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(
+                const Text(
                   "Phhai123",
                   style: TextStyle(
                     fontSize: 15,
-                    color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
                 Text(
                   '4 months ago',
                   style: TextStyle(
                     fontSize: 15,
-                    color: Colors.black54,
+                    color: Theme.of(context).iconTheme.color,
                   ),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Stars(
+            const Stars(
               rating: 4,
               itemSize: 18,
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            ExpandedParagraph(text: 'Very great lesson!!!'),
+            const ExpandedParagraph(text: 'Very great lesson!!!'),
           ],
         ),
       ],

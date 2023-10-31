@@ -3,10 +3,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/expanded_paragraph.dart';
+import 'package:let_tutor/core/providers/dark_mode_provider.dart';
 import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
 import 'package:let_tutor/presentation/history/widgets/rating_dialog.dart';
 import 'package:let_tutor/presentation/history/widgets/report_lesson_dialog.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
+import 'package:provider/provider.dart';
 
 class HistoryCard extends StatefulWidget {
   const HistoryCard({super.key});
@@ -49,7 +51,7 @@ class _HistoryCardState extends State<HistoryCard> {
           ),
         ],
         borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
+        color: Theme.of(context).splashColor,
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -89,7 +91,6 @@ class _HistoryCardState extends State<HistoryCard> {
                           'Keegan',
                           style: TextStyle(
                             fontSize: 20,
-                            color: Colors.black,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -140,7 +141,6 @@ class _HistoryCardState extends State<HistoryCard> {
                 TutorTag(name: '13:00'),
                 Icon(
                   Icons.horizontal_rule_rounded,
-                  color: Colors.black,
                   size: 18,
                 ),
                 TutorTag(name: '13:25'),
@@ -208,9 +208,14 @@ class _HistoryCardState extends State<HistoryCard> {
                 ),
                 CustomButton(
                   title: AppLocalizations.of(context)!.report,
-                  titleColor: Colors.black,
+                  titleColor: Theme.of(context).iconTheme.color,
                   textSize: 16,
-                  backgroundColor: Colors.black12,
+                  backgroundColor:
+                      Provider.of<DarkModeProvider>(context, listen: false)
+                                  .isDarkModeOn ==
+                              true
+                          ? Colors.grey[600]!
+                          : Colors.grey[300]!,
                   padding: const EdgeInsets.symmetric(
                     vertical: 10,
                     horizontal: 20,
@@ -218,10 +223,10 @@ class _HistoryCardState extends State<HistoryCard> {
                   callback: () {
                     reportLesson(context);
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.report_rounded,
                     size: 20,
-                    color: Colors.black,
+                    color: Theme.of(context).iconTheme.color,
                   ),
                 ),
               ],

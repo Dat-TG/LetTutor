@@ -39,7 +39,6 @@ class _ChooseSortOptionState extends State<ChooseSortOption> {
                   tileColor: Colors.white,
                   title: Text(widget.sortOptions[id]),
                   titleTextStyle: const TextStyle(
-                    color: Colors.black,
                     fontSize: 18,
                   ),
                 ),

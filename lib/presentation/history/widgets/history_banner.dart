@@ -9,8 +9,8 @@ class HistoryBanner extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 245, 246, 255),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
         shape: BoxShape.rectangle,
       ),
       child: Row(
@@ -45,7 +45,6 @@ class HistoryBanner extends StatelessWidget {
                   AppLocalizations.of(context)!.historyIntro1,
                   style: const TextStyle(
                     fontSize: 15,
-                    color: Colors.black,
                     height: 1.4,
                   ),
                 ),
@@ -56,7 +55,6 @@ class HistoryBanner extends StatelessWidget {
                   AppLocalizations.of(context)!.historyIntro2,
                   style: const TextStyle(
                     fontSize: 15,
-                    color: Colors.black,
                     height: 1.4,
                   ),
                 ),

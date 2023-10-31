@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:let_tutor/core/providers/dark_mode_provider.dart';
+import 'package:provider/provider.dart';
 
 class TutorTag extends StatelessWidget {
   final String name;
@@ -12,7 +14,11 @@ class TutorTag extends StatelessWidget {
         vertical: 5,
       ),
       decoration: BoxDecoration(
-        color: Colors.blue[50],
+        color: Provider.of<DarkModeProvider>(context, listen: false)
+                    .isDarkModeOn ==
+                true
+            ? Colors.black54
+            : Colors.blue[50],
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(20),
       ),

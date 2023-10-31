@@ -125,7 +125,6 @@ class CourseDetails extends StatelessWidget {
                         'Intermediate',
                         style: TextStyle(
                           fontSize: 18,
-                          color: Colors.black,
                         ),
                       ),
                     ],
@@ -152,7 +151,6 @@ class CourseDetails extends StatelessWidget {
                         text: TextSpan(
                             style: const TextStyle(
                               fontSize: 18,
-                              color: Colors.black,
                             ),
                             children: [
                               const TextSpan(

@@ -52,7 +52,6 @@ class LoginScreen extends StatelessWidget {
                 child: Text(
                   AppLocalizations.of(context)!.orContinueWith,
                   style: const TextStyle(
-                    color: Colors.black,
                     fontSize: 18,
                   ),
                 ),
@@ -84,6 +83,7 @@ class LoginScreen extends StatelessWidget {
                     height: 50,
                     padding: const EdgeInsets.all(7),
                     decoration: BoxDecoration(
+                      color: Colors.white,
                       shape: BoxShape.circle,
                       border: Border.fromBorderSide(
                         BorderSide(
@@ -107,7 +107,6 @@ class LoginScreen extends StatelessWidget {
                   Text(
                     AppLocalizations.of(context)!.notAMemberYet,
                     style: const TextStyle(
-                      color: Colors.black,
                       fontSize: 18,
                     ),
                   ),

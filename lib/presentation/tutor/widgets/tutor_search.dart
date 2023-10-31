@@ -52,7 +52,6 @@ class _TutorSearchState extends State<TutorSearch> {
           AppLocalizations.of(context)!.nationality,
           style: const TextStyle(
             fontSize: 18,
-            color: Colors.black,
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -77,7 +76,6 @@ class _TutorSearchState extends State<TutorSearch> {
           AppLocalizations.of(context)!.availableTutoringTime,
           style: const TextStyle(
             fontSize: 18,
-            color: Colors.black,
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -120,7 +118,6 @@ class _TutorSearchState extends State<TutorSearch> {
           AppLocalizations.of(context)!.specialities,
           style: const TextStyle(
             fontSize: 18,
-            color: Colors.black,
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -129,7 +126,7 @@ class _TutorSearchState extends State<TutorSearch> {
         ),
         CustomButton(
             title: AppLocalizations.of(context)!.chooseSpecialities,
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).splashColor,
             titleColor: Theme.of(context).primaryColor,
             borderColor: Theme.of(context).primaryColor,
             padding: const EdgeInsets.symmetric(

@@ -14,7 +14,7 @@ class Transactions extends StatelessWidget {
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(vertical: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).splashColor,
         boxShadow: const [
           BoxShadow(
             color: Colors.black54,

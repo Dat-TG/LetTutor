@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:let_tutor/core/providers/dark_mode_provider.dart';
 import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:provider/provider.dart';
 
 class AppBarConversation extends StatelessWidget {
   const AppBarConversation({super.key});
@@ -15,8 +17,12 @@ class AppBarConversation extends StatelessWidget {
         color: Theme.of(context).primaryColor,
       ),
       centerTitle: false,
-      titleTextStyle: const TextStyle(
-        color: Colors.black,
+      titleTextStyle: TextStyle(
+        color: Provider.of<DarkModeProvider>(context, listen: false)
+                    .isDarkModeOn ==
+                true
+            ? Colors.white
+            : Colors.black,
       ),
       toolbarHeight: 80,
       title: Row(

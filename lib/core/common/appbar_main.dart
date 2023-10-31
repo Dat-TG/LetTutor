@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:let_tutor/core/providers/dark_mode_provider.dart';
 import 'package:let_tutor/presentation/messenger/messenger_screen.dart';
 import 'package:let_tutor/presentation/search/search_screen.dart';
+import 'package:provider/provider.dart';
 
 class AppBarMain extends StatefulWidget {
   const AppBarMain({super.key});
@@ -13,12 +15,12 @@ class AppBarMain extends StatefulWidget {
 class _AppBarMainState extends State<AppBarMain> {
   @override
   Widget build(BuildContext context) {
+    bool isDark = Provider.of<DarkModeProvider>(context).isDarkModeOn ??
+        (ThemeMode.system == ThemeMode.dark);
     return AppBar(
       centerTitle: true,
       toolbarHeight: 60,
-      iconTheme: const IconThemeData(
-        color: Colors.black,
-      ),
+      iconTheme: const IconThemeData(),
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,9 +38,9 @@ class _AppBarMainState extends State<AppBarMain> {
                 width: 40,
                 height: 40,
                 padding: const EdgeInsets.all(0),
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.black12,
+                  color: isDark ? Colors.grey[600] : Colors.black12,
                 ),
                 child: IconButton(
                   onPressed: () {
@@ -48,7 +50,6 @@ class _AppBarMainState extends State<AppBarMain> {
                   icon: const Icon(
                     Icons.search,
                     size: 20,
-                    color: Colors.black,
                   ),
                 ),
               ),
@@ -60,9 +61,9 @@ class _AppBarMainState extends State<AppBarMain> {
                 width: 40,
                 height: 40,
                 padding: const EdgeInsets.all(0),
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.black12,
+                  color: isDark ? Colors.grey[600] : Colors.black12,
                 ),
                 child: IconButton(
                   onPressed: () {
@@ -72,7 +73,6 @@ class _AppBarMainState extends State<AppBarMain> {
                   icon: const Icon(
                     Icons.sms_rounded,
                     size: 20,
-                    color: Colors.black,
                   ),
                 ),
               ),

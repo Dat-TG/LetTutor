@@ -34,4 +34,10 @@ class AppColors {
   static const Color primaryElementStatus = Color.fromARGB(255, 88, 174, 127);
 
   static const Color primaryElementBg = Color.fromARGB(255, 238, 121, 99);
+
+  static const Color darkModeBackground = Color.fromRGBO(18, 18, 18, 1);
+
+  static const Color cardColorLight = Color.fromARGB(255, 245, 246, 255);
+
+  static const Color darkSurface = Color.fromRGBO(30, 30, 30, 1);
 }

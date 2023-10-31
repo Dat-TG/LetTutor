@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:let_tutor/core/providers/dark_mode_provider.dart';
+import 'package:provider/provider.dart';
 
 class SingleTopic extends StatelessWidget {
   final int no;
@@ -7,6 +9,9 @@ class SingleTopic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark =
+        Provider.of<DarkModeProvider>(context, listen: false).isDarkModeOn ??
+            (ThemeMode.system == ThemeMode.dark);
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 10,
@@ -15,7 +20,7 @@ class SingleTopic extends StatelessWidget {
       decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(10),
-          color: Colors.grey[200],
+          color: isDark ? Colors.grey[600]! : Colors.grey[200]!,
           border: Border.all(
             width: 0.5,
             color: Colors.grey,
@@ -25,9 +30,9 @@ class SingleTopic extends StatelessWidget {
         children: [
           Text(
             '$no.',
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 18,
-              color: Colors.black54,
+              color: isDark ? Colors.white : Colors.black54,
             ),
           ),
           const SizedBox(
@@ -37,7 +42,6 @@ class SingleTopic extends StatelessWidget {
             title,
             style: const TextStyle(
               fontSize: 18,
-              color: Colors.black,
             ),
           ),
         ],

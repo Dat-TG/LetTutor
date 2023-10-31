@@ -5,12 +5,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/expanded_paragraph.dart';
+import 'package:let_tutor/core/providers/dark_mode_provider.dart';
 import 'package:let_tutor/presentation/conversation/conversation_screen.dart';
 import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
 import 'package:let_tutor/presentation/schedule/widgets/cancel_schedule_dialog.dart';
 import 'package:let_tutor/presentation/schedule/widgets/edit_request_dialog.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
 import 'package:let_tutor/core/utils/jitsi_meet_methods.dart';
+import 'package:provider/provider.dart';
 
 class SingleSchedule extends StatefulWidget {
   const SingleSchedule({super.key});
@@ -55,7 +57,7 @@ class _SingleScheduleState extends State<SingleSchedule> {
               ),
             ],
             borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
+            color: Theme.of(context).splashColor,
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(
@@ -95,7 +97,6 @@ class _SingleScheduleState extends State<SingleSchedule> {
                               'Keegan',
                               style: TextStyle(
                                 fontSize: 20,
-                                color: Colors.black,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -146,7 +147,6 @@ class _SingleScheduleState extends State<SingleSchedule> {
                     TutorTag(name: '13:00'),
                     Icon(
                       Icons.horizontal_rule_rounded,
-                      color: Colors.black,
                       size: 18,
                     ),
                     TutorTag(name: '13:25'),
@@ -235,9 +235,14 @@ class _SingleScheduleState extends State<SingleSchedule> {
                     ),
                     CustomButton(
                       title: AppLocalizations.of(context)!.message,
-                      titleColor: Colors.black,
                       textSize: 16,
-                      backgroundColor: Colors.black12,
+                      backgroundColor:
+                          Provider.of<DarkModeProvider>(context, listen: false)
+                                      .isDarkModeOn ==
+                                  true
+                              ? Colors.grey[600]!
+                              : Colors.grey[300]!,
+                      titleColor: Theme.of(context).iconTheme.color,
                       padding: const EdgeInsets.symmetric(
                         vertical: 10,
                         horizontal: 20,
@@ -246,10 +251,10 @@ class _SingleScheduleState extends State<SingleSchedule> {
                         GoRouter.of(context)
                             .pushNamed(ConversationScreen.routeName);
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.message_rounded,
+                        color: Theme.of(context).iconTheme.color,
                         size: 20,
-                        color: Colors.black,
                       ),
                     ),
                   ],

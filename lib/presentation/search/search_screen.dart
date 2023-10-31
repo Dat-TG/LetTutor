@@ -14,9 +14,7 @@ class SearchScreen extends StatelessWidget {
       initialIndex: 0,
       child: Scaffold(
         appBar: AppBar(
-          iconTheme: const IconThemeData(
-            color: Colors.black,
-          ),
+          iconTheme: const IconThemeData(),
           centerTitle: true,
           toolbarHeight: 60,
           title: Text(
@@ -30,7 +28,7 @@ class SearchScreen extends StatelessWidget {
           bottom: TabBar(
             labelColor: Theme.of(context).primaryColor,
             indicatorColor: Theme.of(context).primaryColor,
-            unselectedLabelColor: Colors.black,
+            unselectedLabelColor: Theme.of(context).iconTheme.color,
             tabs: <Widget>[
               Tab(
                 icon: const ImageIcon(

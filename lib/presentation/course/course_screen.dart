@@ -52,7 +52,7 @@ class _CourseScreenState extends State<CourseScreen> {
                       decoration: BoxDecoration(
                         color: index == 0
                             ? Theme.of(context).primaryColor
-                            : Colors.white,
+                            : Theme.of(context).splashColor,
                         shape: BoxShape.rectangle,
                         border: Border.all(
                           color: Theme.of(context).primaryColor,
@@ -67,7 +67,9 @@ class _CourseScreenState extends State<CourseScreen> {
                         AppLocalizations.of(context)!.course,
                         style: TextStyle(
                           fontSize: 18,
-                          color: index == 0 ? Colors.white : Colors.black,
+                          color: index == 0
+                              ? Colors.white
+                              : Theme.of(context).primaryColor,
                           fontWeight:
                               index == 0 ? FontWeight.w700 : FontWeight.w400,
                         ),
@@ -88,7 +90,7 @@ class _CourseScreenState extends State<CourseScreen> {
                       decoration: BoxDecoration(
                         color: index == 1
                             ? Theme.of(context).primaryColor
-                            : Colors.white,
+                            : Theme.of(context).splashColor,
                         shape: BoxShape.rectangle,
                         border: Border.all(
                           color: Theme.of(context).primaryColor,

@@ -39,7 +39,6 @@ class ChooseNationality extends StatelessWidget {
                 Text(
                   AppLocalizations.of(context)!.vietnameseTutor,
                   style: const TextStyle(
-                    color: Colors.black,
                     fontSize: 16,
                   ),
                 )
@@ -74,7 +73,6 @@ class ChooseNationality extends StatelessWidget {
                 Text(
                   AppLocalizations.of(context)!.englishTutor,
                   style: const TextStyle(
-                    color: Colors.black,
                     fontSize: 16,
                   ),
                 )

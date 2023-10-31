@@ -52,7 +52,6 @@ class _CourseSearchState extends State<CourseSearch> {
           AppLocalizations.of(context)!.courseLevel,
           style: const TextStyle(
             fontSize: 18,
-            color: Colors.black,
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -61,7 +60,7 @@ class _CourseSearchState extends State<CourseSearch> {
         ),
         CustomButton(
             title: AppLocalizations.of(context)!.chooseLevel,
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).splashColor,
             titleColor: Theme.of(context).primaryColor,
             borderColor: Theme.of(context).primaryColor,
             padding: const EdgeInsets.symmetric(
@@ -94,7 +93,6 @@ class _CourseSearchState extends State<CourseSearch> {
           AppLocalizations.of(context)!.courseCategory,
           style: const TextStyle(
             fontSize: 18,
-            color: Colors.black,
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -103,7 +101,7 @@ class _CourseSearchState extends State<CourseSearch> {
         ),
         CustomButton(
             title: AppLocalizations.of(context)!.chooseCategory,
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).splashColor,
             titleColor: Theme.of(context).primaryColor,
             borderColor: Theme.of(context).primaryColor,
             padding: const EdgeInsets.symmetric(

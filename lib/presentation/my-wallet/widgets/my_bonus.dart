@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/core/providers/dark_mode_provider.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
+import 'package:provider/provider.dart';
 
 class MyBonus extends StatelessWidget {
   final int points;
@@ -9,12 +11,15 @@ class MyBonus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark =
+        Provider.of<DarkModeProvider>(context, listen: false).isDarkModeOn ??
+            (ThemeMode.system == ThemeMode.dark);
     return Container(
       width: double.infinity,
       height: 250,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).splashColor,
         boxShadow: const [
           BoxShadow(
             color: Colors.black54,
@@ -56,7 +61,7 @@ class MyBonus extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
               vertical: 5,
             ),
-            color: Colors.blue[100],
+            color: isDark ? Colors.blue[600] : Colors.blue[100],
             alignment: Alignment.center,
             child: Row(
               mainAxisSize: MainAxisSize.min,

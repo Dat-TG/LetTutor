@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:let_tutor/core/providers/dark_mode_provider.dart';
+import 'package:provider/provider.dart';
 
 class ChatMessage {
   final String messageContent;
@@ -91,6 +93,9 @@ class _ConversationBodyState extends State<ConversationBody> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark =
+        Provider.of<DarkModeProvider>(context, listen: false).isDarkModeOn ??
+            (ThemeMode.system == ThemeMode.dark);
     return ListView.builder(
       reverse: true,
       controller: _controller,
@@ -133,8 +138,12 @@ class _ConversationBodyState extends State<ConversationBody> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: (messages[index].messageType == "receiver"
-                          ? Colors.grey.shade200
-                          : Colors.blue[200]),
+                          ? isDark
+                              ? Colors.grey[600]
+                              : Colors.grey.shade200
+                          : isDark
+                              ? Colors.blue[600]
+                              : Colors.blue[200]),
                     ),
                     padding: const EdgeInsets.all(16),
                     child: Text(

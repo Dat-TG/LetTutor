@@ -27,7 +27,6 @@ class TutorBasicInfo extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  color: Colors.black,
                   fontWeight: FontWeight.w700,
                   fontSize: 18,
                 ),
@@ -73,7 +72,6 @@ class TutorBasicInfo extends StatelessWidget {
                 Text(
                   '(121)',
                   style: TextStyle(
-                    color: Colors.black,
                     fontSize: 14,
                   ),
                 )

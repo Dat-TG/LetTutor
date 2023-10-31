@@ -137,9 +137,6 @@ class Helpers {
                             ),
                             child: Text(
                               AppLocalizations.of(context)!.no,
-                              style: const TextStyle(
-                                color: Colors.black,
-                              ),
                             ),
                           ))
                         ],

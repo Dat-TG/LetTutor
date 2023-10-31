@@ -6,7 +6,7 @@ class CustomButton extends StatelessWidget {
   final String title;
   final VoidCallback? callback;
   final Color backgroundColor;
-  final Color titleColor;
+  final Color? titleColor;
   final double textSize;
   final double borderRadius;
   final EdgeInsetsGeometry padding;
@@ -17,7 +17,7 @@ class CustomButton extends StatelessWidget {
     required this.title,
     this.callback,
     this.backgroundColor = AppColors.primaryElement,
-    this.titleColor = AppColors.primaryElementText,
+    this.titleColor,
     this.textSize = 16,
     this.borderRadius = 20,
     this.padding = const EdgeInsets.symmetric(vertical: 5, horizontal: 5),

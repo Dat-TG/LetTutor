@@ -85,8 +85,7 @@ class _BecomeTutorScreenState extends State<BecomeTutorScreen> {
                           vertical: 10,
                         ),
                         borderRadius: 10,
-                        backgroundColor: Colors.grey[300]!,
-                        titleColor: Colors.black,
+                        backgroundColor: Colors.grey[600]!,
                         callback: () {
                           currentStep == 0
                               ? GoRouter.of(context).pop()

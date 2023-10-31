@@ -76,12 +76,12 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
             Center(
               child: RichText(
                 textAlign: TextAlign.center,
-                text: const TextSpan(
+                text: TextSpan(
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.black54,
+                    color: Theme.of(context).iconTheme.color,
                   ),
-                  children: [
+                  children: const [
                     TextSpan(
                       text: 'ID: ',
                     ),
@@ -148,7 +148,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
               padding: const EdgeInsets.all(8.0),
               child: CustomButton(
                   title: AppLocalizations.of(context)!.wantToLearn,
-                  backgroundColor: Colors.white,
+                  backgroundColor: Theme.of(context).splashColor,
                   titleColor: Theme.of(context).primaryColor,
                   borderColor: Theme.of(context).primaryColor,
                   padding: const EdgeInsets.symmetric(

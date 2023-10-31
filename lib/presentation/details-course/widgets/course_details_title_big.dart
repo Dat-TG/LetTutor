@@ -20,7 +20,6 @@ class CourseDetailsTitleBig extends StatelessWidget {
           text,
           style: const TextStyle(
             fontSize: 22,
-            color: Colors.black,
             fontWeight: FontWeight.w700,
           ),
         ),

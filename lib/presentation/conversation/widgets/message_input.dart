@@ -56,12 +56,13 @@ class MessageInputState extends State<MessageInput> {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: TextField(
                         controller: _controller,
-                        style: const TextStyle(
-                            fontSize: 20.0, color: Colors.black87),
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            color: Theme.of(context).iconTheme.color),
                         decoration: InputDecoration(
                           hintText: 'Aa',
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: Theme.of(context).splashColor,
                           contentPadding: const EdgeInsets.only(
                               left: 16.0, bottom: 8.0, top: 8.0, right: 16.0),
                           border: OutlineInputBorder(

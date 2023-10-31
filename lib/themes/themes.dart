@@ -8,6 +8,8 @@ final ThemeData lightTheme = ThemeData(
   ),
   primaryColor: AppColors.primaryElement,
   secondaryHeaderColor: AppColors.secondaryElement,
+  cardColor: AppColors.cardColorLight,
+  splashColor: Colors.white,
   scaffoldBackgroundColor: AppColors.primaryBackground,
   appBarTheme: const AppBarTheme(
     backgroundColor: AppColors.primaryBackground,
@@ -15,33 +17,34 @@ final ThemeData lightTheme = ThemeData(
       color: AppColors.primaryElement,
       fontSize: 20,
     ),
-    iconTheme: IconThemeData(
-      color: Colors.black,
-    ),
+    iconTheme: IconThemeData(),
   ),
   iconTheme: const IconThemeData(color: Colors.black),
   brightness: Brightness.light,
 );
 
 // Dark theme data
-final ThemeData darkTheme = ThemeData(
+final ThemeData darkTheme = ThemeData.dark().copyWith(
   colorScheme: ColorScheme.fromSeed(
     seedColor: AppColors.primaryElement,
     brightness: Brightness.dark,
   ),
-  primaryColor: AppColors.primaryElement,
+  primaryColor: const Color.fromRGBO(0, 113, 240, 1),
+  splashColor: AppColors.darkSurface,
   secondaryHeaderColor: AppColors.secondaryElement,
-  scaffoldBackgroundColor: AppColors.primaryBackground,
+  scaffoldBackgroundColor: AppColors.darkModeBackground,
   appBarTheme: const AppBarTheme(
-    backgroundColor: AppColors.primaryBackground,
+    shadowColor: Colors.white,
+    backgroundColor: AppColors.darkModeBackground,
     titleTextStyle: TextStyle(
       color: AppColors.primaryElement,
       fontSize: 20,
     ),
     iconTheme: IconThemeData(
-      color: Colors.black,
+      color: Colors.white,
     ),
   ),
-  iconTheme: const IconThemeData(color: Colors.black),
+  iconTheme: const IconThemeData(color: Colors.white),
+  cardColor: AppColors.darkSurface,
   brightness: Brightness.dark,
 );

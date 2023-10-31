@@ -52,7 +52,6 @@ class RegisterScreen extends StatelessWidget {
                 child: Text(
                   AppLocalizations.of(context)!.orContinueWith,
                   style: const TextStyle(
-                    color: Colors.black,
                     fontSize: 18,
                   ),
                 ),
@@ -107,7 +106,6 @@ class RegisterScreen extends StatelessWidget {
                   Text(
                     AppLocalizations.of(context)!.alreadyHaveAnAccount,
                     style: const TextStyle(
-                      color: Colors.black,
                       fontSize: 18,
                     ),
                   ),

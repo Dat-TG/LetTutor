@@ -41,7 +41,6 @@ class _TutorScreenState extends State<TutorScreen> {
                   AppLocalizations.of(context)!.findATutor,
                   style: const TextStyle(
                     fontSize: 20,
-                    color: Colors.black,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
@@ -64,7 +63,6 @@ class _TutorScreenState extends State<TutorScreen> {
               AppLocalizations.of(context)!.recommendedTutors,
               style: const TextStyle(
                 fontSize: 20,
-                color: Colors.black,
                 fontWeight: FontWeight.w700,
               ),
             ),

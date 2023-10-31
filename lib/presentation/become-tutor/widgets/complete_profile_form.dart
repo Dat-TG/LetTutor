@@ -92,7 +92,6 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           child: GestureDetector(
             onTap: selectImage,
             child: DottedBorder(
-              color: Colors.black,
               strokeWidth: 1,
               dashPattern: const [3, 3],
               child: Container(
@@ -312,7 +311,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         ),
         CustomButton(
             title: AppLocalizations.of(context)!.chooseSpecialities,
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).splashColor,
             titleColor: Theme.of(context).primaryColor,
             borderColor: Theme.of(context).primaryColor,
             padding: const EdgeInsets.symmetric(

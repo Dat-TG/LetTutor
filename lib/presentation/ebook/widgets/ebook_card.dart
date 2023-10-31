@@ -50,7 +50,7 @@ class _EbookCardState extends State<EbookCard> {
               ),
             ],
             borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
+            color: Theme.of(context).splashColor,
           ),
           width: widget.isExpanded ? null : 250,
           height: widget.isExpanded ? null : 311,
@@ -79,7 +79,6 @@ class _EbookCardState extends State<EbookCard> {
                 child: Text(
                   'What a world 1',
                   style: TextStyle(
-                    color: Colors.black,
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                   ),
@@ -88,15 +87,15 @@ class _EbookCardState extends State<EbookCard> {
               const SizedBox(
                 height: 10,
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(
+              Padding(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 10,
                 ),
                 child: Text(
                   'For teenagers who have an excellent vocabulary background and brilliant communication skills.',
                   style: TextStyle(
-                    color: Colors.black54,
+                    color: Theme.of(context).iconTheme.color,
                     fontSize: 16,
                   ),
                   maxLines: 2,

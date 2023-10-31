@@ -12,8 +12,8 @@ class HomeBanner extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 245, 246, 255),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
         shape: BoxShape.rectangle,
       ),
       child: Row(
@@ -60,7 +60,6 @@ class HomeBanner extends StatelessWidget {
                 Text(
                   AppLocalizations.of(context)!.start1on1,
                   style: const TextStyle(
-                    color: Colors.black,
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
                   ),

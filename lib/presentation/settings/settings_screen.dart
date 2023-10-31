@@ -97,10 +97,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 locale == 'en'
                     ? AppLocalizations.of(context)!.englishLanguage
                     : AppLocalizations.of(context)!.vietnamese,
-                style: const TextStyle(
-                  color: Colors.black54,
+                style: TextStyle(
+                  color: Theme.of(context).primaryColor,
                   fontSize: 15,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.normal,
                 ),
               )
             ],

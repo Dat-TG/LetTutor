@@ -60,7 +60,6 @@ class WelcomeScreen extends StatelessWidget {
                 child: Text(
                   AppLocalizations.of(context)!.introductionDescription,
                   style: const TextStyle(
-                    color: Colors.black87,
                     fontWeight: FontWeight.w500,
                     fontSize: 21,
                     height: 1.2,

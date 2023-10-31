@@ -44,7 +44,7 @@ class CourseCard extends StatelessWidget {
               ),
             ],
             borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
+            color: Theme.of(context).splashColor,
           ),
           width: isExpanded ? null : 250,
           height: isExpanded ? null : 311,
@@ -76,7 +76,6 @@ class CourseCard extends StatelessWidget {
                     const Text(
                       'Life in the Internet Age',
                       style: TextStyle(
-                        color: Colors.black,
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                       ),
@@ -86,10 +85,10 @@ class CourseCard extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        const Text(
+                        Text(
                           '7',
                           style: TextStyle(
-                            color: Colors.black54,
+                            color: Theme.of(context).iconTheme.color,
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),
@@ -99,8 +98,8 @@ class CourseCard extends StatelessWidget {
                         ),
                         Text(
                           AppLocalizations.of(context)!.lessons,
-                          style: const TextStyle(
-                            color: Colors.black54,
+                          style: TextStyle(
+                            color: Theme.of(context).iconTheme.color,
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),
@@ -113,15 +112,15 @@ class CourseCard extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(
+              Padding(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 10,
                 ),
                 child: Text(
                   'Let\'s discuss how technology is changing the way we live',
                   style: TextStyle(
-                    color: Colors.black54,
+                    color: Theme.of(context).iconTheme.color,
                     fontSize: 16,
                   ),
                   maxLines: 2,

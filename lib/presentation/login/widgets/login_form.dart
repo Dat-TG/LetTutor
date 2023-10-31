@@ -24,7 +24,6 @@ class _LoginFormState extends State<LoginForm> {
           const Text(
             'EMAIL',
             style: TextStyle(
-              color: Colors.black54,
               fontSize: 18,
             ),
           ),
@@ -64,7 +63,6 @@ class _LoginFormState extends State<LoginForm> {
           Text(
             AppLocalizations.of(context)!.passwordUppercase,
             style: const TextStyle(
-              color: Colors.black54,
               fontSize: 18,
             ),
           ),

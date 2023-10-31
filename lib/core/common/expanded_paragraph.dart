@@ -44,8 +44,7 @@ class _ExpandedParagraphState extends State<ExpandedParagraph> {
         child: widget.text.length == first.length
             ? Text(
                 first,
-                style: TextStyle(
-                  color: widget.textColor ?? Colors.black,
+                style: const TextStyle(
                   fontSize: 15,
                 ),
               )
@@ -55,7 +54,7 @@ class _ExpandedParagraphState extends State<ExpandedParagraph> {
                         text: "$first...",
                         style: TextStyle(
                           fontSize: 15,
-                          color: widget.textColor ?? Colors.black,
+                          color: Theme.of(context).iconTheme.color,
                         ),
                         children: [
                           WidgetSpan(
@@ -79,8 +78,7 @@ class _ExpandedParagraphState extends State<ExpandedParagraph> {
                   )
                 : Text(
                     widget.text,
-                    style: TextStyle(
-                      color: widget.textColor ?? Colors.black,
+                    style: const TextStyle(
                       fontSize: 15,
                     ),
                   ),
