@@ -7,7 +7,7 @@ import 'package:let_tutor/core/providers/dark_mode_provider.dart';
 import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
 import 'package:let_tutor/presentation/history/widgets/rating_dialog.dart';
 import 'package:let_tutor/presentation/history/widgets/report_lesson_dialog.dart';
-import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
+import 'package:let_tutor/presentation/tutor/widgets/tag_card.dart';
 import 'package:provider/provider.dart';
 
 class HistoryCard extends StatefulWidget {
@@ -138,12 +138,12 @@ class _HistoryCardState extends State<HistoryCard> {
             ),
             const Row(
               children: [
-                TutorTag(name: '13:00'),
+                TagCard(name: '13:00'),
                 Icon(
                   Icons.horizontal_rule_rounded,
                   size: 18,
                 ),
-                TutorTag(name: '13:25'),
+                TagCard(name: '13:25'),
               ],
             ),
             const SizedBox(
@@ -163,10 +163,7 @@ class _HistoryCardState extends State<HistoryCard> {
                 text:
                     'You should respond to a lesson request as soon as possible so the student knows if they will have a lesson or not.'),
             const SizedBox(
-              height: 10,
-            ),
-            const SizedBox(
-              height: 10,
+              height: 20,
             ),
             Text(
               AppLocalizations.of(context)!.rateStudent,

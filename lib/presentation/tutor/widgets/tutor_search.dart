@@ -3,7 +3,7 @@ import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/custom_date_picker.dart';
 import 'package:let_tutor/core/common/custom_time_picker.dart';
 import 'package:let_tutor/presentation/tutor/widgets/choose_nationality.dart';
-import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
+import 'package:let_tutor/presentation/tutor/widgets/tag_card.dart';
 import 'package:let_tutor/core/utils/constants.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -150,8 +150,8 @@ class _TutorSearchState extends State<TutorSearch> {
           runSpacing: 10,
           children:
               (selectedSpecialties.length < AppConstants.specialties.length)
-                  ? selectedSpecialties.map((e) => TutorTag(name: e)).toList()
-                  : [TutorTag(name: AppLocalizations.of(context)!.all)],
+                  ? selectedSpecialties.map((e) => TagCard(name: e)).toList()
+                  : [TagCard(name: AppLocalizations.of(context)!.all)],
         ),
         const SizedBox(
           height: 10,

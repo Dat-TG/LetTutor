@@ -8,7 +8,7 @@ import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/custom_date_picker.dart';
 import 'package:let_tutor/core/common/custom_textfield.dart';
 import 'package:let_tutor/core/common/dropdown_select.dart';
-import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
+import 'package:let_tutor/presentation/tutor/widgets/tag_card.dart';
 import 'package:let_tutor/core/utils/constants.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
 
@@ -172,8 +172,8 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                 runSpacing: 10,
                 children:
                     (selectSubjects.length < AppConstants.specialties.length)
-                        ? selectSubjects.map((e) => TutorTag(name: e)).toList()
-                        : [TutorTag(name: AppLocalizations.of(context)!.all)],
+                        ? selectSubjects.map((e) => TagCard(name: e)).toList()
+                        : [TagCard(name: AppLocalizations.of(context)!.all)],
               ),
             ),
             CustomTextField(

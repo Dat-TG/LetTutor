@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/presentation/course/widgets/choose_sort_option.dart';
-import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
+import 'package:let_tutor/presentation/tutor/widgets/tag_card.dart';
 import 'package:let_tutor/core/utils/constants.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -83,8 +83,8 @@ class _CourseSearchState extends State<CourseSearch> {
           spacing: 10,
           runSpacing: 10,
           children: (selectedLevels.length < AppConstants.courseLevels.length)
-              ? selectedLevels.map((e) => TutorTag(name: e)).toList()
-              : [const TutorTag(name: 'All')],
+              ? selectedLevels.map((e) => TagCard(name: e)).toList()
+              : [const TagCard(name: 'All')],
         ),
         const SizedBox(
           height: 10,
@@ -125,8 +125,8 @@ class _CourseSearchState extends State<CourseSearch> {
           runSpacing: 10,
           children:
               (selectedCategories.length < AppConstants.courseCategories.length)
-                  ? selectedCategories.map((e) => TutorTag(name: e)).toList()
-                  : [const TutorTag(name: 'All')],
+                  ? selectedCategories.map((e) => TagCard(name: e)).toList()
+                  : [const TagCard(name: 'All')],
         ),
         const SizedBox(
           height: 10,

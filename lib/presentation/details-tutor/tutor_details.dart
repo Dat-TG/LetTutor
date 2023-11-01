@@ -12,7 +12,7 @@ import 'package:let_tutor/presentation/details-tutor/widgets/report_tutor.dart';
 import 'package:let_tutor/presentation/details-tutor/widgets/review.dart';
 import 'package:let_tutor/presentation/details-tutor/widgets/tutor_basic_info.dart';
 import 'package:let_tutor/presentation/details-tutor/widgets/tutor_details_title.dart';
-import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
+import 'package:let_tutor/presentation/tutor/widgets/tag_card.dart';
 
 class TutorDetails extends StatefulWidget {
   static const String routeName = 'tutorDetails';
@@ -168,7 +168,7 @@ class _TutorDetailsState extends State<TutorDetails> {
                     spacing: 10,
                     runSpacing: 10,
                     children: [
-                      TutorTag(name: 'English'),
+                      TagCard(name: 'English'),
                     ],
                   ),
                   const SizedBox(
@@ -185,12 +185,12 @@ class _TutorDetailsState extends State<TutorDetails> {
                     spacing: 10,
                     runSpacing: 10,
                     children: [
-                      TutorTag(name: 'English for Business'),
-                      TutorTag(name: 'Conversational'),
-                      TutorTag(name: 'English for Kids'),
-                      TutorTag(name: 'English for Business'),
-                      TutorTag(name: 'Conversational'),
-                      TutorTag(name: 'English for Kids'),
+                      TagCard(name: 'English for Business'),
+                      TagCard(name: 'Conversational'),
+                      TagCard(name: 'English for Kids'),
+                      TagCard(name: 'English for Business'),
+                      TagCard(name: 'Conversational'),
+                      TagCard(name: 'English for Kids'),
                     ],
                   ),
                   const SizedBox(

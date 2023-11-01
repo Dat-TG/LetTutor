@@ -10,7 +10,7 @@ import 'package:let_tutor/presentation/conversation/conversation_screen.dart';
 import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
 import 'package:let_tutor/presentation/schedule/widgets/cancel_schedule_dialog.dart';
 import 'package:let_tutor/presentation/schedule/widgets/edit_request_dialog.dart';
-import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
+import 'package:let_tutor/presentation/tutor/widgets/tag_card.dart';
 import 'package:let_tutor/core/utils/jitsi_meet_methods.dart';
 import 'package:provider/provider.dart';
 
@@ -144,12 +144,12 @@ class _SingleScheduleState extends State<SingleSchedule> {
                 ),
                 const Row(
                   children: [
-                    TutorTag(name: '13:00'),
+                    TagCard(name: '13:00'),
                     Icon(
                       Icons.horizontal_rule_rounded,
                       size: 18,
                     ),
-                    TutorTag(name: '13:25'),
+                    TagCard(name: '13:25'),
                   ],
                 ),
                 const SizedBox(

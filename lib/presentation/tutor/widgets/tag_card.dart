@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:let_tutor/core/providers/dark_mode_provider.dart';
 import 'package:provider/provider.dart';
 
-class TutorTag extends StatelessWidget {
+class TagCard extends StatelessWidget {
   final String name;
-  const TutorTag({super.key, required this.name});
+  const TagCard({super.key, required this.name});
 
   @override
   Widget build(BuildContext context) {

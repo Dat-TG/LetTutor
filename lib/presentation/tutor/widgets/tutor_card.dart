@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/stars.dart';
 import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
-import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
+import 'package:let_tutor/presentation/tutor/widgets/tag_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TutorCard extends StatelessWidget {
@@ -100,10 +100,7 @@ class TutorCard extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 5,
-                ),
-                const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
                 isExpanded
                     ? const Wrap(
@@ -111,12 +108,12 @@ class TutorCard extends StatelessWidget {
                         spacing: 10,
                         runSpacing: 10,
                         children: [
-                          TutorTag(name: 'English for Business'),
-                          TutorTag(name: 'Conversational'),
-                          TutorTag(name: 'English for Kids'),
-                          TutorTag(name: 'English for Business'),
-                          TutorTag(name: 'Conversational'),
-                          TutorTag(name: 'English for Kids'),
+                          TagCard(name: 'English for Business'),
+                          TagCard(name: 'Conversational'),
+                          TagCard(name: 'English for Kids'),
+                          TagCard(name: 'English for Business'),
+                          TagCard(name: 'Conversational'),
+                          TagCard(name: 'English for Kids'),
                         ],
                       )
                     : Container(
@@ -131,12 +128,12 @@ class TutorCard extends StatelessWidget {
                             spacing: 10,
                             runSpacing: 10,
                             children: [
-                              TutorTag(name: 'English for Business'),
-                              TutorTag(name: 'Conversational'),
-                              TutorTag(name: 'English for Kids'),
-                              TutorTag(name: 'English for Business'),
-                              TutorTag(name: 'Conversational'),
-                              TutorTag(name: 'English for Kids'),
+                              TagCard(name: 'English for Business'),
+                              TagCard(name: 'Conversational'),
+                              TagCard(name: 'English for Kids'),
+                              TagCard(name: 'English for Business'),
+                              TagCard(name: 'Conversational'),
+                              TagCard(name: 'English for Kids'),
                             ],
                           ),
                         ),

@@ -9,7 +9,7 @@ import 'package:let_tutor/core/common/custom_textfield.dart';
 import 'package:let_tutor/presentation/become-tutor/widgets/become_tutor_attention.dart';
 import 'package:let_tutor/presentation/become-tutor/widgets/become_tutor_title.dart';
 import 'package:dotted_border/dotted_border.dart';
-import 'package:let_tutor/presentation/tutor/widgets/tutor_tag.dart';
+import 'package:let_tutor/presentation/tutor/widgets/tag_card.dart';
 import 'package:let_tutor/core/utils/constants.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
 
@@ -335,8 +335,8 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           runSpacing: 10,
           children:
               (selectedSpecialties.length < AppConstants.specialties.length)
-                  ? selectedSpecialties.map((e) => TutorTag(name: e)).toList()
-                  : [TutorTag(name: AppLocalizations.of(context)!.all)],
+                  ? selectedSpecialties.map((e) => TagCard(name: e)).toList()
+                  : [TagCard(name: AppLocalizations.of(context)!.all)],
         ),
         const SizedBox(
           height: 20,
