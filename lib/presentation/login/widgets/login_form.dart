@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/presentation/forgot-password/forgot_password_screen.dart';
 import 'package:let_tutor/presentation/login/login_screen.dart';
 
 class LoginForm extends StatefulWidget {
@@ -105,17 +106,24 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(
             height: 30,
           ),
-          Text(
-            AppLocalizations.of(context)!.forgotPassword,
-            style: const TextStyle(
-              fontSize: 18,
-              color: Color.fromRGBO(40, 106, 210, 1),
-              fontWeight: FontWeight.w400,
+          if (!widget.isRegister)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: InkWell(
+                onTap: () {
+                  GoRouter.of(context)
+                      .pushNamed(ForgotPasswordScreen.routeName);
+                },
+                child: Text(
+                  AppLocalizations.of(context)!.forgotPassword,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: Color.fromRGBO(40, 106, 210, 1),
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
           Row(
             children: [
               Expanded(

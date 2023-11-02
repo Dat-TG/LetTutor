@@ -234,5 +234,8 @@
     "bookTransaction": "Book",
     "day": "day",
     "days": "days",
-    "untilLessonStart":"until lesson start"
+    "untilLessonStart":"until lesson start",
+    "resetPassword": "Reset Password",
+    "pleaseEnterYourEmailAddressToSearchForYourAccount":"Please enter your email address to search for your account.",
+    "sendResetLink": "Send reset link"
 }

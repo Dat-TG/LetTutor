@@ -11,6 +11,7 @@ import 'package:let_tutor/presentation/details-course/course_details.dart';
 import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/presentation/edit-account/edit_account_screen.dart';
+import 'package:let_tutor/presentation/forgot-password/forgot_password_screen.dart';
 import 'package:let_tutor/presentation/history/history_screen.dart';
 import 'package:let_tutor/presentation/lesson/lesson_screen.dart';
 import 'package:let_tutor/presentation/login/login_screen.dart';
@@ -276,6 +277,16 @@ class MyRouter {
               context: context,
               state: state,
               child: const TransactionsScreen(),
+            );
+          }),
+      GoRoute(
+          name: ForgotPasswordScreen.routeName,
+          path: '/forgot-password',
+          pageBuilder: (context, state) {
+            return Helpers.buildPageWithDefaultTransition<void>(
+              context: context,
+              state: state,
+              child: const ForgotPasswordScreen(),
             );
           }),
     ],

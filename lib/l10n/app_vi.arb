@@ -234,5 +234,8 @@
     "bookTransaction": "Đặt lịch",
     "day": "ngày",
     "days": "ngày",
-    "untilLessonStart":"cho đến khi buổi học bắt đầu"
+    "untilLessonStart":"cho đến khi buổi học bắt đầu",
+    "resetPassword": "Đặt lại mật khẩu",
+    "pleaseEnterYourEmailAddressToSearchForYourAccount":"Vui lòng nhập email để tìm kiếm tài khoản của bạn.",
+    "sendResetLink": "Xác nhận"
 }
