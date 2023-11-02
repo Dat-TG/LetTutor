@@ -7,7 +7,13 @@
 
 Flutter
 
-## Widget Tree
+## Milestone 1 - Mockup UI
+
+- Implement UI for all screens
+- Navigation
+- Draw widget tree for main screens 
+
+### Widget Tree
 
 Link for view: https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&title=widget%20tree.drawio#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D199Co-kAC8M1obmuaKe2ib9x4NNIrHh1E%26export%3Ddownload
 
@@ -18,6 +24,10 @@ Note in the diagram:
 - ![#FFFFCC](https://placehold.co/15x15/FFFFCC/FFFFCC.png) : ```Main Screens```
 - ![#CCFFCC](https://placehold.co/15x15/CCFFCC/CCFFCC.png) : ```My customized widgets```
 - ![#FFFFFF](https://placehold.co/15x15/FFFFFF/FFFFFF.png) : ```Widget from Flutter libraries and packages```
+
+### Demo Video
+
+Youtube: https://youtu.be/lciwXfhPM2A
 
 ## Feedback
 If you have any feedback, please reach out to me at dat13102k2@gmail.com

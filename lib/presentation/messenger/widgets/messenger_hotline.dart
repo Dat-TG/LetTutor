@@ -51,7 +51,7 @@ class MessengerHotline extends StatelessWidget {
           ElevatedButton(
               onPressed: () {
                 UrlLauncher.launchInBrowserView(
-                    Uri.parse('http://m.me/lettutorvn'));
+                    Uri.parse('https://m.me/lettutorvn'));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,

@@ -36,10 +36,11 @@ class _ChooseSortOptionState extends State<ChooseSortOption> {
                 width: 200,
                 height: 50,
                 child: ListTile(
-                  tileColor: Colors.white,
+                  tileColor: Theme.of(context).splashColor,
                   title: Text(widget.sortOptions[id]),
-                  titleTextStyle: const TextStyle(
+                  titleTextStyle: TextStyle(
                     fontSize: 18,
+                    color: Theme.of(context).iconTheme.color,
                   ),
                 ),
               )),
