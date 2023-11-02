@@ -1,0 +1,183 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:let_tutor/core/providers/dark_mode_provider.dart';
+import 'package:let_tutor/presentation/conversation/widgets/message_input.dart';
+import 'package:provider/provider.dart';
+
+class ChatMessage {
+  final String messageContent;
+  final String messageType;
+  final DateTime time;
+  ChatMessage(
+      {required this.messageContent,
+      required this.messageType,
+      required this.time});
+}
+
+class ConversationBody extends StatefulWidget {
+  const ConversationBody({super.key});
+
+  @override
+  State<ConversationBody> createState() => _ConversationBodyState();
+}
+
+class _ConversationBodyState extends State<ConversationBody> {
+  int showTimeAtIndex = -1;
+  final ScrollController _controller = ScrollController();
+  List<ChatMessage> messages = [
+    ChatMessage(
+      messageContent: "Hello, Will",
+      messageType: "receiver",
+      time: DateTime.now(),
+    ),
+    ChatMessage(
+      messageContent: "How have you been?",
+      messageType: "receiver",
+      time: DateTime.now(),
+    ),
+    ChatMessage(
+      messageContent: "Hey Kriss, I am doing fine dude. wbu?",
+      messageType: "sender",
+      time: DateTime.now(),
+    ),
+    ChatMessage(
+      messageContent: "ehhhh, doing OK.",
+      messageType: "receiver",
+      time: DateTime.now(),
+    ),
+    ChatMessage(
+      messageContent: "Is there any thing wrong?",
+      messageType: "sender",
+      time: DateTime.now(),
+    ),
+    ChatMessage(
+      messageContent: "Hello, Will",
+      messageType: "receiver",
+      time: DateTime.now(),
+    ),
+    ChatMessage(
+      messageContent: "How have you been?",
+      messageType: "receiver",
+      time: DateTime.now(),
+    ),
+    ChatMessage(
+      messageContent: "Hey Kriss, I am doing fine dude. wbu?",
+      messageType: "sender",
+      time: DateTime.now(),
+    ),
+    ChatMessage(
+      messageContent: "ehhhh, doing OK.",
+      messageType: "receiver",
+      time: DateTime.now(),
+    ),
+    ChatMessage(
+      messageContent: "Is there any thing wrong?",
+      messageType: "sender",
+      time: DateTime.now(),
+    ),
+  ].reversed.toList();
+
+  void scrollToBottom() {
+    if (_controller.hasClients) {
+      _controller.animateTo(
+        _controller.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 1000),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    bool isDark =
+        Provider.of<DarkModeProvider>(context, listen: false).isDarkModeOn ??
+            (ThemeMode.system == ThemeMode.dark);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: ListView.builder(
+            reverse: true,
+            controller: _controller,
+            itemCount: messages.length,
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            itemBuilder: (context, index) {
+              return Container(
+                padding: const EdgeInsets.only(
+                    left: 14, right: 14, top: 10, bottom: 10),
+                child: Column(
+                  crossAxisAlignment: messages[index].messageType == 'receiver'
+                      ? CrossAxisAlignment.start
+                      : CrossAxisAlignment.end,
+                  children: [
+                    if (index == showTimeAtIndex)
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: 5,
+                          ),
+                          child: Text(DateFormat(null, 'en')
+                              .format(messages[index].time)),
+                        ),
+                      ),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(20),
+                      onTap: () {
+                        setState(() {
+                          if (showTimeAtIndex != index) {
+                            showTimeAtIndex = index;
+                          } else {
+                            showTimeAtIndex = -1;
+                          }
+                        });
+                      },
+                      child: Material(
+                        color: Colors.transparent,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: (messages[index].messageType == "receiver"
+                                ? isDark
+                                    ? Colors.grey[600]
+                                    : Colors.grey.shade200
+                                : isDark
+                                    ? Colors.blue[600]
+                                    : Colors.blue[200]),
+                          ),
+                          padding: const EdgeInsets.all(16),
+                          child: Text(
+                            messages[index].messageContent,
+                            style: const TextStyle(fontSize: 15),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+        MessageInput(onSend: (String message) {
+          setState(() {
+            messages.insert(
+              0,
+              ChatMessage(
+                messageContent: message,
+                messageType: 'sender',
+                time: DateTime.now(),
+              ),
+            );
+          });
+        }),
+      ],
+    );
+  }
+}
