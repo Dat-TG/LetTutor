@@ -200,7 +200,7 @@ class _TutorDetailsState extends State<TutorDetails> {
                     text: AppLocalizations.of(context)!.suggestedCourses,
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                 ],
               ),
@@ -236,7 +236,7 @@ class _TutorDetailsState extends State<TutorDetails> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   TutorDetailsTitle(
                     text: AppLocalizations.of(context)!.interests,

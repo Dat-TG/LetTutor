@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 /// Example for EmojiPickerFlutter
 class MessageInput extends StatefulWidget {
-  const MessageInput({super.key});
+  final Function onSend;
+  const MessageInput({super.key, required this.onSend});
 
   @override
   MessageInputState createState() => MessageInputState();
@@ -77,6 +78,8 @@ class MessageInputState extends State<MessageInput> {
                       splashRadius: 20,
                       onPressed: () {
                         // send message
+                        widget.onSend(_controller.text);
+                        _controller.text = '';
                       },
                       icon: const Icon(
                         Icons.send,

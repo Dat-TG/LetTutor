@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:let_tutor/core/providers/dark_mode_provider.dart';
+import 'package:let_tutor/presentation/conversation/widgets/message_input.dart';
 import 'package:provider/provider.dart';
 
 class ChatMessage {
@@ -96,67 +97,87 @@ class _ConversationBodyState extends State<ConversationBody> {
     bool isDark =
         Provider.of<DarkModeProvider>(context, listen: false).isDarkModeOn ??
             (ThemeMode.system == ThemeMode.dark);
-    return ListView.builder(
-      reverse: true,
-      controller: _controller,
-      itemCount: messages.length,
-      shrinkWrap: true,
-      padding: EdgeInsets.zero,
-      itemBuilder: (context, index) {
-        return Container(
-          padding:
-              const EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
-          child: Column(
-            crossAxisAlignment: messages[index].messageType == 'receiver'
-                ? CrossAxisAlignment.start
-                : CrossAxisAlignment.end,
-            children: [
-              if (index == showTimeAtIndex)
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      bottom: 5,
-                    ),
-                    child: Text(
-                        DateFormat(null, 'en').format(messages[index].time)),
-                  ),
-                ),
-              InkWell(
-                borderRadius: BorderRadius.circular(20),
-                onTap: () {
-                  setState(() {
-                    if (showTimeAtIndex != index) {
-                      showTimeAtIndex = index;
-                    } else {
-                      showTimeAtIndex = -1;
-                    }
-                  });
-                },
-                child: Material(
-                  color: Colors.transparent,
-                  child: Container(
-                    decoration: BoxDecoration(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: ListView.builder(
+            reverse: true,
+            controller: _controller,
+            itemCount: messages.length,
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            itemBuilder: (context, index) {
+              return Container(
+                padding: const EdgeInsets.only(
+                    left: 14, right: 14, top: 10, bottom: 10),
+                child: Column(
+                  crossAxisAlignment: messages[index].messageType == 'receiver'
+                      ? CrossAxisAlignment.start
+                      : CrossAxisAlignment.end,
+                  children: [
+                    if (index == showTimeAtIndex)
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: 5,
+                          ),
+                          child: Text(DateFormat(null, 'en')
+                              .format(messages[index].time)),
+                        ),
+                      ),
+                    InkWell(
                       borderRadius: BorderRadius.circular(20),
-                      color: (messages[index].messageType == "receiver"
-                          ? isDark
-                              ? Colors.grey[600]
-                              : Colors.grey.shade200
-                          : isDark
-                              ? Colors.blue[600]
-                              : Colors.blue[200]),
+                      onTap: () {
+                        setState(() {
+                          if (showTimeAtIndex != index) {
+                            showTimeAtIndex = index;
+                          } else {
+                            showTimeAtIndex = -1;
+                          }
+                        });
+                      },
+                      child: Material(
+                        color: Colors.transparent,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: (messages[index].messageType == "receiver"
+                                ? isDark
+                                    ? Colors.grey[600]
+                                    : Colors.grey.shade200
+                                : isDark
+                                    ? Colors.blue[600]
+                                    : Colors.blue[200]),
+                          ),
+                          padding: const EdgeInsets.all(16),
+                          child: Text(
+                            messages[index].messageContent,
+                            style: const TextStyle(fontSize: 15),
+                          ),
+                        ),
+                      ),
                     ),
-                    padding: const EdgeInsets.all(16),
-                    child: Text(
-                      messages[index].messageContent,
-                      style: const TextStyle(fontSize: 15),
-                    ),
-                  ),
+                  ],
                 ),
-              ),
-            ],
+              );
+            },
           ),
-        );
-      },
+        ),
+        MessageInput(onSend: (String message) {
+          setState(() {
+            messages.insert(
+              0,
+              ChatMessage(
+                messageContent: message,
+                messageType: 'sender',
+                time: DateTime.now(),
+              ),
+            );
+          });
+        }),
+      ],
     );
   }
 }

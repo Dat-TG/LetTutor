@@ -61,7 +61,7 @@ class JitsiMeetMethods {
             const Duration(
               hours: 0,
               minutes: 0,
-              seconds: 10,
+              seconds: 15,
             ),
           );
           timer = Timer.periodic(const Duration(seconds: 1), (timer) {

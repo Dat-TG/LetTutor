@@ -111,6 +111,10 @@ class DrawerMain extends StatelessWidget {
           const SizedBox(
             height: 250,
             child: DrawerHeader(
+              padding: EdgeInsets.only(left: 16),
+              margin: EdgeInsets.only(
+                bottom: 8,
+              ),
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/images/drawerbg.jpeg'),

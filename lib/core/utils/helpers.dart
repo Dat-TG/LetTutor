@@ -126,7 +126,7 @@ class Helpers {
                             },
                             style: ElevatedButton.styleFrom(
                               shadowColor: Colors.transparent,
-                              backgroundColor: Colors.white,
+                              backgroundColor: Theme.of(context).splashColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5),
                                 side: const BorderSide(
@@ -137,6 +137,9 @@ class Helpers {
                             ),
                             child: Text(
                               AppLocalizations.of(context)!.no,
+                              style: TextStyle(
+                                color: Theme.of(context).iconTheme.color,
+                              ),
                             ),
                           ))
                         ],
