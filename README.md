@@ -24,6 +24,7 @@ Note in the diagram:
 - ![#FFFFCC](https://placehold.co/15x15/FFFFCC/FFFFCC.png) : ```Main Screens```
 - ![#CCFFCC](https://placehold.co/15x15/CCFFCC/CCFFCC.png) : ```My customized widgets```
 - ![#FFFFFF](https://placehold.co/15x15/FFFFFF/FFFFFF.png) : ```Widget from Flutter libraries and packages```
+- Video Call using Jitsi Meet
 
 ### Demo Video
 
