@@ -237,5 +237,9 @@
     "untilLessonStart":"until lesson start",
     "resetPassword": "Reset Password",
     "pleaseEnterYourEmailAddressToSearchForYourAccount":"Please enter your email address to search for your account.",
-    "sendResetLink": "Send reset link"
+    "sendResetLink": "Send reset link",
+    "requiredField": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "passwordLength": "Password must be at least 6 characters long",
+    "passwordMatch": "Passwords do not match"
 }

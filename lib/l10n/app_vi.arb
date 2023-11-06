@@ -237,5 +237,9 @@
     "untilLessonStart":"cho đến khi buổi học bắt đầu",
     "resetPassword": "Đặt lại mật khẩu",
     "pleaseEnterYourEmailAddressToSearchForYourAccount":"Vui lòng nhập email để tìm kiếm tài khoản của bạn.",
-    "sendResetLink": "Xác nhận"
+    "sendResetLink": "Xác nhận",
+    "requiredField": "Trường này là bắt buộc",
+    "invalidEmail": "Vui lòng nhập địa chỉ email hợp lệ",
+    "passwordLength": "Mật khẩu phải có ít nhất 6 ký tự",
+    "passwordMatch": "Mật khẩu không khớp"
 }
