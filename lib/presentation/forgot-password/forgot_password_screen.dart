@@ -3,6 +3,7 @@ import 'package:let_tutor/core/common/appbar_login.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/custom_textfield.dart';
+import 'package:let_tutor/core/utils/validators.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   static const String routeName = 'forgot-password';
@@ -14,6 +15,7 @@ class ForgotPasswordScreen extends StatefulWidget {
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final TextEditingController _emailController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,23 +58,31 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             const SizedBox(
               height: 20,
             ),
-            CustomTextField(
-              controller: _emailController,
-              labelText: 'Email',
-              hintText: 'email@example.com',
-              borderRadius: 10,
-              prefixIcon: const Icon(
-                Icons.email,
-                size: 22,
+            Form(
+              key: _formKey,
+              child: CustomTextField(
+                controller: _emailController,
+                labelText: 'Email',
+                hintText: 'email@example.com',
+                borderRadius: 10,
+                prefixIcon: const Icon(
+                  Icons.email,
+                  size: 22,
+                ),
+                keyboardType: TextInputType.emailAddress,
+                validator: FormValidator.validateEmail,
               ),
-              keyboardType: TextInputType.emailAddress,
             ),
             const SizedBox(
               height: 30,
             ),
             CustomButton(
               title: AppLocalizations.of(context)!.sendResetLink,
-              callback: () {},
+              callback: () {
+                if (!_formKey.currentState!.validate()) {
+                  return;
+                }
+              },
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
                 vertical: 15,

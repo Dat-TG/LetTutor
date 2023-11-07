@@ -15,8 +15,8 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final _emailKey = GlobalKey<FormState>();
-  final _passwordKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _emailKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _passwordKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Column(
