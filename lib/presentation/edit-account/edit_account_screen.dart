@@ -8,6 +8,7 @@ import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/custom_date_picker.dart';
 import 'package:let_tutor/core/common/custom_textfield.dart';
 import 'package:let_tutor/core/common/dropdown_select.dart';
+import 'package:let_tutor/core/utils/validators.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tag_card.dart';
 import 'package:let_tutor/core/utils/constants.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
@@ -38,6 +39,19 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
   }
 
   List<String> selectSubjects = [];
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _nameController.dispose();
+    _phoneController.dispose();
+    _countryController.dispose();
+    _birthDateController.dispose();
+    _scheduleController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,93 +107,110 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
             const SizedBox(
               height: 20,
             ),
-            CustomTextField(
-              controller: _nameController,
-              hintText: AppLocalizations.of(context)!.enterYourName,
-              labelText: AppLocalizations.of(context)!.name,
-            ),
-            CustomTextField(
-              controller: _emailController,
-              hintText: 'email@example.com',
-              labelText: 'Email',
-              readOnly: true,
-              keyboardType: TextInputType.emailAddress,
-            ),
-            CustomTextField(
-              controller: _countryController,
-              labelText: AppLocalizations.of(context)!.country,
-              readOnly: true,
-              onTap: () {
-                showCountryPicker(
-                  context: context, useSafeArea: true,
-                  showPhoneCode:
-                      false, // optional. Shows phone code before the country name.
-                  onSelect: (Country country) {
-                    _countryController.text = country.name;
-                  },
-                );
-              },
-            ),
-            CustomTextField(
-              controller: _phoneController,
-              hintText: '84123456789',
-              labelText: AppLocalizations.of(context)!.phoneNumber,
-              keyboardType: TextInputType.phone,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomDatePicker(
-                labelText: AppLocalizations.of(context)!.birthday,
-                textEditingController: _birthDateController,
-                minDate: DateTime(1900),
-                showIcon: false,
+            Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomTextField(
+                      controller: _nameController,
+                      hintText: AppLocalizations.of(context)!.enterYourName,
+                      labelText: AppLocalizations.of(context)!.name,
+                      validator: FormValidator.validateName,
+                    ),
+                    CustomTextField(
+                      controller: _emailController,
+                      hintText: 'email@example.com',
+                      labelText: 'Email',
+                      readOnly: true,
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    CustomTextField(
+                      controller: _countryController,
+                      labelText: AppLocalizations.of(context)!.country,
+                      readOnly: true,
+                      onTap: () {
+                        showCountryPicker(
+                          context: context, useSafeArea: true,
+                          showPhoneCode:
+                              false, // optional. Shows phone code before the country name.
+                          onSelect: (Country country) {
+                            _countryController.text = country.name;
+                          },
+                        );
+                      },
+                    ),
+                    CustomTextField(
+                      controller: _phoneController,
+                      hintText: '0794299888',
+                      labelText: AppLocalizations.of(context)!.phoneNumber,
+                      keyboardType: TextInputType.phone,
+                      validator: FormValidator.validatePhone,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomDatePicker(
+                        labelText: AppLocalizations.of(context)!.birthday,
+                        textEditingController: _birthDateController,
+                        minDate: DateTime(1900),
+                        showIcon: false,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DropdownSelect(
+                          options: AppConstants.learnerLevels,
+                          labelText: AppLocalizations.of(context)!.myLevel),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomButton(
+                          title: AppLocalizations.of(context)!.wantToLearn,
+                          backgroundColor: Theme.of(context).splashColor,
+                          titleColor: Theme.of(context).primaryColor,
+                          borderColor: Theme.of(context).primaryColor,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 10,
+                          ),
+                          callback: () {
+                            Helpers.openFilterDialog(
+                                context,
+                                AppConstants.specialties,
+                                selectSubjects, (List<String> list) {
+                              setState(() {
+                                selectSubjects = list;
+                              });
+                            });
+                          }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Wrap(
+                        spacing: 10,
+                        runSpacing: 10,
+                        children: (selectSubjects.length <
+                                AppConstants.specialties.length)
+                            ? selectSubjects
+                                .map((e) => TagCard(name: e))
+                                .toList()
+                            : [
+                                TagCard(name: AppLocalizations.of(context)!.all)
+                              ],
+                      ),
+                    ),
+                    CustomTextField(
+                        controller: _scheduleController,
+                        labelText: AppLocalizations.of(context)!.studySchedule,
+                        alignLabelWithHint: true,
+                        maxLines: 4),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: DropdownSelect(
-                  options: AppConstants.learnerLevels,
-                  labelText: AppLocalizations.of(context)!.myLevel),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomButton(
-                  title: AppLocalizations.of(context)!.wantToLearn,
-                  backgroundColor: Theme.of(context).splashColor,
-                  titleColor: Theme.of(context).primaryColor,
-                  borderColor: Theme.of(context).primaryColor,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                    vertical: 10,
-                  ),
-                  callback: () {
-                    Helpers.openFilterDialog(
-                        context, AppConstants.specialties, selectSubjects,
-                        (List<String> list) {
-                      setState(() {
-                        selectSubjects = list;
-                      });
-                    });
-                  }),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Wrap(
-                spacing: 10,
-                runSpacing: 10,
-                children:
-                    (selectSubjects.length < AppConstants.specialties.length)
-                        ? selectSubjects.map((e) => TagCard(name: e)).toList()
-                        : [TagCard(name: AppLocalizations.of(context)!.all)],
-              ),
-            ),
-            CustomTextField(
-              controller: _scheduleController,
-              labelText: AppLocalizations.of(context)!.studySchedule,
-              maxLines: 4,
             ),
             const SizedBox(
               height: 10,
@@ -194,7 +225,9 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                     horizontal: 20,
                     vertical: 10,
                   ),
-                  callback: () {},
+                  callback: () {
+                    _formKey.currentState!.validate();
+                  },
                   icon: const Icon(
                     Icons.save_rounded,
                     size: 20,

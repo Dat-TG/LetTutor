@@ -104,7 +104,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
             onChanged: (value) {
               setState(() {
                 widget.compareTextController == null
-                    ? errorText = widget.validator!(value, context)
+                    ? errorText = widget.validator != null
+                        ? widget.validator!(value, context)
+                        : null
                     : errorText = (value == widget.compareTextController!.text)
                         ? null
                         : AppLocalizations.of(context)!.passwordMatch;
@@ -148,7 +150,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
             validator: (value) {
               setState(() {
                 widget.compareTextController == null
-                    ? errorText = widget.validator!(value, context)
+                    ? errorText = widget.validator != null
+                        ? widget.validator!(value, context)
+                        : null
                     : errorText = (value == widget.compareTextController!.text)
                         ? null
                         : AppLocalizations.of(context)!.passwordMatch;

@@ -21,4 +21,21 @@ class FormValidator {
     }
     return null;
   }
+
+  static String? validatePhone(String? value, BuildContext context) {
+    if (value == null || value.isEmpty) {
+      return AppLocalizations.of(context)!.requiredField;
+    }
+    if (!RegExp(r'^\+?[0-9]{10,}$').hasMatch(value)) {
+      return AppLocalizations.of(context)!.invalidPhone;
+    }
+    return null;
+  }
+
+  static String? validateName(String? value, BuildContext context) {
+    if (value == null || value.isEmpty) {
+      return AppLocalizations.of(context)!.requiredField;
+    }
+    return null;
+  }
 }
