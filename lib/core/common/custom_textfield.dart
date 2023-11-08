@@ -16,6 +16,7 @@ class CustomTextField extends StatefulWidget {
   final Icon? prefixIcon;
   final double borderRadius;
   final String? Function(String?, BuildContext)? validator;
+  final TextEditingController? compareTextController;
   const CustomTextField({
     super.key,
     required this.controller,
@@ -32,6 +33,7 @@ class CustomTextField extends StatefulWidget {
     this.prefixIcon,
     this.borderRadius = 5,
     this.validator,
+    this.compareTextController,
   });
 
   @override
@@ -101,7 +103,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
             maxLines: widget.maxLines,
             onChanged: (value) {
               setState(() {
-                errorText = widget.validator!(value, context);
+                widget.compareTextController == null
+                    ? errorText = widget.validator!(value, context)
+                    : errorText = (value == widget.compareTextController!.text)
+                        ? null
+                        : AppLocalizations.of(context)!.passwordMatch;
                 handleBorderColor();
               });
             },
@@ -141,7 +147,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     : null),
             validator: (value) {
               setState(() {
-                errorText = widget.validator!(value, context);
+                widget.compareTextController == null
+                    ? errorText = widget.validator!(value, context)
+                    : errorText = (value == widget.compareTextController!.text)
+                        ? null
+                        : AppLocalizations.of(context)!.passwordMatch;
+
                 handleBorderColor();
               });
               return null;
