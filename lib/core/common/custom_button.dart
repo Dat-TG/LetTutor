@@ -12,6 +12,7 @@ class CustomButton extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final Color borderColor;
   final Icon? icon;
+  final bool? isInProgress;
   const CustomButton({
     super.key,
     required this.title,
@@ -23,6 +24,7 @@ class CustomButton extends StatelessWidget {
     this.padding = const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
     this.borderColor = Colors.transparent,
     this.icon,
+    this.isInProgress,
   });
 
   @override
@@ -44,28 +46,39 @@ class CustomButton extends StatelessWidget {
         ),
       ),
       onPressed: callback,
-      child: RichText(
-        text: TextSpan(
-          style: TextStyle(
-            color: titleColor,
-            fontSize: textSize,
-          ),
-          children: [
-            if (icon != null)
-              WidgetSpan(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    right: 5,
-                  ),
-                  child: icon,
+      child: isInProgress == true
+          ? Center(
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  color: titleColor ?? Colors.white,
+                  strokeWidth: 2,
                 ),
               ),
-            TextSpan(
-              text: title,
+            )
+          : RichText(
+              text: TextSpan(
+                style: TextStyle(
+                  color: titleColor,
+                  fontSize: textSize,
+                ),
+                children: [
+                  if (icon != null)
+                    WidgetSpan(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          right: 5,
+                        ),
+                        child: icon,
+                      ),
+                    ),
+                  TextSpan(
+                    text: title,
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
     );
   }
 }

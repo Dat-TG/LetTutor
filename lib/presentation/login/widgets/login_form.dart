@@ -11,9 +11,11 @@ import 'package:provider/provider.dart';
 
 class LoginForm extends StatefulWidget {
   final bool isRegister;
+  final AuthState authState;
   const LoginForm({
     super.key,
     this.isRegister = false,
+    required this.authState,
   });
 
   @override
@@ -26,6 +28,23 @@ class _LoginFormState extends State<LoginForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool isPasswordVisible = false;
+
+  void onSubmit() {
+    if (!_emailKey.currentState!.validate() ||
+        !_passwordKey.currentState!.validate()) {
+      return;
+    }
+    if (widget.isRegister) {
+      GoRouter.of(context).goNamed(LoginScreen.routeName);
+    } else {
+      context.read<AuthBloc>().add(
+            LoginEvent(
+              email: _emailController.text,
+              password: _passwordController.text,
+            ),
+          );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +130,9 @@ class _LoginFormState extends State<LoginForm> {
                 validator: (value) {
                   return FormValidator.validatePassword(value, context);
                 },
+                onFieldSubmitted: (value) {
+                  onSubmit();
+                },
                 obscureText: isPasswordVisible ? false : true,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
@@ -178,25 +200,11 @@ class _LoginFormState extends State<LoginForm> {
           children: [
             Expanded(
               child: CustomButton(
+                isInProgress: widget.authState is AuthInProress,
                 title: widget.isRegister
                     ? AppLocalizations.of(context)!.registerUppercase
                     : AppLocalizations.of(context)!.logInUpperCase,
-                callback: () async {
-                  if (!_emailKey.currentState!.validate() ||
-                      !_passwordKey.currentState!.validate()) {
-                    return;
-                  }
-                  if (widget.isRegister) {
-                    GoRouter.of(context).goNamed(LoginScreen.routeName);
-                  } else {
-                    context.read<AuthBloc>().add(
-                          LoginEvent(
-                            email: _emailController.text,
-                            password: _passwordController.text,
-                          ),
-                        );
-                  }
-                },
+                callback: onSubmit,
                 textSize: 20,
                 borderRadius: 10,
                 padding: const EdgeInsets.symmetric(

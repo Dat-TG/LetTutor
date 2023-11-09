@@ -14,6 +14,10 @@ final class AuthInitial extends AuthState {
   const AuthInitial();
 }
 
+final class AuthInProress extends AuthState {
+  const AuthInProress();
+}
+
 final class AuthSuccessful extends AuthState {
   const AuthSuccessful(AuthEntity authEntity) : super(authEntity: authEntity);
 }

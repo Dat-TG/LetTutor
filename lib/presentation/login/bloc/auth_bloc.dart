@@ -18,6 +18,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void onLogin(LoginEvent event, Emitter<AuthState> emit) async {
+    emit(const AuthInProress());
     final dataState = await loginUsecase(
       params: LoginUsecaseParams(
         email: event.email,

@@ -34,6 +34,12 @@ class LoginScreen extends StatelessWidget {
             });
             context.read<AuthBloc>().add(const InitialEvent());
           }
+          if (state is AuthFail) {
+            Future.delayed(Duration.zero, () {
+              Helpers.showSnackBar(
+                  context, state.dioException!.response!.data['message']);
+            });
+          }
           return Scaffold(
             appBar: const PreferredSize(
               preferredSize: Size.fromHeight(80),
@@ -58,7 +64,9 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  const LoginForm(),
+                  LoginForm(
+                    authState: state,
+                  ),
                   const SizedBox(
                     height: 30,
                   ),
