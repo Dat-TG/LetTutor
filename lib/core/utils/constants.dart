@@ -58,4 +58,6 @@ class AppConstants {
     'Intermediate',
     'Advanced',
   ];
+
+  static const baseUrl = 'https://sandbox.api.lettutor.com';
 }

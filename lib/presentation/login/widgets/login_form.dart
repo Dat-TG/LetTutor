@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/core/utils/validators.dart';
 import 'package:let_tutor/presentation/forgot-password/forgot_password_screen.dart';
+import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
 import 'package:let_tutor/presentation/login/login_screen.dart';
+import 'package:provider/provider.dart';
 
 class LoginForm extends StatefulWidget {
   final bool isRegister;
-  const LoginForm({super.key, this.isRegister = false});
+  const LoginForm({
+    super.key,
+    this.isRegister = false,
+  });
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -17,6 +23,10 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _emailKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _passwordKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool isPasswordVisible = false;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,6 +47,7 @@ class _LoginFormState extends State<LoginForm> {
                 height: 10,
               ),
               TextFormField(
+                controller: _emailController,
                 onChanged: (value) {
                   _emailKey.currentState!.validate();
                 },
@@ -89,6 +100,7 @@ class _LoginFormState extends State<LoginForm> {
                 height: 10,
               ),
               TextFormField(
+                controller: _passwordController,
                 textInputAction: TextInputAction.done,
                 style: const TextStyle(
                   fontSize: 18,
@@ -99,19 +111,32 @@ class _LoginFormState extends State<LoginForm> {
                 validator: (value) {
                   return FormValidator.validatePassword(value, context);
                 },
-                obscureText: true,
+                obscureText: isPasswordVisible ? false : true,
                 keyboardType: TextInputType.text,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   errorText: null,
-                  prefixIcon: Icon(
+                  prefixIcon: const Icon(
                     Icons.lock,
                     size: 20,
                   ),
-                  suffixIcon: Icon(
-                    Icons.visibility_off,
-                    size: 20,
+                  suffixIcon: IconButton(
+                    splashRadius: 20,
+                    onPressed: () {
+                      setState(() {
+                        isPasswordVisible = !isPasswordVisible;
+                      });
+                    },
+                    icon: isPasswordVisible
+                        ? const Icon(
+                            Icons.visibility_off,
+                            size: 20,
+                          )
+                        : const Icon(
+                            Icons.visibility,
+                            size: 20,
+                          ),
                   ),
-                  border: OutlineInputBorder(
+                  border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
                     ),
@@ -120,7 +145,7 @@ class _LoginFormState extends State<LoginForm> {
                       width: 1,
                     ),
                   ),
-                  contentPadding: EdgeInsets.symmetric(
+                  contentPadding: const EdgeInsets.symmetric(
                     horizontal: 5,
                     vertical: 15,
                   ),
@@ -156,7 +181,7 @@ class _LoginFormState extends State<LoginForm> {
                 title: widget.isRegister
                     ? AppLocalizations.of(context)!.registerUppercase
                     : AppLocalizations.of(context)!.logInUpperCase,
-                callback: () {
+                callback: () async {
                   if (!_emailKey.currentState!.validate() ||
                       !_passwordKey.currentState!.validate()) {
                     return;
@@ -164,7 +189,12 @@ class _LoginFormState extends State<LoginForm> {
                   if (widget.isRegister) {
                     GoRouter.of(context).goNamed(LoginScreen.routeName);
                   } else {
-                    GoRouter.of(context).goNamed('home');
+                    context.read<AuthBloc>().add(
+                          LoginEvent(
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                          ),
+                        );
                   }
                 },
                 textSize: 20,
