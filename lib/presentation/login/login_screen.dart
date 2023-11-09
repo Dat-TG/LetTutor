@@ -10,9 +10,20 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/presentation/register/register_screen.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   static const String routeName = 'login';
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() {
+    context.read<AuthBloc>().add(const InitialEvent());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +36,17 @@ class LoginScreen extends StatelessWidget {
         return Helpers.showExitPopup(context);
       },
       child: BlocBuilder<AuthBloc, AuthState>(
+        buildWhen: (previous, current) {
+          return previous != current;
+        },
         builder: (context, state) {
           if (state is AuthSuccessful) {
             Future.delayed(Duration.zero, () {
               Provider.of<AuthProvider>(context, listen: false)
                   .setAuthEntity(state.authEntity!);
               GoRouter.of(context).goNamed('home');
+              context.read<AuthBloc>().add(const ResetStateEvent());
             });
-            context.read<AuthBloc>().add(const InitialEvent());
           }
           if (state is AuthFail) {
             Future.delayed(Duration.zero, () {

@@ -12,6 +12,7 @@ import 'package:let_tutor/presentation/settings/settings_screen.dart';
 import 'package:let_tutor/core/utils/listtile_item.dart';
 import 'package:let_tutor/core/utils/url_launcher.dart';
 import 'package:provider/provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class DrawerMain extends StatelessWidget {
   const DrawerMain({super.key});
@@ -104,6 +105,7 @@ class DrawerMain extends StatelessWidget {
             color: Theme.of(context).primaryColor,
           ),
           callback: () {
+            Provider.of<AuthProvider>(context, listen: false).logOut();
             GoRouter.of(context).goNamed(LoginScreen.routeName);
           }),
     ];
@@ -130,8 +132,10 @@ class DrawerMain extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        user.avatar ?? 'https://i.imgur.com/BoN9kdC.png'),
+                    backgroundImage: CachedNetworkImageProvider(
+                      user.avatar ??
+                          'https://ui-avatars.com/api/?size=80&name=${user.name}',
+                    ),
                     radius: 40,
                   ),
                   const SizedBox(

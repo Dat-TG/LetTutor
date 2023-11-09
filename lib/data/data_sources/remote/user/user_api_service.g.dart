@@ -24,7 +24,10 @@ class _UserApiService implements UserApiService {
   Future<HttpResponse<UserModel>> getUserInfo({required String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': token};
+    final _headers = <String, dynamic>{
+      r'Content-Type': 'application/json',
+      r'Authorization': token,
+    };
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -32,6 +35,7 @@ class _UserApiService implements UserApiService {
       method: 'GET',
       headers: _headers,
       extra: _extra,
+      contentType: 'application/json',
     )
             .compose(
               _dio.options,
@@ -44,7 +48,7 @@ class _UserApiService implements UserApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = UserModel.fromJson(_result.data!);
+    final value = UserModel.fromJson(_result.data!['user']);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

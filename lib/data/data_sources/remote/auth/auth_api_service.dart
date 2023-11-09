@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart' as dio;
+import 'package:dio/dio.dart' hide Headers;
 import 'package:let_tutor/core/utils/constants.dart';
 import 'package:let_tutor/data/models/auth/auth_model.dart';
 import 'package:retrofit/retrofit.dart';
@@ -7,7 +7,7 @@ part 'auth_api_service.g.dart';
 
 @RestApi(baseUrl: AppConstants.baseUrl)
 abstract class AuthApiService {
-  factory AuthApiService(dio.Dio dio) = _AuthApiService;
+  factory AuthApiService(Dio dio) = _AuthApiService;
 
   @POST('/auth/login')
   @Headers(<String, dynamic>{

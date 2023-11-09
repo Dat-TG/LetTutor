@@ -16,7 +16,7 @@ class _AuthApiService implements AuthApiService {
     baseUrl ??= 'https://sandbox.api.lettutor.com';
   }
 
-  final dio.Dio _dio;
+  final Dio _dio;
 
   String? baseUrl;
 
@@ -34,7 +34,7 @@ class _AuthApiService implements AuthApiService {
       'password': password,
     };
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<AuthModel>>(dio.Options(
+        _setStreamType<HttpResponse<AuthModel>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -56,14 +56,14 @@ class _AuthApiService implements AuthApiService {
     return httpResponse;
   }
 
-  dio.RequestOptions _setStreamType<T>(dio.RequestOptions requestOptions) {
+  RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
-        !(requestOptions.responseType == dio.ResponseType.bytes ||
-            requestOptions.responseType == dio.ResponseType.stream)) {
+        !(requestOptions.responseType == ResponseType.bytes ||
+            requestOptions.responseType == ResponseType.stream)) {
       if (T == String) {
-        requestOptions.responseType = dio.ResponseType.plain;
+        requestOptions.responseType = ResponseType.plain;
       } else {
-        requestOptions.responseType = dio.ResponseType.json;
+        requestOptions.responseType = ResponseType.json;
       }
     }
     return requestOptions;

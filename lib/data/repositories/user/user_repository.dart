@@ -11,11 +11,10 @@ class UserRepositoryImpl implements UserRepository {
 
   UserRepositoryImpl(this._userApiService);
   @override
-  Future<DataState<UserModel>> getUser() async {
+  Future<DataState<UserModel>> getUserInfo(String token) async {
     try {
-      final httpResponse = await _userApiService.getUserInfo(
-          token:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNTY5YzIwMi03YmJmLTQ2MjAtYWY3Ny1lY2MxNDE5YTZiMjgiLCJpYXQiOjE2OTk0NTQ3MzcsImV4cCI6MTY5OTU0MTEzNywidHlwZSI6ImFjY2VzcyJ9.feE8NCPxqntJqD9-ZZfmbuiDx8QWvz7uR-slGBgraeE');
+      final httpResponse =
+          await _userApiService.getUserInfo(token: 'Bearer $token');
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {

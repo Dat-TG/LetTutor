@@ -23,3 +23,7 @@ final class RegisterEvent extends AuthEvent {
 final class InitialEvent extends AuthEvent {
   const InitialEvent();
 }
+
+final class ResetStateEvent extends AuthEvent {
+  const ResetStateEvent();
+}

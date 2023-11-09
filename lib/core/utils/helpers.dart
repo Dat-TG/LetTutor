@@ -164,4 +164,32 @@ class Helpers {
         minutes * 60;
     return "${days > 0 ? days : ''} ${days > 1 ? AppLocalizations.of(context)!.days : days == 1 ? AppLocalizations.of(context)!.day : ''} ${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}";
   }
+
+  static showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const SizedBox(
+              width: 30, height: 30, child: CircularProgressIndicator()),
+          Container(
+            margin: const EdgeInsets.only(left: 20),
+            child: const Text(
+              "Loading...",
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 }

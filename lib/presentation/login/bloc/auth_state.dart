@@ -14,6 +14,10 @@ final class AuthInitial extends AuthState {
   const AuthInitial();
 }
 
+final class AuthLoadToken extends AuthState {
+  const AuthLoadToken();
+}
+
 final class AuthInProress extends AuthState {
   const AuthInProress();
 }
