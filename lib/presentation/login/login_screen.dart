@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/appbar_login.dart';
+import 'package:let_tutor/core/providers/auth_provider.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
 import 'package:let_tutor/presentation/login/widgets/login_form.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/presentation/register/register_screen.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String routeName = 'login';
@@ -25,9 +27,9 @@ class LoginScreen extends StatelessWidget {
       child: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           if (state is AuthSuccessful) {
-            //Provider.of<AuthProvider>(context, listen: false)
-            //  .setAuthEntity(state.authEntity!);
             Future.delayed(Duration.zero, () {
+              Provider.of<AuthProvider>(context, listen: false)
+                  .setAuthEntity(state.authEntity!);
               GoRouter.of(context).goNamed('home');
             });
             context.read<AuthBloc>().add(const InitialEvent());
