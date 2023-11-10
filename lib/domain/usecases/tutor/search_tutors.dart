@@ -27,4 +27,14 @@ class SearchTutorsUsecaseParams {
     required this.token,
     required this.params,
   });
+
+  SearchTutorsUsecaseParams copyWith({
+    String? token,
+    TutorSearchParams? params,
+  }) {
+    return SearchTutorsUsecaseParams(
+      token: token ?? this.token,
+      params: params ?? this.params,
+    );
+  }
 }

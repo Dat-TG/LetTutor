@@ -7,7 +7,7 @@ sealed class TutorEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class TutorSearch extends TutorEvent {
+final class TutorSearching extends TutorEvent {
   final SearchTutorsUsecaseParams params;
-  const TutorSearch(this.params);
+  const TutorSearching(this.params);
 }

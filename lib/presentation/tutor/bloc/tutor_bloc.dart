@@ -10,16 +10,24 @@ part 'tutor_state.dart';
 
 class TutorBloc extends Bloc<TutorEvent, TutorState> {
   final SearchTutorsUsecase _searchTutorsUsecase;
-  TutorBloc(this._searchTutorsUsecase) : super(const TutorSearchInProgress()) {
-    on<TutorSearch>(onSearch);
+  TutorBloc(this._searchTutorsUsecase)
+      : super(const TutorSearchInProgress([], 0)) {
+    on<TutorSearching>(onSearch);
   }
 
-  void onSearch(TutorSearch event, Emitter<TutorState> emit) async {
-    emit(const TutorSearchInProgress());
+  void onSearch(TutorSearching event, Emitter<TutorState> emit) async {
+    emit(TutorSearchInProgress(state.tutors ?? [], state.page ?? 0));
     final dataState = await _searchTutorsUsecase(params: event.params);
-
+    print(
+        'fetch data page ${event.params.params.page} perPage ${event.params.params.perPage}');
     if (dataState is DataSuccess) {
-      emit(TutorSearchSuccess([...?state.tutors, ...?dataState.data]));
+      if (dataState.data!.isNotEmpty) {
+        emit(TutorSearchSuccess(
+            [...(state.tutors ?? []), ...(dataState.data ?? [])],
+            event.params.params.page ?? 1));
+      } else {
+        emit(TutorNotFound(state.tutors ?? [], state.page ?? 0));
+      }
     }
 
     if (dataState is DataFailed) {
