@@ -1,14 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/stars.dart';
+import 'package:let_tutor/core/utils/constants.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
+import 'package:let_tutor/domain/entities/tutor/tutor_entity.dart';
 import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tag_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TutorCard extends StatelessWidget {
   final bool isExpanded;
-  const TutorCard({super.key, this.isExpanded = false});
+  final TutorEntity tutor;
+  const TutorCard({super.key, this.isExpanded = false, required this.tutor});
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +44,33 @@ class TutorCard extends StatelessWidget {
               color: Theme.of(context).splashColor,
             ),
             child: Column(
+              mainAxisSize: MainAxisSize.max,
               children: [
                 Row(
                   children: [
-                    const CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://sandbox.api.lettutor.com/avatar/4d54d3d7-d2a9-42e5-97a2-5ed38af5789aavatar1684484879187.jpg'),
-                      radius: 32,
+                    CachedNetworkImage(
+                      imageUrl:
+                          tutor.avatar ?? Helpers.avatarFromName(tutor.name),
+                      imageBuilder: (context, imageProvider) => CircleAvatar(
+                        radius: 32,
+                        backgroundImage: imageProvider,
+                      ),
+                      placeholder: (context, url) => const CircleAvatar(
+                          radius: 32, child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) => CachedNetworkImage(
+                        imageUrl: Helpers.avatarFromName(tutor.name),
+                        imageBuilder: (context, imageProvider) => CircleAvatar(
+                          radius: 32,
+                          backgroundImage: imageProvider,
+                        ),
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
+                        errorWidget: (context, url, error) =>
+                            const CircleAvatar(
+                          radius: 32,
+                          child: Icon(Icons.person),
+                        ),
+                      ),
                     ),
                     const SizedBox(
                       width: 10,
@@ -52,13 +78,13 @@ class TutorCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(
+                        SizedBox(
                           width: 160,
                           child: Text(
-                            'Keegan',
+                            tutor.name ?? 'User Name',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 18,
                             ),
@@ -70,17 +96,30 @@ class TutorCard extends StatelessWidget {
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Image.asset(
-                              'assets/images/vietnam.png',
+                            SvgPicture.network(
+                              Helpers.flagFromCountryCode(
+                                  Helpers.contriesNameToCode[tutor.country] ??
+                                      tutor.country),
                               width: 30,
                               height: 20,
+                              semanticsLabel: tutor.country,
+                              placeholderBuilder: (BuildContext context) =>
+                                  const Center(
+                                child: Icon(
+                                  Icons.flag,
+                                  size: 20,
+                                ),
+                              ),
                               fit: BoxFit.cover,
                             ),
                             const SizedBox(
                               width: 5,
                             ),
                             Text(
-                              AppLocalizations.of(context)!.vietnam,
+                              Helpers.countriesCodeToName[
+                                      tutor.country?.toUpperCase()] ??
+                                  tutor.country ??
+                                  AppLocalizations.of(context)!.noCountry,
                               style: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 16,
@@ -91,10 +130,18 @@ class TutorCard extends StatelessWidget {
                         const SizedBox(
                           height: 5,
                         ),
-                        const Stars(
-                          rating: 4.5,
-                          itemSize: 18,
-                        ),
+                        tutor.rating != null
+                            ? Stars(
+                                rating: tutor.rating!,
+                                itemSize: 18,
+                              )
+                            : Text(
+                                AppLocalizations.of(context)!.noReviewsYet,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                ),
+                              ),
                       ],
                     ),
                   ],
@@ -103,53 +150,56 @@ class TutorCard extends StatelessWidget {
                   height: 15,
                 ),
                 isExpanded
-                    ? const Wrap(
+                    ? Wrap(
                         direction: Axis.horizontal,
                         spacing: 10,
                         runSpacing: 10,
-                        children: [
-                          TagCard(name: 'English for Business'),
-                          TagCard(name: 'Conversational'),
-                          TagCard(name: 'English for Kids'),
-                          TagCard(name: 'English for Business'),
-                          TagCard(name: 'Conversational'),
-                          TagCard(name: 'English for Kids'),
-                        ],
+                        children: tutor.specialties != null
+                            ? tutor.specialties!.split(',').map((e) {
+                                return TagCard(
+                                    name: AppConstants.specialties[e] ?? '');
+                              }).toList()
+                            : [],
                       )
                     : Container(
                         constraints: const BoxConstraints(
                           minHeight: 78,
                           maxHeight: 78,
                         ),
-                        child: const SingleChildScrollView(
+                        child: SingleChildScrollView(
                           clipBehavior: Clip.antiAliasWithSaveLayer,
                           child: Wrap(
                             direction: Axis.horizontal,
                             spacing: 10,
                             runSpacing: 10,
-                            children: [
-                              TagCard(name: 'English for Business'),
-                              TagCard(name: 'Conversational'),
-                              TagCard(name: 'English for Kids'),
-                              TagCard(name: 'English for Business'),
-                              TagCard(name: 'Conversational'),
-                              TagCard(name: 'English for Kids'),
-                            ],
+                            children: tutor.specialties != null
+                                ? tutor.specialties!.split(',').map((e) {
+                                    return TagCard(
+                                        name:
+                                            AppConstants.specialties[e] ?? '');
+                                  }).toList()
+                                : [],
                           ),
                         ),
                       ),
                 const SizedBox(
                   height: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Text(
-                    'I am passionate about running and fitness, I often compete in trail/mountain running events and I love pushing myself. I am training to one day take part in ultra-endurance events. I also enjoy watching rugby on the weekends, reading and watching',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 4,
-                    style: TextStyle(
-                      color: Theme.of(context).iconTheme.color,
-                      fontSize: 16,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 10,
+                    ),
+                    child: Text(
+                      tutor.bio ?? '',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 4,
+                      style: TextStyle(
+                        color: Theme.of(context).iconTheme.color,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ),
@@ -157,7 +207,7 @@ class TutorCard extends StatelessWidget {
                   height: 10,
                 ),
                 Align(
-                  alignment: Alignment.centerRight,
+                  alignment: Alignment.bottomRight,
                   child: CustomButton(
                     title: AppLocalizations.of(context)!.bookNow,
                     callback: () {},
@@ -184,11 +234,17 @@ class TutorCard extends StatelessWidget {
         Positioned(
           right: 20,
           top: 10,
-          child: Icon(
-            Icons.favorite_outline_rounded,
-            color: Theme.of(context).primaryColor,
-            size: 30,
-          ),
+          child: tutor.isFavoriteTutor == true
+              ? const Icon(
+                  Icons.favorite_rounded,
+                  color: Colors.red,
+                  size: 30,
+                )
+              : Icon(
+                  Icons.favorite_outline_rounded,
+                  color: Theme.of(context).primaryColor,
+                  size: 30,
+                ),
         ),
       ],
     );

@@ -242,5 +242,7 @@
     "invalidEmail": "Please enter a valid email address",
     "passwordLength": "Password must be at least 6 characters long",
     "passwordMatch": "Passwords do not match",
-    "invalidPhone": "Please enter a valid phone number"
+    "invalidPhone": "Please enter a valid phone number",
+    "noReviewsYet":"No reviews yet",
+    "noCountry": "No country information"
 }

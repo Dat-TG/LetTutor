@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:let_tutor/domain/entities/tutor/tutor_entity.dart';
 import 'package:let_tutor/presentation/course/widgets/all_courses.dart';
 import 'package:let_tutor/presentation/course/widgets/all_ebooks.dart';
 import 'package:let_tutor/presentation/course/widgets/course_card.dart';
@@ -43,10 +44,18 @@ class HomeScreen extends StatelessWidget {
           ),
           CarouselSlider(
             items: const [
-              TutorCard(),
-              TutorCard(),
-              TutorCard(),
-              TutorCard(),
+              TutorCard(
+                tutor: TutorEntity(),
+              ),
+              TutorCard(
+                tutor: TutorEntity(),
+              ),
+              TutorCard(
+                tutor: TutorEntity(),
+              ),
+              TutorCard(
+                tutor: TutorEntity(),
+              ),
             ],
             options: CarouselOptions(
               height: 326,
@@ -55,7 +64,7 @@ class HomeScreen extends StatelessWidget {
               initialPage: 0,
               enableInfiniteScroll: true,
               reverse: false,
-              autoPlay: true,
+              autoPlay: false,
               autoPlayInterval: const Duration(seconds: 5),
               autoPlayAnimationDuration: const Duration(milliseconds: 800),
               autoPlayCurve: Curves.fastOutSlowIn,
@@ -98,7 +107,7 @@ class HomeScreen extends StatelessWidget {
               initialPage: 0,
               enableInfiniteScroll: true,
               reverse: false,
-              autoPlay: true,
+              autoPlay: false,
               autoPlayInterval: const Duration(seconds: 5),
               autoPlayAnimationDuration: const Duration(milliseconds: 800),
               autoPlayCurve: Curves.fastOutSlowIn,
@@ -149,7 +158,7 @@ class HomeScreen extends StatelessWidget {
               initialPage: 0,
               enableInfiniteScroll: true,
               reverse: false,
-              autoPlay: true,
+              autoPlay: false,
               autoPlayInterval: const Duration(seconds: 5),
               autoPlayAnimationDuration: const Duration(milliseconds: 800),
               autoPlayCurve: Curves.fastOutSlowIn,

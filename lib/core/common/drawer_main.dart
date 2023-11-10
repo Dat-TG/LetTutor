@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/core/providers/auth_provider.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:let_tutor/domain/entities/user/user_entity.dart';
 import 'package:let_tutor/presentation/become-tutor/become_tutor_screen.dart';
 import 'package:let_tutor/presentation/edit-account/edit_account_screen.dart';
@@ -133,8 +134,7 @@ class DrawerMain extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     backgroundImage: CachedNetworkImageProvider(
-                      user.avatar ??
-                          'https://ui-avatars.com/api/?size=80&name=${user.name}',
+                      user.avatar ?? Helpers.avatarFromName(user.name),
                     ),
                     radius: 40,
                   ),

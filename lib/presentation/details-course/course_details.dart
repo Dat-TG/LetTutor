@@ -5,6 +5,7 @@ import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/expanded_paragraph.dart';
+import 'package:let_tutor/domain/entities/tutor/tutor_entity.dart';
 import 'package:let_tutor/presentation/details-course/widgets/course_details_title_big.dart';
 import 'package:let_tutor/presentation/details-course/widgets/course_details_title_small.dart';
 import 'package:let_tutor/presentation/details-course/widgets/list_topics.dart';
@@ -185,9 +186,15 @@ class CourseDetails extends StatelessWidget {
             ),
             CarouselSlider(
               items: const [
-                TutorCard(),
-                TutorCard(),
-                TutorCard(),
+                TutorCard(
+                  tutor: TutorEntity(),
+                ),
+                TutorCard(
+                  tutor: TutorEntity(),
+                ),
+                TutorCard(
+                  tutor: TutorEntity(),
+                ),
               ],
               options: CarouselOptions(
                 height: 326,

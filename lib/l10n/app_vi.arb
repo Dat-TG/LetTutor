@@ -242,5 +242,7 @@
     "invalidEmail": "Vui lòng nhập địa chỉ email hợp lệ",
     "passwordLength": "Mật khẩu phải có ít nhất 6 ký tự",
     "passwordMatch": "Mật khẩu không khớp",
-    "invalidPhone": "Vui lòng nhập số điện thoại hợp lệ"
+    "invalidPhone": "Vui lòng nhập số điện thoại hợp lệ",
+    "noReviewsYet":"Chưa có đánh giá",
+    "noCountry": "Chưa có thông tin quốc gia"
 }

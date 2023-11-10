@@ -320,8 +320,9 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
             ),
             callback: () {
               Helpers.openFilterDialog(
-                  context, AppConstants.specialties, selectedSpecialties,
-                  (List<String> list) {
+                  context,
+                  AppConstants.specialties.values.toList(),
+                  selectedSpecialties, (List<String> list) {
                 setState(() {
                   selectedSpecialties = list;
                 });

@@ -135,8 +135,9 @@ class _TutorSearchState extends State<TutorSearch> {
             ),
             callback: () {
               Helpers.openFilterDialog(
-                  context, AppConstants.specialties, selectedSpecialties,
-                  (List<String> list) {
+                  context,
+                  AppConstants.specialties.values.toList(),
+                  selectedSpecialties, (List<String> list) {
                 setState(() {
                   selectedSpecialties = list;
                 });

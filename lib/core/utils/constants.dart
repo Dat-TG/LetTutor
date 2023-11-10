@@ -1,17 +1,17 @@
 class AppConstants {
-  static const List<String> specialties = [
-    'English for kids',
-    'English for Business',
-    'Conversational',
-    'STARTERS',
-    'MOVERS',
-    'FLYERS',
-    'KET',
-    'PET',
-    'IELTS',
-    'TOEFL',
-    'TOEIC',
-  ];
+  static const Map<String, String> specialties = {
+    'english-for-kids': 'English for kids',
+    'business-english': 'English for Business',
+    'conversational-english': 'Conversational',
+    'starters': 'STARTERS',
+    'movers': 'MOVERS',
+    'flyers': 'FLYERS',
+    'ket': 'KET',
+    'pet': 'PET',
+    'ielts': 'IELTS',
+    'toefl': 'TOEFL',
+    'toeic': 'TOEIC',
+  };
 
   static const List<String> courseLevels = [
     'Beginner',

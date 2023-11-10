@@ -180,7 +180,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                           callback: () {
                             Helpers.openFilterDialog(
                                 context,
-                                AppConstants.specialties,
+                                AppConstants.specialties.values.toList(),
                                 selectSubjects, (List<String> list) {
                               setState(() {
                                 selectSubjects = list;
