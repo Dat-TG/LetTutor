@@ -30,7 +30,7 @@ class _TutorScreenState extends State<TutorScreen> {
               SearchTutorsUsecaseParams(
                 token: sl<SharedPreferences>().getString('access-token')!,
                 params: TutorSearchParams(
-                    page: context.read<TutorBloc>().state.page! + 1),
+                    page: (context.read<TutorBloc>().state.page ?? 0) + 1),
               ),
             ),
           );
@@ -39,14 +39,16 @@ class _TutorScreenState extends State<TutorScreen> {
 
   @override
   void initState() {
-    context.read<TutorBloc>().add(
-          TutorSearching(
-            SearchTutorsUsecaseParams(
-              token: sl<SharedPreferences>().getString('access-token')!,
-              params: TutorSearchParams(page: 1),
+    if ((context.read<TutorBloc>().state.page ?? 0) < 1) {
+      context.read<TutorBloc>().add(
+            TutorSearching(
+              SearchTutorsUsecaseParams(
+                token: sl<SharedPreferences>().getString('access-token')!,
+                params: TutorSearchParams(page: 1),
+              ),
             ),
-          ),
-        );
+          );
+    }
     _scrollController.addListener(_scrollListener);
     super.initState();
   }
