@@ -10,6 +10,7 @@ import 'package:let_tutor/domain/repositories/auth/auth_repository.dart';
 import 'package:let_tutor/domain/repositories/tutor/tutor_repositoy.dart';
 import 'package:let_tutor/domain/repositories/user/user_repository.dart';
 import 'package:let_tutor/domain/usecases/auth/login.dart';
+import 'package:let_tutor/domain/usecases/auth/refresh_token.dart';
 import 'package:let_tutor/domain/usecases/tutor/search_tutors.dart';
 import 'package:let_tutor/domain/usecases/user/get_user.dart';
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
@@ -39,10 +40,11 @@ Future<void> initializeDependencies() async {
 
   //UseCases
   sl.registerSingleton<LoginUsecase>(LoginUsecase(sl()));
+  sl.registerSingleton<RefreshTokenUsecase>(RefreshTokenUsecase(sl()));
   sl.registerSingleton<GetUserUsecase>(GetUserUsecase(sl()));
   sl.registerSingleton<SearchTutorsUsecase>(SearchTutorsUsecase(sl()));
 
   //Blocs
-  sl.registerFactory<AuthBloc>(() => AuthBloc(sl(), sl()));
+  sl.registerFactory<AuthBloc>(() => AuthBloc(sl(), sl(), sl()));
   sl.registerFactory<TutorBloc>(() => TutorBloc(sl()));
 }

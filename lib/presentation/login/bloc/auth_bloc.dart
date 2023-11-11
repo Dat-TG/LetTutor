@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:let_tutor/core/resources/data_state.dart';
 import 'package:let_tutor/domain/entities/auth/auth_entity.dart';
 import 'package:let_tutor/domain/usecases/auth/login.dart';
+import 'package:let_tutor/domain/usecases/auth/refresh_token.dart';
 import 'package:let_tutor/domain/usecases/user/get_user.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,7 +17,8 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUsecase loginUsecase;
   final GetUserUsecase getUserUsecase;
-  AuthBloc(this.loginUsecase, this.getUserUsecase)
+  final RefreshTokenUsecase refreshTokenUsecase;
+  AuthBloc(this.loginUsecase, this.getUserUsecase, this.refreshTokenUsecase)
       : super(const AuthInitial()) {
     on<LoginEvent>(onLogin);
     on<InitialEvent>(onInitial);
@@ -42,7 +44,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void onInitial(InitialEvent event, Emitter<AuthState> emit) async {
-    print("onInitial");
     emit(const AuthInitial());
     final String? accessToken =
         sl<SharedPreferences>().getString('access-token');
@@ -65,8 +66,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ),
         );
       } else if (dataState is DataFailed) {
-        emit(const AuthInitial());
-        // TODO: refresh token
+        final dataStateRefresh = await refreshTokenUsecase(
+          params: RefreshTokenUsecaseParams(
+            refreshToken: refreshToken ?? '',
+            timezone: 7,
+          ),
+        );
+        if (dataStateRefresh is DataSuccess && dataStateRefresh.data != null) {
+          emit(
+            AuthSuccessful(dataStateRefresh.data!),
+          );
+        } else if (dataState is DataFailed) {
+          sl<SharedPreferences>().remove('access-token');
+          sl<SharedPreferences>().remove('refresh-token');
+          emit(AuthFail(dataState.error!));
+        }
       }
     }
   }

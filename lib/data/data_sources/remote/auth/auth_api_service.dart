@@ -17,4 +17,13 @@ abstract class AuthApiService {
     @Field("email") required String email,
     @Field("password") required String password,
   });
+
+  @POST('/auth/refresh-token')
+  @Headers(<String, dynamic>{
+    'Content-Type': 'application/json',
+  })
+  Future<HttpResponse<AuthModel>> refreshToken({
+    @Field("refreshToken") required String refreshToken,
+    @Field("timezone") required int timezone,
+  });
 }

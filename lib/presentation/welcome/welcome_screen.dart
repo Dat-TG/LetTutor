@@ -48,6 +48,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               context.read<AuthBloc>().add(const ResetStateEvent());
             });
           }
+          if (state is AuthFail) {
+            Future.delayed(Duration.zero, () {
+              Navigator.pop(context);
+              context.read<AuthBloc>().add(const ResetStateEvent());
+            });
+          }
 
           return Scaffold(
             appBar: const PreferredSize(
