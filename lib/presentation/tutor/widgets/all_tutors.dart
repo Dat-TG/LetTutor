@@ -4,7 +4,6 @@ import 'package:let_tutor/presentation/tutor/bloc/tutor_bloc.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_card.dart';
 
 class AllTutors extends StatefulWidget {
-  static const String routeName = 'allTutors';
   const AllTutors({super.key});
 
   @override

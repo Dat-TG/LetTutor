@@ -22,8 +22,8 @@ import 'package:let_tutor/presentation/register/register_screen.dart';
 import 'package:let_tutor/presentation/search/search_screen.dart';
 import 'package:let_tutor/presentation/settings/change_password_screen.dart';
 import 'package:let_tutor/presentation/settings/settings_screen.dart';
+import 'package:let_tutor/presentation/tutor/all_tutors_screen.dart';
 import 'package:let_tutor/presentation/tutor/tutor_screen.dart';
-import 'package:let_tutor/presentation/tutor/widgets/all_tutors.dart';
 import 'package:let_tutor/presentation/welcome/welcome_screen.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
 
@@ -62,22 +62,13 @@ class MyRouter {
         },
       ),
       GoRoute(
-          name: AllTutors.routeName,
+          name: AllTutorsScreen.routeName,
           path: '/',
           pageBuilder: (context, state) {
             return Helpers.buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: Scaffold(
-                appBar: PreferredSize(
-                  preferredSize: const Size.fromHeight(60),
-                  child: AppBarNormal(
-                      title: AppLocalizations.of(context)!.recommendedTutors),
-                ),
-                body: const SingleChildScrollView(
-                  child: AllTutors(),
-                ),
-              ),
+              child: const AllTutorsScreen(),
             );
           }),
       GoRoute(

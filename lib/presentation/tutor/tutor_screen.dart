@@ -20,6 +20,7 @@ class TutorScreen extends StatefulWidget {
 
 class _TutorScreenState extends State<TutorScreen> {
   final ScrollController _scrollController = ScrollController();
+  final String accessToken = sl<SharedPreferences>().getString('access-token')!;
   void _scrollListener() {
     if (_scrollController.offset >=
             _scrollController.position.maxScrollExtent &&
@@ -28,7 +29,7 @@ class _TutorScreenState extends State<TutorScreen> {
       context.read<TutorBloc>().add(
             TutorSearching(
               SearchTutorsUsecaseParams(
-                token: sl<SharedPreferences>().getString('access-token')!,
+                token: accessToken,
                 params: TutorSearchParams(
                     page: (context.read<TutorBloc>().state.page ?? 0) + 1),
               ),
@@ -43,7 +44,7 @@ class _TutorScreenState extends State<TutorScreen> {
       context.read<TutorBloc>().add(
             TutorSearching(
               SearchTutorsUsecaseParams(
-                token: sl<SharedPreferences>().getString('access-token')!,
+                token: accessToken,
                 params: TutorSearchParams(page: 1),
               ),
             ),
