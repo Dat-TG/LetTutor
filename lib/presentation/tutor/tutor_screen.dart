@@ -28,11 +28,20 @@ class _TutorScreenState extends State<TutorScreen> {
       // Load more data
       context.read<TutorBloc>().add(
             TutorSearching(
-              SearchTutorsUsecaseParams(
-                token: accessToken,
-                params: TutorSearchParams(
-                    page: (context.read<TutorBloc>().state.page ?? 0) + 1),
-              ),
+              context.read<TutorBloc>().state.params!.copyWith(
+                    token: accessToken,
+                    params:
+                        context.read<TutorBloc>().state.params!.params.copyWith(
+                              page: (context
+                                          .read<TutorBloc>()
+                                          .state
+                                          .params!
+                                          .params
+                                          .page ??
+                                      0) +
+                                  1,
+                            ),
+                  ),
             ),
           );
     }
@@ -40,7 +49,7 @@ class _TutorScreenState extends State<TutorScreen> {
 
   @override
   void initState() {
-    if ((context.read<TutorBloc>().state.page ?? 0) < 1) {
+    if ((context.read<TutorBloc>().state.params?.params.page ?? 0) < 1) {
       context.read<TutorBloc>().add(
             TutorSearching(
               SearchTutorsUsecaseParams(

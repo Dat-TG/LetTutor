@@ -6,6 +6,7 @@ import 'package:let_tutor/domain/usecases/tutor/search_tutors.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/presentation/tutor/bloc/tutor_bloc.dart';
 import 'package:let_tutor/presentation/tutor/widgets/all_tutors.dart';
+import 'package:let_tutor/presentation/tutor/widgets/tutor_search.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -27,11 +28,20 @@ class _AllTutorsScreenState extends State<AllTutorsScreen> {
       // Load more data
       context.read<TutorBloc>().add(
             TutorSearching(
-              SearchTutorsUsecaseParams(
-                token: accessToken,
-                params: TutorSearchParams(
-                    page: (context.read<TutorBloc>().state.page ?? 0) + 1),
-              ),
+              context.read<TutorBloc>().state.params!.copyWith(
+                    token: accessToken,
+                    params:
+                        context.read<TutorBloc>().state.params!.params.copyWith(
+                              page: (context
+                                          .read<TutorBloc>()
+                                          .state
+                                          .params!
+                                          .params
+                                          .page ??
+                                      0) +
+                                  1,
+                            ),
+                  ),
             ),
           );
     }
@@ -39,7 +49,7 @@ class _AllTutorsScreenState extends State<AllTutorsScreen> {
 
   @override
   void initState() {
-    if ((context.read<TutorBloc>().state.page ?? 0) < 1) {
+    if ((context.read<TutorBloc>().state.params?.params.page ?? 0) < 1) {
       context.read<TutorBloc>().add(
             TutorSearching(
               SearchTutorsUsecaseParams(
@@ -70,7 +80,19 @@ class _AllTutorsScreenState extends State<AllTutorsScreen> {
       ),
       body: SingleChildScrollView(
         controller: _scrollController,
-        child: const AllTutors(),
+        child: const Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 20,
+              ),
+              child: TutorSearch(),
+            ),
+            AllTutors(),
+          ],
+        ),
       ),
     );
   }

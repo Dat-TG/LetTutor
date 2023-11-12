@@ -10,4 +10,31 @@ sealed class TutorEvent extends Equatable {
 final class TutorSearching extends TutorEvent {
   final SearchTutorsUsecaseParams params;
   const TutorSearching(this.params);
+
+  @override
+  List<Object> get props => [params];
+}
+
+final class TutorUpdateIsEN extends TutorEvent {
+  final bool isEN;
+  const TutorUpdateIsEN(this.isEN);
+
+  @override
+  List<Object> get props => [isEN];
+}
+
+final class TutorUpdateIsVN extends TutorEvent {
+  final bool isVN;
+  const TutorUpdateIsVN(this.isVN);
+
+  @override
+  List<Object> get props => [isVN];
+}
+
+final class TutorUpdateSpecialties extends TutorEvent {
+  final List<String> selectedSpecialties;
+  const TutorUpdateSpecialties(this.selectedSpecialties);
+
+  @override
+  List<Object> get props => [selectedSpecialties];
 }
