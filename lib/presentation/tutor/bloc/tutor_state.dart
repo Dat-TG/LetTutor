@@ -79,6 +79,8 @@ final class TutorSearchSuccess extends TutorState {
 final class TutorSearchFailure extends TutorState {
   const TutorSearchFailure(
     DioException error,
+    List<TutorEntity>? tutors,
+    SearchTutorsUsecaseParams? params,
     bool isVN,
     bool isEN,
     TextEditingController dateController,
@@ -95,11 +97,37 @@ final class TutorSearchFailure extends TutorState {
           selectedSpecialties: selectedSpecialties,
           isEN: isEN,
           isVN: isVN,
+          params: params,
+          tutors: tutors,
         );
 }
 
 final class TutorNotFound extends TutorState {
   const TutorNotFound(
+    List<TutorEntity> tutors,
+    SearchTutorsUsecaseParams params,
+    bool isVN,
+    bool isEN,
+    TextEditingController dateController,
+    TextEditingController startTimeController,
+    TextEditingController endTimeController,
+    TextEditingController nameController,
+    List<String> selectedSpecialties,
+  ) : super(
+          tutors: tutors,
+          params: params,
+          dateController: dateController,
+          startTimeController: startTimeController,
+          endTimeController: endTimeController,
+          nameController: nameController,
+          selectedSpecialties: selectedSpecialties,
+          isEN: isEN,
+          isVN: isVN,
+        );
+}
+
+final class TutorSearchComplete extends TutorState {
+  const TutorSearchComplete(
     List<TutorEntity> tutors,
     SearchTutorsUsecaseParams params,
     bool isVN,

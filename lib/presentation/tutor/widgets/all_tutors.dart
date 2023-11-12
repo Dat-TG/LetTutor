@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/tutor_bloc.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_card.dart';
+import 'package:let_tutor/presentation/tutor/widgets/tutor_not_found_widget.dart';
 
 class AllTutors extends StatefulWidget {
   const AllTutors({super.key});
@@ -39,16 +40,18 @@ class _AllTutorsState extends State<AllTutors> {
                     );
                   } else {
                     return (state is TutorNotFound)
-                        ? const SizedBox()
-                        : const Center(
-                            child: SizedBox(
-                              width: 30,
-                              height: 30,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                              ),
-                            ),
-                          );
+                        ? const TutorNotFoundWidget()
+                        : (state is TutorSearchComplete)
+                            ? const SizedBox()
+                            : const Center(
+                                child: SizedBox(
+                                  width: 30,
+                                  height: 30,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
+                                ),
+                              );
                   }
                 }),
           ),

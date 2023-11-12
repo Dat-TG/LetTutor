@@ -25,25 +25,32 @@ class _TutorScreenState extends State<TutorScreen> {
     if (_scrollController.offset >=
             _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
-      // Load more data
-      context.read<TutorBloc>().add(
-            TutorSearching(
-              context.read<TutorBloc>().state.params!.copyWith(
-                    token: accessToken,
-                    params:
-                        context.read<TutorBloc>().state.params!.params.copyWith(
-                              page: (context
-                                          .read<TutorBloc>()
-                                          .state
-                                          .params!
-                                          .params
-                                          .page ??
-                                      0) +
-                                  1,
-                            ),
-                  ),
-            ),
-          );
+      if (context.read<TutorBloc>().state is! TutorSearchComplete &&
+          context.read<TutorBloc>().state is! TutorNotFound) {
+        // Load more data
+        context.read<TutorBloc>().add(
+              TutorSearching(
+                context.read<TutorBloc>().state.params!.copyWith(
+                      token: accessToken,
+                      params: context
+                          .read<TutorBloc>()
+                          .state
+                          .params!
+                          .params
+                          .copyWith(
+                            page: (context
+                                        .read<TutorBloc>()
+                                        .state
+                                        .params!
+                                        .params
+                                        .page ??
+                                    0) +
+                                1,
+                          ),
+                    ),
+              ),
+            );
+      }
     }
   }
 

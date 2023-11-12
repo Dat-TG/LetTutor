@@ -40,9 +40,11 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
   void onSearch(TutorSearching event, Emitter<TutorState> emit) async {
     emit(TutorSearchInProgress(
       state.tutors ?? [],
-      state.params!,
-      state.isEN,
+      event.params.copyWith(
+          params: event.params.params
+              .copyWith(page: state.params?.params.page ?? 0)),
       state.isVN,
+      state.isEN,
       state.dateController,
       state.startTimeController,
       state.endTimeController,
@@ -59,8 +61,8 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
           emit(TutorSearchSuccess(
             [...(state.tutors ?? []), ...(dataState.data ?? [])],
             event.params,
-            state.isEN,
             state.isVN,
+            state.isEN,
             state.dateController,
             state.startTimeController,
             state.endTimeController,
@@ -71,8 +73,8 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
           emit(TutorSearchSuccess(
             dataState.data ?? [],
             event.params,
-            state.isEN,
             state.isVN,
+            state.isEN,
             state.dateController,
             state.startTimeController,
             state.endTimeController,
@@ -81,25 +83,42 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
           ));
         }
       } else {
-        emit(TutorNotFound(
-          state.tutors ?? [],
-          state.params!,
-          state.isEN,
-          state.isVN,
-          state.dateController,
-          state.startTimeController,
-          state.endTimeController,
-          state.nameController,
-          state.selectedSpecialties,
-        ));
+        if (event.params.params.page! == 1 || state.tutors!.isEmpty) {
+          emit(TutorNotFound(
+            const [],
+            state.params!
+                .copyWith(params: state.params!.params.copyWith(page: 1)),
+            state.isVN,
+            state.isEN,
+            state.dateController,
+            state.startTimeController,
+            state.endTimeController,
+            state.nameController,
+            state.selectedSpecialties,
+          ));
+        } else {
+          emit(TutorSearchComplete(
+            state.tutors ?? [],
+            event.params,
+            state.isVN,
+            state.isEN,
+            state.dateController,
+            state.startTimeController,
+            state.endTimeController,
+            state.nameController,
+            state.selectedSpecialties,
+          ));
+        }
       }
     }
 
     if (dataState is DataFailed) {
       emit(TutorSearchFailure(
         dataState.error!,
-        state.isEN,
+        state.tutors ?? [],
+        state.params,
         state.isVN,
+        state.isEN,
         state.dateController,
         state.startTimeController,
         state.endTimeController,
@@ -142,8 +161,8 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
     emit(TutorSearchInProgress(
       state.tutors ?? [],
       state.params!,
-      state.isEN,
       state.isVN,
+      state.isEN,
       state.dateController,
       state.startTimeController,
       state.endTimeController,

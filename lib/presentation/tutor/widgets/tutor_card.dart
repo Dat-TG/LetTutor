@@ -56,15 +56,31 @@ class TutorCard extends StatelessWidget {
                         backgroundImage: imageProvider,
                       ),
                       placeholder: (context, url) => const CircleAvatar(
-                          radius: 32, child: CircularProgressIndicator()),
+                        radius: 32,
+                        child: SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 1.5,
+                          ),
+                        ),
+                      ),
                       errorWidget: (context, url, error) => CachedNetworkImage(
                         imageUrl: Helpers.avatarFromName(tutor.name),
                         imageBuilder: (context, imageProvider) => CircleAvatar(
                           radius: 32,
                           backgroundImage: imageProvider,
                         ),
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
+                        placeholder: (context, url) => const CircleAvatar(
+                          radius: 32,
+                          child: SizedBox(
+                            height: 30,
+                            width: 30,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 1.5,
+                            ),
+                          ),
+                        ),
                         errorWidget: (context, url, error) =>
                             const CircleAvatar(
                           radius: 32,
