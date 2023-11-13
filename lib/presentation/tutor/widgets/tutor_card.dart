@@ -141,7 +141,7 @@ class TutorCard extends StatelessWidget {
                                 color: Colors.grey,
                                 fontSize: 16,
                               ),
-                            )
+                            ),
                           ],
                         ),
                         const SizedBox(

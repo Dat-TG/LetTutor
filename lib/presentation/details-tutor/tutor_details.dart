@@ -46,44 +46,42 @@ class _TutorDetailsState extends State<TutorDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TutorDetailsBloc, TutorDetailsState>(
-      builder: (context, state) {
-        if (state is TutorDetailsLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBarNormal(title: AppLocalizations.of(context)!.tutorDetails),
+      ),
+      floatingActionButton: CustomButton(
+        title: ' ${AppLocalizations.of(context)!.bookNow}',
+        callback: () {
+          GoRouter.of(context).pushNamed(BookLessonScreen.routeName);
+        },
+        borderRadius: 20,
+        textSize: 18,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 10,
+        ),
+        icon: const Icon(
+          Icons.perm_contact_calendar_rounded,
+          color: Colors.white,
+          size: 20,
+        ),
+      ),
+      body: BlocBuilder<TutorDetailsBloc, TutorDetailsState>(
+        builder: (context, state) {
+          if (state is TutorDetailsLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
 
-        if (state is TutorDetailsError) {
-          return const Center(
-            child: Text('Error'),
-          );
-        }
-
-        return Scaffold(
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(60),
-            child:
-                AppBarNormal(title: AppLocalizations.of(context)!.tutorDetails),
-          ),
-          floatingActionButton: CustomButton(
-            title: ' ${AppLocalizations.of(context)!.bookNow}',
-            callback: () {
-              GoRouter.of(context).pushNamed(BookLessonScreen.routeName);
-            },
-            borderRadius: 20,
-            textSize: 18,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 10,
-            ),
-            icon: const Icon(
-              Icons.perm_contact_calendar_rounded,
-              color: Colors.white,
-              size: 20,
-            ),
-          ),
-          body: SingleChildScrollView(
+          if (state is TutorDetailsError) {
+            return const Center(
+              child: Text('Error'),
+            );
+          }
+          return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -97,6 +95,10 @@ class _TutorDetailsState extends State<TutorDetails> {
                       ),
                       TutorBasicInfo(
                         name: state.tutorDetails?.user?.name ?? '',
+                        country: state.tutorDetails?.user?.country ?? '',
+                        avatarUrl: state.tutorDetails?.user?.avatar,
+                        rating: state.tutorDetails?.rating,
+                        totalFeedback: state.tutorDetails?.totalFeedback,
                       ),
                       const SizedBox(
                         height: 10,
@@ -319,9 +321,9 @@ class _TutorDetailsState extends State<TutorDetails> {
                 ),
               ],
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
