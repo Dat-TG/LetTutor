@@ -7,16 +7,29 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Helpers {
-  static void openFilterDialog(BuildContext context, List<String> list,
-      List<String> selectedList, Function callback) async {
-    await FilterListDialog.display<String>(
+  static void openFilterDialog(BuildContext context, Map<dynamic, dynamic> list,
+      List<MapEntry<dynamic, dynamic>> selectedList, Function callback) async {
+    await FilterListDialog.display<MapEntry<dynamic, dynamic>>(
       context,
-      choiceChipLabel: (p0) => p0,
-      listData: list,
+      choiceChipLabel: (p0) => p0?.value,
+      listData: list.entries.toList(),
       selectedListData: selectedList,
-      validateSelectedItem: (list, val) => list!.contains(val),
+      validateRemoveItem: (list, item) {
+        return list!
+            .where((element) =>
+                element.key != item.key && element.value != item.value)
+            .toList();
+      },
+      validateSelectedItem: (list, val) {
+        for (var entry in list ?? []) {
+          if (entry.key == val.key && entry.value == val.value) {
+            return true;
+          }
+        }
+        return false;
+      },
       onItemSearch: (data, query) {
-        return data.toLowerCase().contains(query.toLowerCase());
+        return data.value.toLowerCase().contains(query.toLowerCase());
       },
       onApplyButtonClick: (list) {
         callback(list);

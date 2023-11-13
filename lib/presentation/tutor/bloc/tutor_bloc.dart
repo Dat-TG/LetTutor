@@ -57,8 +57,10 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
       state.nameController,
       state.selectedSpecialties,
     ));
-    print('page ${event.params.params.page} ${state.params?.params.page}');
+
     final dataState = await _searchTutorsUsecase(params: event.params);
+    print(
+        'page ${event.params.params.page} ${state.params?.params.page} ${state.params?.params.specialties} ${dataState.data?.length}');
     if (dataState is DataSuccess) {
       if (dataState.data!.isNotEmpty) {
         if ((event.params.params.page ?? 0) >
@@ -145,10 +147,10 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
       (state.isVN == event.isEN && event.isEN == state.isForeign)
           ? state.params!.copyWith(
               params: state.params!.params
-                  .copyWith(isVietnamese: null, isNative: null, page: 0))
+                  .copyWith(isVietnamese: null, isNative: null, page: 1))
           : state.params!.copyWith(
               params: state.params!.params.copyWith(
-                  isNative: event.isEN, isVietnamese: state.isVN, page: 0)),
+                  isNative: event.isEN, isVietnamese: state.isVN, page: 1)),
       state.isVN,
       event.isEN,
       state.isForeign,
@@ -166,10 +168,10 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
       (event.isVN == state.isEN && state.isEN == state.isForeign)
           ? state.params!.copyWith(
               params: state.params!.params
-                  .copyWith(isVietnamese: null, isNative: null, page: 0))
+                  .copyWith(isVietnamese: null, isNative: null, page: 1))
           : state.params!.copyWith(
               params: state.params!.params.copyWith(
-                  isVietnamese: event.isVN, isNative: state.isEN, page: 0)),
+                  isVietnamese: event.isVN, isNative: state.isEN, page: 1)),
       event.isVN,
       state.isEN,
       state.isForeign,
@@ -185,7 +187,13 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
       TutorUpdateSpecialties event, Emitter<TutorState> emit) {
     emit(TutorUpdateFilters(
       state.tutors ?? [],
-      state.params!,
+      state.params!.copyWith(
+          params: state.params!.params.copyWith(
+        isVietnamese: state.isVN,
+        isNative: state.isEN,
+        page: 1,
+        specialties: event.selectedSpecialties.map((e) => e.key).toList(),
+      )),
       state.isVN,
       state.isEN,
       state.isForeign,
@@ -203,10 +211,10 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
       (state.isVN == state.isEN && state.isEN == event.isForeign)
           ? state.params!.copyWith(
               params: state.params!.params
-                  .copyWith(isVietnamese: null, isNative: null, page: 0))
+                  .copyWith(isVietnamese: null, isNative: null, page: 1))
           : state.params!.copyWith(
               params: state.params!.params.copyWith(
-                  page: 0, isNative: state.isEN, isVietnamese: state.isVN)),
+                  page: 1, isNative: state.isEN, isVietnamese: state.isVN)),
       state.isVN,
       state.isEN,
       event.isForeign,

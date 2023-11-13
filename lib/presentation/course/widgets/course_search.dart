@@ -14,7 +14,8 @@ class CourseSearch extends StatefulWidget {
 }
 
 class _CourseSearchState extends State<CourseSearch> {
-  List<String> selectedLevels = [], selectedCategories = [];
+  List<MapEntry<int, String>> selectedLevels = [];
+  List<MapEntry<String, String>> selectedCategories = [];
   final TextEditingController sortOptionController = TextEditingController();
 
   @override
@@ -70,7 +71,7 @@ class _CourseSearchState extends State<CourseSearch> {
             callback: () {
               Helpers.openFilterDialog(
                   context, AppConstants.courseLevels, selectedLevels,
-                  (List<String> list) {
+                  (List<MapEntry<int, String>> list) {
                 setState(() {
                   selectedLevels = list;
                 });
@@ -83,7 +84,7 @@ class _CourseSearchState extends State<CourseSearch> {
           spacing: 10,
           runSpacing: 10,
           children: (selectedLevels.length < AppConstants.courseLevels.length)
-              ? selectedLevels.map((e) => TagCard(name: e)).toList()
+              ? selectedLevels.map((e) => TagCard(name: e.value)).toList()
               : [const TagCard(name: 'All')],
         ),
         const SizedBox(
@@ -111,7 +112,7 @@ class _CourseSearchState extends State<CourseSearch> {
             callback: () {
               Helpers.openFilterDialog(
                   context, AppConstants.courseCategories, selectedCategories,
-                  (List<String> list) {
+                  (List<MapEntry<String, String>> list) {
                 setState(() {
                   selectedCategories = list;
                 });
@@ -123,10 +124,10 @@ class _CourseSearchState extends State<CourseSearch> {
         Wrap(
           spacing: 10,
           runSpacing: 10,
-          children:
-              (selectedCategories.length < AppConstants.courseCategories.length)
-                  ? selectedCategories.map((e) => TagCard(name: e)).toList()
-                  : [const TagCard(name: 'All')],
+          children: (selectedCategories.length <
+                  AppConstants.courseCategories.length)
+              ? selectedCategories.map((e) => TagCard(name: e.value)).toList()
+              : [const TagCard(name: 'All')],
         ),
         const SizedBox(
           height: 10,

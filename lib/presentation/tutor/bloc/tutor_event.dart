@@ -32,7 +32,7 @@ final class TutorUpdateIsVN extends TutorEvent {
 }
 
 final class TutorUpdateSpecialties extends TutorEvent {
-  final List<String> selectedSpecialties;
+  final List<MapEntry<String, String>> selectedSpecialties;
   const TutorUpdateSpecialties(this.selectedSpecialties);
 
   @override

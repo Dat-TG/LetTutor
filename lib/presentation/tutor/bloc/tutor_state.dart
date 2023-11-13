@@ -11,7 +11,7 @@ abstract class TutorState extends Equatable {
   final TextEditingController startTimeController;
   final TextEditingController endTimeController;
   final TextEditingController nameController;
-  final List<String> selectedSpecialties;
+  final List<MapEntry<String, String>> selectedSpecialties;
   const TutorState({
     this.tutors,
     this.error,
@@ -49,7 +49,7 @@ final class TutorSearchInProgress extends TutorState {
     TextEditingController startTimeController,
     TextEditingController endTimeController,
     TextEditingController nameController,
-    List<String> selectedSpecialties,
+    List<MapEntry<String, String>> selectedSpecialties,
   ) : super(
           tutors: tutors,
           params: params,
@@ -75,7 +75,7 @@ final class TutorSearchSuccess extends TutorState {
     TextEditingController startTimeController,
     TextEditingController endTimeController,
     TextEditingController nameController,
-    List<String> selectedSpecialties,
+    List<MapEntry<String, String>> selectedSpecialties,
   ) : super(
           tutors: tutors,
           params: params,
@@ -102,7 +102,7 @@ final class TutorSearchFailure extends TutorState {
     TextEditingController startTimeController,
     TextEditingController endTimeController,
     TextEditingController nameController,
-    List<String> selectedSpecialties,
+    List<MapEntry<String, String>> selectedSpecialties,
   ) : super(
           error: error,
           dateController: dateController,
@@ -129,7 +129,7 @@ final class TutorNotFound extends TutorState {
     TextEditingController startTimeController,
     TextEditingController endTimeController,
     TextEditingController nameController,
-    List<String> selectedSpecialties,
+    List<MapEntry<String, String>> selectedSpecialties,
   ) : super(
           tutors: tutors,
           params: params,
@@ -155,7 +155,7 @@ final class TutorSearchComplete extends TutorState {
     TextEditingController startTimeController,
     TextEditingController endTimeController,
     TextEditingController nameController,
-    List<String> selectedSpecialties,
+    List<MapEntry<String, String>> selectedSpecialties,
   ) : super(
           tutors: tutors,
           params: params,
@@ -181,7 +181,7 @@ final class TutorUpdateFilters extends TutorState {
     TextEditingController startTimeController,
     TextEditingController endTimeController,
     TextEditingController nameController,
-    List<String> selectedSpecialties,
+    List<MapEntry<String, String>> selectedSpecialties,
   ) : super(
           tutors: tutors,
           params: params,

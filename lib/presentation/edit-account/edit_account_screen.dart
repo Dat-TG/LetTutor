@@ -38,7 +38,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
     });
   }
 
-  List<String> selectSubjects = [];
+  List<MapEntry<String, String>> selectSubjects = [];
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -178,10 +178,9 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                             vertical: 10,
                           ),
                           callback: () {
-                            Helpers.openFilterDialog(
-                                context,
-                                AppConstants.specialties.values.toList(),
-                                selectSubjects, (List<String> list) {
+                            Helpers.openFilterDialog(context,
+                                AppConstants.specialties, selectSubjects,
+                                (List<MapEntry<String, String>> list) {
                               setState(() {
                                 selectSubjects = list;
                               });
@@ -196,7 +195,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                         children: (selectSubjects.length <
                                 AppConstants.specialties.length)
                             ? selectSubjects
-                                .map((e) => TagCard(name: e))
+                                .map((e) => TagCard(name: e.value))
                                 .toList()
                             : [
                                 TagCard(name: AppLocalizations.of(context)!.all)

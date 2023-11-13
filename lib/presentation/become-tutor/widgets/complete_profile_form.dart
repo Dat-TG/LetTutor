@@ -40,7 +40,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   String _level = 'Beginner';
 
-  List<String> selectedSpecialties = [];
+  List<MapEntry<String, String>> selectedSpecialties = [];
 
   @override
   Widget build(BuildContext context) {
@@ -320,9 +320,8 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
             ),
             callback: () {
               Helpers.openFilterDialog(
-                  context,
-                  AppConstants.specialties.values.toList(),
-                  selectedSpecialties, (List<String> list) {
+                  context, AppConstants.specialties, selectedSpecialties,
+                  (List<MapEntry<String, String>> list) {
                 setState(() {
                   selectedSpecialties = list;
                 });
@@ -334,10 +333,10 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         Wrap(
           spacing: 10,
           runSpacing: 10,
-          children:
-              (selectedSpecialties.length < AppConstants.specialties.length)
-                  ? selectedSpecialties.map((e) => TagCard(name: e)).toList()
-                  : [TagCard(name: AppLocalizations.of(context)!.all)],
+          children: (selectedSpecialties.length <
+                  AppConstants.specialties.length)
+              ? selectedSpecialties.map((e) => TagCard(name: e.value)).toList()
+              : [TagCard(name: AppLocalizations.of(context)!.all)],
         ),
         const SizedBox(
           height: 20,

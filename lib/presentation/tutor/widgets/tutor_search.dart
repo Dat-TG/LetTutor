@@ -139,12 +139,14 @@ class _TutorSearchState extends State<TutorSearch> {
                   vertical: 10,
                 ),
                 callback: () {
-                  Helpers.openFilterDialog(
-                      context,
-                      AppConstants.specialties.values.toList(),
-                      state.selectedSpecialties, (List<String> list) {
+                  Helpers.openFilterDialog(context, AppConstants.specialties,
+                      state.selectedSpecialties,
+                      (List<MapEntry<dynamic, dynamic>> list) {
                     context.read<TutorBloc>().add(
-                          TutorUpdateSpecialties(list),
+                          TutorUpdateSpecialties(list
+                              .map((e) =>
+                                  MapEntry(e.key as String, e.value as String))
+                              .toList()),
                         );
                   });
                 }),
@@ -157,7 +159,7 @@ class _TutorSearchState extends State<TutorSearch> {
               children: (state.selectedSpecialties.length <
                       AppConstants.specialties.length)
                   ? state.selectedSpecialties
-                      .map((e) => TagCard(name: e))
+                      .map((e) => TagCard(name: e.value))
                       .toList()
                   : [TagCard(name: AppLocalizations.of(context)!.all)],
             ),
