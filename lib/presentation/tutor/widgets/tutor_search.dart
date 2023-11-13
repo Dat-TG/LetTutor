@@ -57,6 +57,7 @@ class _TutorSearchState extends State<TutorSearch> {
             ChooseNationality(
               isVN: state.isVN,
               isEN: state.isEN,
+              isForeign: state.isForeign,
               setStateEN: (bool newValue) {
                 context.read<TutorBloc>().add(
                       TutorUpdateIsEN(newValue),
@@ -65,6 +66,11 @@ class _TutorSearchState extends State<TutorSearch> {
               setStateVN: (bool newValue) {
                 context.read<TutorBloc>().add(
                       TutorUpdateIsVN(newValue),
+                    );
+              },
+              setStateForeign: (bool newValue) {
+                context.read<TutorBloc>().add(
+                      TutorUpdateIsForeign(newValue),
                     );
               },
             ),
@@ -137,11 +143,9 @@ class _TutorSearchState extends State<TutorSearch> {
                       context,
                       AppConstants.specialties.values.toList(),
                       state.selectedSpecialties, (List<String> list) {
-                    setState(() {
-                      context.read<TutorBloc>().add(
-                            TutorUpdateSpecialties(list),
-                          );
-                    });
+                    context.read<TutorBloc>().add(
+                          TutorUpdateSpecialties(list),
+                        );
                   });
                 }),
             const SizedBox(
@@ -181,6 +185,14 @@ class _TutorSearchState extends State<TutorSearch> {
                                     .copyWith(
                                       search: state.nameController.text,
                                       page: 1,
+                                      isNative: (state.isEN == state.isVN &&
+                                              state.isVN == state.isForeign)
+                                          ? null
+                                          : state.isEN,
+                                      isVietnamese: (state.isEN == state.isVN &&
+                                              state.isVN == state.isForeign)
+                                          ? null
+                                          : state.isVN,
                                     ),
                               ),
                         ),

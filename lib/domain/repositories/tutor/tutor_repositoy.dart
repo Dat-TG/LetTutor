@@ -42,8 +42,8 @@ class TutorSearchParams {
     return TutorSearchParams(
       specialties: specialties ?? this.specialties,
       date: date ?? this.date,
-      isVietnamese: isVietnamese ?? this.isVietnamese,
-      isNative: isNative ?? this.isNative,
+      isVietnamese: isVietnamese,
+      isNative: isNative,
       tutoringTimeAvailable:
           tutoringTimeAvailable ?? this.tutoringTimeAvailable,
       search: search ?? this.search,

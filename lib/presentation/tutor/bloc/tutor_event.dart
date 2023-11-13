@@ -38,3 +38,11 @@ final class TutorUpdateSpecialties extends TutorEvent {
   @override
   List<Object> get props => [selectedSpecialties];
 }
+
+final class TutorUpdateIsForeign extends TutorEvent {
+  final bool isForeign;
+  const TutorUpdateIsForeign(this.isForeign);
+
+  @override
+  List<Object> get props => [isForeign];
+}

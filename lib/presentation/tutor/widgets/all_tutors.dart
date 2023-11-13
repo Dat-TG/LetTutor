@@ -39,7 +39,9 @@ class _AllTutorsState extends State<AllTutors> {
                       ),
                     );
                   } else {
-                    return (state is TutorNotFound)
+                    return (state is TutorNotFound ||
+                            (state is TutorUpdateFilters &&
+                                state.tutors!.isEmpty))
                         ? const TutorNotFoundWidget()
                         : (state is TutorSearchComplete)
                             ? const SizedBox()

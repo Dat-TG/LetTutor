@@ -6,6 +6,7 @@ abstract class TutorState extends Equatable {
   final SearchTutorsUsecaseParams? params;
   final bool isVN;
   final bool isEN;
+  final bool isForeign;
   final TextEditingController dateController;
   final TextEditingController startTimeController;
   final TextEditingController endTimeController;
@@ -17,6 +18,7 @@ abstract class TutorState extends Equatable {
     this.params,
     required this.isVN,
     required this.isEN,
+    required this.isForeign,
     required this.dateController,
     required this.startTimeController,
     required this.endTimeController,
@@ -25,7 +27,15 @@ abstract class TutorState extends Equatable {
   });
 
   @override
-  List<Object?> get props => [tutors, error, params];
+  List<Object?> get props => [
+        tutors,
+        error,
+        params,
+        isVN,
+        isEN,
+        isForeign,
+        selectedSpecialties,
+      ];
 }
 
 final class TutorSearchInProgress extends TutorState {
@@ -34,6 +44,7 @@ final class TutorSearchInProgress extends TutorState {
     SearchTutorsUsecaseParams params,
     bool isVN,
     bool isEN,
+    bool isForeign,
     TextEditingController dateController,
     TextEditingController startTimeController,
     TextEditingController endTimeController,
@@ -49,6 +60,7 @@ final class TutorSearchInProgress extends TutorState {
           selectedSpecialties: selectedSpecialties,
           isEN: isEN,
           isVN: isVN,
+          isForeign: isForeign,
         );
 }
 
@@ -58,6 +70,7 @@ final class TutorSearchSuccess extends TutorState {
     SearchTutorsUsecaseParams params,
     bool isVN,
     bool isEN,
+    bool isForeign,
     TextEditingController dateController,
     TextEditingController startTimeController,
     TextEditingController endTimeController,
@@ -73,6 +86,7 @@ final class TutorSearchSuccess extends TutorState {
           selectedSpecialties: selectedSpecialties,
           isEN: isEN,
           isVN: isVN,
+          isForeign: isForeign,
         );
 }
 
@@ -83,6 +97,7 @@ final class TutorSearchFailure extends TutorState {
     SearchTutorsUsecaseParams? params,
     bool isVN,
     bool isEN,
+    bool isForeign,
     TextEditingController dateController,
     TextEditingController startTimeController,
     TextEditingController endTimeController,
@@ -97,6 +112,7 @@ final class TutorSearchFailure extends TutorState {
           selectedSpecialties: selectedSpecialties,
           isEN: isEN,
           isVN: isVN,
+          isForeign: isForeign,
           params: params,
           tutors: tutors,
         );
@@ -108,6 +124,7 @@ final class TutorNotFound extends TutorState {
     SearchTutorsUsecaseParams params,
     bool isVN,
     bool isEN,
+    bool isForeign,
     TextEditingController dateController,
     TextEditingController startTimeController,
     TextEditingController endTimeController,
@@ -123,6 +140,7 @@ final class TutorNotFound extends TutorState {
           selectedSpecialties: selectedSpecialties,
           isEN: isEN,
           isVN: isVN,
+          isForeign: isForeign,
         );
 }
 
@@ -132,6 +150,7 @@ final class TutorSearchComplete extends TutorState {
     SearchTutorsUsecaseParams params,
     bool isVN,
     bool isEN,
+    bool isForeign,
     TextEditingController dateController,
     TextEditingController startTimeController,
     TextEditingController endTimeController,
@@ -147,5 +166,32 @@ final class TutorSearchComplete extends TutorState {
           selectedSpecialties: selectedSpecialties,
           isEN: isEN,
           isVN: isVN,
+          isForeign: isForeign,
+        );
+}
+
+final class TutorUpdateFilters extends TutorState {
+  const TutorUpdateFilters(
+    List<TutorEntity> tutors,
+    SearchTutorsUsecaseParams params,
+    bool isVN,
+    bool isEN,
+    bool isForeign,
+    TextEditingController dateController,
+    TextEditingController startTimeController,
+    TextEditingController endTimeController,
+    TextEditingController nameController,
+    List<String> selectedSpecialties,
+  ) : super(
+          tutors: tutors,
+          params: params,
+          dateController: dateController,
+          startTimeController: startTimeController,
+          endTimeController: endTimeController,
+          nameController: nameController,
+          selectedSpecialties: selectedSpecialties,
+          isEN: isEN,
+          isVN: isVN,
+          isForeign: isForeign,
         );
 }

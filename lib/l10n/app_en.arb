@@ -245,5 +245,6 @@
     "invalidPhone": "Please enter a valid phone number",
     "noReviewsYet":"No reviews yet",
     "noCountry": "No country information",
-    "sorryWeCantFindAnyTutorWithThisKeywords":"Sorry we can't find any tutor with this keywords"
+    "sorryWeCantFindAnyTutorWithThisKeywords":"Sorry we can't find any tutor with this keywords",
+    "foreignTutor": "Foreign Tutor"
 }

@@ -25,6 +25,7 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
               ),
               true,
               true,
+              true,
               TextEditingController(),
               TextEditingController(),
               TextEditingController(),
@@ -35,25 +36,29 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
     on<TutorUpdateIsEN>(onUpdateIsEN);
     on<TutorUpdateIsVN>(onUpdateIsVN);
     on<TutorUpdateSpecialties>(onUpdateSpecialties);
+    on<TutorUpdateIsForeign>(onUpdateIsForeign);
   }
 
   void onSearch(TutorSearching event, Emitter<TutorState> emit) async {
     emit(TutorSearchInProgress(
       state.tutors ?? [],
       event.params.copyWith(
-          params: event.params.params
-              .copyWith(page: state.params?.params.page ?? 0)),
+          params: event.params.params.copyWith(
+        page: state.params?.params.page ?? 0,
+        isNative: state.isEN,
+        isVietnamese: state.isVN,
+      )),
       state.isVN,
       state.isEN,
+      state.isForeign,
       state.dateController,
       state.startTimeController,
       state.endTimeController,
       state.nameController,
       state.selectedSpecialties,
     ));
+    print('page ${event.params.params.page} ${state.params?.params.page}');
     final dataState = await _searchTutorsUsecase(params: event.params);
-    print(
-        'fetch data page ${event.params.params.page} name ${state.nameController.text} specialties ${state.selectedSpecialties} date ${state.dateController.text} startTime ${state.startTimeController.text} endTime ${state.endTimeController.text} isEN ${state.isEN} isVN ${state.isVN} ');
     if (dataState is DataSuccess) {
       if (dataState.data!.isNotEmpty) {
         if ((event.params.params.page ?? 0) >
@@ -63,6 +68,7 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
             event.params,
             state.isVN,
             state.isEN,
+            state.isForeign,
             state.dateController,
             state.startTimeController,
             state.endTimeController,
@@ -75,6 +81,7 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
             event.params,
             state.isVN,
             state.isEN,
+            state.isForeign,
             state.dateController,
             state.startTimeController,
             state.endTimeController,
@@ -86,10 +93,12 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
         if (event.params.params.page! == 1 || state.tutors!.isEmpty) {
           emit(TutorNotFound(
             const [],
-            state.params!
-                .copyWith(params: state.params!.params.copyWith(page: 1)),
+            state.params!.copyWith(
+                params: state.params!.params.copyWith(
+                    page: 1, isNative: state.isEN, isVietnamese: state.isVN)),
             state.isVN,
             state.isEN,
+            state.isForeign,
             state.dateController,
             state.startTimeController,
             state.endTimeController,
@@ -102,6 +111,7 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
             event.params,
             state.isVN,
             state.isEN,
+            state.isForeign,
             state.dateController,
             state.startTimeController,
             state.endTimeController,
@@ -119,6 +129,7 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
         state.params,
         state.isVN,
         state.isEN,
+        state.isForeign,
         state.dateController,
         state.startTimeController,
         state.endTimeController,
@@ -129,11 +140,18 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
   }
 
   void onUpdateIsEN(TutorUpdateIsEN event, Emitter<TutorState> emit) {
-    emit(TutorSearchInProgress(
+    emit(TutorUpdateFilters(
       state.tutors ?? [],
-      state.params!,
+      (state.isVN == event.isEN && event.isEN == state.isForeign)
+          ? state.params!.copyWith(
+              params: state.params!.params
+                  .copyWith(isVietnamese: null, isNative: null, page: 0))
+          : state.params!.copyWith(
+              params: state.params!.params.copyWith(
+                  isNative: event.isEN, isVietnamese: state.isVN, page: 0)),
       state.isVN,
       event.isEN,
+      state.isForeign,
       state.dateController,
       state.startTimeController,
       state.endTimeController,
@@ -143,11 +161,18 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
   }
 
   void onUpdateIsVN(TutorUpdateIsVN event, Emitter<TutorState> emit) {
-    emit(TutorSearchInProgress(
+    emit(TutorUpdateFilters(
       state.tutors ?? [],
-      state.params!,
+      (event.isVN == state.isEN && state.isEN == state.isForeign)
+          ? state.params!.copyWith(
+              params: state.params!.params
+                  .copyWith(isVietnamese: null, isNative: null, page: 0))
+          : state.params!.copyWith(
+              params: state.params!.params.copyWith(
+                  isVietnamese: event.isVN, isNative: state.isEN, page: 0)),
       event.isVN,
       state.isEN,
+      state.isForeign,
       state.dateController,
       state.startTimeController,
       state.endTimeController,
@@ -158,16 +183,38 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
 
   void onUpdateSpecialties(
       TutorUpdateSpecialties event, Emitter<TutorState> emit) {
-    emit(TutorSearchInProgress(
+    emit(TutorUpdateFilters(
       state.tutors ?? [],
       state.params!,
       state.isVN,
       state.isEN,
+      state.isForeign,
       state.dateController,
       state.startTimeController,
       state.endTimeController,
       state.nameController,
       event.selectedSpecialties,
+    ));
+  }
+
+  void onUpdateIsForeign(TutorUpdateIsForeign event, Emitter<TutorState> emit) {
+    emit(TutorUpdateFilters(
+      state.tutors ?? [],
+      (state.isVN == state.isEN && state.isEN == event.isForeign)
+          ? state.params!.copyWith(
+              params: state.params!.params
+                  .copyWith(isVietnamese: null, isNative: null, page: 0))
+          : state.params!.copyWith(
+              params: state.params!.params.copyWith(
+                  page: 0, isNative: state.isEN, isVietnamese: state.isVN)),
+      state.isVN,
+      state.isEN,
+      event.isForeign,
+      state.dateController,
+      state.startTimeController,
+      state.endTimeController,
+      state.nameController,
+      state.selectedSpecialties,
     ));
   }
 }

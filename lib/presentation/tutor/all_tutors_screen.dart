@@ -26,7 +26,8 @@ class _AllTutorsScreenState extends State<AllTutorsScreen> {
             _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
       if (context.read<TutorBloc>().state is! TutorSearchComplete &&
-          context.read<TutorBloc>().state is! TutorNotFound) {
+          context.read<TutorBloc>().state is! TutorNotFound &&
+          context.read<TutorBloc>().state is! TutorUpdateFilters) {
         // Load more data
         context.read<TutorBloc>().add(
               TutorSearching(
@@ -46,6 +47,18 @@ class _AllTutorsScreenState extends State<AllTutorsScreen> {
                                         .page ??
                                     0) +
                                 1,
+                            isNative: context
+                                .read<TutorBloc>()
+                                .state
+                                .params!
+                                .params
+                                .isNative,
+                            isVietnamese: context
+                                .read<TutorBloc>()
+                                .state
+                                .params!
+                                .params
+                                .isVietnamese,
                           ),
                     ),
               ),
