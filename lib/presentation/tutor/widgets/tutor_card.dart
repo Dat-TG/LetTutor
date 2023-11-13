@@ -21,7 +21,8 @@ class TutorCard extends StatelessWidget {
     return Stack(
       children: [
         GestureDetector(
-          onTap: () => GoRouter.of(context).pushNamed(TutorDetails.routeName),
+          onTap: () => GoRouter.of(context).pushNamed(TutorDetails.routeName,
+              pathParameters: {'id': tutor.id ?? ''}),
           child: Container(
             width: isExpanded ? double.infinity : 300,
             height: isExpanded ? null : 326,

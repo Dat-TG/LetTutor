@@ -52,12 +52,12 @@ class MyRouter {
       ),
       GoRoute(
         name: TutorDetails.routeName,
-        path: '/tutor',
+        path: '/tutor/:id',
         pageBuilder: (context, state) {
           return Helpers.buildPageWithDefaultTransition(
             context: context,
             state: state,
-            child: const TutorDetails(),
+            child: TutorDetails(tutorId: state.pathParameters['id']!),
           );
         },
       ),

@@ -3,7 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/core/common/stars.dart';
 
 class TutorBasicInfo extends StatelessWidget {
-  const TutorBasicInfo({super.key});
+  final String name;
+  const TutorBasicInfo({super.key, required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +21,13 @@ class TutorBasicInfo extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(
+            SizedBox(
               width: 160,
               child: Text(
-                'Keegan',
+                name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 18,
                 ),

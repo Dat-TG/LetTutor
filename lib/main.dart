@@ -6,6 +6,7 @@ import 'package:let_tutor/core/providers/locale_provider.dart';
 import 'package:let_tutor/core/routers/my_router.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/l10n/l10n.dart';
+import 'package:let_tutor/presentation/details-tutor/bloc/tutor_details_bloc.dart';
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/tutor_bloc.dart';
 import 'package:let_tutor/themes/themes.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => sl<AuthBloc>()),
         BlocProvider(create: (context) => sl<TutorBloc>()),
+        BlocProvider(create: (context) => sl<TutorDetailsBloc>()),
       ],
       child: MultiProvider(
         providers: [
