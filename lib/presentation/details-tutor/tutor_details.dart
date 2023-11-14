@@ -6,6 +6,8 @@ import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/video/single_video.dart';
+import 'package:let_tutor/core/utils/constants.dart';
+import 'package:let_tutor/core/utils/language_local.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/presentation/booking/book_lesson_screen.dart';
 import 'package:let_tutor/presentation/course/widgets/course_card.dart';
@@ -157,10 +159,12 @@ class _TutorDetailsState extends State<TutorDetails> {
                         height: 10,
                       ),
                       Container(
-                        constraints: const BoxConstraints(maxHeight: 300),
-                        child: const SingleVideo(
-                            videoURL:
-                                'https://api.app.lettutor.com/video/4d54d3d7-d2a9-42e5-97a2-5ed38af5789avideo1627913015871.mp4'),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(
+                          maxHeight: 300,
+                        ),
+                        child: SingleVideo(
+                            videoURL: state.tutorDetails?.video ?? ''),
                       ),
                       const SizedBox(
                         height: 10,
@@ -171,9 +175,8 @@ class _TutorDetailsState extends State<TutorDetails> {
                       const SizedBox(
                         height: 5,
                       ),
-                      const ExpandedParagraph(
-                        text:
-                            'I am passionate about running and fitness, I often compete in trail/mountain running events and I love pushing myself. I am training to one day take part in ultra-endurance events. I also enjoy watching rugby on the weekends, reading and watching podcasts on Youtube. My most memorable life experience would be living in and traveling around Southeast Asia.',
+                      ExpandedParagraph(
+                        text: state.tutorDetails?.bio ?? '',
                       ),
                       const SizedBox(
                         height: 10,
@@ -184,7 +187,8 @@ class _TutorDetailsState extends State<TutorDetails> {
                       const SizedBox(
                         height: 5,
                       ),
-                      const ExpandedParagraph(text: 'BA'),
+                      ExpandedParagraph(
+                          text: state.tutorDetails?.education ?? ''),
                       const SizedBox(
                         height: 10,
                       ),
@@ -194,13 +198,16 @@ class _TutorDetailsState extends State<TutorDetails> {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Wrap(
+                      Wrap(
                         direction: Axis.horizontal,
                         spacing: 10,
                         runSpacing: 10,
-                        children: [
-                          TagCard(name: 'English'),
-                        ],
+                        children: (state.tutorDetails?.languages ?? "")
+                            .split(",")
+                            .map((e) => TagCard(
+                                name: LanguageLocal().getDisplayLanguage(
+                                    e.toLowerCase())["name"]))
+                            .toList(),
                       ),
                       const SizedBox(
                         height: 10,
@@ -211,18 +218,15 @@ class _TutorDetailsState extends State<TutorDetails> {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Wrap(
+                      Wrap(
                         direction: Axis.horizontal,
                         spacing: 10,
                         runSpacing: 10,
-                        children: [
-                          TagCard(name: 'English for Business'),
-                          TagCard(name: 'Conversational'),
-                          TagCard(name: 'English for Kids'),
-                          TagCard(name: 'English for Business'),
-                          TagCard(name: 'Conversational'),
-                          TagCard(name: 'English for Kids'),
-                        ],
+                        children: (state.tutorDetails?.specialties ?? "")
+                            .split(",")
+                            .map((e) => TagCard(
+                                name: AppConstants.specialties[e] ?? ""))
+                            .toList(),
                       ),
                       const SizedBox(
                         height: 10,
@@ -276,9 +280,8 @@ class _TutorDetailsState extends State<TutorDetails> {
                       const SizedBox(
                         height: 5,
                       ),
-                      const ExpandedParagraph(
-                          text:
-                              'I am a fun, talkative person who loves to find out about others cultures and experience.'),
+                      ExpandedParagraph(
+                          text: state.tutorDetails?.interests ?? ''),
                       const SizedBox(
                         height: 10,
                       ),
@@ -288,9 +291,8 @@ class _TutorDetailsState extends State<TutorDetails> {
                       const SizedBox(
                         height: 5,
                       ),
-                      const ExpandedParagraph(
-                          text:
-                              'Acadsoc - English Language Instruction Chinese based online English teaching platform. I taught EILTS as well as a wide age range of Children and adults of all levels. Sincewin - English Language Instruction Online English lessons for whole kindergarten classes. I taught basic phonics and vocabulary using songs, TPR and puppets'),
+                      ExpandedParagraph(
+                          text: state.tutorDetails?.experience ?? ''),
                       const SizedBox(
                         height: 20,
                       ),
