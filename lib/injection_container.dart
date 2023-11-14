@@ -1,22 +1,27 @@
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import 'package:let_tutor/data/data_sources/remote/auth/auth_api_service.dart';
+import 'package:let_tutor/data/data_sources/remote/review/review_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/tutor/tutor_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/tutor_details/tutor_details_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/user/user_api_service.dart';
 import 'package:let_tutor/data/repositories/auth/auth_repository.dart';
+import 'package:let_tutor/data/repositories/review/review_repository.dart';
 import 'package:let_tutor/data/repositories/tutor/tutor_repository.dart';
 import 'package:let_tutor/data/repositories/tutor_details/tutor_details_repository.dart';
 import 'package:let_tutor/data/repositories/user/user_repository.dart';
 import 'package:let_tutor/domain/repositories/auth/auth_repository.dart';
+import 'package:let_tutor/domain/repositories/review/review_repository.dart';
 import 'package:let_tutor/domain/repositories/tutor/tutor_repositoy.dart';
 import 'package:let_tutor/domain/repositories/tutor_details/tutor_details_repository.dart';
 import 'package:let_tutor/domain/repositories/user/user_repository.dart';
 import 'package:let_tutor/domain/usecases/auth/login.dart';
 import 'package:let_tutor/domain/usecases/auth/refresh_token.dart';
+import 'package:let_tutor/domain/usecases/review/get_reviews.dart';
 import 'package:let_tutor/domain/usecases/tutor/search_tutors.dart';
 import 'package:let_tutor/domain/usecases/tutor_details/get_tutor_details.dart';
 import 'package:let_tutor/domain/usecases/user/get_user.dart';
+import 'package:let_tutor/presentation/details-tutor/bloc/review_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/tutor_details_bloc.dart';
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/tutor_bloc.dart';
@@ -38,6 +43,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<UserApiService>(UserApiService(sl()));
   sl.registerSingleton<TutorApiService>(TutorApiService(sl()));
   sl.registerSingleton<TutorDetailsApiService>(TutorDetailsApiService(sl()));
+  sl.registerSingleton<ReviewApiService>(ReviewApiService(sl()));
 
   // Repositories
   sl.registerSingleton<AuthRepository>(AuthRepositoryImpl(sl()));
@@ -45,6 +51,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<TutorRepository>(TutorRepositoryImpl(sl()));
   sl.registerSingleton<TutorDetailsRepository>(
       TutorDetailsRepositoryImpl(sl()));
+  sl.registerSingleton<ReviewRepository>(ReviewRepositoryImpl(sl()));
 
   //UseCases
   sl.registerSingleton<LoginUsecase>(LoginUsecase(sl()));
@@ -52,9 +59,11 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<GetUserUsecase>(GetUserUsecase(sl()));
   sl.registerSingleton<SearchTutorsUsecase>(SearchTutorsUsecase(sl()));
   sl.registerSingleton<GetTutorDetailsUsecase>(GetTutorDetailsUsecase(sl()));
+  sl.registerSingleton<GetReviewsUsecase>(GetReviewsUsecase(sl()));
 
   //Blocs
   sl.registerFactory<AuthBloc>(() => AuthBloc(sl(), sl(), sl()));
   sl.registerFactory<TutorBloc>(() => TutorBloc(sl()));
   sl.registerFactory<TutorDetailsBloc>(() => TutorDetailsBloc(sl()));
+  sl.registerFactory<ReviewBloc>(() => ReviewBloc(sl()));
 }

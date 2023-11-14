@@ -246,5 +246,14 @@
     "noReviewsYet":"Chưa có đánh giá",
     "noCountry": "Chưa có thông tin quốc gia",
     "sorryWeCantFindAnyTutorWithThisKeywords":"Xin lỗi, chúng tôi không thể tìm thấy kết quả vớI từ khoá này",
-    "foreignTutor": "Gia sư nước ngoài"
+    "foreignTutor": "Gia sư nước ngoài",
+    "second": "giây",
+    "minute": "phút",
+    "month": "tháng",
+    "year": "năm",
+    "seconds": "giây",
+    "minutes": "phút",
+    "months": "tháng",
+    "years": "năm",
+    "ago": "trước"
 }

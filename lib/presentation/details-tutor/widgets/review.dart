@@ -1,18 +1,67 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:let_tutor/core/common/expanded_paragraph.dart';
 import 'package:let_tutor/core/common/stars.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
 
 class Review extends StatelessWidget {
-  const Review({super.key});
+  final String? name;
+  final String? avatarUrl;
+  final String? content;
+  final double? rating;
+  final DateTime? updatedAt;
+  const Review({
+    super.key,
+    this.avatarUrl,
+    this.content,
+    this.name,
+    this.rating,
+    this.updatedAt,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CircleAvatar(
-          backgroundImage: AssetImage('assets/images/hero_img.png'),
-          radius: 25,
+        CachedNetworkImage(
+          imageUrl: avatarUrl ?? Helpers.avatarFromName(name),
+          imageBuilder: (context, imageProvider) => CircleAvatar(
+            radius: 25,
+            backgroundImage: imageProvider,
+          ),
+          placeholder: (context, url) => const CircleAvatar(
+            radius: 25,
+            child: SizedBox(
+              height: 10,
+              width: 10,
+              child: CircularProgressIndicator(
+                strokeWidth: 1,
+              ),
+            ),
+          ),
+          errorWidget: (context, url, error) => CachedNetworkImage(
+            imageUrl: Helpers.avatarFromName(name),
+            imageBuilder: (context, imageProvider) => CircleAvatar(
+              radius: 25,
+              backgroundImage: imageProvider,
+            ),
+            placeholder: (context, url) => const CircleAvatar(
+              radius: 25,
+              child: SizedBox(
+                height: 10,
+                width: 10,
+                child: CircularProgressIndicator(
+                  strokeWidth: 1,
+                ),
+              ),
+            ),
+            errorWidget: (context, url, error) => const CircleAvatar(
+              radius: 25,
+              child: Icon(Icons.person),
+            ),
+          ),
         ),
         const SizedBox(
           width: 10,
@@ -22,9 +71,9 @@ class Review extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Text(
-                  "Phhai123",
-                  style: TextStyle(
+                Text(
+                  name ?? '',
+                  style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
@@ -33,7 +82,8 @@ class Review extends StatelessWidget {
                   width: 5,
                 ),
                 Text(
-                  '4 months ago',
+                  Helpers.getTimeDifference(
+                      context, updatedAt!, DateTime.now()),
                   style: TextStyle(
                     fontSize: 15,
                     color: Theme.of(context).iconTheme.color,
@@ -51,7 +101,7 @@ class Review extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
-            const ExpandedParagraph(text: 'Very great lesson!!!'),
+            ExpandedParagraph(text: content ?? ''),
           ],
         ),
       ],

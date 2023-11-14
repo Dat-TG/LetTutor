@@ -246,5 +246,14 @@
     "noReviewsYet":"No reviews yet",
     "noCountry": "No country information",
     "sorryWeCantFindAnyTutorWithThisKeywords":"Sorry we can't find any tutor with this keywords",
-    "foreignTutor": "Foreign Tutor"
+    "foreignTutor": "Foreign Tutor",
+    "second": "second",
+    "minute": "minute",
+    "month": "month",
+    "year": "year",
+    "seconds": "seconds",
+    "minutes": "minutes",
+    "months": "months",
+    "years": "years",
+    "ago": "ago"
 }

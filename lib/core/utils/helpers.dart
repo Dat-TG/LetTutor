@@ -716,4 +716,27 @@ class Helpers {
     "Zimbabwe": "ZW",
     "Åland Islands": "AX",
   };
+
+  static String getTimeDifference(
+      BuildContext context, DateTime startDate, DateTime endDate) {
+    Duration difference = endDate.difference(startDate);
+
+    if (difference.inSeconds < 60) {
+      return "${difference.inSeconds} ${difference.inSeconds == 1 ? AppLocalizations.of(context)!.second : AppLocalizations.of(context)!.seconds} ${AppLocalizations.of(context)!.ago}";
+    } else if (difference.inMinutes < 60) {
+      return "${difference.inMinutes} ${difference.inMinutes == 1 ? AppLocalizations.of(context)!.minute : AppLocalizations.of(context)!.minutes} ${AppLocalizations.of(context)!.ago}";
+    } else if (difference.inHours < 24) {
+      return "${difference.inHours} ${difference.inHours == 1 ? AppLocalizations.of(context)!.hour : AppLocalizations.of(context)!.hours} ${AppLocalizations.of(context)!.ago}";
+    } else if (difference.inDays < 30) {
+      return "${difference.inDays}${difference.inDays == 1 ? AppLocalizations.of(context)!.day : AppLocalizations.of(context)!.days} ${AppLocalizations.of(context)!.ago}";
+    } else if (difference.inDays < 365) {
+      int months = endDate.month -
+          startDate.month +
+          (endDate.year - startDate.year) * 12;
+      return "$months ${months == 1 ? AppLocalizations.of(context)!.month : AppLocalizations.of(context)!.months} ${AppLocalizations.of(context)!.ago}";
+    } else {
+      int years = endDate.year - startDate.year;
+      return "$years ${years == 1 ? AppLocalizations.of(context)!.year : AppLocalizations.of(context)!.years} ${AppLocalizations.of(context)!.ago}";
+    }
+  }
 }

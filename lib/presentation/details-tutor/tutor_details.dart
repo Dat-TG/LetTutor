@@ -8,10 +8,13 @@ import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/video/single_video.dart';
 import 'package:let_tutor/core/utils/constants.dart';
 import 'package:let_tutor/core/utils/language_local.dart';
+import 'package:let_tutor/domain/repositories/review/review_repository.dart';
+import 'package:let_tutor/domain/usecases/review/get_reviews.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/presentation/booking/book_lesson_screen.dart';
 import 'package:let_tutor/presentation/course/widgets/course_card.dart';
 import 'package:let_tutor/core/common/expanded_paragraph.dart';
+import 'package:let_tutor/presentation/details-tutor/bloc/review_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/tutor_details_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/widgets/report_tutor.dart';
 import 'package:let_tutor/presentation/details-tutor/widgets/review.dart';
@@ -39,11 +42,64 @@ class _TutorDetailsState extends State<TutorDetails> {
     );
   }
 
+  final token = sl<SharedPreferences>().getString('access-token')!;
+  final ScrollController _scrollController = ScrollController();
+
+  void _scrollListener() {
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      if (context.read<ReviewBloc>().state is! ReviewsComplete) {
+        // Load more data
+        context.read<ReviewBloc>().add(
+              ReviewFetched(
+                context.read<ReviewBloc>().state.params!.copyWith(
+                      params: context
+                          .read<ReviewBloc>()
+                          .state
+                          .params!
+                          .params
+                          .copyWith(
+                            page: (context
+                                        .read<ReviewBloc>()
+                                        .state
+                                        .params!
+                                        .params
+                                        .page ??
+                                    0) +
+                                1,
+                          ),
+                    ),
+              ),
+            );
+      }
+    }
+  }
+
   @override
   void initState() {
-    context.read<TutorDetailsBloc>().add(TutorDetailsLoad(
-        sl<SharedPreferences>().getString('access-token')!, widget.tutorId));
+    context
+        .read<TutorDetailsBloc>()
+        .add(TutorDetailsLoad(token, widget.tutorId));
+    context.read<ReviewBloc>().add(ReviewFetched(
+          GetReviewsUsecaseParams(
+            token: token,
+            params: ReviewParams(
+              page: 1,
+              perPage: 10,
+              tutorId: widget.tutorId,
+            ),
+          ),
+        ));
+    _scrollController.addListener(_scrollListener);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -84,6 +140,7 @@ class _TutorDetailsState extends State<TutorDetails> {
             );
           }
           return SingleChildScrollView(
+            controller: _scrollController,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -302,21 +359,62 @@ class _TutorDetailsState extends State<TutorDetails> {
                       const SizedBox(
                         height: 20,
                       ),
-                      const Review(),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Review(),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Review(),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Review(),
-                      const SizedBox(
-                        height: 20,
+                      BlocBuilder<ReviewBloc, ReviewState>(
+                        buildWhen: (previous, current) => previous != current,
+                        builder: (context, state) {
+                          return ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: (state.reviews?.length ?? 0) + 1,
+                              itemBuilder: (context, index) {
+                                if (index < (state.reviews?.length ?? 0)) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(
+                                      bottom: 20,
+                                    ),
+                                    child: Review(
+                                      avatarUrl: state
+                                          .reviews![index].firstInfo?.avatar,
+                                      content: state.reviews![index].content,
+                                      name:
+                                          state.reviews![index].firstInfo?.name,
+                                      rating: state.reviews![index].rating,
+                                      updatedAt:
+                                          state.reviews![index].updatedAt,
+                                    ),
+                                  );
+                                } else {
+                                  return (state is ReviewsComplete)
+                                      ? const SizedBox(height: 40)
+                                      : (state is ReviewFailed)
+                                          ? Center(
+                                              child: Text(
+                                                state.error?.response
+                                                        ?.statusMessage ??
+                                                    '',
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                            )
+                                          : const Center(
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                  bottom: 20,
+                                                ),
+                                                child: SizedBox(
+                                                  width: 30,
+                                                  height: 30,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    strokeWidth: 2,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                }
+                              });
+                        },
                       ),
                     ],
                   ),
