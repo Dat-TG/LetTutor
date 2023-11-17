@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/presentation/tutor/bloc/total_lesson_time_bloc.dart';
 
 class UpcomingLesson extends StatelessWidget {
   const UpcomingLesson({super.key});
@@ -30,46 +32,68 @@ class UpcomingLesson extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: AppLocalizations.of(context)!.totalLessonTime,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
+          BlocBuilder<TotalLessonTimeBloc, TotalLessonTimeState>(
+            builder: (context, state) {
+              if (state is TotalLessonTimeLoading) {
+                return const Center(
+                  child: SizedBox(
+                    width: 15,
+                    height: 15,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 1.5,
+                      color: Colors.white,
+                    ),
                   ),
+                );
+              }
+              int hours = (state.totalLessonTime ?? 0) ~/ 60;
+              int minutes = (state.totalLessonTime ?? 0) % 60;
+              return RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: AppLocalizations.of(context)!.totalLessonTime,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                    TextSpan(
+                      text: ' $hours ',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                    TextSpan(
+                      text: hours > 1
+                          ? AppLocalizations.of(context)!.hours
+                          : AppLocalizations.of(context)!.hour,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                    TextSpan(
+                      text: ' $minutes ',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                    TextSpan(
+                      text: minutes > 1
+                          ? AppLocalizations.of(context)!.minutes
+                          : AppLocalizations.of(context)!.minute,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
-                const TextSpan(
-                  text: '506',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                ),
-                TextSpan(
-                  text: AppLocalizations.of(context)!.hours,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                ),
-                const TextSpan(
-                  text: '40',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                ),
-                TextSpan(
-                  text: AppLocalizations.of(context)!.minutes,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
+              );
+            },
           ),
         ],
       ),
