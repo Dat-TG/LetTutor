@@ -10,7 +10,7 @@ class TutorEntity extends Equatable {
   final String? specialties;
   final double? rating;
   final String? userId;
-  final List<String>? schedulesTimes;
+  final int? schedulesTimes;
   final bool? isFavoriteTutor;
   final int? price;
 

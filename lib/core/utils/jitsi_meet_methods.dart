@@ -21,7 +21,8 @@ class JitsiMeetMethods {
       required String userDisplayName,
       String? userEmail,
       String? userAvatarUrl,
-      Map<String, Object>? featureFlags}) async {
+      Map<String, Object>? featureFlags,
+      DateTime? nextLessonTime}) async {
     // Define meetings options here
     featureFlags ??= {};
     serverUrl ??= 'https://meet.lettutor.com';
@@ -56,19 +57,11 @@ class JitsiMeetMethods {
         },
         onConferenceJoined: (url) {
           debugPrint("onConferenceJoined: url: $url");
-
-          DateTime nextLessonTime = DateTime.now().add(
-            const Duration(
-              hours: 0,
-              minutes: 0,
-              seconds: 15,
-            ),
-          );
           timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-            String strTimeUntil =
-                Helpers.getUntilLessonTime(nextLessonTime, context);
+            String strTimeUntil = Helpers.getUntilLessonTime(
+                nextLessonTime ?? DateTime.now(), context);
 
-            if (nextLessonTime.millisecondsSinceEpoch <=
+            if (nextLessonTime!.millisecondsSinceEpoch <=
                 DateTime.now().millisecondsSinceEpoch) {
               timer.cancel();
             } else {

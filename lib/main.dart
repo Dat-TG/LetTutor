@@ -11,6 +11,7 @@ import 'package:let_tutor/presentation/details-tutor/bloc/tutor_details_bloc.dar
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/total_lesson_time_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/tutor_bloc.dart';
+import 'package:let_tutor/presentation/tutor/bloc/upcoming_lesson_bloc.dart';
 import 'package:let_tutor/themes/themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -37,6 +38,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 sl<TotalLessonTimeBloc>()..add(const TotalLessonTimeFetched())),
+        BlocProvider(
+            create: (context) =>
+                sl<UpcomingLessonBloc>()..add(const UpcomingLessonFetched())),
       ],
       child: MultiProvider(
         providers: [

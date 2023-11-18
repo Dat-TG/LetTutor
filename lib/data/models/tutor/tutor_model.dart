@@ -11,7 +11,7 @@ class TutorModel extends TutorEntity {
     final String? specialties,
     final double? rating,
     final String? userId,
-    final List<String>? schedulesTimes,
+    final int? schedulesTimes,
     final bool? isFavoriteTutor,
     final int? price,
   }) : super(
@@ -40,9 +40,7 @@ class TutorModel extends TutorEntity {
       specialties: json['specialties'] as String?,
       rating: json['rating'] as double?,
       userId: json['userId'] as String?,
-      schedulesTimes: (json['schedulesTimes'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
+      schedulesTimes: json['schedulesTimes'] as int?,
       isFavoriteTutor: json['isFavoriteTutor'] as bool?,
       price: json['price'] as int?,
     );

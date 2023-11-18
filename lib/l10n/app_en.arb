@@ -254,5 +254,8 @@
     "seconds": "seconds",
     "months": "months",
     "years": "years",
-    "ago": "ago"
+    "ago": "ago",
+    "upcomingLesson":"Upcoming lesson",
+    "startsIn":"starts in",
+    "enterLessonRoom":"Enter lesson room"
 }

@@ -254,5 +254,8 @@
     "seconds": "giây",
     "months": "tháng",
     "years": "năm",
-    "ago": "trước"
+    "ago": "trước",
+    "upcomingLesson":"Buổi học sắp diễn ra",
+    "startsIn":"còn",
+    "enterLessonRoom":"Vào lớp học"
 }
