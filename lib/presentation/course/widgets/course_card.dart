@@ -1,21 +1,25 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:let_tutor/core/utils/constants.dart';
+import 'package:let_tutor/domain/entities/course/course_entity.dart';
 import 'package:let_tutor/presentation/details-course/course_details.dart';
 
 class CourseCard extends StatelessWidget {
   final bool isExpanded;
-  const CourseCard({super.key, this.isExpanded = false});
+  final CourseEntity course;
+  const CourseCard({super.key, this.isExpanded = false, required this.course});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => GoRouter.of(context).pushNamed(CourseDetails.routeName),
       child: badges.Badge(
-        badgeContent: const Text(
-          'Intermediate',
-          style: TextStyle(
+        badgeContent: Text(
+          AppConstants.courseLevels[int.parse(course.level ?? "0")] ?? "",
+          style: const TextStyle(
             fontSize: 18,
             color: Colors.white,
             fontWeight: FontWeight.w500,
@@ -56,11 +60,26 @@ class CourseCard extends StatelessWidget {
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
-                child: Image.asset(
-                  'assets/images/course.png',
+                child: CachedNetworkImage(
+                  imageUrl: course.imageUrl ??
+                      "https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb",
                   width: isExpanded ? null : 250,
                   height: isExpanded ? null : 185,
                   fit: BoxFit.cover,
+                  placeholder: (context, url) => const Center(
+                    child: SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 1.5,
+                      ),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    color: Colors.grey,
+                    width: isExpanded ? null : 250,
+                    height: isExpanded ? null : 185,
+                  ),
                 ),
               ),
               const SizedBox(
@@ -73,9 +92,9 @@ class CourseCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Life in the Internet Age',
-                      style: TextStyle(
+                    Text(
+                      course.name ?? "",
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                       ),
@@ -86,7 +105,7 @@ class CourseCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          '7',
+                          '${course.topics?.length ?? 0}',
                           style: TextStyle(
                             color: Theme.of(context).iconTheme.color,
                             fontSize: 16,
@@ -118,7 +137,7 @@ class CourseCard extends StatelessWidget {
                   vertical: 10,
                 ),
                 child: Text(
-                  'Let\'s discuss how technology is changing the way we live',
+                  course.description ?? "",
                   style: TextStyle(
                     color: Theme.of(context).iconTheme.color,
                     fontSize: 16,

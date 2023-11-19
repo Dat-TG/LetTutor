@@ -4,8 +4,10 @@ import 'package:let_tutor/core/providers/auth_provider.dart';
 import 'package:let_tutor/core/providers/dark_mode_provider.dart';
 import 'package:let_tutor/core/providers/locale_provider.dart';
 import 'package:let_tutor/core/routers/my_router.dart';
+import 'package:let_tutor/domain/usecases/course/get_list_courses.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/l10n/l10n.dart';
+import 'package:let_tutor/presentation/course/bloc/course_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/review_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/tutor_details_bloc.dart';
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
@@ -16,6 +18,7 @@ import 'package:let_tutor/themes/themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,6 +44,18 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 sl<UpcomingLessonBloc>()..add(const UpcomingLessonFetched())),
+        BlocProvider(
+          create: (context) => sl<CourseBloc>()
+            ..add(
+              CourseSearch(
+                params: GetListCoursesUsecaseParams(
+                    token:
+                        sl<SharedPreferences>().getString('access-token') ?? "",
+                    page: 1,
+                    size: 5),
+              ),
+            ),
+        ),
       ],
       child: MultiProvider(
         providers: [

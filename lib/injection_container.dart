@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import 'package:let_tutor/data/data_sources/remote/auth/auth_api_service.dart';
+import 'package:let_tutor/data/data_sources/remote/course/course_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/review/review_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/total_lesson_time/total_lesson_time_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/tutor/tutor_api_service.dart';
@@ -8,6 +9,7 @@ import 'package:let_tutor/data/data_sources/remote/tutor_details/tutor_details_a
 import 'package:let_tutor/data/data_sources/remote/upcoming_lesson/upcoming_lesson_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/user/user_api_service.dart';
 import 'package:let_tutor/data/repositories/auth/auth_repository.dart';
+import 'package:let_tutor/data/repositories/course/course_repository.dart';
 import 'package:let_tutor/data/repositories/review/review_repository.dart';
 import 'package:let_tutor/data/repositories/total_lesson_time/total_lesson_time_repository.dart';
 import 'package:let_tutor/data/repositories/tutor/tutor_repository.dart';
@@ -15,6 +17,7 @@ import 'package:let_tutor/data/repositories/tutor_details/tutor_details_reposito
 import 'package:let_tutor/data/repositories/upcoming_lesson/upcoming_lesson_repository.dart';
 import 'package:let_tutor/data/repositories/user/user_repository.dart';
 import 'package:let_tutor/domain/repositories/auth/auth_repository.dart';
+import 'package:let_tutor/domain/repositories/course/course_repository.dart';
 import 'package:let_tutor/domain/repositories/review/review_repository.dart';
 import 'package:let_tutor/domain/repositories/total_lesson_time/total_lesson_time_repository.dart';
 import 'package:let_tutor/domain/repositories/tutor/tutor_repositoy.dart';
@@ -23,12 +26,14 @@ import 'package:let_tutor/domain/repositories/upcoming_lesson/upcoming_lesson_re
 import 'package:let_tutor/domain/repositories/user/user_repository.dart';
 import 'package:let_tutor/domain/usecases/auth/login.dart';
 import 'package:let_tutor/domain/usecases/auth/refresh_token.dart';
+import 'package:let_tutor/domain/usecases/course/get_list_courses.dart';
 import 'package:let_tutor/domain/usecases/review/get_reviews.dart';
 import 'package:let_tutor/domain/usecases/total_lesson_time/get_total_lesson_time.dart';
 import 'package:let_tutor/domain/usecases/tutor/search_tutors.dart';
 import 'package:let_tutor/domain/usecases/tutor_details/get_tutor_details.dart';
 import 'package:let_tutor/domain/usecases/upcoming_lesson/get_upcoming_lesson.dart';
 import 'package:let_tutor/domain/usecases/user/get_user.dart';
+import 'package:let_tutor/presentation/course/bloc/course_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/review_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/tutor_details_bloc.dart';
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
@@ -58,6 +63,7 @@ Future<void> initializeDependencies() async {
       TotalLessonTimeApiService(sl()));
   sl.registerSingleton<UpcomingLessonApiService>(
       UpcomingLessonApiService(sl()));
+  sl.registerSingleton<CourseApiService>(CourseApiService(sl()));
 
   // Repositories
   sl.registerSingleton<AuthRepository>(AuthRepositoryImpl(sl()));
@@ -70,6 +76,7 @@ Future<void> initializeDependencies() async {
       TotalLessonTimeRepositoryImpl(sl()));
   sl.registerSingleton<UpcomingLessonRepository>(
       UpcomingLessonRepositoryImpl(sl()));
+  sl.registerSingleton<CourseRepository>(CourseRepositoryImpl(sl()));
 
   //UseCases
   sl.registerSingleton<LoginUsecase>(LoginUsecase(sl()));
@@ -82,6 +89,7 @@ Future<void> initializeDependencies() async {
       GetTotalLessonTimeUsecase(sl()));
   sl.registerSingleton<GetUpcomingLessonUsecase>(
       GetUpcomingLessonUsecase(sl()));
+  sl.registerSingleton<GetListCoursesUsecase>(GetListCoursesUsecase(sl()));
 
   //Blocs
   sl.registerFactory<AuthBloc>(() => AuthBloc(sl(), sl(), sl()));
@@ -90,4 +98,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<ReviewBloc>(() => ReviewBloc(sl()));
   sl.registerFactory<TotalLessonTimeBloc>(() => TotalLessonTimeBloc(sl()));
   sl.registerFactory<UpcomingLessonBloc>(() => UpcomingLessonBloc(sl()));
+  sl.registerFactory<CourseBloc>(() => CourseBloc(sl()));
 }

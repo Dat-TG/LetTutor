@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/providers/auth_provider.dart';
 import 'package:let_tutor/core/providers/locale_provider.dart';
-import 'package:let_tutor/core/utils/constants.dart';
 import 'package:let_tutor/core/utils/jitsi_meet_methods.dart';
 import 'package:let_tutor/presentation/tutor/bloc/total_lesson_time_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/upcoming_lesson_bloc.dart';
@@ -45,7 +44,10 @@ class UpcomingLesson extends StatelessWidget {
                   ),
                 );
               }
-              if (state.upcomingLesson == null) {
+              if (state.upcomingLesson == null ||
+                  (state.upcomingLesson!.scheduleDetailInfo!
+                          .startPeriodTimestamp! <=
+                      DateTime.now().millisecondsSinceEpoch)) {
                 return Text(
                   AppLocalizations.of(context)!.noUpcomingLesson,
                   style: const TextStyle(

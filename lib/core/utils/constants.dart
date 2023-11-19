@@ -14,14 +14,14 @@ class AppConstants {
   };
 
   static const Map<int, String> courseLevels = {
-    0: 'Beginner',
-    1: 'Upper-Beginner',
-    2: 'Pre-Intermediate',
-    3: 'Intermediate',
-    4: 'Upper-Intermediate',
-    5: 'Pre-advanced',
-    6: 'Advanced',
-    7: 'Very advanced',
+    1: 'Beginner',
+    2: 'Upper-Beginner',
+    3: 'Pre-Intermediate',
+    4: 'Intermediate',
+    5: 'Upper-Intermediate',
+    6: 'Pre-advanced',
+    7: 'Advanced',
+    8: 'Very advanced',
   };
 
   static const Map<String, String> courseCategories = {

@@ -8,6 +8,7 @@ import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/video/single_video.dart';
 import 'package:let_tutor/core/utils/constants.dart';
 import 'package:let_tutor/core/utils/language_local.dart';
+import 'package:let_tutor/domain/entities/course/course_entity.dart';
 import 'package:let_tutor/domain/repositories/review/review_repository.dart';
 import 'package:let_tutor/domain/usecases/review/get_reviews.dart';
 import 'package:let_tutor/injection_container.dart';
@@ -299,10 +300,18 @@ class _TutorDetailsState extends State<TutorDetails> {
                 ),
                 CarouselSlider(
                   items: const [
-                    CourseCard(),
-                    CourseCard(),
-                    CourseCard(),
-                    CourseCard(),
+                    CourseCard(
+                      course: CourseEntity(),
+                    ),
+                    CourseCard(
+                      course: CourseEntity(),
+                    ),
+                    CourseCard(
+                      course: CourseEntity(),
+                    ),
+                    CourseCard(
+                      course: CourseEntity(),
+                    ),
                   ],
                   options: CarouselOptions(
                     height: 311,

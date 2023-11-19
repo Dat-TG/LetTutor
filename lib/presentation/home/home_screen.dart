@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:let_tutor/domain/entities/course/course_entity.dart';
 import 'package:let_tutor/domain/entities/tutor/tutor_entity.dart';
 import 'package:let_tutor/presentation/course/widgets/all_courses.dart';
 import 'package:let_tutor/presentation/course/widgets/all_ebooks.dart';
@@ -95,10 +96,18 @@ class HomeScreen extends StatelessWidget {
           ),
           CarouselSlider(
             items: const [
-              CourseCard(),
-              CourseCard(),
-              CourseCard(),
-              CourseCard(),
+              CourseCard(
+                course: CourseEntity(),
+              ),
+              CourseCard(
+                course: CourseEntity(),
+              ),
+              CourseCard(
+                course: CourseEntity(),
+              ),
+              CourseCard(
+                course: CourseEntity(),
+              ),
             ],
             options: CarouselOptions(
               height: 311,
