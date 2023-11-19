@@ -11,10 +11,10 @@ part 'course_state.dart';
 class CourseBloc extends Bloc<CourseEvent, CourseState> {
   final GetListCoursesUsecase _getListCoursesUsecase;
   CourseBloc(this._getListCoursesUsecase) : super(const CourseLoading()) {
-    on<CourseSearch>(onSearch);
+    on<CourseFetching>(onSearch);
   }
 
-  void onSearch(CourseSearch event, Emitter<CourseState> emit) async {
+  void onSearch(CourseFetching event, Emitter<CourseState> emit) async {
     emit(CourseLoading(
       courses: state.courses,
       params: event.params.copyWith(page: state.params?.page ?? 0),

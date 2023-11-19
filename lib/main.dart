@@ -47,12 +47,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => sl<CourseBloc>()
             ..add(
-              CourseSearch(
+              CourseFetching(
                 params: GetListCoursesUsecaseParams(
-                    token:
-                        sl<SharedPreferences>().getString('access-token') ?? "",
-                    page: 1,
-                    size: 5),
+                  token:
+                      sl<SharedPreferences>().getString('access-token') ?? "",
+                  page: 1,
+                  size: 5,
+                ),
               ),
             ),
         ),

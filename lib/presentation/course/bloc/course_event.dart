@@ -7,7 +7,7 @@ sealed class CourseEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class CourseSearch extends CourseEvent {
+final class CourseFetching extends CourseEvent {
   final GetListCoursesUsecaseParams params;
-  const CourseSearch({required this.params});
+  const CourseFetching({required this.params});
 }

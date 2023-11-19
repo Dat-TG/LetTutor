@@ -66,8 +66,11 @@ class CourseCard extends StatelessWidget {
                   width: isExpanded ? null : 250,
                   height: isExpanded ? null : 185,
                   fit: BoxFit.cover,
-                  placeholder: (context, url) => const Center(
-                    child: SizedBox(
+                  placeholder: (context, url) => Container(
+                    width: isExpanded ? null : 250,
+                    height: isExpanded ? null : 185,
+                    alignment: Alignment.center,
+                    child: const SizedBox(
                       height: 30,
                       width: 30,
                       child: CircularProgressIndicator(
