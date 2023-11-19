@@ -8,6 +8,7 @@ import 'package:let_tutor/domain/usecases/course/get_list_courses.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/l10n/l10n.dart';
 import 'package:let_tutor/presentation/course/bloc/course_bloc.dart';
+import 'package:let_tutor/presentation/details-course/bloc/course_details_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/review_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/tutor_details_bloc.dart';
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
         ),
+        BlocProvider(create: (context) => sl<CourseDetailsBloc>()),
       ],
       child: MultiProvider(
         providers: [

@@ -15,7 +15,8 @@ class CourseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => GoRouter.of(context).pushNamed(CourseDetails.routeName),
+      onTap: () => GoRouter.of(context).pushNamed(CourseDetails.routeName,
+          pathParameters: {"id": course.id ?? ""}),
       child: badges.Badge(
         badgeContent: Text(
           AppConstants.courseLevels[int.parse(course.level ?? "0")] ?? "",

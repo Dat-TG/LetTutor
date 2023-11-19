@@ -93,12 +93,12 @@ class MyRouter {
       ),
       GoRoute(
         name: CourseDetails.routeName,
-        path: '/courses',
+        path: '/course/:id',
         pageBuilder: (context, state) {
           return Helpers.buildPageWithDefaultTransition(
             context: context,
             state: state,
-            child: const CourseDetails(),
+            child: CourseDetails(courseId: state.pathParameters['id']!),
           );
         },
       ),
