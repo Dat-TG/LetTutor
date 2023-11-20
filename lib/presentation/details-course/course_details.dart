@@ -13,6 +13,7 @@ import 'package:let_tutor/presentation/details-course/bloc/course_details_bloc.d
 import 'package:let_tutor/presentation/details-course/widgets/course_details_title_big.dart';
 import 'package:let_tutor/presentation/details-course/widgets/course_details_title_small.dart';
 import 'package:let_tutor/presentation/details-course/widgets/list_topics.dart';
+import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
 import 'package:let_tutor/presentation/lesson/lesson_screen.dart';
 
 class CourseDetails extends StatefulWidget {
@@ -139,8 +140,10 @@ class _CourseDetailsState extends State<CourseDetails> {
                                 horizontal: 20,
                                 vertical: 10,
                               ),
-                              callback: () => GoRouter.of(context)
-                                  .pushNamed(LessonScreen.routeName),
+                              callback: () => GoRouter.of(context).pushNamed(
+                                  LessonScreen.routeName,
+                                  extra: state.courseDetailsEntity,
+                                  pathParameters: {'index': '0'}),
                             ),
                           ),
                         ],
@@ -259,6 +262,12 @@ class _CourseDetailsState extends State<CourseDetails> {
                     i < (state.courseDetailsEntity?.users?.length ?? 0);
                     i++)
                   GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).pushNamed(TutorDetails.routeName,
+                          pathParameters: {
+                            'id': state.courseDetailsEntity?.users?[i].id ?? ''
+                          });
+                    },
                     child: Padding(
                       padding: const EdgeInsets.only(
                         left: 20,

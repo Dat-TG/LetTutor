@@ -728,7 +728,7 @@ class Helpers {
     } else if (difference.inHours < 24) {
       return "${difference.inHours} ${difference.inHours == 1 ? AppLocalizations.of(context)!.hour : AppLocalizations.of(context)!.hours} ${AppLocalizations.of(context)!.ago}";
     } else if (difference.inDays < 30) {
-      return "${difference.inDays}${difference.inDays == 1 ? AppLocalizations.of(context)!.day : AppLocalizations.of(context)!.days} ${AppLocalizations.of(context)!.ago}";
+      return "${difference.inDays} ${difference.inDays == 1 ? AppLocalizations.of(context)!.day : AppLocalizations.of(context)!.days} ${AppLocalizations.of(context)!.ago}";
     } else if (difference.inDays < 365) {
       int months = endDate.month -
           startDate.month +

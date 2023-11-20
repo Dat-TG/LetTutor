@@ -1,15 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/domain/entities/course_details/course_details_entity.dart';
 
 class DrawerLesson extends StatefulWidget {
   final int selectedIndex;
   final Function setSelectedIndex;
-  final List<String> topics;
+  final CourseDetailsEntity courseDetails;
   const DrawerLesson(
       {super.key,
       required this.selectedIndex,
       required this.setSelectedIndex,
-      required this.topics});
+      required this.courseDetails});
 
   @override
   State<DrawerLesson> createState() => _DrawerLessonState();
@@ -30,12 +32,15 @@ class _DrawerLessonState extends State<DrawerLesson> {
           SizedBox(
             height: 300,
             child: DrawerHeader(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.black12,
                 image: DecorationImage(
-                  image: AssetImage("assets/images/course.png"),
+                  image: CachedNetworkImageProvider(
+                    widget.courseDetails.imageUrl ??
+                        "https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb",
+                  ),
                   fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
+                  colorFilter: const ColorFilter.mode(
                     Colors.black26,
                     BlendMode.darken,
                   ),
@@ -46,28 +51,29 @@ class _DrawerLessonState extends State<DrawerLesson> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'Life in the Internet Age',
+                        widget.courseDetails.name ?? "Course Name",
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
-                        'Let\'s discuss how technology is changing the way we live.',
+                        widget.courseDetails.description ??
+                            "Course Description",
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           color: Colors.white,
                           fontWeight: FontWeight.w400,
@@ -92,9 +98,9 @@ class _DrawerLessonState extends State<DrawerLesson> {
               ),
             ),
           ),
-          for (int i = 0; i < widget.topics.length; i++)
+          for (int i = 0; i < (widget.courseDetails.topics?.length ?? 0); i++)
             ListTile(
-              title: Text('${i + 1}. ${widget.topics[i]}'),
+              title: Text('${i + 1}. ${widget.courseDetails.topics?[i].name}'),
               selected: widget.selectedIndex == i,
               selectedTileColor: Theme.of(context).primaryColor,
               selectedColor: Colors.white,

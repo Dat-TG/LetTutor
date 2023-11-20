@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:let_tutor/core/common/bottom_bar.dart';
+import 'package:let_tutor/domain/entities/course_details/course_details_entity.dart';
 import 'package:let_tutor/presentation/become-tutor/become_tutor_screen.dart';
 import 'package:let_tutor/presentation/booking/book_lesson_screen.dart';
 import 'package:let_tutor/presentation/conversation/conversation_screen.dart';
@@ -124,12 +125,17 @@ class MyRouter {
       ),
       GoRoute(
         name: LessonScreen.routeName,
-        path: '/lesson',
+        path: '/lesson/:index',
         pageBuilder: (context, state) {
+          final CourseDetailsEntity courseDetails =
+              state.extra as CourseDetailsEntity;
           return Helpers.buildPageWithDefaultTransition(
             context: context,
             state: state,
-            child: const LessonScreen(),
+            child: LessonScreen(
+              courseDetails: courseDetails,
+              initialIndex: int.parse(state.pathParameters['index'] ?? '0'),
+            ),
           );
         },
       ),

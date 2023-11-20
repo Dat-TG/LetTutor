@@ -20,8 +20,12 @@ class ListTopics extends StatelessWidget {
                 i < (state.courseDetailsEntity?.topics?.length ?? 0);
                 i++)
               InkWell(
-                onTap: () =>
-                    GoRouter.of(context).pushNamed(LessonScreen.routeName),
+                onTap: () => GoRouter.of(context).pushNamed(
+                    LessonScreen.routeName,
+                    extra: state.courseDetailsEntity,
+                    pathParameters: {
+                      "index": i.toString(),
+                    }),
                 child: Padding(
                   padding: const EdgeInsets.only(
                     bottom: 20,
