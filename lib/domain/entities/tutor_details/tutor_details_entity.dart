@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:let_tutor/data/models/tutor_details/tutor_details_model.dart';
 
 class TutorDetailsEntity extends Equatable {
   final String? video;
@@ -37,6 +38,51 @@ class TutorDetailsEntity extends Equatable {
     this.totalFeedback,
     this.user,
   });
+
+  TutorDetailsEntity changeFavorite(bool isFavorite) {
+    return TutorDetailsModel(
+      video: video,
+      bio: bio,
+      education: education,
+      experience: experience,
+      profession: profession,
+      accent: accent,
+      targetStudent: targetStudent,
+      interests: interests,
+      languages: languages,
+      specialties: specialties,
+      rating: rating,
+      isNative: isNative,
+      youtubeVideoId: youtubeVideoId,
+      isFavorite: isFavorite,
+      avgRating: avgRating,
+      totalFeedback: totalFeedback,
+      user: UserModel(
+        id: user?.id,
+        level: user?.level,
+        avatar: user?.avatar,
+        name: user?.name,
+        country: user?.country,
+        language: user?.language,
+        isPublicRecord: user?.isPublicRecord,
+        caredByStaffId: user?.caredByStaffId,
+        zaloUserId: user?.zaloUserId,
+        studentGroupId: user?.studentGroupId,
+        courses: user?.courses
+            ?.map((e) => CourseModel(
+                  id: e.id,
+                  name: e.name,
+                  tutorCourse: TutorCourseModel(
+                    userId: e.tutorCourse?.userId,
+                    courseId: e.tutorCourse?.courseId,
+                    createdAt: e.tutorCourse?.createdAt,
+                    updatedAt: e.tutorCourse?.updatedAt,
+                  ),
+                ))
+            .toList(),
+      ),
+    );
+  }
 
   @override
   List<Object?> get props {

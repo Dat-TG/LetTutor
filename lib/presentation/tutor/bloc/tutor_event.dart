@@ -56,3 +56,12 @@ final class FavoriteTutor extends TutorEvent {
   @override
   List<Object> get props => [tutorId, index, context];
 }
+
+final class UpdateTutorFavoriteAtIndex extends TutorEvent {
+  final int index;
+  final bool isFavorite;
+  const UpdateTutorFavoriteAtIndex(this.index, this.isFavorite);
+
+  @override
+  List<Object> get props => [index, isFavorite];
+}

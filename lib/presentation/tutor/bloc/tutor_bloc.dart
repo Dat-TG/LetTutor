@@ -45,6 +45,7 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
     on<TutorUpdateSpecialties>(onUpdateSpecialties);
     on<TutorUpdateIsForeign>(onUpdateIsForeign);
     on<FavoriteTutor>(onFavoriteTutor);
+    on<UpdateTutorFavoriteAtIndex>(onUpdateFavoriteAtIndex);
   }
 
   void onSearch(TutorSearching event, Emitter<TutorState> emit) async {
@@ -297,6 +298,55 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
     if (dataState is DataFailed) {
       Helpers.showSnackBar(
           event.context, AppLocalizations.of(event.context)!.taskFailed);
+    }
+  }
+
+  void onUpdateFavoriteAtIndex(
+      UpdateTutorFavoriteAtIndex event, Emitter<TutorState> emit) async {
+    state.tutors?[event.index] =
+        state.tutors![event.index].copyWith(isFavoriteTutor: event.isFavorite);
+
+    bool isComplete = (state is TutorSearchComplete);
+
+    emit(FavoriteTutorDone(
+      state.tutors ?? [],
+      state.params!,
+      state.isVN,
+      state.isEN,
+      state.isForeign,
+      state.dateController,
+      state.startTimeController,
+      state.endTimeController,
+      state.nameController,
+      state.selectedSpecialties,
+    ));
+
+    if (isComplete) {
+      emit(TutorSearchComplete(
+        state.tutors ?? [],
+        state.params!,
+        state.isVN,
+        state.isEN,
+        state.isForeign,
+        state.dateController,
+        state.startTimeController,
+        state.endTimeController,
+        state.nameController,
+        state.selectedSpecialties,
+      ));
+    } else {
+      emit(TutorSearchSuccess(
+        state.tutors ?? [],
+        state.params!,
+        state.isVN,
+        state.isEN,
+        state.isForeign,
+        state.dateController,
+        state.startTimeController,
+        state.endTimeController,
+        state.nameController,
+        state.selectedSpecialties,
+      ));
     }
   }
 }

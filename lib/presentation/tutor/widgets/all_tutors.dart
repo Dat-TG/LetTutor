@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
 import 'package:let_tutor/presentation/tutor/bloc/tutor_bloc.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_card.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_not_found_widget.dart';
@@ -35,9 +37,19 @@ class _AllTutorsState extends State<AllTutors> {
                       ),
                       child: Stack(
                         children: [
-                          TutorCard(
-                            isExpanded: true,
-                            tutor: state.tutors![index],
+                          GestureDetector(
+                            onTap: () => GoRouter.of(context).pushNamed(
+                                TutorDetails.routeName,
+                                pathParameters: {
+                                  'id': state.tutors?[index].id ?? ''
+                                },
+                                queryParameters: {
+                                  'indexFromTutorBloc': '$index',
+                                }),
+                            child: TutorCard(
+                              isExpanded: true,
+                              tutor: state.tutors![index],
+                            ),
                           ),
                           Positioned(
                             right: 20,

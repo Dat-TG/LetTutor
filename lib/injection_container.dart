@@ -105,7 +105,7 @@ Future<void> initializeDependencies() async {
   //Blocs
   sl.registerFactory<AuthBloc>(() => AuthBloc(sl(), sl(), sl()));
   sl.registerFactory<TutorBloc>(() => TutorBloc(sl(), sl()));
-  sl.registerFactory<TutorDetailsBloc>(() => TutorDetailsBloc(sl()));
+  sl.registerFactory<TutorDetailsBloc>(() => TutorDetailsBloc(sl(), sl()));
   sl.registerFactory<ReviewBloc>(() => ReviewBloc(sl()));
   sl.registerFactory<TotalLessonTimeBloc>(() => TotalLessonTimeBloc(sl()));
   sl.registerFactory<UpcomingLessonBloc>(() => UpcomingLessonBloc(sl()));

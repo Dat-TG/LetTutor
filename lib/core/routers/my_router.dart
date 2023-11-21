@@ -55,10 +55,19 @@ class MyRouter {
         name: TutorDetails.routeName,
         path: '/tutor/:id',
         pageBuilder: (context, state) {
+          final String? indexFromTutorBlocString =
+              state.uri.queryParameters['indexFromTutorBloc'];
+          int? indexFromTutorBloc;
+          if (indexFromTutorBlocString != null) {
+            indexFromTutorBloc = int.parse(indexFromTutorBlocString);
+          }
           return Helpers.buildPageWithDefaultTransition(
             context: context,
             state: state,
-            child: TutorDetails(tutorId: state.pathParameters['id']!),
+            child: TutorDetails(
+              tutorId: state.pathParameters['id']!,
+              indexFromTutorBloc: indexFromTutorBloc,
+            ),
           );
         },
       ),

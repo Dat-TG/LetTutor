@@ -260,5 +260,6 @@
     "enterLessonRoom":"Vào lớp học",
     "favoriteTutorSuccess": "Đã thêm gia sư vào danh sách yêu thích",
     "unfavoriteTutorSuccess": "Đã xóa gia sư khỏi danh sách yêu thích",
-    "taskFailed": "Không thành công. Vui lòng thử lại sau"
+    "taskFailed": "Không thành công. Vui lòng thử lại sau",
+    "liked":"Đã thích"
 }

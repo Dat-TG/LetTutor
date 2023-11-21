@@ -13,6 +13,10 @@ final class TutorDetailsLoading extends TutorDetailsState {
   const TutorDetailsLoading();
 }
 
+final class FavoriteTutorInProcess extends TutorDetailsState {
+  const FavoriteTutorInProcess();
+}
+
 final class TutorDetailsDone extends TutorDetailsState {
   const TutorDetailsDone(TutorDetailsEntity tutorDetails)
       : super(tutorDetails: tutorDetails);

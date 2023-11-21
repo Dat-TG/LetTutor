@@ -260,5 +260,6 @@
     "enterLessonRoom":"Enter lesson room",
     "favoriteTutorSuccess": "Tutor has been added to your favorite list",
     "unfavoriteTutorSuccess": "Tutor has been removed from your favorite list",
-    "taskFailed": "Not successful. Try again later"
+    "taskFailed": "Not successful. Try again later",
+    "liked":"Liked"
 }

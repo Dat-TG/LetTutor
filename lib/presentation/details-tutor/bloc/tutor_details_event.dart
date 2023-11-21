@@ -13,3 +13,11 @@ final class TutorDetailsLoad extends TutorDetailsEvent {
 
   const TutorDetailsLoad(this.token, this.tutorId);
 }
+
+final class FavoriteTutor extends TutorDetailsEvent {
+  final String token;
+  final String tutorId;
+  final BuildContext context;
+
+  const FavoriteTutor(this.token, this.tutorId, this.context);
+}
