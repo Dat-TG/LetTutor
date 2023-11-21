@@ -11,7 +11,7 @@ class UpcomingLessonRepositoryImpl implements UpcomingLessonRepository {
 
   UpcomingLessonRepositoryImpl(this._upcomingLessonApiService);
   @override
-  Future<DataState<UpcomingLessonModel>> getUpcomingLesson({
+  Future<DataState<UpcomingLessonModel?>> getUpcomingLesson({
     required String token,
   }) async {
     try {

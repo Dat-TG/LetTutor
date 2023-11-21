@@ -21,7 +21,7 @@ class _UpcomingLessonApiService implements UpcomingLessonApiService {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<UpcomingLessonModel>> getUpcomingLesson(
+  Future<HttpResponse<UpcomingLessonModel?>> getUpcomingLesson(
       {required String token}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -49,10 +49,9 @@ class _UpcomingLessonApiService implements UpcomingLessonApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = UpcomingLessonModel.fromJson(
-        (_result.data!['data'] as List).isNotEmpty
-            ? _result.data!['data'][0]
-            : null);
+    final value = (_result.data!['data'] as List).isNotEmpty
+        ? UpcomingLessonModel.fromJson(_result.data!['data'][0])
+        : null;
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

@@ -13,7 +13,7 @@ abstract class UpcomingLessonApiService {
   @Headers(<String, dynamic>{
     'Content-Type': 'application/json',
   })
-  Future<HttpResponse<UpcomingLessonModel>> getUpcomingLesson({
+  Future<HttpResponse<UpcomingLessonModel?>> getUpcomingLesson({
     @Header('Authorization') required String token,
   });
 }
