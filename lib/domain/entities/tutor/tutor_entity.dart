@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:let_tutor/data/models/tutor/tutor_model.dart';
 
 class TutorEntity extends Equatable {
   final String? avatar;
@@ -28,6 +29,36 @@ class TutorEntity extends Equatable {
     this.isFavoriteTutor,
     this.price,
   });
+
+  TutorEntity copyWith({
+    String? avatar,
+    String? country,
+    String? id,
+    String? name,
+    String? bio,
+    bool? isNative,
+    String? specialties,
+    double? rating,
+    String? userId,
+    int? schedulesTimes,
+    bool? isFavoriteTutor,
+    int? price,
+  }) {
+    return TutorModel(
+      avatar: avatar ?? this.avatar,
+      country: country ?? this.country,
+      id: id ?? this.id,
+      name: name ?? this.name,
+      bio: bio ?? this.bio,
+      isNative: isNative ?? this.isNative,
+      specialties: specialties ?? this.specialties,
+      rating: rating ?? this.rating,
+      userId: userId ?? this.userId,
+      schedulesTimes: schedulesTimes ?? this.schedulesTimes,
+      isFavoriteTutor: isFavoriteTutor ?? this.isFavoriteTutor,
+      price: price ?? this.price,
+    );
+  }
 
   @override
   List<Object?> get props {

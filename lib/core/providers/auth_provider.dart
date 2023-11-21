@@ -4,7 +4,7 @@ import 'package:let_tutor/injection_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider extends ChangeNotifier {
-  AuthEntity _authEntity = AuthEntity();
+  AuthEntity _authEntity = const AuthEntity();
   AuthEntity get authEntity => _authEntity;
   void setAuthEntity(AuthEntity authEntity) {
     _authEntity = authEntity;

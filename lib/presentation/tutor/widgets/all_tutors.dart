@@ -33,9 +33,40 @@ class _AllTutorsState extends State<AllTutors> {
                       padding: const EdgeInsets.only(
                         bottom: 20,
                       ),
-                      child: TutorCard(
-                        isExpanded: true,
-                        tutor: state.tutors![index],
+                      child: Stack(
+                        children: [
+                          TutorCard(
+                            isExpanded: true,
+                            tutor: state.tutors![index],
+                          ),
+                          Positioned(
+                            right: 20,
+                            top: 10,
+                            child: GestureDetector(
+                              onTap: () {
+                                context.read<TutorBloc>().add(
+                                      FavoriteTutor(
+                                        state.tutors![index].id ?? "",
+                                        index,
+                                        context,
+                                      ),
+                                    );
+                              },
+                              child:
+                                  state.tutors?[index].isFavoriteTutor == true
+                                      ? const Icon(
+                                          Icons.favorite_rounded,
+                                          color: Colors.red,
+                                          size: 30,
+                                        )
+                                      : Icon(
+                                          Icons.favorite_outline_rounded,
+                                          color: Theme.of(context).primaryColor,
+                                          size: 30,
+                                        ),
+                            ),
+                          ),
+                        ],
                       ),
                     );
                   } else {

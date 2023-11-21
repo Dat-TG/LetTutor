@@ -12,6 +12,7 @@ abstract class TutorState extends Equatable {
   final TextEditingController endTimeController;
   final TextEditingController nameController;
   final List<MapEntry<String, String>> selectedSpecialties;
+
   const TutorState({
     this.tutors,
     this.error,
@@ -172,6 +173,32 @@ final class TutorSearchComplete extends TutorState {
 
 final class TutorUpdateFilters extends TutorState {
   const TutorUpdateFilters(
+    List<TutorEntity> tutors,
+    SearchTutorsUsecaseParams params,
+    bool isVN,
+    bool isEN,
+    bool isForeign,
+    TextEditingController dateController,
+    TextEditingController startTimeController,
+    TextEditingController endTimeController,
+    TextEditingController nameController,
+    List<MapEntry<String, String>> selectedSpecialties,
+  ) : super(
+          tutors: tutors,
+          params: params,
+          dateController: dateController,
+          startTimeController: startTimeController,
+          endTimeController: endTimeController,
+          nameController: nameController,
+          selectedSpecialties: selectedSpecialties,
+          isEN: isEN,
+          isVN: isVN,
+          isForeign: isForeign,
+        );
+}
+
+final class FavoriteTutorDone extends TutorState {
+  const FavoriteTutorDone(
     List<TutorEntity> tutors,
     SearchTutorsUsecaseParams params,
     bool isVN,

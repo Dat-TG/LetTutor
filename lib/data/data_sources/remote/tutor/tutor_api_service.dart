@@ -18,4 +18,13 @@ abstract class TutorApiService {
     @Header('Authorization') required String token,
     @Body() required TutorSearchParams params,
   });
+
+  @POST('/user/manageFavoriteTutor')
+  @Headers(<String, dynamic>{
+    'Content-Type': 'application/json',
+  })
+  Future<HttpResponse<bool>> favoriteTutor({
+    @Header('Authorization') required String token,
+    @Body() required Map<String, dynamic> body,
+  });
 }

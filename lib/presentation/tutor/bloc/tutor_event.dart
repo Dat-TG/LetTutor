@@ -46,3 +46,13 @@ final class TutorUpdateIsForeign extends TutorEvent {
   @override
   List<Object> get props => [isForeign];
 }
+
+final class FavoriteTutor extends TutorEvent {
+  final String tutorId;
+  final int index;
+  final BuildContext context;
+  const FavoriteTutor(this.tutorId, this.index, this.context);
+
+  @override
+  List<Object> get props => [tutorId, index, context];
+}

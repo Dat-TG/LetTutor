@@ -257,5 +257,8 @@
     "ago": "trước",
     "upcomingLesson":"Buổi học sắp diễn ra",
     "startsIn":"còn",
-    "enterLessonRoom":"Vào lớp học"
+    "enterLessonRoom":"Vào lớp học",
+    "favoriteTutorSuccess": "Đã thêm gia sư vào danh sách yêu thích",
+    "unfavoriteTutorSuccess": "Đã xóa gia sư khỏi danh sách yêu thích",
+    "taskFailed": "Không thành công. Vui lòng thử lại sau"
 }

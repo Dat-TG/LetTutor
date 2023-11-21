@@ -6,6 +6,11 @@ abstract class TutorRepository {
     required String token,
     required TutorSearchParams params,
   });
+
+  Future<DataState<bool>> favoriteTutor({
+    required String token,
+    required String tutorId,
+  });
 }
 
 class TutorSearchParams {
