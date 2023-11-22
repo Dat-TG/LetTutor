@@ -1,9 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/expanded_paragraph.dart';
+import 'package:let_tutor/core/common/stars.dart';
 import 'package:let_tutor/core/providers/dark_mode_provider.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
+import 'package:let_tutor/domain/entities/schedule/schedule_entity.dart';
 import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
 import 'package:let_tutor/presentation/history/widgets/rating_dialog.dart';
 import 'package:let_tutor/presentation/history/widgets/report_lesson_dialog.dart';
@@ -11,7 +17,8 @@ import 'package:let_tutor/presentation/tutor/widgets/tag_card.dart';
 import 'package:provider/provider.dart';
 
 class HistoryCard extends StatefulWidget {
-  const HistoryCard({super.key});
+  final ScheduleEntity schedule;
+  const HistoryCard({super.key, required this.schedule});
 
   @override
   State<HistoryCard> createState() => _HistoryCardState();
@@ -34,6 +41,21 @@ class _HistoryCardState extends State<HistoryCard> {
         return const RatingDialog();
       },
     );
+  }
+
+  double? rating;
+
+  @override
+  void initState() {
+    if (widget.schedule.feedbacks != null &&
+        widget.schedule.feedbacks!.isNotEmpty) {
+      rating = 0;
+      for (int i = 0; i < (widget.schedule.feedbacks!.length); i++) {
+        rating = (rating ?? 0) + (widget.schedule.feedbacks![i].rating ?? 0);
+      }
+      rating = (rating ?? 0) / (widget.schedule.feedbacks?.length ?? 1);
+    }
+    super.initState();
   }
 
   @override
@@ -69,10 +91,52 @@ class _HistoryCardState extends State<HistoryCard> {
                     borderRadius: BorderRadius.circular(100),
                     onTap: () =>
                         GoRouter.of(context).pushNamed(TutorDetails.routeName),
-                    child: const CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://sandbox.api.lettutor.com/avatar/4d54d3d7-d2a9-42e5-97a2-5ed38af5789aavatar1684484879187.jpg'),
-                      radius: 30,
+                    child: CachedNetworkImage(
+                      imageUrl: widget.schedule.scheduleDetailInfo?.scheduleInfo
+                              ?.tutorInfo?.avatar ??
+                          Helpers.avatarFromName(widget
+                              .schedule
+                              .scheduleDetailInfo
+                              ?.scheduleInfo
+                              ?.tutorInfo
+                              ?.name),
+                      imageBuilder: (context, imageProvider) => CircleAvatar(
+                        radius: 30,
+                        backgroundImage: imageProvider,
+                      ),
+                      placeholder: (context, url) => const CircleAvatar(
+                        radius: 30,
+                        child: SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 1,
+                          ),
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => CachedNetworkImage(
+                        imageUrl: Helpers.avatarFromName(widget.schedule
+                            .scheduleDetailInfo?.scheduleInfo?.tutorInfo?.name),
+                        imageBuilder: (context, imageProvider) => CircleAvatar(
+                          radius: 30,
+                          backgroundImage: imageProvider,
+                        ),
+                        placeholder: (context, url) => const CircleAvatar(
+                          radius: 30,
+                          child: SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 1,
+                            ),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const CircleAvatar(
+                          radius: 30,
+                          child: Icon(Icons.person),
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -87,9 +151,11 @@ class _HistoryCardState extends State<HistoryCard> {
                       child: InkWell(
                         onTap: () => GoRouter.of(context)
                             .pushNamed(TutorDetails.routeName),
-                        child: const Text(
-                          'Keegan',
-                          style: TextStyle(
+                        child: Text(
+                          widget.schedule.scheduleDetailInfo?.scheduleInfo
+                                  ?.tutorInfo?.name ??
+                              'Tutor Name',
+                          style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w700,
                           ),
@@ -102,20 +168,47 @@ class _HistoryCardState extends State<HistoryCard> {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Image.asset(
-                          'assets/images/vietnam.png',
+                        SvgPicture.network(
+                          Helpers.flagFromCountryCode(
+                              Helpers.contriesNameToCode[widget
+                                      .schedule
+                                      .scheduleDetailInfo
+                                      ?.scheduleInfo
+                                      ?.tutorInfo
+                                      ?.country] ??
+                                  widget.schedule.scheduleDetailInfo
+                                      ?.scheduleInfo?.tutorInfo?.country),
                           width: 30,
                           height: 20,
+                          semanticsLabel: widget.schedule.scheduleDetailInfo
+                              ?.scheduleInfo?.tutorInfo?.country,
+                          placeholderBuilder: (BuildContext context) =>
+                              const Center(
+                            child: Icon(
+                              Icons.flag,
+                              size: 20,
+                            ),
+                          ),
                           fit: BoxFit.cover,
                         ),
                         const SizedBox(
                           width: 5,
                         ),
                         Text(
-                          AppLocalizations.of(context)!.vietnam,
+                          Helpers.countriesCodeToName[widget
+                                  .schedule
+                                  .scheduleDetailInfo
+                                  ?.scheduleInfo
+                                  ?.tutorInfo
+                                  ?.country
+                                  ?.toUpperCase()] ??
+                              widget.schedule.scheduleDetailInfo?.scheduleInfo
+                                  ?.tutorInfo?.country ??
+                              AppLocalizations.of(context)!.noCountry,
                           style: const TextStyle(
-                            color: Colors.grey,
+                            color: Colors.black54,
                             fontSize: 16,
+                            fontWeight: FontWeight.w500,
                           ),
                         )
                       ],
@@ -127,23 +220,43 @@ class _HistoryCardState extends State<HistoryCard> {
             const SizedBox(
               height: 10,
             ),
-            const Text(
-              ' 21/10/2023',
-              style: TextStyle(
-                fontSize: 16,
+            if (widget.schedule.scheduleDetailInfo?.startPeriodTimestamp !=
+                null)
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 1,
+                ),
+                child: Text(
+                  Helpers.getTimeDifference(
+                      context,
+                      DateTime.fromMillisecondsSinceEpoch(widget.schedule
+                              .scheduleDetailInfo?.startPeriodTimestamp ??
+                          0),
+                      DateTime.now()),
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
               ),
-            ),
             const SizedBox(
               height: 10,
             ),
-            const Row(
+            Row(
               children: [
-                TagCard(name: '13:00'),
-                Icon(
+                TagCard(
+                    name: DateFormat("HH:mm").format(
+                        DateTime.fromMillisecondsSinceEpoch(widget.schedule
+                                .scheduleDetailInfo?.startPeriodTimestamp ??
+                            0))),
+                const Icon(
                   Icons.horizontal_rule_rounded,
                   size: 18,
                 ),
-                TagCard(name: '13:25'),
+                TagCard(
+                    name: DateFormat("HH:mm").format(
+                        DateTime.fromMillisecondsSinceEpoch(widget.schedule
+                                .scheduleDetailInfo?.endPeriodTimestamp ??
+                            0))),
               ],
             ),
             const SizedBox(
@@ -159,9 +272,12 @@ class _HistoryCardState extends State<HistoryCard> {
             const SizedBox(
               height: 10,
             ),
-            const ExpandedParagraph(
-                text:
-                    'You should respond to a lesson request as soon as possible so the student knows if they will have a lesson or not.'),
+            ExpandedParagraph(
+              text: (widget.schedule.studentRequest != null &&
+                      widget.schedule.studentRequest!.isNotEmpty)
+                  ? widget.schedule.studentRequest!
+                  : AppLocalizations.of(context)!.noRequestForLesson,
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -176,15 +292,28 @@ class _HistoryCardState extends State<HistoryCard> {
               height: 10,
             ),
             ExpandedParagraph(
-                text: AppLocalizations.of(context)!.rateStudentNotYet),
+                text: (widget.schedule.tutorReview != null &&
+                        widget.schedule.tutorReview!.isNotEmpty)
+                    ? widget.schedule.tutorReview!
+                    : AppLocalizations.of(context)!.rateStudentNotYet),
             const SizedBox(
               height: 10,
             ),
+            if (rating != null)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Stars(
+                  rating: rating!,
+                  itemSize: 24,
+                ),
+              ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomButton(
-                  title: AppLocalizations.of(context)!.rateTutor,
+                  title: rating != null
+                      ? AppLocalizations.of(context)!.edit
+                      : AppLocalizations.of(context)!.rateTutor,
                   titleColor: Colors.white,
                   callback: () {
                     ratingLesson(context);

@@ -261,5 +261,6 @@
     "favoriteTutorSuccess": "Tutor has been added to your favorite list",
     "unfavoriteTutorSuccess": "Tutor has been removed from your favorite list",
     "taskFailed": "Not successful. Try again later",
-    "liked":"Liked"
+    "liked":"Liked",
+    "noRequestForLesson":"No request for lesson"
 }
