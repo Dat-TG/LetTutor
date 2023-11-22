@@ -8,6 +8,7 @@ import 'package:let_tutor/data/data_sources/remote/schedule/schedule_api_service
 import 'package:let_tutor/data/data_sources/remote/total_lesson_time/total_lesson_time_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/tutor/tutor_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/tutor_details/tutor_details_api_service.dart';
+import 'package:let_tutor/data/data_sources/remote/tutor_schedule/tutor_schedule_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/upcoming_lesson/upcoming_lesson_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/user/user_api_service.dart';
 import 'package:let_tutor/data/repositories/auth/auth_repository.dart';
@@ -18,6 +19,7 @@ import 'package:let_tutor/data/repositories/schedule/schedule_repository.dart';
 import 'package:let_tutor/data/repositories/total_lesson_time/total_lesson_time_repository.dart';
 import 'package:let_tutor/data/repositories/tutor/tutor_repository.dart';
 import 'package:let_tutor/data/repositories/tutor_details/tutor_details_repository.dart';
+import 'package:let_tutor/data/repositories/tutor_schedule/tutor_schedule_repository.dart';
 import 'package:let_tutor/data/repositories/upcoming_lesson/upcoming_lesson_repository.dart';
 import 'package:let_tutor/data/repositories/user/user_repository.dart';
 import 'package:let_tutor/domain/repositories/auth/auth_repository.dart';
@@ -28,6 +30,7 @@ import 'package:let_tutor/domain/repositories/schedule/schedule_repository.dart'
 import 'package:let_tutor/domain/repositories/total_lesson_time/total_lesson_time_repository.dart';
 import 'package:let_tutor/domain/repositories/tutor/tutor_repositoy.dart';
 import 'package:let_tutor/domain/repositories/tutor_details/tutor_details_repository.dart';
+import 'package:let_tutor/domain/repositories/tutor_schedule/tutor_schedule_repository.dart';
 import 'package:let_tutor/domain/repositories/upcoming_lesson/upcoming_lesson_repository.dart';
 import 'package:let_tutor/domain/repositories/user/user_repository.dart';
 import 'package:let_tutor/domain/usecases/auth/login.dart';
@@ -41,8 +44,10 @@ import 'package:let_tutor/domain/usecases/total_lesson_time/get_total_lesson_tim
 import 'package:let_tutor/domain/usecases/tutor/favorite_tutor.dart';
 import 'package:let_tutor/domain/usecases/tutor/search_tutors.dart';
 import 'package:let_tutor/domain/usecases/tutor_details/get_tutor_details.dart';
+import 'package:let_tutor/domain/usecases/tutor_schedule/get_schedule_of_tutor.dart';
 import 'package:let_tutor/domain/usecases/upcoming_lesson/get_upcoming_lesson.dart';
 import 'package:let_tutor/domain/usecases/user/get_user.dart';
+import 'package:let_tutor/presentation/booking/bloc/booking_bloc.dart';
 import 'package:let_tutor/presentation/course/bloc/course_bloc.dart';
 import 'package:let_tutor/presentation/details-course/bloc/course_details_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/review_bloc.dart';
@@ -79,6 +84,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<CourseApiService>(CourseApiService(sl()));
   sl.registerSingleton<CourseDetailsApiService>(CourseDetailsApiService(sl()));
   sl.registerSingleton<ScheduleApiService>(ScheduleApiService(sl()));
+  sl.registerSingleton<TutorScheduleApiService>(TutorScheduleApiService(sl()));
 
   // Repositories
   sl.registerSingleton<AuthRepository>(AuthRepositoryImpl(sl()));
@@ -95,6 +101,8 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<CourseDetailsRepository>(
       CourseDetailsRepositoryImpl(sl()));
   sl.registerSingleton<ScheduleRepository>(ScheduleRepositoryImpl(sl()));
+  sl.registerSingleton<TutorScheduleRepository>(
+      TutorScheduleRepositoryImpl(sl()));
 
   //UseCases
   sl.registerSingleton<LoginUsecase>(LoginUsecase(sl()));
@@ -112,6 +120,8 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<FavoriteTutorUsecase>(FavoriteTutorUsecase(sl()));
   sl.registerSingleton<GetSchedulesUsecase>(GetSchedulesUsecase(sl()));
   sl.registerSingleton<GetHistoryUsecase>(GetHistoryUsecase(sl()));
+  sl.registerSingleton<GetScheduleOfTutorUsecase>(
+      GetScheduleOfTutorUsecase(sl()));
 
   //Blocs
   sl.registerFactory<AuthBloc>(() => AuthBloc(sl(), sl(), sl()));
@@ -124,4 +134,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<CourseDetailsBloc>(() => CourseDetailsBloc(sl()));
   sl.registerFactory<HistoryBloc>(() => HistoryBloc(sl()));
   sl.registerFactory<ScheduleBloc>(() => ScheduleBloc(sl()));
+  sl.registerFactory<BookingBloc>(() => BookingBloc(sl()));
 }

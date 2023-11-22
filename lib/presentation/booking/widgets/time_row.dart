@@ -22,6 +22,20 @@ class _TimeRowState extends State<TimeRow> {
     );
   }
 
+  late TimeOfDay endTime;
+
+  @override
+  void initState() {
+    endTime = TimeOfDay(
+        hour: (widget.time.minute < 30)
+            ? widget.time.hour
+            : (widget.time.hour < 23)
+                ? (widget.time.hour + 1)
+                : 0,
+        minute: (widget.time.minute < 30) ? (widget.time.minute + 30) : 0);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -31,7 +45,7 @@ class _TimeRowState extends State<TimeRow> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            '${widget.time.hour.toString().padLeft(2, '0')}:${widget.time.minute.toString().padLeft(2, '0')}',
+            '${widget.time.hour.toString().padLeft(2, '0')}:${widget.time.minute.toString().padLeft(2, '0')} - ${endTime.hour.toString().padLeft(2, '0')}:${endTime.minute.toString().padLeft(2, '0')}',
             style: const TextStyle(
               fontSize: 16,
             ),

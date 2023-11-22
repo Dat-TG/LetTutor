@@ -117,7 +117,10 @@ class _TutorDetailsState extends State<TutorDetails> {
       floatingActionButton: CustomButton(
         title: ' ${AppLocalizations.of(context)!.bookNow}',
         callback: () {
-          GoRouter.of(context).pushNamed(BookLessonScreen.routeName);
+          GoRouter.of(context)
+              .pushNamed(BookLessonScreen.routeName, pathParameters: {
+            'tutorId': widget.tutorId,
+          });
         },
         borderRadius: 20,
         textSize: 18,

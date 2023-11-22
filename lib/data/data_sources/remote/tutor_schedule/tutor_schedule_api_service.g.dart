@@ -31,18 +31,14 @@ class _TutorScheduleApiService implements TutorScheduleApiService {
       r'tutorId': tutorId,
       r'page': page,
     };
-    final _headers = <String, dynamic>{
-      r'Content-Type': 'application/json',
-      r'Authorization': token,
-    };
+    final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<List<dynamic>>(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<List<ScheduleOfTutorModel>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
-      contentType: 'application/json',
     )
             .compose(
               _dio.options,
@@ -55,8 +51,8 @@ class _TutorScheduleApiService implements TutorScheduleApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
-        .map((dynamic i) =>
+    List<ScheduleOfTutorModel> value = _result.data!['scheduleOfTutor']
+        .map<ScheduleOfTutorModel>((dynamic i) =>
             ScheduleOfTutorModel.fromJson(i as Map<String, dynamic>))
         .toList();
     final httpResponse = HttpResponse(value, _result);

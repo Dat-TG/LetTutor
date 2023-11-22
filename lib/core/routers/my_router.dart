@@ -193,12 +193,13 @@ class MyRouter {
           }),
       GoRoute(
           name: BookLessonScreen.routeName,
-          path: '/book-lesson',
+          path: '/book-lesson/:tutorId',
           pageBuilder: (context, state) {
             return Helpers.buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: const BookLessonScreen(),
+              child: BookLessonScreen(
+                  tutorId: state.pathParameters['tutorId'] ?? ""),
             );
           }),
       GoRoute(

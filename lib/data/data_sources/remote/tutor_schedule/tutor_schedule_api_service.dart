@@ -10,9 +10,6 @@ abstract class TutorScheduleApiService {
   factory TutorScheduleApiService(Dio dio) = _TutorScheduleApiService;
 
   @GET('/schedule')
-  @Headers(<String, dynamic>{
-    'Content-Type': 'application/json',
-  })
   Future<HttpResponse<List<ScheduleOfTutorModel>>> getScheduleOfTutor({
     @Header('Authorization') required String token,
     @Query('tutorId') required String tutorId,
