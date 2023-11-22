@@ -19,6 +19,31 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
+  final ScrollController _scrollController = ScrollController();
+
+  void _scrollListener() {
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      if (context.read<HistoryBloc>().state is! HistoryComplete) {
+        // Load more data
+        context.read<HistoryBloc>().add(
+              HistoryFetched(
+                context.read<HistoryBloc>().state.params!.copyWith(
+                      page: context.read<HistoryBloc>().state.params!.page + 1,
+                    ),
+              ),
+            );
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    _scrollController.addListener(_scrollListener);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,19 +54,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
       body: BlocBuilder<HistoryBloc, HistoryState>(
         buildWhen: (previous, current) => previous != current,
         builder: (context, state) {
-          if (state is HistoryLoading) {
-            return const Center(
-              child: SizedBox(
-                width: 15,
-                height: 15,
-                child: CircularProgressIndicator(
-                  strokeWidth: 1.5,
-                  color: Colors.white,
-                ),
-              ),
-            );
-          }
           return ListView.builder(
+            controller: _scrollController,
             itemCount: (state.history?.length ?? 0) + 2,
             itemBuilder: (context, index) {
               if (index == 0) {

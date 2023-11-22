@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:let_tutor/domain/entities/schedule/schedule_entity.dart';
 
 class ScheduleModel extends ScheduleEntity {
@@ -24,7 +26,7 @@ class ScheduleModel extends ScheduleEntity {
     bool? isTrial,
     int? convertedLesson,
     ScheduleDetailInfoModel? scheduleDetailInfo,
-    String? classReview,
+    ClassReviewModel? classReview,
     String? trialBookingReview,
     bool? showRecordUrl,
     List<String>? studentMaterials,
@@ -87,7 +89,7 @@ class ScheduleModel extends ScheduleEntity {
           ? ScheduleDetailInfoModel.fromJson(
               json['scheduleDetailInfo'] as Map<String, dynamic>)
           : null,
-      classReview: json['classReview'] as String?,
+      classReview: ClassReviewModel.fromJson(json['classReview'] ?? {}),
       feedbacks: json['feedbacks'] != null
           ? (json['feedbacks'] as List)
               .map((e) => FeedBackModel.fromJson(e as Map<String, dynamic>))
@@ -98,6 +100,109 @@ class ScheduleModel extends ScheduleEntity {
           ? (json['studentMaterials'] as List).map((e) => e as String).toList()
           : null,
       trialBookingReview: json['trialBookingReview'] as String?,
+    );
+  }
+}
+
+class ClassReviewModel extends ClassReviewEntity {
+  const ClassReviewModel({
+    String? bookingId,
+    int? lessonStatusId,
+    dynamic book,
+    dynamic unit,
+    dynamic lesson,
+    dynamic page,
+    String? lessonProgress,
+    double? behaviorRating,
+    String? behaviorComment,
+    double? listeningRating,
+    String? listeningComment,
+    double? speakingRating,
+    String? speakingComment,
+    double? vocabularyRating,
+    String? vocabularyComment,
+    String? homeworkComment,
+    String? overallComment,
+    LessonStatusEntity? lessonStatus,
+  }) : super(
+          behaviorComment: behaviorComment,
+          behaviorRating: behaviorRating,
+          book: book,
+          bookingId: bookingId,
+          homeworkComment: homeworkComment,
+          lesson: lesson,
+          lessonProgress: lessonProgress,
+          lessonStatus: lessonStatus,
+          lessonStatusId: lessonStatusId,
+          listeningComment: listeningComment,
+          listeningRating: listeningRating,
+          overallComment: overallComment,
+          page: page,
+          speakingComment: speakingComment,
+          speakingRating: speakingRating,
+          unit: unit,
+          vocabularyComment: vocabularyComment,
+          vocabularyRating: vocabularyRating,
+        );
+
+  factory ClassReviewModel.fromJson(Map<String, dynamic> json) {
+    return ClassReviewModel(
+      bookingId: json['bookingId'] as String?,
+      lessonStatusId: json['lessonStatusId'] as int?,
+      book: json['book'],
+      unit: json['unit'],
+      lesson: json['lesson'],
+      page: json['page'],
+      lessonProgress: json['lessonProgress'] as String?,
+      behaviorRating: json['behaviorRating'] != null
+          ? double.parse(json['behaviorRating'].toString())
+          : null,
+      behaviorComment: json['behaviorComment'] as String?,
+      listeningRating: json['listeningRating'] != null
+          ? double.parse(json['listeningRating'].toString())
+          : null,
+      listeningComment: json['listeningComment'] as String?,
+      speakingRating: json['speakingRating'] != null
+          ? double.parse(json['speakingRating'].toString())
+          : null,
+      speakingComment: json['speakingComment'] as String?,
+      vocabularyRating: json['vocabularyRating'] != null
+          ? double.parse(json['vocabularyRating'].toString())
+          : null,
+      vocabularyComment: json['vocabularyComment'] as String?,
+      homeworkComment: json['homeworkComment'] as String?,
+      overallComment: json['overallComment'] as String?,
+      lessonStatus: json['lessonStatus'] != null
+          ? LessonStatusModel.fromJson(
+              json['lessonStatus'] as Map<String, dynamic>)
+          : null,
+    );
+  }
+}
+
+class LessonStatusModel extends LessonStatusEntity {
+  const LessonStatusModel({
+    int? id,
+    String? status,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) : super(
+          id: id,
+          status: status,
+          createdAt: createdAt,
+          updatedAt: updatedAt,
+        );
+
+  factory LessonStatusModel.fromJson(Map<String, dynamic> json) {
+    return LessonStatusModel(
+      id: json['id'] as int?,
+      status: json['status'] as String?,
+      createdAt: json['createdAt'] != null
+          ? DateTime.parse(json['createdAt'] as String)
+          : null,
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.parse(json['updatedAt'] as String)
+          : null,
     );
   }
 }

@@ -6,7 +6,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:let_tutor/core/resources/data_state.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
-import 'package:let_tutor/data/models/tutor/tutor_model.dart';
 import 'package:let_tutor/domain/entities/tutor/tutor_entity.dart';
 import 'package:let_tutor/domain/repositories/tutor/tutor_repositoy.dart';
 import 'package:let_tutor/domain/usecases/tutor/favorite_tutor.dart';

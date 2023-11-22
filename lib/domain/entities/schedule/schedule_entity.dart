@@ -23,7 +23,7 @@ class ScheduleEntity extends Equatable {
   final bool? isTrial;
   final int? convertedLesson;
   final ScheduleDetailInfoEntity? scheduleDetailInfo;
-  final String? classReview;
+  final ClassReviewEntity? classReview;
   final String? trialBookingReview;
   final bool? showRecordUrl;
   final List<String>? studentMaterials;
@@ -83,6 +83,92 @@ class ScheduleEntity extends Equatable {
         isTrial,
         convertedLesson,
         scheduleDetailInfo,
+      ];
+}
+
+class ClassReviewEntity extends Equatable {
+  final String? bookingId;
+  final int? lessonStatusId;
+  final dynamic book;
+  final dynamic unit;
+  final dynamic lesson;
+  final dynamic page;
+  final String? lessonProgress;
+  final double? behaviorRating;
+  final String? behaviorComment;
+  final double? listeningRating;
+  final String? listeningComment;
+  final double? speakingRating;
+  final String? speakingComment;
+  final double? vocabularyRating;
+  final String? vocabularyComment;
+  final String? homeworkComment;
+  final String? overallComment;
+  final LessonStatusEntity? lessonStatus;
+
+  const ClassReviewEntity({
+    this.bookingId,
+    this.lessonStatusId,
+    this.book,
+    this.unit,
+    this.lesson,
+    this.page,
+    this.lessonProgress,
+    this.behaviorRating,
+    this.behaviorComment,
+    this.listeningRating,
+    this.listeningComment,
+    this.speakingRating,
+    this.speakingComment,
+    this.vocabularyRating,
+    this.vocabularyComment,
+    this.homeworkComment,
+    this.overallComment,
+    this.lessonStatus,
+  });
+
+  @override
+  List<Object?> get props => [
+        bookingId,
+        lessonStatusId,
+        book,
+        unit,
+        lesson,
+        page,
+        lessonProgress,
+        behaviorRating,
+        behaviorComment,
+        listeningRating,
+        listeningComment,
+        speakingRating,
+        speakingComment,
+        vocabularyRating,
+        vocabularyComment,
+        homeworkComment,
+        overallComment,
+        lessonStatus,
+      ];
+}
+
+class LessonStatusEntity extends Equatable {
+  final int? id;
+  final String? status;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+
+  const LessonStatusEntity({
+    this.id,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  @override
+  List<Object?> get props => [
+        id,
+        status,
+        createdAt,
+        updatedAt,
       ];
 }
 
