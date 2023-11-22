@@ -263,5 +263,7 @@
     "taskFailed": "Not successful. Try again later",
     "liked":"Liked",
     "noRequestForLesson":"No request for lesson",
-    "rating": "Rating"
+    "rating": "Rating",
+    "noRequestForSchedule":"Currently there are no requests for this class. Please write down any requests for the teacher.",
+    "thereIsNoLessonScheduleYet":"There is no lesson schedule yet!"
 }

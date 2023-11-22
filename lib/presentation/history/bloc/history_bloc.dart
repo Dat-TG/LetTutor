@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:let_tutor/core/resources/data_state.dart';
 import 'package:let_tutor/domain/entities/schedule/schedule_entity.dart';
 import 'package:let_tutor/domain/usecases/schedule/get_history.dart';
+import 'package:let_tutor/domain/usecases/schedule/get_schedules.dart';
 
 part 'history_event.dart';
 part 'history_state.dart';

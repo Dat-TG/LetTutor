@@ -5,7 +5,7 @@ import 'package:let_tutor/core/providers/dark_mode_provider.dart';
 import 'package:let_tutor/core/providers/locale_provider.dart';
 import 'package:let_tutor/core/routers/my_router.dart';
 import 'package:let_tutor/domain/usecases/course/get_list_courses.dart';
-import 'package:let_tutor/domain/usecases/schedule/get_history.dart';
+import 'package:let_tutor/domain/usecases/schedule/get_schedules.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/l10n/l10n.dart';
 import 'package:let_tutor/presentation/course/bloc/course_bloc.dart';
@@ -14,6 +14,7 @@ import 'package:let_tutor/presentation/details-tutor/bloc/review_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/tutor_details_bloc.dart';
 import 'package:let_tutor/presentation/history/bloc/history_bloc.dart';
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
+import 'package:let_tutor/presentation/schedule/bloc/schedule_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/total_lesson_time_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/tutor_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/upcoming_lesson_bloc.dart';
@@ -64,6 +65,18 @@ class MyApp extends StatelessWidget {
           create: (context) => sl<HistoryBloc>()
             ..add(
               HistoryFetched(
+                GetSchedulesUsecaseParams(
+                    page: 1,
+                    perPage: 10,
+                    token: sl<SharedPreferences>().getString('access-token') ??
+                        ""),
+              ),
+            ),
+        ),
+        BlocProvider(
+          create: (context) => sl<ScheduleBloc>()
+            ..add(
+              ScheduleFetched(
                 GetSchedulesUsecaseParams(
                     page: 1,
                     perPage: 10,

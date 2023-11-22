@@ -263,5 +263,7 @@
     "taskFailed": "Không thành công. Vui lòng thử lại sau",
     "liked":"Đã thích",
     "noRequestForLesson":"Không có yêu cầu cho buổi học",
-     "rating": "Đánh giá"
+    "rating": "Đánh giá",
+    "noRequestForSchedule":"Hiện tại không có yêu cầu cho lớp học này. Xin vui lòng viết ra bất kỳ yêu cầu nào cho giáo viên nếu có.",
+    "thereIsNoLessonScheduleYet":"Chưa có lịch học nào!"
 }
