@@ -291,20 +291,180 @@ class _HistoryCardState extends State<HistoryCard> {
             const SizedBox(
               height: 10,
             ),
-            ExpandedParagraph(
-                text: (widget.schedule.tutorReview != null &&
-                        widget.schedule.tutorReview!.isNotEmpty)
-                    ? widget.schedule.tutorReview!
-                    : AppLocalizations.of(context)!.rateStudentNotYet),
+            (widget.schedule.classReview != null)
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Lesson status: ${widget.schedule.classReview?.lessonStatus?.status}',
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            'Behavior: ',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Stars(
+                            rating:
+                                widget.schedule.classReview?.behaviorRating ??
+                                    0,
+                            itemSize: 20,
+                          )
+                        ],
+                      ),
+                      if (widget.schedule.classReview?.behaviorComment
+                              ?.isNotEmpty ??
+                          false)
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      if (widget.schedule.classReview?.behaviorComment
+                              ?.isNotEmpty ??
+                          false)
+                        ExpandedParagraph(
+                            text:
+                                widget.schedule.classReview!.behaviorComment!),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            'Listening: ',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Stars(
+                            rating:
+                                widget.schedule.classReview?.listeningRating ??
+                                    0,
+                            itemSize: 20,
+                          )
+                        ],
+                      ),
+                      if (widget.schedule.classReview?.listeningComment
+                              ?.isNotEmpty ??
+                          false)
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      if (widget.schedule.classReview?.listeningComment
+                              ?.isNotEmpty ??
+                          false)
+                        ExpandedParagraph(
+                            text:
+                                widget.schedule.classReview!.listeningComment!),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            'Speaking: ',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Stars(
+                            rating:
+                                widget.schedule.classReview?.speakingRating ??
+                                    0,
+                            itemSize: 20,
+                          )
+                        ],
+                      ),
+                      if (widget.schedule.classReview?.speakingComment
+                              ?.isNotEmpty ??
+                          false)
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      if (widget.schedule.classReview?.speakingComment
+                              ?.isNotEmpty ??
+                          false)
+                        ExpandedParagraph(
+                            text:
+                                widget.schedule.classReview!.speakingComment!),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            'Vocabulary: ',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Stars(
+                            rating:
+                                widget.schedule.classReview?.vocabularyRating ??
+                                    0,
+                            itemSize: 20,
+                          )
+                        ],
+                      ),
+                      if (widget.schedule.classReview?.vocabularyComment
+                              ?.isNotEmpty ??
+                          false)
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      if (widget.schedule.classReview?.vocabularyComment
+                              ?.isNotEmpty ??
+                          false)
+                        ExpandedParagraph(
+                            text: widget
+                                .schedule.classReview!.vocabularyComment!),
+                    ],
+                  )
+                : ExpandedParagraph(
+                    text: AppLocalizations.of(context)!.rateStudentNotYet),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             if (rating != null)
               Padding(
                 padding: const EdgeInsets.only(bottom: 20),
-                child: Stars(
-                  rating: rating!,
-                  itemSize: 24,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.rating,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Stars(
+                      rating: rating!,
+                      itemSize: 24,
+                    ),
+                  ],
                 ),
               ),
             Row(

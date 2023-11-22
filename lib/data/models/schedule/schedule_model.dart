@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:let_tutor/domain/entities/schedule/schedule_entity.dart';
 
 class ScheduleModel extends ScheduleEntity {
@@ -89,7 +87,9 @@ class ScheduleModel extends ScheduleEntity {
           ? ScheduleDetailInfoModel.fromJson(
               json['scheduleDetailInfo'] as Map<String, dynamic>)
           : null,
-      classReview: ClassReviewModel.fromJson(json['classReview'] ?? {}),
+      classReview: json['classReview'] != null
+          ? ClassReviewModel.fromJson(json['classReview'])
+          : null,
       feedbacks: json['feedbacks'] != null
           ? (json['feedbacks'] as List)
               .map((e) => FeedBackModel.fromJson(e as Map<String, dynamic>))

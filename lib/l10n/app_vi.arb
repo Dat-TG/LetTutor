@@ -262,5 +262,6 @@
     "unfavoriteTutorSuccess": "Đã xóa gia sư khỏi danh sách yêu thích",
     "taskFailed": "Không thành công. Vui lòng thử lại sau",
     "liked":"Đã thích",
-    "noRequestForLesson":"Không có yêu cầu cho buổi học"
+    "noRequestForLesson":"Không có yêu cầu cho buổi học",
+     "rating": "Đánh giá"
 }
