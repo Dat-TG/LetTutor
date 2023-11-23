@@ -14,17 +14,17 @@ class AppConstants {
   };
 
   static const Map<String, String> specialtiesUser = {
-    'english-for-kids': 'English for Kids',
-    'business-english': 'Business English',
-    'conversational-english': 'Conversational English',
-    'starters': 'STARTERS',
-    'movers': 'MOVERS',
-    'flyers': 'FLYERS',
-    'ket': 'KET',
-    'pet': 'PET',
-    'ielts': 'IELTS',
-    'toefl': 'TOEFL',
-    'toeic': 'TOEIC',
+    '3english-for-kids': 'English for Kids',
+    '4business-english': 'Business English',
+    '5conversational-english': 'Conversational English',
+    '1starters': 'STARTERS',
+    '2movers': 'MOVERS',
+    '3flyers': 'FLYERS',
+    '4ket': 'KET',
+    '5pet': 'PET',
+    '6ielts': 'IELTS',
+    '7toefl': 'TOEFL',
+    '8toeic': 'TOEIC',
   };
 
   static const Map<int, String> courseLevels = {
@@ -57,10 +57,8 @@ class AppConstants {
 
   static const Map<String, String> learnerLevels = {
     'BEGINNER': 'Pre A1 (Beginner)',
-    'HIGHER BEGINNER': 'A1 (Higher Beginner)',
-    'HIGH BEGINNER': 'Upper A1 (High Beginner)',
+    'HIGHER_BEGINNER': 'A1 (Higher Beginner)',
     'PRE_INTERMEDIATE': 'A2 (Pre-Intermediate)',
-    'PRE INTERMEDIATE': 'Upper A2 (Pre Intermediate)',
     'INTERMEDIATE': 'B1 (Intermediate)',
     'UPPER_INTERMEDIATE': 'B2 (Upper-Intermediate)',
     'ADVANCED': 'C1 (Advanced)',

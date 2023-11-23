@@ -265,5 +265,6 @@
     "noRequestForLesson":"Không có yêu cầu cho buổi học",
     "rating": "Đánh giá",
     "noRequestForSchedule":"Hiện tại không có yêu cầu cho lớp học này. Xin vui lòng viết ra bất kỳ yêu cầu nào cho giáo viên nếu có.",
-    "thereIsNoLessonScheduleYet":"Chưa có lịch học nào!"
+    "thereIsNoLessonScheduleYet":"Chưa có lịch học nào!",
+    "updateInformationSuccessful":"Cập nhật thông tin thành công"
 }

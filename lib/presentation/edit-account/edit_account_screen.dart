@@ -11,6 +11,7 @@ import 'package:let_tutor/core/common/custom_date_picker.dart';
 import 'package:let_tutor/core/common/custom_textfield.dart';
 import 'package:let_tutor/core/common/dropdown_select.dart';
 import 'package:let_tutor/core/utils/validators.dart';
+import 'package:let_tutor/domain/repositories/user/user_repository.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/presentation/edit-account/bloc/edit_account_bloc.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tag_card.dart';
@@ -31,11 +32,11 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
           TextEditingController(text: 'student@lettutor.com'),
       _nameController = TextEditingController(text: 'Phhai123'),
       _phoneController = TextEditingController(text: '842499996508'),
-      _countryController = TextEditingController(text: 'Vietnam'),
+      _countryNameController = TextEditingController(text: 'Viet Nam'),
+      _countryCodeController = TextEditingController(text: 'VN'),
       _birthDateController = TextEditingController(text: '2002-10-13'),
-      _scheduleController = TextEditingController();
-
-  String learnerLevel = '';
+      _scheduleController = TextEditingController(),
+      _levelController = TextEditingController();
 
   File? uploadImage;
   void selectImage() async {
@@ -44,8 +45,6 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
       uploadImage = res;
     });
   }
-
-  List<MapEntry<String, String>> selectSubjects = [];
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -66,9 +65,11 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
     _emailController.dispose();
     _nameController.dispose();
     _phoneController.dispose();
-    _countryController.dispose();
+    _countryNameController.dispose();
+    _countryCodeController.dispose();
     _birthDateController.dispose();
     _scheduleController.dispose();
+    _levelController.dispose();
     super.dispose();
   }
 
@@ -94,24 +95,25 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
           _nameController.text = state.user.name ?? '';
           _emailController.text = state.user.email ?? '';
           _phoneController.text = state.user.phone ?? '';
-          _countryController.text =
+          _countryCodeController.text = state.user.country ?? '';
+          _countryNameController.text =
               Helpers.countriesCodeToName[state.user.country] ??
                   state.user.country ??
                   '';
           _birthDateController.text = state.user.birthday ?? '';
           _scheduleController.text = state.user.studySchedule ?? '';
-          learnerLevel = state.user.level ?? '';
+          _levelController.text = state.user.level ?? '';
 
-          selectSubjects = [
-            ...(state.user.learnTopics
-                    ?.map((e) => MapEntry(e.key!, e.name!))
-                    .toList() ??
-                []),
-            ...(state.user.testPreparations
-                    ?.map((e) => MapEntry(e.key!, e.name!))
-                    .toList() ??
-                [])
-          ];
+          context.read<EditAccountBloc>().add(SelectSubjects(subjects: [
+                ...(state.user.learnTopics
+                        ?.map((e) => MapEntry('${e.id}${e.key}', e.name!))
+                        .toList() ??
+                    []),
+                ...(state.user.testPreparations
+                        ?.map((e) => MapEntry('${e.id}${e.key}', e.name!))
+                        .toList() ??
+                    [])
+              ]));
         }
         return Scaffold(
           appBar: PreferredSize(
@@ -221,7 +223,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                           keyboardType: TextInputType.emailAddress,
                         ),
                         CustomTextField(
-                          controller: _countryController,
+                          controller: _countryNameController,
                           labelText: AppLocalizations.of(context)!.country,
                           readOnly: true,
                           onTap: () {
@@ -230,7 +232,9 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                               showPhoneCode:
                                   false, // optional. Shows phone code before the country name.
                               onSelect: (Country country) {
-                                _countryController.text = country.name;
+                                _countryCodeController.text =
+                                    country.countryCode;
+                                _countryNameController.text = country.name;
                               },
                             );
                           },
@@ -262,17 +266,15 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                           child: DropdownSelect(
                             options: AppConstants.learnerLevels.values.toList(),
                             labelText: AppLocalizations.of(context)!.myLevel,
-                            initialValue:
-                                AppConstants.learnerLevels[learnerLevel],
+                            initialValue: AppConstants
+                                .learnerLevels[_levelController.text],
                             setValue: (String value) {
-                              setState(() {
-                                AppConstants.learnerLevels
-                                    .forEach((key, value) {
-                                  if (value == learnerLevel) {
-                                    learnerLevel = key;
-                                    return;
-                                  }
-                                });
+                              AppConstants.learnerLevels
+                                  .forEach((key, mapValue) {
+                                if (value == mapValue) {
+                                  _levelController.text = key;
+                                  return;
+                                }
                               });
                             },
                           ),
@@ -292,14 +294,14 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                                 Helpers.openFilterDialog(
                                     context,
                                     AppConstants.specialtiesUser,
-                                    selectSubjects,
+                                    state.selectSubjects,
                                     (List<MapEntry<dynamic, dynamic>> list) {
-                                  setState(() {
-                                    selectSubjects = list
-                                        .map((e) =>
-                                            e as MapEntry<String, String>)
-                                        .toList();
-                                  });
+                                  context.read<EditAccountBloc>().add(
+                                      SelectSubjects(
+                                          subjects: list
+                                              .map((e) =>
+                                                  e as MapEntry<String, String>)
+                                              .toList()));
                                 });
                               }),
                         ),
@@ -308,9 +310,9 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                           child: Wrap(
                             spacing: 10,
                             runSpacing: 10,
-                            children: (selectSubjects.length <
+                            children: (state.selectSubjects.length <
                                     AppConstants.specialties.length)
-                                ? selectSubjects
+                                ? state.selectSubjects
                                     .map((e) => TagCard(name: e.value))
                                     .toList()
                                 : [
@@ -332,18 +334,54 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                Center(
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    width: 200,
                     child: CustomButton(
+                      isInProgress: state is InfoUpdating,
+                      borderRadius: 10,
+                      textSize: 18,
                       title: AppLocalizations.of(context)!.saveChanges,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,
-                        vertical: 10,
+                        vertical: 15,
                       ),
                       callback: () {
-                        _formKey.currentState!.validate();
+                        if (_formKey.currentState!.validate()) {
+                          List<String> learnTopics = [], testPreparations = [];
+                          for (int i = 0;
+                              i < state.selectSubjects.length;
+                              i++) {
+                            if (state.selectSubjects[i].key ==
+                                    AppConstants.specialtiesUser.keys
+                                        .elementAt(0) ||
+                                state.selectSubjects[i].key ==
+                                    AppConstants.specialtiesUser.keys
+                                        .elementAt(1) ||
+                                state.selectSubjects[i].key ==
+                                    AppConstants.specialtiesUser.keys
+                                        .elementAt(2)) {
+                              learnTopics.add(state.selectSubjects[i].key[0]);
+                            } else {
+                              testPreparations
+                                  .add(state.selectSubjects[i].key[0]);
+                            }
+                          }
+                          context.read<EditAccountBloc>().add(UpdateAccount(
+                              accessToken: accessToken,
+                              userInfoBody: UserInfoBody(
+                                birthday: _birthDateController.text,
+                                country: _countryCodeController.text,
+                                learnTopics: learnTopics,
+                                level: _levelController.text,
+                                name: _nameController.text,
+                                phone: _phoneController.text,
+                                studySchedule: _scheduleController.text,
+                                testPreparations: testPreparations,
+                              ),
+                              context: context));
+                        }
                       },
                       icon: const Icon(
                         Icons.save_rounded,

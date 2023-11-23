@@ -46,6 +46,7 @@ class _DropdownSelectState extends State<DropdownSelect> {
         setState(() {
           dropdownValue = value;
         });
+        if (widget.setValue != null) widget.setValue!(value);
       },
       dropdownMenuEntries:
           widget.options.map<DropdownMenuEntry<String>>((String value) {

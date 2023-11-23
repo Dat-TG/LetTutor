@@ -16,4 +16,13 @@ abstract class UserApiService {
   Future<HttpResponse<UserModel>> getUserInfo({
     @Header('Authorization') required String token,
   });
+
+  @PUT('/user/info')
+  @Headers(<String, dynamic>{
+    'Content-Type': 'application/json',
+  })
+  Future<HttpResponse<UserModel>> updateUserInfo({
+    @Header('Authorization') required String token,
+    @Body() required Map<String, dynamic> userInfoBody,
+  });
 }

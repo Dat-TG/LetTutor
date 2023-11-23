@@ -30,4 +30,26 @@ class UserRepositoryImpl implements UserRepository {
       return DataFailed(e);
     }
   }
+
+  @override
+  Future<DataState<UserModel>> updateUserInfo(
+      String token, UserInfoBody userInfoBody) async {
+    try {
+      final httpResponse = await _userApiService.updateUserInfo(
+          token: 'Bearer $token', userInfoBody: userInfoBody.toJson());
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResponse.data);
+      } else {
+        return DataFailed(
+          DioException(
+              error: httpResponse.response.statusMessage,
+              response: httpResponse.response,
+              type: DioExceptionType.badResponse,
+              requestOptions: httpResponse.response.requestOptions),
+        );
+      }
+    } on DioException catch (e) {
+      return DataFailed(e);
+    }
+  }
 }
