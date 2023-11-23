@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
@@ -11,6 +13,7 @@ import 'package:let_tutor/domain/entities/user/user_entity.dart';
 import 'package:let_tutor/domain/repositories/user/user_repository.dart';
 import 'package:let_tutor/domain/usecases/user/get_user.dart';
 import 'package:let_tutor/domain/usecases/user/update_user_info.dart';
+import 'package:let_tutor/domain/usecases/user/upload_avatar.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -20,11 +23,14 @@ part 'edit_account_state.dart';
 class EditAccountBloc extends Bloc<EditAccountEvent, EditAccountState> {
   final GetUserUsecase _getUserUsecase;
   final UpdateUserInfoUsecase _updateUserInfoUsecase;
-  EditAccountBloc(this._getUserUsecase, this._updateUserInfoUsecase)
+  final UploadAvatarUsecase _uploadAvatarUsecase;
+  EditAccountBloc(this._getUserUsecase, this._updateUserInfoUsecase,
+      this._uploadAvatarUsecase)
       : super(const AccountLoading(user: UserEntity(), selectSubjects: [])) {
     on<GetAccount>(onGetAccount);
     on<SelectSubjects>(onSelectSubjects);
     on<UpdateAccount>(onUpdateUserInfo);
+    on<UploadAvatar>(onUploadAvatar);
   }
   void onGetAccount(GetAccount event, Emitter<EditAccountState> emit) async {
     emit(AccountLoading(
@@ -78,6 +84,40 @@ class EditAccountBloc extends Bloc<EditAccountEvent, EditAccountState> {
       sl<AuthProvider>().setUser(dataState.data!);
       emit(AccountLoaded(
         user: dataState.data!,
+        selectSubjects: state.selectSubjects,
+      ));
+      Helpers.showSnackBar(event.context,
+          AppLocalizations.of(event.context)!.updateInformationSuccessful);
+    }
+
+    if (dataState is DataFailed) {
+      emit(AccountError(
+        user: state.user,
+        error: dataState.error!,
+        selectSubjects: state.selectSubjects,
+      ));
+      Helpers.showSnackBar(
+          event.context, AppLocalizations.of(event.context)!.taskFailed);
+    }
+  }
+
+  void onUploadAvatar(
+      UploadAvatar event, Emitter<EditAccountState> emit) async {
+    emit(AvatarUploading(
+      user: state.user,
+      selectSubjects: state.selectSubjects,
+    ));
+    final dataState = await _uploadAvatarUsecase(
+        params: UploadAvatarUsecaseParams(
+            token: event.accessToken, image: event.image));
+    print('upload avatar ${dataState.data}');
+    if (dataState is DataSuccess && dataState.data != null) {
+      sl<AuthProvider>().setUser(sl<AuthProvider>()
+          .authEntity
+          .user!
+          .copyWith(avatar: dataState.data?.avatar));
+      emit(AccountLoaded(
+        user: state.user.copyWith(avatar: dataState.data?.avatar),
         selectSubjects: state.selectSubjects,
       ));
       Helpers.showSnackBar(event.context,

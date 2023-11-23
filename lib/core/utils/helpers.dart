@@ -71,7 +71,7 @@ class Helpers {
         images = File(files.files[0].path!);
       }
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('Error load image from local ${e.toString()}');
     }
     return images;
   }

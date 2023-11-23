@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart' hide Headers;
 import 'package:let_tutor/core/utils/constants.dart';
 import 'package:let_tutor/data/models/user/user_model.dart';
@@ -24,5 +26,12 @@ abstract class UserApiService {
   Future<HttpResponse<UserModel>> updateUserInfo({
     @Header('Authorization') required String token,
     @Body() required Map<String, dynamic> userInfoBody,
+  });
+
+  @POST('/user/uploadAvatar')
+  @MultiPart()
+  Future<HttpResponse<UserModel>> uploadAvatar({
+    @Header('Authorization') required String token,
+    @Part() required File avatar,
   });
 }

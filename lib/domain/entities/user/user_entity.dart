@@ -25,6 +25,7 @@ class UserEntity extends Equatable {
   final String? studentGroup;
   final StudentInfoEntity? studentInfo;
   final double? avgRating;
+
   const UserEntity({
     this.id,
     this.email,
@@ -51,6 +52,60 @@ class UserEntity extends Equatable {
     this.studentInfo,
     this.avgRating,
   });
+
+  UserEntity copyWith({
+    String? id,
+    String? email,
+    String? name,
+    String? avatar,
+    String? country,
+    String? phone,
+    List<String>? roles,
+    String? language,
+    String? birthday,
+    bool? isActivated,
+    TutorInfoEntity? tutorInfo,
+    WalletInfoEntity? walletInfo,
+    String? requireNote,
+    String? level,
+    List<LearnTopicEntity>? learnTopics,
+    List<LearnTopicEntity>? testPreparations,
+    bool? isPhoneActivated,
+    int? timezone,
+    ReferralInfoEntity? referralInfo,
+    String? studySchedule,
+    bool? canSendMessage,
+    String? studentGroup,
+    StudentInfoEntity? studentInfo,
+    double? avgRating,
+  }) {
+    return UserEntity(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      name: name ?? this.name,
+      avatar: avatar ?? this.avatar,
+      country: country ?? this.country,
+      phone: phone ?? this.phone,
+      roles: roles ?? this.roles,
+      language: language ?? this.language,
+      birthday: birthday ?? this.birthday,
+      isActivated: isActivated ?? this.isActivated,
+      tutorInfo: tutorInfo ?? this.tutorInfo,
+      walletInfo: walletInfo ?? this.walletInfo,
+      requireNote: requireNote ?? this.requireNote,
+      level: level ?? this.level,
+      learnTopics: learnTopics ?? this.learnTopics,
+      testPreparations: testPreparations ?? this.testPreparations,
+      isPhoneActivated: isPhoneActivated ?? this.isPhoneActivated,
+      timezone: timezone ?? this.timezone,
+      referralInfo: referralInfo ?? this.referralInfo,
+      studySchedule: studySchedule ?? this.studySchedule,
+      canSendMessage: canSendMessage ?? this.canSendMessage,
+      studentGroup: studentGroup ?? this.studentGroup,
+      studentInfo: studentInfo ?? this.studentInfo,
+      avgRating: avgRating ?? this.avgRating,
+    );
+  }
 
   @override
   List<Object?> get props {

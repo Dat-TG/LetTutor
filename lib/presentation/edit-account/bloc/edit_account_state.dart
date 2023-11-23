@@ -79,3 +79,13 @@ final class InfoUpdating extends EditAccountState {
           selectSubjects: selectSubjects,
         );
 }
+
+final class AvatarUploading extends EditAccountState {
+  const AvatarUploading({
+    required UserEntity user,
+    required List<MapEntry<String, String>> selectSubjects,
+  }) : super(
+          user: user,
+          selectSubjects: selectSubjects,
+        );
+}

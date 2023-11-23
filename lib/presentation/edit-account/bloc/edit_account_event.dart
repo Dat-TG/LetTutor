@@ -27,3 +27,14 @@ final class UpdateAccount extends EditAccountEvent {
     required this.context,
   });
 }
+
+final class UploadAvatar extends EditAccountEvent {
+  final BuildContext context;
+  final String accessToken;
+  final File image;
+  const UploadAvatar({
+    required this.accessToken,
+    required this.image,
+    required this.context,
+  });
+}

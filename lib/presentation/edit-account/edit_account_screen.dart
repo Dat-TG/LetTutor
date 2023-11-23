@@ -1,4 +1,4 @@
-import 'dart:io';
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:country_picker/country_picker.dart';
@@ -38,14 +38,6 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
       _scheduleController = TextEditingController(),
       _levelController = TextEditingController();
 
-  File? uploadImage;
-  void selectImage() async {
-    var res = await Helpers.pickImage();
-    setState(() {
-      uploadImage = res;
-    });
-  }
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final accessToken = sl<SharedPreferences>().getString('access-token') ?? "";
@@ -75,6 +67,15 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    void selectImage() async {
+      var res = await Helpers.pickImage();
+      print('result upload image: ${res}');
+      if (res != null) {
+        context.read<EditAccountBloc>().add(UploadAvatar(
+            accessToken: accessToken, image: res, context: context));
+      }
+    }
+
     return BlocBuilder<EditAccountBloc, EditAccountState>(
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
@@ -133,52 +134,69 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                   height: 20,
                 ),
                 Center(
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(100),
-                    onTap: () async {
-                      selectImage();
-                    },
-                    child: CachedNetworkImage(
-                      imageUrl: state.user.avatar ??
-                          Helpers.avatarFromName(state.user.name),
-                      imageBuilder: (context, imageProvider) => CircleAvatar(
-                        radius: 50,
-                        backgroundImage: imageProvider,
-                      ),
-                      placeholder: (context, url) => const CircleAvatar(
-                        radius: 50,
-                        child: SizedBox(
-                          height: 30,
-                          width: 30,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 1.5,
+                  child: (state is! AvatarUploading)
+                      ? InkWell(
+                          borderRadius: BorderRadius.circular(100),
+                          onTap: () async {
+                            selectImage();
+                          },
+                          child: CachedNetworkImage(
+                            imageUrl: state.user.avatar ??
+                                Helpers.avatarFromName(state.user.name),
+                            imageBuilder: (context, imageProvider) =>
+                                CircleAvatar(
+                              radius: 50,
+                              backgroundImage: imageProvider,
+                            ),
+                            placeholder: (context, url) => const CircleAvatar(
+                              radius: 50,
+                              child: SizedBox(
+                                height: 30,
+                                width: 30,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 1.5,
+                                ),
+                              ),
+                            ),
+                            errorWidget: (context, url, error) =>
+                                CachedNetworkImage(
+                              imageUrl: Helpers.avatarFromName(state.user.name),
+                              imageBuilder: (context, imageProvider) =>
+                                  CircleAvatar(
+                                radius: 50,
+                                backgroundImage: imageProvider,
+                              ),
+                              placeholder: (context, url) => const CircleAvatar(
+                                radius: 50,
+                                child: SizedBox(
+                                  height: 30,
+                                  width: 30,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 1.5,
+                                  ),
+                                ),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  const CircleAvatar(
+                                radius: 40,
+                                child: Icon(Icons.person),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      errorWidget: (context, url, error) => CachedNetworkImage(
-                        imageUrl: Helpers.avatarFromName(state.user.name),
-                        imageBuilder: (context, imageProvider) => CircleAvatar(
-                          radius: 50,
-                          backgroundImage: imageProvider,
-                        ),
-                        placeholder: (context, url) => const CircleAvatar(
-                          radius: 50,
-                          child: SizedBox(
-                            height: 30,
-                            width: 30,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 1.5,
+                        )
+                      : const Center(
+                          child: CircleAvatar(
+                            radius: 50,
+                            child: SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 1.5,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
-                        errorWidget: (context, url, error) =>
-                            const CircleAvatar(
-                          radius: 40,
-                          child: Icon(Icons.person),
-                        ),
-                      ),
-                    ),
-                  ),
                 ),
                 const SizedBox(
                   height: 10,

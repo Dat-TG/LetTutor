@@ -68,10 +68,14 @@ class UserModel extends UserEntity {
       walletInfo: WalletInfo.fromJson(json['walletInfo'] ?? {}),
       requireNote: json['requireNote'],
       level: json['level'],
-      learnTopics: List<LearnTopic>.from(
-          json['learnTopics'].map((x) => LearnTopic.fromJson(x ?? {}))),
-      testPreparations: List<LearnTopic>.from(
-          json['testPreparations'].map((x) => LearnTopic.fromJson(x ?? {}))),
+      learnTopics: json['learnTopics'] != null
+          ? List<LearnTopic>.from(
+              json['learnTopics'].map((x) => LearnTopic.fromJson(x ?? {})))
+          : [],
+      testPreparations: json['testPreparations'] != null
+          ? List<LearnTopic>.from(
+              json['testPreparations'].map((x) => LearnTopic.fromJson(x ?? {})))
+          : [],
       isPhoneActivated: json['isPhoneActivated'],
       timezone: json['timezone'],
       referralInfo: ReferralInfo.fromJson(json['referralInfo'] ?? {}),
