@@ -189,11 +189,11 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                         fontSize: 16,
                         color: Theme.of(context).iconTheme.color,
                       ),
-                      children: const [
-                        TextSpan(
+                      children: [
+                        const TextSpan(
                           text: 'ID: ',
                         ),
-                        TextSpan(text: 'f569c202-7bbf-4620-af77-ecc1419a6b28'),
+                        TextSpan(text: state.user.id ?? ''),
                       ],
                     ),
                   ),
