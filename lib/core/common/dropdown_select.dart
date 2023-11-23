@@ -3,7 +3,14 @@ import 'package:flutter/material.dart';
 class DropdownSelect extends StatefulWidget {
   final List<String> options;
   final String? labelText;
-  const DropdownSelect({super.key, required this.options, this.labelText});
+  final Function? setValue;
+  final String? initialValue;
+  const DropdownSelect(
+      {super.key,
+      required this.options,
+      this.labelText,
+      this.setValue,
+      this.initialValue});
 
   @override
   State<DropdownSelect> createState() => _DropdownSelectState();
@@ -14,7 +21,11 @@ class _DropdownSelectState extends State<DropdownSelect> {
 
   @override
   void initState() {
-    dropdownValue = widget.options.first;
+    if (widget.initialValue != null) {
+      dropdownValue = widget.initialValue;
+    } else {
+      dropdownValue = widget.options.first;
+    }
     super.initState();
   }
 

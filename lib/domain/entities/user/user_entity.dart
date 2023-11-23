@@ -16,7 +16,7 @@ class UserEntity extends Equatable {
   final String? requireNote;
   final String? level;
   final List<LearnTopicEntity>? learnTopics;
-  final List<String>? testPreparations;
+  final List<LearnTopicEntity>? testPreparations;
   final bool? isPhoneActivated;
   final int? timezone;
   final ReferralInfoEntity? referralInfo;

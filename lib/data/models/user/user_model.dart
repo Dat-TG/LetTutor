@@ -17,7 +17,7 @@ class UserModel extends UserEntity {
     String? requireNote,
     String? level,
     List<LearnTopic>? learnTopics,
-    List<String>? testPreparations,
+    List<LearnTopic>? testPreparations,
     bool? isPhoneActivated,
     int? timezone,
     ReferralInfo? referralInfo,
@@ -70,7 +70,8 @@ class UserModel extends UserEntity {
       level: json['level'],
       learnTopics: List<LearnTopic>.from(
           json['learnTopics'].map((x) => LearnTopic.fromJson(x ?? {}))),
-      testPreparations: List<String>.from(json['testPreparations'] ?? {}),
+      testPreparations: List<LearnTopic>.from(
+          json['testPreparations'].map((x) => LearnTopic.fromJson(x ?? {}))),
       isPhoneActivated: json['isPhoneActivated'],
       timezone: json['timezone'],
       referralInfo: ReferralInfo.fromJson(json['referralInfo'] ?? {}),

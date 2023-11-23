@@ -13,6 +13,20 @@ class AppConstants {
     'toeic': 'TOEIC',
   };
 
+  static const Map<String, String> specialtiesUser = {
+    'english-for-kids': 'English for Kids',
+    'business-english': 'Business English',
+    'conversational-english': 'Conversational English',
+    'starters': 'STARTERS',
+    'movers': 'MOVERS',
+    'flyers': 'FLYERS',
+    'ket': 'KET',
+    'pet': 'PET',
+    'ielts': 'IELTS',
+    'toefl': 'TOEFL',
+    'toeic': 'TOEIC',
+  };
+
   static const Map<int, String> courseLevels = {
     1: 'Beginner',
     2: 'Upper-Beginner',
@@ -41,17 +55,17 @@ class AppConstants {
     '255c96b6-fd6f-4f43-8dbd-fec766e361e0': 'IELTS',
   };
 
-  static const List<String> learnerLevels = [
-    'Pre A1 (Beginner)',
-    'A1 (Higher Beginner)',
-    'Upper A1 (High Beginner)',
-    'A2 (Pre-Intermediate)',
-    'Upper A2 (Pre Intermediate)',
-    'B1 (Intermediate)',
-    'B2 (Upper-Intermediate)',
-    'C1 (Advanced)',
-    'C2 (Proficiency)'
-  ];
+  static const Map<String, String> learnerLevels = {
+    'BEGINNER': 'Pre A1 (Beginner)',
+    'HIGHER BEGINNER': 'A1 (Higher Beginner)',
+    'HIGH BEGINNER': 'Upper A1 (High Beginner)',
+    'PRE_INTERMEDIATE': 'A2 (Pre-Intermediate)',
+    'PRE INTERMEDIATE': 'Upper A2 (Pre Intermediate)',
+    'INTERMEDIATE': 'B1 (Intermediate)',
+    'UPPER_INTERMEDIATE': 'B2 (Upper-Intermediate)',
+    'ADVANCED': 'C1 (Advanced)',
+    'PROFICIENCY': 'C2 (Proficiency)'
+  };
 
   static const List<String> basicLevels = [
     'Beginner',

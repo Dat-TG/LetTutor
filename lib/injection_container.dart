@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
+import 'package:let_tutor/core/providers/auth_provider.dart';
 import 'package:let_tutor/data/data_sources/remote/auth/auth_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/course/course_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/course_details/course_details_api_service.dart';
@@ -52,6 +53,7 @@ import 'package:let_tutor/presentation/course/bloc/course_bloc.dart';
 import 'package:let_tutor/presentation/details-course/bloc/course_details_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/review_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/tutor_details_bloc.dart';
+import 'package:let_tutor/presentation/edit-account/bloc/edit_account_bloc.dart';
 import 'package:let_tutor/presentation/history/bloc/history_bloc.dart';
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
 import 'package:let_tutor/presentation/schedule/bloc/schedule_bloc.dart';
@@ -71,6 +73,7 @@ Future<void> initializeDependencies() async {
   await sl.isReady<SharedPreferences>();
 
   // Dependencies
+  sl.registerSingleton<AuthProvider>(AuthProvider());
   // API Services
   sl.registerSingleton<AuthApiService>(AuthApiService(sl()));
   sl.registerSingleton<UserApiService>(UserApiService(sl()));
@@ -135,4 +138,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<HistoryBloc>(() => HistoryBloc(sl()));
   sl.registerFactory<ScheduleBloc>(() => ScheduleBloc(sl()));
   sl.registerFactory<BookingBloc>(() => BookingBloc(sl()));
+  sl.registerFactory<EditAccountBloc>(() => EditAccountBloc(sl()));
 }

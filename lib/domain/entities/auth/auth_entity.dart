@@ -5,7 +5,19 @@ import 'package:let_tutor/domain/entities/user/user_entity.dart';
 class AuthEntity extends Equatable {
   final UserEntity? user;
   final TokensEntity? tokens;
+
   const AuthEntity({this.user, this.tokens});
+
+  AuthEntity copyWith({
+    UserEntity? user,
+    TokensEntity? tokens,
+  }) {
+    return AuthEntity(
+      user: user ?? this.user,
+      tokens: tokens ?? this.tokens,
+    );
+  }
+
   @override
   List<Object?> get props => [user, tokens];
 }

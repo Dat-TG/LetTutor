@@ -13,6 +13,7 @@ import 'package:let_tutor/presentation/course/bloc/course_bloc.dart';
 import 'package:let_tutor/presentation/details-course/bloc/course_details_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/review_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/tutor_details_bloc.dart';
+import 'package:let_tutor/presentation/edit-account/bloc/edit_account_bloc.dart';
 import 'package:let_tutor/presentation/history/bloc/history_bloc.dart';
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
 import 'package:let_tutor/presentation/schedule/bloc/schedule_bloc.dart';
@@ -87,6 +88,7 @@ class MyApp extends StatelessWidget {
             ),
         ),
         BlocProvider(create: (context) => sl<BookingBloc>()),
+        BlocProvider(create: (context) => sl<EditAccountBloc>()),
       ],
       child: MultiProvider(
         providers: [
@@ -97,7 +99,7 @@ class MyApp extends StatelessWidget {
             create: (_) => DarkModeProvider(),
           ),
           ChangeNotifierProvider(
-            create: (_) => AuthProvider(),
+            create: (_) => sl<AuthProvider>(),
           )
         ],
         builder: (context, child) {

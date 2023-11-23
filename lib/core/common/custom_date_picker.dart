@@ -7,6 +7,7 @@ class CustomDatePicker extends StatefulWidget {
   final bool showIcon;
   final EdgeInsetsGeometry padding;
   final double labelSize;
+  final DateTime? initDate;
   const CustomDatePicker(
       {super.key,
       required this.textEditingController,
@@ -14,6 +15,7 @@ class CustomDatePicker extends StatefulWidget {
       required this.labelText,
       this.showIcon = true,
       this.labelSize = 18,
+      this.initDate,
       this.padding = const EdgeInsets.symmetric(
         horizontal: 10,
         vertical: 15,
@@ -34,6 +36,9 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   @override
   void initState() {
     super.initState();
+    if (widget.initDate != null) {
+      initDate = widget.initDate!;
+    }
     // Change color for border if focus was changed
     _focusNode.addListener(() {
       setState(() {
