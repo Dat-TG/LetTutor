@@ -37,4 +37,30 @@ class TutorScheduleRepositoryImpl implements TutorScheduleRepository {
       return DataFailed(e);
     }
   }
+
+  @override
+  Future<DataState<String>> bookingSchedule({
+    required String token,
+    required BookingScheduleBody body,
+  }) async {
+    try {
+      final httpResponse = await _tutorScheduleApiService.bookingSchedule(
+        token: 'Bearer $token',
+        body: body,
+      );
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResponse.data);
+      } else {
+        return DataFailed(
+          DioException(
+              error: httpResponse.response.statusMessage,
+              response: httpResponse.response,
+              type: DioExceptionType.badResponse,
+              requestOptions: httpResponse.response.requestOptions),
+        );
+      }
+    } on DioException catch (e) {
+      return DataFailed(e);
+    }
+  }
 }

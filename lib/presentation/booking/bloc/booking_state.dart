@@ -49,3 +49,27 @@ final class BookingTutorScheduleFail extends BookingState {
           params: params,
         );
 }
+
+final class BookingScheduleDone extends BookingState {
+  const BookingScheduleDone({
+    List<ScheduleOfTutorEntity>? schedule,
+    DioException? error,
+    GetScheduleOfTutorUsecaseParams? params,
+  }) : super(
+          schedule: schedule,
+          error: error,
+          params: params,
+        );
+}
+
+final class BookingScheduleFailed extends BookingState {
+  const BookingScheduleFailed({
+    List<ScheduleOfTutorEntity>? schedule,
+    DioException? error,
+    GetScheduleOfTutorUsecaseParams? params,
+  }) : super(
+          schedule: schedule,
+          error: error,
+          params: params,
+        );
+}

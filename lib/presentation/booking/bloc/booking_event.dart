@@ -11,3 +11,8 @@ final class BookingScheduleFetched extends BookingEvent {
   final GetScheduleOfTutorUsecaseParams params;
   const BookingScheduleFetched(this.params);
 }
+
+final class BookingScheduleEvent extends BookingEvent {
+  final BookingScheduleUsecaseParams params;
+  const BookingScheduleEvent(this.params);
+}

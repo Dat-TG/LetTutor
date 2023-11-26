@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:let_tutor/core/providers/auth_provider.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:let_tutor/presentation/booking/bloc/booking_bloc.dart';
 import 'package:let_tutor/presentation/booking/widgets/time_row.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TimeTable extends StatefulWidget {
   final DateTime selectedDate;
@@ -35,7 +37,24 @@ class _TimeTableState extends State<TimeTable> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BookingBloc, BookingState>(
+    return BlocConsumer<BookingBloc, BookingState>(
+      listenWhen: (previous, current) => previous != current,
+      listener: (context, state) {
+        if (state is BookingScheduleDone) {
+          Helpers.showSnackBar(
+              context, AppLocalizations.of(context)!.bookSuccessful);
+          context
+              .read<BookingBloc>()
+              .add(BookingScheduleFetched(state.params!));
+        }
+        if (state is BookingScheduleFailed) {
+          Helpers.showSnackBar(
+              context, AppLocalizations.of(context)!.bookFailed);
+          context
+              .read<BookingBloc>()
+              .add(BookingScheduleFetched(state.params!));
+        }
+      },
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
         index = [];

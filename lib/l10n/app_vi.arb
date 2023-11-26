@@ -266,5 +266,7 @@
     "rating": "Đánh giá",
     "noRequestForSchedule":"Hiện tại không có yêu cầu cho lớp học này. Xin vui lòng viết ra bất kỳ yêu cầu nào cho giáo viên nếu có.",
     "thereIsNoLessonScheduleYet":"Chưa có lịch học nào!",
-    "updateInformationSuccessful":"Cập nhật thông tin thành công"
+    "updateInformationSuccessful":"Cập nhật thông tin thành công",
+    "bookSuccessful": "Đặt lịch thành công",
+    "bookFailed": "Đặt lịch thất bại"
 }

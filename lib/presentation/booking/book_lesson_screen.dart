@@ -55,8 +55,8 @@ class _BookLessonScreenState extends State<BookLessonScreen> {
               onDaySelected: (selectedDay, focusedDay) {
                 setState(() {
                   _selectedDay = selectedDay;
-                  print(
-                      'difference in days: ${selectedDay.difference(DateTime.now()).inDays}');
+                  //print(
+                  //  'difference in days: ${selectedDay.difference(DateTime.now()).inDays}');
                   context.read<BookingBloc>().add(BookingScheduleFetched(
                       GetScheduleOfTutorUsecaseParams(
                           page: selectedDay.difference(DateTime.now()).inDays ~/

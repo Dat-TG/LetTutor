@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/core/common/custom_textfield.dart';
 import 'package:let_tutor/core/providers/auth_provider.dart';
 import 'package:let_tutor/domain/entities/tutor_schedule/tutor_schedule_entity.dart';
+import 'package:let_tutor/domain/repositories/tutor_schedule/tutor_schedule_repository.dart';
+import 'package:let_tutor/domain/usecases/tutor_schedule/booking_schedule.dart';
 import 'package:let_tutor/injection_container.dart';
+import 'package:let_tutor/presentation/booking/bloc/booking_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BookingDetails extends StatefulWidget {
   final ScheduleOfTutorEntity? schedule;
@@ -17,6 +23,13 @@ class BookingDetails extends StatefulWidget {
 
 class _BookingDetailsState extends State<BookingDetails> {
   final TextEditingController _noteController = TextEditingController();
+
+  @override
+  void dispose() {
+    _noteController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -226,15 +239,33 @@ class _BookingDetailsState extends State<BookingDetails> {
         const SizedBox(
           width: 10,
         ),
-        CustomButton(
-          title: AppLocalizations.of(context)!.book,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 15,
-            vertical: 10,
-          ),
-          borderRadius: 5,
-          callback: () {
-            Navigator.pop(context);
+        BlocBuilder<BookingBloc, BookingState>(
+          builder: (context, state) {
+            return CustomButton(
+              title: AppLocalizations.of(context)!.book,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 10,
+              ),
+              borderRadius: 5,
+              callback: (state is BookingTutorScheduleDone)
+                  ? () {
+                      Navigator.pop(context);
+                      context.read<BookingBloc>().add(BookingScheduleEvent(
+                            BookingScheduleUsecaseParams(
+                                token: sl<SharedPreferences>()
+                                        .getString('access-token') ??
+                                    '',
+                                body: BookingScheduleBody(
+                                    note: _noteController.text,
+                                    scheduleDetailIds: [
+                                      widget.schedule?.scheduleDetails?[0].id ??
+                                          ''
+                                    ])),
+                          ));
+                    }
+                  : null,
+            );
           },
         ),
       ],

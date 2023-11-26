@@ -266,5 +266,7 @@
     "rating": "Rating",
     "noRequestForSchedule":"Currently there are no requests for this class. Please write down any requests for the teacher.",
     "thereIsNoLessonScheduleYet":"There is no lesson schedule yet!",
-    "updateInformationSuccessful":"Update information successful"
+    "updateInformationSuccessful":"Update information successful",
+    "bookSuccessful": "Booking successful",
+    "bookFailed": "Booking failed"
 }
