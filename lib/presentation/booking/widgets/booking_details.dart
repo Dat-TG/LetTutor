@@ -250,18 +250,24 @@ class _BookingDetailsState extends State<BookingDetails> {
               callback: (state is BookingTutorScheduleDone)
                   ? () {
                       Navigator.pop(context);
-                      context.read<BookingBloc>().add(BookingScheduleEvent(
-                            BookingScheduleUsecaseParams(
-                                token: sl<SharedPreferences>()
-                                        .getString('access-token') ??
-                                    '',
-                                body: BookingScheduleBody(
-                                    note: _noteController.text,
-                                    scheduleDetailIds: [
-                                      widget.schedule?.scheduleDetails?[0].id ??
-                                          ''
-                                    ])),
-                          ));
+                      if (DateTime.fromMillisecondsSinceEpoch(
+                                  widget.schedule?.startTimestamp ?? 0)
+                              .compareTo(DateTime.now()) >=
+                          0) {
+                        context.read<BookingBloc>().add(BookingScheduleEvent(
+                              BookingScheduleUsecaseParams(
+                                  token: sl<SharedPreferences>()
+                                          .getString('access-token') ??
+                                      '',
+                                  body: BookingScheduleBody(
+                                      note: _noteController.text,
+                                      scheduleDetailIds: [
+                                        widget.schedule?.scheduleDetails?[0]
+                                                .id ??
+                                            ''
+                                      ])),
+                            ));
+                      }
                     }
                   : null,
             );
