@@ -15,6 +15,7 @@ class TimeTable extends StatefulWidget {
 
 class _TimeTableState extends State<TimeTable> {
   List<TimeOfDay> times = [];
+  List<int?> index = [];
   List<String> status = ['booked', 'available', 'bookedByMe', 'notAvailable'];
 
   @override
@@ -37,6 +38,7 @@ class _TimeTableState extends State<TimeTable> {
     return BlocBuilder<BookingBloc, BookingState>(
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
+        index = [];
         String checkStatus(TimeOfDay time) {
           for (int i = 0; i < (state.schedule?.length ?? 0); i++) {
             DateTime startTime = DateTime.fromMillisecondsSinceEpoch(
@@ -53,15 +55,19 @@ class _TimeTableState extends State<TimeTable> {
                         .authEntity
                         .user
                         ?.id) {
+                  index.add(null);
                   return status[2];
                 } else {
+                  index.add(null);
                   return status[0];
                 }
               } else {
+                index.add(i);
                 return status[1];
               }
             }
           }
+          index.add(null);
           return status[3];
         }
 
@@ -80,7 +86,15 @@ class _TimeTableState extends State<TimeTable> {
         return Column(
           children: [
             for (int i = 0; i < times.length; i++)
-              TimeRow(time: times[i], status: checkStatus(times[i]))
+              Builder(builder: (context) {
+                String status = checkStatus(times[i]);
+                return TimeRow(
+                  time: times[i],
+                  status: status,
+                  schedule:
+                      index[i] != null ? state.schedule![index[i]!] : null,
+                );
+              })
           ],
         );
       },

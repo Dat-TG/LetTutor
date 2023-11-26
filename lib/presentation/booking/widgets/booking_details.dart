@@ -3,9 +3,13 @@ import 'package:intl/intl.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/core/common/custom_textfield.dart';
+import 'package:let_tutor/core/providers/auth_provider.dart';
+import 'package:let_tutor/domain/entities/tutor_schedule/tutor_schedule_entity.dart';
+import 'package:let_tutor/injection_container.dart';
 
 class BookingDetails extends StatefulWidget {
-  const BookingDetails({super.key});
+  final ScheduleOfTutorEntity? schedule;
+  const BookingDetails({super.key, this.schedule});
 
   @override
   State<BookingDetails> createState() => _BookingDetailsState();
@@ -119,7 +123,7 @@ class _BookingDetailsState extends State<BookingDetails> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
-                  '01:30-01:55 ${DateFormat('EEEE, d MMMM y').format(DateTime.now())}',
+                  '${DateFormat('HH:mm').format(DateTime.fromMillisecondsSinceEpoch(widget.schedule?.startTimestamp ?? 0))}-${DateFormat('HH:mm').format(DateTime.fromMillisecondsSinceEpoch(widget.schedule?.endTimestamp ?? 0))} ${DateFormat('EEEE, d MMMM y').format(DateTime.fromMillisecondsSinceEpoch(widget.schedule?.startTimestamp ?? 0))}',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 16, color: Colors.purple[900]),
                 ),
@@ -160,7 +164,7 @@ class _BookingDetailsState extends State<BookingDetails> {
                   ),
                   Center(
                     child: Text(
-                      '${AppLocalizations.of(context)!.youHave} 1999 ${AppLocalizations.of(context)!.lessonsLeft}',
+                      '${AppLocalizations.of(context)!.youHave} ${int.parse(sl<AuthProvider>().authEntity.user?.walletInfo?.amount ?? "0") ~/ 100000} ${AppLocalizations.of(context)!.lessonsLeft}',
                       style: TextStyle(fontSize: 16, color: Colors.purple[900]),
                     ),
                   ),
