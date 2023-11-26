@@ -10,7 +10,6 @@ import 'package:let_tutor/domain/repositories/tutor_schedule/tutor_schedule_repo
 import 'package:let_tutor/domain/usecases/tutor_schedule/booking_schedule.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/presentation/booking/bloc/booking_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BookingDetails extends StatefulWidget {

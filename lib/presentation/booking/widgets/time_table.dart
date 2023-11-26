@@ -81,8 +81,12 @@ class _TimeTableState extends State<TimeTable> {
                   return status[0];
                 }
               } else {
-                index.add(i);
-                return status[1];
+                if (startTime.compareTo(DateTime.now()) >= 0) {
+                  index.add(i);
+                  return status[1];
+                }
+                index.add(null);
+                return status[0];
               }
             }
           }
