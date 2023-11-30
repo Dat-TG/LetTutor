@@ -1,9 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:let_tutor/presentation/course/widgets/all_courses.dart';
 import 'package:let_tutor/presentation/course/widgets/all_ebooks.dart';
 import 'package:let_tutor/presentation/course/widgets/course_card.dart';
+import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
 import 'package:let_tutor/presentation/ebook/widgets/ebook_card.dart';
 import 'package:let_tutor/presentation/home/bloc/home_course_bloc.dart';
 import 'package:let_tutor/presentation/home/bloc/home_tutor_bloc.dart';
@@ -66,9 +68,15 @@ class HomeScreen extends StatelessWidget {
               return CarouselSlider(
                 items: state.tutors!
                     .map(
-                      (e) => TutorCard(
-                        tutor: e,
-                        isExpanded: false,
+                      (e) => GestureDetector(
+                        onTap: () => GoRouter.of(context).pushNamed(
+                          TutorDetails.routeName,
+                          pathParameters: {'id': e.id ?? ''},
+                        ),
+                        child: TutorCard(
+                          tutor: e,
+                          isExpanded: false,
+                        ),
                       ),
                     )
                     .toList(),
