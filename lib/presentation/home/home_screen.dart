@@ -1,11 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:let_tutor/domain/entities/course/course_entity.dart';
 import 'package:let_tutor/domain/entities/tutor/tutor_entity.dart';
 import 'package:let_tutor/presentation/course/widgets/all_courses.dart';
 import 'package:let_tutor/presentation/course/widgets/all_ebooks.dart';
 import 'package:let_tutor/presentation/course/widgets/course_card.dart';
 import 'package:let_tutor/presentation/ebook/widgets/ebook_card.dart';
+import 'package:let_tutor/presentation/home/bloc/home_tutor_bloc.dart';
 import 'package:let_tutor/presentation/home/widgets/home_banner.dart';
 import 'package:let_tutor/presentation/home/widgets/recommended_row.dart';
 import 'package:let_tutor/presentation/tutor/all_tutors_screen.dart';
@@ -43,35 +45,51 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          CarouselSlider(
-            items: const [
-              TutorCard(
-                tutor: TutorEntity(),
-              ),
-              TutorCard(
-                tutor: TutorEntity(),
-              ),
-              TutorCard(
-                tutor: TutorEntity(),
-              ),
-              TutorCard(
-                tutor: TutorEntity(),
-              ),
-            ],
-            options: CarouselOptions(
-              height: 326,
-              padEnds: false,
-              viewportFraction: 300 / MediaQuery.of(context).size.width + 0.05,
-              initialPage: 0,
-              enableInfiniteScroll: true,
-              reverse: false,
-              autoPlay: false,
-              autoPlayInterval: const Duration(seconds: 5),
-              autoPlayAnimationDuration: const Duration(milliseconds: 800),
-              autoPlayCurve: Curves.fastOutSlowIn,
-              scrollDirection: Axis.horizontal,
-              clipBehavior: Clip.none,
-            ),
+          BlocBuilder<HomeTutorBloc, HomeTutorState>(
+            buildWhen: (previous, current) => previous != current,
+            builder: (context, state) {
+              if (state is TutorFetching) {
+                return const Center(
+                  child: SizedBox(
+                    width: 30,
+                    height: 30,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 1.5,
+                    ),
+                  ),
+                );
+              }
+              if (state is TutorError) {
+                return Center(
+                  child: Text(state.error?.message ?? "Error"),
+                );
+              }
+              return CarouselSlider(
+                items: state.tutors!
+                    .map(
+                      (e) => TutorCard(
+                        tutor: e,
+                        isExpanded: false,
+                      ),
+                    )
+                    .toList(),
+                options: CarouselOptions(
+                  height: 328,
+                  padEnds: false,
+                  viewportFraction:
+                      300 / MediaQuery.of(context).size.width + 0.05,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: false,
+                  autoPlayInterval: const Duration(seconds: 5),
+                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  scrollDirection: Axis.horizontal,
+                  clipBehavior: Clip.none,
+                ),
+              );
+            },
           ),
           const SizedBox(
             height: 20,

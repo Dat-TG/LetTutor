@@ -15,6 +15,7 @@ import 'package:let_tutor/presentation/details-tutor/bloc/review_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/tutor_details_bloc.dart';
 import 'package:let_tutor/presentation/edit-account/bloc/edit_account_bloc.dart';
 import 'package:let_tutor/presentation/history/bloc/history_bloc.dart';
+import 'package:let_tutor/presentation/home/bloc/home_tutor_bloc.dart';
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
 import 'package:let_tutor/presentation/schedule/bloc/schedule_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/total_lesson_time_bloc.dart';
@@ -89,6 +90,8 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(create: (context) => sl<BookingBloc>()),
         BlocProvider(create: (context) => sl<EditAccountBloc>()),
+        BlocProvider(
+            create: (context) => sl<HomeTutorBloc>()..add(const FetchTutor())),
       ],
       child: MultiProvider(
         providers: [
