@@ -52,7 +52,7 @@ class CourseCard extends StatelessWidget {
             color: Theme.of(context).splashColor,
           ),
           width: isExpanded ? null : 250,
-          height: isExpanded ? null : 311,
+          height: isExpanded ? null : 329,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -102,6 +102,8 @@ class CourseCard extends StatelessWidget {
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                       ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(
                       height: 5,

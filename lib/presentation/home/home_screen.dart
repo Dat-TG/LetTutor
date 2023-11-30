@@ -7,6 +7,7 @@ import 'package:let_tutor/presentation/course/widgets/all_courses.dart';
 import 'package:let_tutor/presentation/course/widgets/all_ebooks.dart';
 import 'package:let_tutor/presentation/course/widgets/course_card.dart';
 import 'package:let_tutor/presentation/ebook/widgets/ebook_card.dart';
+import 'package:let_tutor/presentation/home/bloc/home_course_bloc.dart';
 import 'package:let_tutor/presentation/home/bloc/home_tutor_bloc.dart';
 import 'package:let_tutor/presentation/home/widgets/home_banner.dart';
 import 'package:let_tutor/presentation/home/widgets/recommended_row.dart';
@@ -112,35 +113,51 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          CarouselSlider(
-            items: const [
-              CourseCard(
-                course: CourseEntity(),
-              ),
-              CourseCard(
-                course: CourseEntity(),
-              ),
-              CourseCard(
-                course: CourseEntity(),
-              ),
-              CourseCard(
-                course: CourseEntity(),
-              ),
-            ],
-            options: CarouselOptions(
-              height: 311,
-              viewportFraction: 250 / MediaQuery.of(context).size.width + 0.05,
-              padEnds: false,
-              initialPage: 0,
-              enableInfiniteScroll: true,
-              reverse: false,
-              autoPlay: false,
-              autoPlayInterval: const Duration(seconds: 5),
-              autoPlayAnimationDuration: const Duration(milliseconds: 800),
-              autoPlayCurve: Curves.fastOutSlowIn,
-              scrollDirection: Axis.horizontal,
-              clipBehavior: Clip.none,
-            ),
+          BlocBuilder<HomeCourseBloc, HomeCourseState>(
+            buildWhen: (previous, current) => previous != current,
+            builder: (context, state) {
+              if (state is CourseFetching) {
+                return const Center(
+                  child: SizedBox(
+                    width: 30,
+                    height: 30,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 1.5,
+                    ),
+                  ),
+                );
+              }
+              if (state is CourseError) {
+                return Center(
+                  child: Text(state.error?.message ?? "Error"),
+                );
+              }
+              return CarouselSlider(
+                items: state.courses!
+                    .map(
+                      (e) => CourseCard(
+                        course: e,
+                        isExpanded: false,
+                      ),
+                    )
+                    .toList(),
+                options: CarouselOptions(
+                  height: 329,
+                  viewportFraction:
+                      250 / MediaQuery.of(context).size.width + 0.05,
+                  padEnds: false,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: false,
+                  autoPlayInterval: const Duration(seconds: 5),
+                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  scrollDirection: Axis.horizontal,
+                  clipBehavior: Clip.none,
+                ),
+              );
+            },
           ),
           const SizedBox(
             height: 20,

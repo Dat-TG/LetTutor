@@ -9,7 +9,7 @@ sealed class HomeTutorState extends Equatable {
   });
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [tutors, error];
 }
 
 final class TutorFetching extends HomeTutorState {
