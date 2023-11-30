@@ -6,7 +6,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/core/utils/validators.dart';
 import 'package:let_tutor/presentation/forgot-password/forgot_password_screen.dart';
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
-import 'package:let_tutor/presentation/login/login_screen.dart';
 import 'package:provider/provider.dart';
 
 class LoginForm extends StatefulWidget {
@@ -35,7 +34,12 @@ class _LoginFormState extends State<LoginForm> {
       return;
     }
     if (widget.isRegister) {
-      GoRouter.of(context).goNamed(LoginScreen.routeName);
+      context.read<AuthBloc>().add(
+            RegisterEvent(
+              email: _emailController.text,
+              password: _passwordController.text,
+            ),
+          );
     } else {
       context.read<AuthBloc>().add(
             LoginEvent(
@@ -44,6 +48,13 @@ class _LoginFormState extends State<LoginForm> {
             ),
           );
     }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override

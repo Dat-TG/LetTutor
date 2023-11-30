@@ -1,8 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:let_tutor/domain/entities/course/course_entity.dart';
-import 'package:let_tutor/domain/entities/tutor/tutor_entity.dart';
 import 'package:let_tutor/presentation/course/widgets/all_courses.dart';
 import 'package:let_tutor/presentation/course/widgets/all_ebooks.dart';
 import 'package:let_tutor/presentation/course/widgets/course_card.dart';

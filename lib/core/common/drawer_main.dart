@@ -132,11 +132,43 @@ class DrawerMain extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
-                    backgroundImage: CachedNetworkImageProvider(
-                      user.avatar ?? Helpers.avatarFromName(user.name),
+                  CachedNetworkImage(
+                    imageUrl: user.avatar ?? Helpers.avatarFromName(user.name),
+                    imageBuilder: (context, imageProvider) => CircleAvatar(
+                      radius: 40,
+                      backgroundImage: imageProvider,
                     ),
-                    radius: 40,
+                    placeholder: (context, url) => const CircleAvatar(
+                      radius: 40,
+                      child: SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 1.5,
+                        ),
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => CachedNetworkImage(
+                      imageUrl: Helpers.avatarFromName(user.name),
+                      imageBuilder: (context, imageProvider) => CircleAvatar(
+                        radius: 40,
+                        backgroundImage: imageProvider,
+                      ),
+                      placeholder: (context, url) => const CircleAvatar(
+                        radius: 32,
+                        child: SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 1.5,
+                          ),
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => const CircleAvatar(
+                        radius: 40,
+                        child: Icon(Icons.person),
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     height: 20,

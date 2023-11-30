@@ -35,11 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
         }
         return Helpers.showExitPopup(context);
       },
-      child: BlocBuilder<AuthBloc, AuthState>(
-        buildWhen: (previous, current) {
-          return previous != current;
-        },
-        builder: (context, state) {
+      child: BlocConsumer<AuthBloc, AuthState>(
+        listener: (context, state) {
           if (state is AuthSuccessful) {
             Future.delayed(Duration.zero, () {
               Provider.of<AuthProvider>(context, listen: false)
@@ -54,6 +51,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   context, state.dioException!.response!.data['message']);
             });
           }
+        },
+        buildWhen: (previous, current) {
+          return previous != current;
+        },
+        builder: (context, state) {
           return Scaffold(
             appBar: const PreferredSize(
               preferredSize: Size.fromHeight(80),

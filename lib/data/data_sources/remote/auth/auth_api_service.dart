@@ -26,4 +26,13 @@ abstract class AuthApiService {
     @Field("refreshToken") required String refreshToken,
     @Field("timezone") required int timezone,
   });
+
+  @POST('/auth/register')
+  @Headers(<String, dynamic>{
+    'Content-Type': 'application/json',
+  })
+  Future<HttpResponse<AuthModel>> register({
+    @Field("email") required String email,
+    @Field("password") required String password,
+  });
 }

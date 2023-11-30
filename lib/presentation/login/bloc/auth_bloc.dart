@@ -7,6 +7,7 @@ import 'package:let_tutor/core/resources/data_state.dart';
 import 'package:let_tutor/domain/entities/auth/auth_entity.dart';
 import 'package:let_tutor/domain/usecases/auth/login.dart';
 import 'package:let_tutor/domain/usecases/auth/refresh_token.dart';
+import 'package:let_tutor/domain/usecases/auth/register.dart';
 import 'package:let_tutor/domain/usecases/user/get_user.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,11 +19,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUsecase loginUsecase;
   final GetUserUsecase getUserUsecase;
   final RefreshTokenUsecase refreshTokenUsecase;
-  AuthBloc(this.loginUsecase, this.getUserUsecase, this.refreshTokenUsecase)
-      : super(const AuthInitial()) {
+  final RegisterUsecase registerUsecase;
+  AuthBloc(
+    this.loginUsecase,
+    this.getUserUsecase,
+    this.refreshTokenUsecase,
+    this.registerUsecase,
+  ) : super(const AuthInitial()) {
     on<LoginEvent>(onLogin);
     on<InitialEvent>(onInitial);
     on<ResetStateEvent>(onResetState);
+    on<RegisterEvent>(onRegister);
   }
 
   void onLogin(LoginEvent event, Emitter<AuthState> emit) async {
@@ -87,5 +94,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void onResetState(ResetStateEvent event, Emitter<AuthState> emit) async {
     emit(const AuthInitial());
+  }
+
+  void onRegister(RegisterEvent event, Emitter<AuthState> emit) async {
+    emit(const AuthInProress());
+    final dataState = await registerUsecase(
+      params: LoginUsecaseParams(
+        email: event.email,
+        password: event.password,
+      ),
+    );
+    if (dataState is DataSuccess &&
+        dataState.data!.tokens!.access!.token!.isNotEmpty) {
+      emit(AuthSuccessful(dataState.data!));
+    }
+
+    if (dataState is DataFailed) {
+      emit(AuthFail(dataState.error!));
+    }
   }
 }
