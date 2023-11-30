@@ -8,4 +8,5 @@ abstract class AuthRepository {
       {required String refreshToken, required int timezone});
   Future<DataState<AuthEntity>> register(
       {required String email, required String password});
+  Future<DataState<String>> forgotPassword({required String email});
 }

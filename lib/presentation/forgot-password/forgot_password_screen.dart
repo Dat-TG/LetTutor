@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/appbar_login.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/custom_textfield.dart';
+import 'package:let_tutor/core/providers/auth_provider.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:let_tutor/core/utils/validators.dart';
+import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
+import 'package:provider/provider.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   static const String routeName = 'forgot-password';
@@ -83,18 +89,45 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             const SizedBox(
               height: 30,
             ),
-            CustomButton(
-              title: AppLocalizations.of(context)!.sendResetLink,
-              callback: () {
-                if (!_formKey.currentState!.validate()) {
-                  return;
+            BlocConsumer<AuthBloc, AuthState>(
+              listener: (context, state) {
+                if (state is AuthSuccessful) {
+                  Future.delayed(Duration.zero, () {
+                    Provider.of<AuthProvider>(context, listen: false)
+                        .setAuthEntity(state.authEntity!);
+                    GoRouter.of(context).goNamed('home');
+                    context.read<AuthBloc>().add(const ResetStateEvent());
+                  });
+                }
+                if (state is AuthFail) {
+                  Future.delayed(Duration.zero, () {
+                    Helpers.showSnackBar(
+                        context, state.dioException!.response!.data['message']);
+                  });
                 }
               },
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 15,
-              ),
-              borderRadius: 10,
+              builder: (context, state) {
+                return CustomButton(
+                  title: AppLocalizations.of(context)!.sendResetLink,
+                  isInProgress: state is AuthInProress,
+                  callback: () {
+                    if (!_formKey.currentState!.validate()) {
+                      return;
+                    }
+                    context.read<AuthBloc>().add(
+                          ForgotPasswordEvent(
+                            email: _emailController.text,
+                            context: context,
+                          ),
+                        );
+                  },
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 15,
+                  ),
+                  borderRadius: 10,
+                );
+              },
             ),
           ],
         ),

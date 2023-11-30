@@ -3,13 +3,18 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/resources/data_state.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:let_tutor/domain/entities/auth/auth_entity.dart';
+import 'package:let_tutor/domain/usecases/auth/forgot_password.dart';
 import 'package:let_tutor/domain/usecases/auth/login.dart';
 import 'package:let_tutor/domain/usecases/auth/refresh_token.dart';
 import 'package:let_tutor/domain/usecases/auth/register.dart';
 import 'package:let_tutor/domain/usecases/user/get_user.dart';
 import 'package:let_tutor/injection_container.dart';
+import 'package:let_tutor/presentation/login/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'auth_event.dart';
@@ -20,16 +25,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final GetUserUsecase getUserUsecase;
   final RefreshTokenUsecase refreshTokenUsecase;
   final RegisterUsecase registerUsecase;
+  final ForgotPasswordUsecase forgotPasswordUsecase;
   AuthBloc(
     this.loginUsecase,
     this.getUserUsecase,
     this.refreshTokenUsecase,
     this.registerUsecase,
+    this.forgotPasswordUsecase,
   ) : super(const AuthInitial()) {
     on<LoginEvent>(onLogin);
     on<InitialEvent>(onInitial);
     on<ResetStateEvent>(onResetState);
     on<RegisterEvent>(onRegister);
+    on<ForgotPasswordEvent>(onForgotPassoword);
   }
 
   void onLogin(LoginEvent event, Emitter<AuthState> emit) async {
@@ -111,6 +119,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     if (dataState is DataFailed) {
       emit(AuthFail(dataState.error!));
+    }
+  }
+
+  void onForgotPassoword(
+      ForgotPasswordEvent event, Emitter<AuthState> emit) async {
+    emit(const AuthInProress());
+    final dataState = await forgotPasswordUsecase(
+      params: event.email,
+    );
+    if (dataState is DataSuccess) {
+      emit(const AuthForgotPassword());
+      Helpers.showSnackBar(event.context, dataState.data!);
+      GoRouter.of(event.context).goNamed(LoginScreen.routeName);
+    }
+
+    if (dataState is DataFailed) {
+      emit(const AuthForgotPassword());
+      Helpers.showSnackBar(
+          event.context, dataState.error?.response?.data['message'] ?? "Error");
     }
   }
 }

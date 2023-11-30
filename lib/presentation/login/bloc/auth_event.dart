@@ -32,3 +32,12 @@ final class InitialEvent extends AuthEvent {
 final class ResetStateEvent extends AuthEvent {
   const ResetStateEvent();
 }
+
+final class ForgotPasswordEvent extends AuthEvent {
+  final String email;
+  final BuildContext context;
+  const ForgotPasswordEvent({
+    required this.email,
+    required this.context,
+  });
+}

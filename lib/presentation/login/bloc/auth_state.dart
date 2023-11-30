@@ -22,6 +22,10 @@ final class AuthInProress extends AuthState {
   const AuthInProress();
 }
 
+final class AuthForgotPassword extends AuthState {
+  const AuthForgotPassword();
+}
+
 final class AuthSuccessful extends AuthState {
   const AuthSuccessful(AuthEntity authEntity) : super(authEntity: authEntity);
 }
