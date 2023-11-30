@@ -46,6 +46,7 @@ import 'package:let_tutor/domain/usecases/total_lesson_time/get_total_lesson_tim
 import 'package:let_tutor/domain/usecases/tutor/favorite_tutor.dart';
 import 'package:let_tutor/domain/usecases/tutor/search_tutors.dart';
 import 'package:let_tutor/domain/usecases/tutor_details/get_tutor_details.dart';
+import 'package:let_tutor/domain/usecases/tutor_details/report_tutor.dart';
 import 'package:let_tutor/domain/usecases/tutor_schedule/booking_schedule.dart';
 import 'package:let_tutor/domain/usecases/tutor_schedule/get_schedule_of_tutor.dart';
 import 'package:let_tutor/domain/usecases/upcoming_lesson/get_upcoming_lesson.dart';
@@ -135,11 +136,13 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<UploadAvatarUsecase>(UploadAvatarUsecase(sl()));
   sl.registerSingleton<BookingScheduleUsecase>(BookingScheduleUsecase(sl()));
   sl.registerSingleton<RegisterUsecase>(RegisterUsecase(sl()));
+  sl.registerSingleton<ReportTutorUsecase>(ReportTutorUsecase(sl()));
 
   //Blocs
   sl.registerFactory<AuthBloc>(() => AuthBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory<TutorBloc>(() => TutorBloc(sl(), sl()));
-  sl.registerFactory<TutorDetailsBloc>(() => TutorDetailsBloc(sl(), sl()));
+  sl.registerFactory<TutorDetailsBloc>(
+      () => TutorDetailsBloc(sl(), sl(), sl()));
   sl.registerFactory<ReviewBloc>(() => ReviewBloc(sl()));
   sl.registerFactory<TotalLessonTimeBloc>(() => TotalLessonTimeBloc(sl()));
   sl.registerFactory<UpcomingLessonBloc>(() => UpcomingLessonBloc(sl()));

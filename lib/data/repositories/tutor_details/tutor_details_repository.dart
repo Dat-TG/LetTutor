@@ -33,4 +33,32 @@ class TutorDetailsRepositoryImpl implements TutorDetailsRepository {
       return DataFailed(e);
     }
   }
+
+  @override
+  Future<DataState<String>> reportTutor({
+    required String token,
+    required String tutorId,
+    required String content,
+  }) async {
+    try {
+      final httpResponse = await _tutorDetailsApiService.report(
+        token: 'Bearer $token',
+        tutorId: tutorId,
+        content: content,
+      );
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResponse.data);
+      } else {
+        return DataFailed(
+          DioException(
+              error: httpResponse.response.statusMessage,
+              response: httpResponse.response,
+              type: DioExceptionType.badResponse,
+              requestOptions: httpResponse.response.requestOptions),
+        );
+      }
+    } on DioException catch (e) {
+      return DataFailed(e);
+    }
+  }
 }

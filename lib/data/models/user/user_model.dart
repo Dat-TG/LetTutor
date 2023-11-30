@@ -83,7 +83,9 @@ class UserModel extends UserEntity {
       canSendMessage: json['canSendMessage'],
       studentGroup: json['studentGroup'],
       studentInfo: StudentInfo.fromJson(json['studentInfo'] ?? {}),
-      avgRating: double.parse(json['avgRating'].toString()),
+      avgRating: json['avgRating'] != null
+          ? double.parse(json['avgRating'].toString())
+          : null,
     );
   }
 }

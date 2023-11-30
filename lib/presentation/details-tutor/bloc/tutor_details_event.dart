@@ -21,3 +21,11 @@ final class FavoriteTutor extends TutorDetailsEvent {
 
   const FavoriteTutor(this.token, this.tutorId, this.context);
 }
+
+final class ReportTutorEvent extends TutorDetailsEvent {
+  final String token;
+  final String tutorId;
+  final String content;
+
+  const ReportTutorEvent(this.token, this.tutorId, this.content);
+}

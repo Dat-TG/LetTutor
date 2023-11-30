@@ -6,4 +6,10 @@ abstract class TutorDetailsRepository {
     required String token,
     required String id,
   });
+
+  Future<DataState<String>> reportTutor({
+    required String token,
+    required String tutorId,
+    required String content,
+  });
 }

@@ -3,7 +3,8 @@ part of 'tutor_details_bloc.dart';
 sealed class TutorDetailsState extends Equatable {
   final TutorDetailsEntity? tutorDetails;
   final DioException? error;
-  const TutorDetailsState({this.tutorDetails, this.error});
+  final String? message;
+  const TutorDetailsState({this.tutorDetails, this.error, this.message});
 
   @override
   List<Object?> get props => [tutorDetails, error];
@@ -24,4 +25,10 @@ final class TutorDetailsDone extends TutorDetailsState {
 
 final class TutorDetailsError extends TutorDetailsState {
   const TutorDetailsError(DioException error) : super(error: error);
+}
+
+final class ReportTutorDone extends TutorDetailsState {
+  const ReportTutorDone(
+      {required String message, required TutorDetailsEntity tutorDetails})
+      : super(message: message, tutorDetails: tutorDetails);
 }

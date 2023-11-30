@@ -10,6 +10,7 @@ import 'package:let_tutor/domain/entities/tutor_details/tutor_details_entity.dar
 import 'package:let_tutor/domain/usecases/tutor/favorite_tutor.dart';
 import 'package:let_tutor/domain/usecases/tutor_details/get_tutor_details.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/domain/usecases/tutor_details/report_tutor.dart';
 
 part 'tutor_details_event.dart';
 part 'tutor_details_state.dart';
@@ -17,10 +18,13 @@ part 'tutor_details_state.dart';
 class TutorDetailsBloc extends Bloc<TutorDetailsEvent, TutorDetailsState> {
   final GetTutorDetailsUsecase _getTutorDetailsUsecase;
   final FavoriteTutorUsecase _favoriteTutorUsecase;
-  TutorDetailsBloc(this._getTutorDetailsUsecase, this._favoriteTutorUsecase)
+  final ReportTutorUsecase _reportTutorUsecase;
+  TutorDetailsBloc(this._getTutorDetailsUsecase, this._favoriteTutorUsecase,
+      this._reportTutorUsecase)
       : super(const TutorDetailsLoading()) {
     on<TutorDetailsLoad>(onTutorLoad);
     on<FavoriteTutor>(onFavoriteTutor);
+    on<ReportTutorEvent>(onReportTutor);
   }
 
   void onTutorLoad(
@@ -63,5 +67,26 @@ class TutorDetailsBloc extends Bloc<TutorDetailsEvent, TutorDetailsState> {
       Helpers.showSnackBar(
           event.context, AppLocalizations.of(event.context)!.taskFailed);
     }
+  }
+
+  void onReportTutor(
+      ReportTutorEvent event, Emitter<TutorDetailsState> emit) async {
+    final dataState = await _reportTutorUsecase(
+      params: ReportTutorUsecaseParams(
+        token: event.token,
+        tutorId: event.tutorId,
+        content: event.content,
+      ),
+    );
+    if (dataState is DataSuccess) {
+      emit(ReportTutorDone(
+          message: dataState.data ?? "Done",
+          tutorDetails: state.tutorDetails!));
+    } else if (dataState is DataFailed) {
+      emit(ReportTutorDone(
+          message: dataState.error!.message!,
+          tutorDetails: state.tutorDetails!));
+    }
+    emit(TutorDetailsDone(state.tutorDetails!));
   }
 }

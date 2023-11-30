@@ -17,4 +17,14 @@ abstract class TutorDetailsApiService {
     @Header('Authorization') required String token,
     @Path('tutorId') required String tutorId,
   });
+
+  @POST('/report')
+  @Headers(<String, dynamic>{
+    'Content-Type': 'application/json',
+  })
+  Future<HttpResponse<String>> report({
+    @Header('Authorization') required String token,
+    @Field("tutorId") required String tutorId,
+    @Field("content") required String content,
+  });
 }

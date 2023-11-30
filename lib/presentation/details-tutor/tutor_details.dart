@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/video/single_video.dart';
 import 'package:let_tutor/core/utils/constants.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:let_tutor/core/utils/language_local.dart';
 import 'package:let_tutor/domain/entities/course/course_entity.dart';
 import 'package:let_tutor/domain/repositories/review/review_repository.dart';
@@ -42,7 +43,9 @@ class _TutorDetailsState extends State<TutorDetails> {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return const ReportTutor();
+        return ReportTutor(
+          parentContext: context,
+        );
       },
     );
   }
@@ -134,7 +137,12 @@ class _TutorDetailsState extends State<TutorDetails> {
           size: 20,
         ),
       ),
-      body: BlocBuilder<TutorDetailsBloc, TutorDetailsState>(
+      body: BlocConsumer<TutorDetailsBloc, TutorDetailsState>(
+        listener: (context, state) {
+          if (state is ReportTutorDone) {
+            Helpers.showSnackBar(context, state.message!);
+          }
+        },
         buildWhen: (previous, current) => previous != current,
         builder: (context, state) {
           if (state is TutorDetailsLoading) {
