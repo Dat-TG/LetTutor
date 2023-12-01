@@ -33,4 +33,36 @@ class MessageRepositoryImpl implements MessageRepository {
       return DataFailed(e);
     }
   }
+
+  @override
+  Future<DataState<List<MessageModel>>> getMessagesByUserId({
+    required String token,
+    required String userId,
+    required int startTime,
+    required int page,
+    required int perPage,
+  }) async {
+    try {
+      final httpResponse = await _messageApiService.getMessagesByUserId(
+        token: 'Bearer $token',
+        userId: userId,
+        startTime: startTime,
+        page: page,
+        perPage: perPage,
+      );
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResponse.data);
+      } else {
+        return DataFailed(
+          DioException(
+              error: httpResponse.response.statusMessage,
+              response: httpResponse.response,
+              type: DioExceptionType.badResponse,
+              requestOptions: httpResponse.response.requestOptions),
+        );
+      }
+    } on DioException catch (e) {
+      return DataFailed(e);
+    }
+  }
 }

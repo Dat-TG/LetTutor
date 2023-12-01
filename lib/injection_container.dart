@@ -44,6 +44,7 @@ import 'package:let_tutor/domain/usecases/auth/refresh_token.dart';
 import 'package:let_tutor/domain/usecases/auth/register.dart';
 import 'package:let_tutor/domain/usecases/course/get_list_courses.dart';
 import 'package:let_tutor/domain/usecases/course_details/get_course_details.dart';
+import 'package:let_tutor/domain/usecases/message/get_message_by_user_id.dart';
 import 'package:let_tutor/domain/usecases/message/get_receivers.dart';
 import 'package:let_tutor/domain/usecases/review/get_reviews.dart';
 import 'package:let_tutor/domain/usecases/schedule/get_history.dart';
@@ -61,6 +62,7 @@ import 'package:let_tutor/domain/usecases/user/update_user_info.dart';
 import 'package:let_tutor/domain/usecases/user/upload_avatar.dart';
 import 'package:let_tutor/presentation/become-tutor/bloc/become_tutor_bloc.dart';
 import 'package:let_tutor/presentation/booking/bloc/booking_bloc.dart';
+import 'package:let_tutor/presentation/conversation/bloc/conversation_bloc.dart';
 import 'package:let_tutor/presentation/course/bloc/course_bloc.dart';
 import 'package:let_tutor/presentation/details-course/bloc/course_details_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/review_bloc.dart';
@@ -150,6 +152,8 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<ForgotPasswordUsecase>(ForgotPasswordUsecase(sl()));
   sl.registerSingleton<ChangePasswordUsecase>(ChangePasswordUsecase(sl()));
   sl.registerSingleton<GetReceiversUsecase>(GetReceiversUsecase(sl()));
+  sl.registerSingleton<GetMessagesByUserIdUsecase>(
+      GetMessagesByUserIdUsecase(sl()));
 
   //Blocs
   sl.registerFactory<AuthBloc>(() => AuthBloc(sl(), sl(), sl(), sl(), sl()));
@@ -169,4 +173,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<HomeCourseBloc>(() => HomeCourseBloc(sl()));
   sl.registerFactory<BecomeTutorBloc>(() => BecomeTutorBloc());
   sl.registerFactory<MessageBloc>(() => MessageBloc(sl()));
+  sl.registerFactory<ConversationBloc>(() => ConversationBloc(sl()));
 }

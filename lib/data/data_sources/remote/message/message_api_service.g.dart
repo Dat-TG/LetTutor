@@ -53,6 +53,48 @@ class _MessageApiService implements MessageApiService {
     return httpResponse;
   }
 
+  @override
+  Future<HttpResponse<List<MessageModel>>> getMessagesByUserId({
+    required String token,
+    required String userId,
+    required int startTime,
+    required int page,
+    required int perPage,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'startTime': startTime,
+      r'page': page,
+      r'perPage': perPage,
+    };
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<List<MessageModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/message/get/${userId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    List<MessageModel> value = _result.data!['rows']
+        .map<MessageModel>(
+            (dynamic i) => MessageModel.fromJson(i as Map<String, dynamic>))
+        .toList();
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

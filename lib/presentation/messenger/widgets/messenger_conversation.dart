@@ -14,7 +14,10 @@ class MessengerConversation extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        GoRouter.of(context).pushNamed(ConversationScreen.routeName);
+        GoRouter.of(context)
+            .pushNamed(ConversationScreen.routeName, pathParameters: {
+          'userId': message.partner?.id ?? "",
+        });
       },
       child: Container(
         alignment: Alignment.center,

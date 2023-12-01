@@ -258,12 +258,13 @@ class MyRouter {
           }),
       GoRoute(
           name: ConversationScreen.routeName,
-          path: '/conversation',
+          path: '/conversation/:userId',
           pageBuilder: (context, state) {
             return Helpers.buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: const ConversationScreen(),
+              child: ConversationScreen(
+                  userId: state.pathParameters['userId'] ?? ""),
             );
           }),
       GoRoute(

@@ -4,14 +4,15 @@ import 'package:let_tutor/presentation/conversation/widgets/conversation_body.da
 
 class ConversationScreen extends StatelessWidget {
   static const String routeName = 'conversation';
-  const ConversationScreen({super.key});
+  final String userId;
+  const ConversationScreen({super.key, required this.userId});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: PreferredSize(
+    return Scaffold(
+      appBar: const PreferredSize(
           preferredSize: Size.fromHeight(80), child: AppBarConversation()),
-      body: ConversationBody(),
+      body: ConversationBody(userId: userId),
     );
   }
 }

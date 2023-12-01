@@ -5,4 +5,11 @@ abstract class MessageRepository {
   Future<DataState<List<MessageEntity>>> getReceivers({
     required String token,
   });
+  Future<DataState<List<MessageEntity>>> getMessagesByUserId({
+    required String token,
+    required String userId,
+    required int startTime,
+    required int page,
+    required int perPage,
+  });
 }

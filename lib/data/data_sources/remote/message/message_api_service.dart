@@ -13,4 +13,13 @@ abstract class MessageApiService {
   Future<HttpResponse<List<MessageModel>>> getReceivers({
     @Header('Authorization') required String token,
   });
+
+  @GET('/message/get/{id}')
+  Future<HttpResponse<List<MessageModel>>> getMessagesByUserId({
+    @Header('Authorization') required String token,
+    @Path('id') required String userId,
+    @Query('startTime') required int startTime,
+    @Query('page') required int page,
+    @Query('perPage') required int perPage,
+  });
 }
