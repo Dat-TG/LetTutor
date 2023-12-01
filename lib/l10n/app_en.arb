@@ -268,5 +268,7 @@
     "thereIsNoLessonScheduleYet":"There is no lesson schedule yet!",
     "updateInformationSuccessful":"Update information successful",
     "bookSuccessful": "Booking successful",
-    "bookFailed": "Booking failed"
+    "bookFailed": "Booking failed",
+    "pleaseChooseYourSpecialities": "Please choose your specialities",
+    "uploadVideoHere": "Upload video here..."
 }

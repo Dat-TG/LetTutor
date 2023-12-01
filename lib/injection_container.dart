@@ -54,6 +54,7 @@ import 'package:let_tutor/domain/usecases/upcoming_lesson/get_upcoming_lesson.da
 import 'package:let_tutor/domain/usecases/user/get_user.dart';
 import 'package:let_tutor/domain/usecases/user/update_user_info.dart';
 import 'package:let_tutor/domain/usecases/user/upload_avatar.dart';
+import 'package:let_tutor/presentation/become-tutor/bloc/become_tutor_bloc.dart';
 import 'package:let_tutor/presentation/booking/bloc/booking_bloc.dart';
 import 'package:let_tutor/presentation/course/bloc/course_bloc.dart';
 import 'package:let_tutor/presentation/details-course/bloc/course_details_bloc.dart';
@@ -156,4 +157,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<EditAccountBloc>(() => EditAccountBloc(sl(), sl(), sl()));
   sl.registerFactory<HomeTutorBloc>(() => HomeTutorBloc(sl()));
   sl.registerFactory<HomeCourseBloc>(() => HomeCourseBloc(sl()));
+  sl.registerFactory<BecomeTutorBloc>(() => BecomeTutorBloc());
 }

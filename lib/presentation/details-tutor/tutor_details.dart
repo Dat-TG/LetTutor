@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
-import 'package:let_tutor/core/common/video/single_video.dart';
+import 'package:let_tutor/core/common/video/video_from_network.dart';
 import 'package:let_tutor/core/utils/constants.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:let_tutor/core/utils/language_local.dart';
@@ -256,7 +256,7 @@ class _TutorDetailsState extends State<TutorDetails> {
                           constraints: const BoxConstraints(
                             maxHeight: 300,
                           ),
-                          child: SingleVideo(
+                          child: VideoFromNetwork(
                               videoURL: state.tutorDetails?.video ?? ''),
                         ),
                         const SizedBox(

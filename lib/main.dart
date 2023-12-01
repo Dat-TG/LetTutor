@@ -8,6 +8,7 @@ import 'package:let_tutor/domain/usecases/course/get_list_courses.dart';
 import 'package:let_tutor/domain/usecases/schedule/get_schedules.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/l10n/l10n.dart';
+import 'package:let_tutor/presentation/become-tutor/bloc/become_tutor_bloc.dart';
 import 'package:let_tutor/presentation/booking/bloc/booking_bloc.dart';
 import 'package:let_tutor/presentation/course/bloc/course_bloc.dart';
 import 'package:let_tutor/presentation/details-course/bloc/course_details_bloc.dart';
@@ -97,6 +98,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 sl<HomeCourseBloc>()..add(const FetchCourse())),
+        BlocProvider(create: (context) => sl<BecomeTutorBloc>()),
       ],
       child: MultiProvider(
         providers: [

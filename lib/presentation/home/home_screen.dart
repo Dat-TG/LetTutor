@@ -81,7 +81,7 @@ class HomeScreen extends StatelessWidget {
                     )
                     .toList(),
                 options: CarouselOptions(
-                  height: 328,
+                  height: 329,
                   padEnds: false,
                   viewportFraction:
                       300 / MediaQuery.of(context).size.width + 0.05,

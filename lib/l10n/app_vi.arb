@@ -268,5 +268,7 @@
     "thereIsNoLessonScheduleYet":"Chưa có lịch học nào!",
     "updateInformationSuccessful":"Cập nhật thông tin thành công",
     "bookSuccessful": "Đặt lịch thành công",
-    "bookFailed": "Đặt lịch thất bại"
+    "bookFailed": "Đặt lịch thất bại",
+    "pleaseChooseYourSpecialities": "Vui lòng chọn chuyên môn của bạn",
+    "uploadVideoHere": "Tải lên video..."
 }
