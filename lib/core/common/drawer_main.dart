@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/core/providers/auth_provider.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
+import 'package:let_tutor/domain/entities/user/user_entity.dart';
 import 'package:let_tutor/presentation/become-tutor/become_tutor_screen.dart';
 import 'package:let_tutor/presentation/edit-account/edit_account_screen.dart';
 import 'package:let_tutor/presentation/history/history_screen.dart';
@@ -9,12 +12,15 @@ import 'package:let_tutor/presentation/my-wallet/my_wallet_screen.dart';
 import 'package:let_tutor/presentation/settings/settings_screen.dart';
 import 'package:let_tutor/core/utils/listtile_item.dart';
 import 'package:let_tutor/core/utils/url_launcher.dart';
+import 'package:provider/provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class DrawerMain extends StatelessWidget {
   const DrawerMain({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final UserEntity user = Provider.of<AuthProvider>(context).authEntity.user!;
     String fbPageId = 'lettutorvn';
     String facebookBaseUrl = 'https://www.facebook.com';
     String fbProtocolUrl =
@@ -100,6 +106,7 @@ class DrawerMain extends StatelessWidget {
             color: Theme.of(context).primaryColor,
           ),
           callback: () {
+            Provider.of<AuthProvider>(context, listen: false).logOut();
             GoRouter.of(context).goNamed(LoginScreen.routeName);
           }),
     ];
@@ -108,14 +115,14 @@ class DrawerMain extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const SizedBox(
+          SizedBox(
             height: 250,
             child: DrawerHeader(
-              padding: EdgeInsets.only(left: 16),
-              margin: EdgeInsets.only(
+              padding: const EdgeInsets.only(left: 16),
+              margin: const EdgeInsets.only(
                 bottom: 8,
               ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/images/drawerbg.jpeg'),
                   fit: BoxFit.cover,
@@ -125,39 +132,72 @@ class DrawerMain extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        'https://sandbox.api.lettutor.com/avatar/f569c202-7bbf-4620-af77-ecc1419a6b28avatar1686033849227.jpeg'),
-                    radius: 40,
+                  CachedNetworkImage(
+                    imageUrl: user.avatar ?? Helpers.avatarFromName(user.name),
+                    imageBuilder: (context, imageProvider) => CircleAvatar(
+                      radius: 40,
+                      backgroundImage: imageProvider,
+                    ),
+                    placeholder: (context, url) => const CircleAvatar(
+                      radius: 40,
+                      child: SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 1.5,
+                        ),
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => CachedNetworkImage(
+                      imageUrl: Helpers.avatarFromName(user.name),
+                      imageBuilder: (context, imageProvider) => CircleAvatar(
+                        radius: 40,
+                        backgroundImage: imageProvider,
+                      ),
+                      placeholder: (context, url) => const CircleAvatar(
+                        radius: 32,
+                        child: SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 1.5,
+                          ),
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => const CircleAvatar(
+                        radius: 40,
+                        child: Icon(Icons.person),
+                      ),
+                    ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text(
-                    'Phhai123',
-                    style: TextStyle(
+                    user.name ?? 'Username',
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(
-                    'student@lettutor.com',
-                    style: TextStyle(
+                    user.email ?? 'email@example.com',
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Text(
-                    '842499996508',
-                    style: TextStyle(
+                    user.phone ?? '841234567890',
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                       color: Colors.white,

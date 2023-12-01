@@ -7,15 +7,19 @@ class Approval extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        const SizedBox(
+          height: 40,
+        ),
         Image.asset(
           'assets/images/smile.png',
-          width: 300,
-          height: 300,
+          width: 100,
+          height: 100,
         ),
         const SizedBox(
-          height: 20,
+          height: 40,
         ),
         Text(
           AppLocalizations.of(context)!.approvalInfo,

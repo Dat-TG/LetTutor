@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:let_tutor/core/common/bottom_bar.dart';
+import 'package:let_tutor/domain/entities/course_details/course_details_entity.dart';
+import 'package:let_tutor/domain/entities/message/message_entity.dart';
 import 'package:let_tutor/presentation/become-tutor/become_tutor_screen.dart';
 import 'package:let_tutor/presentation/booking/book_lesson_screen.dart';
 import 'package:let_tutor/presentation/conversation/conversation_screen.dart';
@@ -22,8 +24,8 @@ import 'package:let_tutor/presentation/register/register_screen.dart';
 import 'package:let_tutor/presentation/search/search_screen.dart';
 import 'package:let_tutor/presentation/settings/change_password_screen.dart';
 import 'package:let_tutor/presentation/settings/settings_screen.dart';
+import 'package:let_tutor/presentation/tutor/all_tutors_screen.dart';
 import 'package:let_tutor/presentation/tutor/tutor_screen.dart';
-import 'package:let_tutor/presentation/tutor/widgets/all_tutors.dart';
 import 'package:let_tutor/presentation/welcome/welcome_screen.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
 
@@ -52,32 +54,32 @@ class MyRouter {
       ),
       GoRoute(
         name: TutorDetails.routeName,
-        path: '/tutor',
+        path: '/tutor/:id',
         pageBuilder: (context, state) {
+          final String? indexFromTutorBlocString =
+              state.uri.queryParameters['indexFromTutorBloc'];
+          int? indexFromTutorBloc;
+          if (indexFromTutorBlocString != null) {
+            indexFromTutorBloc = int.parse(indexFromTutorBlocString);
+          }
           return Helpers.buildPageWithDefaultTransition(
             context: context,
             state: state,
-            child: const TutorDetails(),
+            child: TutorDetails(
+              tutorId: state.pathParameters['id']!,
+              indexFromTutorBloc: indexFromTutorBloc,
+            ),
           );
         },
       ),
       GoRoute(
-          name: AllTutors.routeName,
+          name: AllTutorsScreen.routeName,
           path: '/',
           pageBuilder: (context, state) {
             return Helpers.buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: Scaffold(
-                appBar: PreferredSize(
-                  preferredSize: const Size.fromHeight(60),
-                  child: AppBarNormal(
-                      title: AppLocalizations.of(context)!.recommendedTutors),
-                ),
-                body: const SingleChildScrollView(
-                  child: AllTutors(),
-                ),
-              ),
+              child: const AllTutorsScreen(),
             );
           }),
       GoRoute(
@@ -102,12 +104,12 @@ class MyRouter {
       ),
       GoRoute(
         name: CourseDetails.routeName,
-        path: '/courses',
+        path: '/course/:id',
         pageBuilder: (context, state) {
           return Helpers.buildPageWithDefaultTransition(
             context: context,
             state: state,
-            child: const CourseDetails(),
+            child: CourseDetails(courseId: state.pathParameters['id']!),
           );
         },
       ),
@@ -133,12 +135,17 @@ class MyRouter {
       ),
       GoRoute(
         name: LessonScreen.routeName,
-        path: '/lesson',
+        path: '/lesson/:index',
         pageBuilder: (context, state) {
+          final CourseDetailsEntity courseDetails =
+              state.extra as CourseDetailsEntity;
           return Helpers.buildPageWithDefaultTransition(
             context: context,
             state: state,
-            child: const LessonScreen(),
+            child: LessonScreen(
+              courseDetails: courseDetails,
+              initialIndex: int.parse(state.pathParameters['index'] ?? '0'),
+            ),
           );
         },
       ),
@@ -187,12 +194,13 @@ class MyRouter {
           }),
       GoRoute(
           name: BookLessonScreen.routeName,
-          path: '/book-lesson',
+          path: '/book-lesson/:tutorId',
           pageBuilder: (context, state) {
             return Helpers.buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: const BookLessonScreen(),
+              child: BookLessonScreen(
+                  tutorId: state.pathParameters['tutorId'] ?? ""),
             );
           }),
       GoRoute(
@@ -256,7 +264,8 @@ class MyRouter {
             return Helpers.buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: const ConversationScreen(),
+              child:
+                  ConversationScreen(user: state.extra as ReceiverInfoEntity),
             );
           }),
       GoRoute(

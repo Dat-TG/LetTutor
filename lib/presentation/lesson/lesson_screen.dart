@@ -3,13 +3,17 @@ import 'package:internet_file/internet_file.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/core/common/pdf-viewer/pdf_view_custom_builder.dart';
+import 'package:let_tutor/domain/entities/course_details/course_details_entity.dart';
 import 'package:let_tutor/presentation/lesson/widgets/drawer_lesson.dart';
 import 'package:pdfx/pdfx.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 class LessonScreen extends StatefulWidget {
   static const String routeName = 'lessonScreen';
-  const LessonScreen({super.key});
+  final CourseDetailsEntity courseDetails;
+  final int initialIndex;
+  const LessonScreen(
+      {super.key, required this.courseDetails, this.initialIndex = 0});
 
   @override
   State<LessonScreen> createState() => _LessonScreenState();
@@ -19,37 +23,31 @@ class _LessonScreenState extends State<LessonScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   int _selectedIndex = 0;
-  List<String> topics = [
-    'The Internet',
-    'Artificial Intelligence (AI)',
-    'Social Media',
-    'Internet Privacy',
-    'Live Streaming',
-    'Coding',
-    'Technology Transforming Healthcare',
-    'Smart Home Technology',
-    'Remote Work - A Dream Job?',
-  ];
 
   void _onItemTapped(int index) {
+    if (_selectedIndex == index) {
+      return;
+    }
     setState(() {
       _selectedIndex = index;
+      pdfPinchController.loadDocument(
+        PdfDocument.openData(
+          InternetFile.get(widget.courseDetails.topics?[index].nameFile ?? ""),
+        ),
+        initialPage: 1,
+      );
+      pdfController.loadDocument(
+        PdfDocument.openData(
+          InternetFile.get(widget.courseDetails.topics?[index].nameFile ?? ""),
+        ),
+        initialPage: 1,
+      );
     });
   }
 
-  final pdfPinchController = PdfControllerPinch(
-    document: PdfDocument.openData(
-      InternetFile.get(
-          'https://api.app.lettutor.com/file/be4c3df8-3b1b-4c8f-a5cc-75a8e2e6626afileThe%20Internet.pdf'),
-    ),
-  );
+  late PdfControllerPinch pdfPinchController;
 
-  final pdfController = PdfController(
-    document: PdfDocument.openData(
-      InternetFile.get(
-          'https://api.app.lettutor.com/file/be4c3df8-3b1b-4c8f-a5cc-75a8e2e6626afileThe%20Internet.pdf'),
-    ),
-  );
+  late PdfController pdfController;
 
   openDrawer() async {
     await Future.delayed(Duration.zero);
@@ -59,6 +57,19 @@ class _LessonScreenState extends State<LessonScreen> {
   @override
   void initState() {
     openDrawer();
+    _selectedIndex = widget.initialIndex;
+    pdfPinchController = PdfControllerPinch(
+      document: PdfDocument.openData(
+        InternetFile.get(
+            widget.courseDetails.topics?[widget.initialIndex].nameFile ?? ""),
+      ),
+    );
+    pdfController = PdfController(
+      document: PdfDocument.openData(
+        InternetFile.get(
+            widget.courseDetails.topics?[widget.initialIndex].nameFile ?? ""),
+      ),
+    );
     super.initState();
   }
 
@@ -80,13 +91,16 @@ class _LessonScreenState extends State<LessonScreen> {
       drawer: DrawerLesson(
         selectedIndex: _selectedIndex,
         setSelectedIndex: _onItemTapped,
-        topics: topics,
+        courseDetails: widget.courseDetails,
       ),
       body: Stack(
         children: [
           UniversalPlatform.isWindows
               ? PdfView(
                   controller: pdfController,
+                  onDocumentLoaded: (document) => setState(() {
+                    pdfController.jumpToPage(1);
+                  }),
                   builders: PdfViewBuilders<DefaultBuilderOptions>(
                     options: const DefaultBuilderOptions(
                       loaderSwitchDuration: Duration(
@@ -106,6 +120,9 @@ class _LessonScreenState extends State<LessonScreen> {
                 )
               : PdfViewPinch(
                   controller: pdfPinchController,
+                  onDocumentLoaded: (document) => setState(() {
+                    pdfPinchController.jumpToPage(1);
+                  }),
                   builders: PdfViewPinchBuilders<DefaultBuilderOptions>(
                     options: const DefaultBuilderOptions(
                       loaderSwitchDuration: Duration(
@@ -127,45 +144,46 @@ class _LessonScreenState extends State<LessonScreen> {
                 ? pdfController
                 : pdfPinchController,
             // When `loadingState != PdfLoadingState.success`  `pagesCount` equals null_
-            builder: (_, state, page, pagesCount) =>
-                state == PdfLoadingState.success
-                    ? Container(
-                        alignment: Alignment.bottomCenter,
-                        padding: const EdgeInsets.only(
-                          bottom: 10,
+            builder: (_, state, page, pagesCount) {
+              return state == PdfLoadingState.success
+                  ? Container(
+                      alignment: Alignment.bottomCenter,
+                      padding: const EdgeInsets.only(
+                        bottom: 10,
+                      ),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
                         ),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 5,
+                        decoration: const BoxDecoration(
+                          color: Colors.black45,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5),
                           ),
-                          decoration: const BoxDecoration(
-                            color: Colors.black45,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(5),
-                            ),
-                          ),
-                          child: RichText(
-                            text: TextSpan(
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
+                        ),
+                        child: RichText(
+                          text: TextSpan(
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: '$page ',
                                 ),
-                                children: [
-                                  TextSpan(
-                                    text: '$page ',
-                                  ),
-                                  TextSpan(
-                                    text: AppLocalizations.of(context)!.ofPage,
-                                  ),
-                                  TextSpan(
-                                    text: ' $pagesCount',
-                                  ),
-                                ]),
-                          ),
+                                TextSpan(
+                                  text: AppLocalizations.of(context)!.ofPage,
+                                ),
+                                TextSpan(
+                                  text: ' $pagesCount',
+                                ),
+                              ]),
                         ),
-                      )
-                    : const SizedBox(),
+                      ),
+                    )
+                  : const SizedBox();
+            },
           )
         ],
       ),

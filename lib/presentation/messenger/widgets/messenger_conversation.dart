@@ -1,16 +1,21 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
+import 'package:let_tutor/domain/entities/message/message_entity.dart';
 import 'package:let_tutor/presentation/conversation/conversation_screen.dart';
 
 class MessengerConversation extends StatelessWidget {
-  const MessengerConversation({super.key});
+  final MessageEntity message;
+  const MessengerConversation({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        GoRouter.of(context).pushNamed(ConversationScreen.routeName);
+        GoRouter.of(context)
+            .pushNamed(ConversationScreen.routeName, extra: message.partner);
       },
       child: Container(
         alignment: Alignment.center,
@@ -18,10 +23,44 @@ class MessengerConversation extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            const CircleAvatar(
-              backgroundImage: NetworkImage(
-                  'https://sandbox.api.lettutor.com/avatar/4d54d3d7-d2a9-42e5-97a2-5ed38af5789aavatar1684484879187.jpg'),
-              radius: 30,
+            CachedNetworkImage(
+              imageUrl: message.partner?.avatar ??
+                  Helpers.avatarFromName(message.partner?.name),
+              imageBuilder: (context, imageProvider) => CircleAvatar(
+                radius: 30,
+                backgroundImage: imageProvider,
+              ),
+              placeholder: (context, url) => const CircleAvatar(
+                radius: 30,
+                child: SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1.5,
+                  ),
+                ),
+              ),
+              errorWidget: (context, url, error) => CachedNetworkImage(
+                imageUrl: Helpers.avatarFromName(message.partner?.name),
+                imageBuilder: (context, imageProvider) => CircleAvatar(
+                  radius: 30,
+                  backgroundImage: imageProvider,
+                ),
+                placeholder: (context, url) => const CircleAvatar(
+                  radius: 30,
+                  child: SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 1.5,
+                    ),
+                  ),
+                ),
+                errorWidget: (context, url, error) => const CircleAvatar(
+                  radius: 30,
+                  child: Icon(Icons.person),
+                ),
+              ),
             ),
             const SizedBox(
               width: 20,
@@ -31,9 +70,9 @@ class MessengerConversation extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Keegan',
-                    style: TextStyle(
+                  Text(
+                    message.partner?.name ?? "Username",
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -44,10 +83,10 @@ class MessengerConversation extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      const Expanded(
+                      Expanded(
                         child: Text(
-                          'Phhai123 has joined the class of Keeganat Wed Oct 18 2023 00:00:00 GMT+0700 (Indochina Time)',
-                          style: TextStyle(
+                          message.content ?? "Message content",
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w300,
                           ),
@@ -60,7 +99,7 @@ class MessengerConversation extends StatelessWidget {
                       ),
                       Text(
                         DateFormat('d MMM', 'en').format(
-                          DateTime.now(),
+                          message.createdAt ?? DateTime.now(),
                         ),
                         style: const TextStyle(
                           fontSize: 16,

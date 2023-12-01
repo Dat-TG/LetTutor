@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/domain/entities/tutor_schedule/tutor_schedule_entity.dart';
 import 'package:let_tutor/presentation/booking/widgets/booking_details.dart';
 
 class TimeRow extends StatefulWidget {
+  final ScheduleOfTutorEntity? schedule;
   final TimeOfDay time;
   final String status;
-  const TimeRow({super.key, required this.time, required this.status});
+  const TimeRow(
+      {super.key, required this.time, required this.status, this.schedule});
 
   @override
   State<TimeRow> createState() => _TimeRowState();
@@ -17,9 +20,20 @@ class _TimeRowState extends State<TimeRow> {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return const BookingDetails();
+        return BookingDetails(
+          schedule: widget.schedule,
+        );
       },
     );
+  }
+
+  late TimeOfDay endTime;
+
+  @override
+  void initState() {
+    endTime =
+        TimeOfDay(hour: widget.time.hour, minute: widget.time.minute + 25);
+    super.initState();
   }
 
   @override
@@ -31,7 +45,7 @@ class _TimeRowState extends State<TimeRow> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            '${widget.time.hour.toString().padLeft(2, '0')}:${widget.time.minute.toString().padLeft(2, '0')}',
+            '${widget.time.hour.toString().padLeft(2, '0')}:${widget.time.minute.toString().padLeft(2, '0')} - ${endTime.hour.toString().padLeft(2, '0')}:${endTime.minute.toString().padLeft(2, '0')}',
             style: const TextStyle(
               fontSize: 16,
             ),

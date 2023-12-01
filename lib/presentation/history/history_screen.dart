@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/core/providers/locale_provider.dart';
 import 'package:let_tutor/presentation/details-course/widgets/course_details_title_big.dart';
+import 'package:let_tutor/presentation/history/bloc/history_bloc.dart';
 import 'package:let_tutor/presentation/history/widgets/history_banner.dart';
 import 'package:let_tutor/presentation/history/widgets/history_card.dart';
+import 'package:provider/provider.dart';
 
 class HistoryScreen extends StatefulWidget {
   static const String routeName = 'history';
@@ -14,6 +19,31 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
+  final ScrollController _scrollController = ScrollController();
+
+  void _scrollListener() {
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      if (context.read<HistoryBloc>().state is! HistoryComplete) {
+        // Load more data
+        context.read<HistoryBloc>().add(
+              HistoryFetched(
+                context.read<HistoryBloc>().state.params!.copyWith(
+                      page: context.read<HistoryBloc>().state.params!.page + 1,
+                    ),
+              ),
+            );
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    _scrollController.addListener(_scrollListener);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,29 +51,120 @@ class _HistoryScreenState extends State<HistoryScreen> {
         preferredSize: const Size.fromHeight(60),
         child: AppBarNormal(title: AppLocalizations.of(context)!.historyLesson),
       ),
-      body: const SingleChildScrollView(
-        child: Column(
-          children: [
-            HistoryBanner(),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20,
-              ),
-              child: Column(
-                children: [
-                  CourseDetailsTitleBig(text: 'Sat, 21 Oct 23'),
-                  SizedBox(
-                    height: 20,
+      body: BlocBuilder<HistoryBloc, HistoryState>(
+        buildWhen: (previous, current) => previous != current,
+        builder: (context, state) {
+          return ListView.builder(
+            controller: _scrollController,
+            itemCount: (state.history?.length ?? 0) + 2,
+            itemBuilder: (context, index) {
+              if (index == 0) {
+                return const Padding(
+                  padding: EdgeInsets.only(bottom: 20),
+                  child: HistoryBanner(),
+                );
+              }
+              if (index == (state.history?.length ?? 0) + 1) {
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 20,
+                    ),
+                    child: SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 1.5,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
                   ),
-                  HistoryCard(),
+                );
+              }
+              if (index == 1) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 20,
+                        right: 20,
+                        bottom: 30,
+                        top: 10,
+                      ),
+                      child: CourseDetailsTitleBig(
+                        text: DateFormat(
+                                "E, d MMM yyyy",
+                                Provider.of<LocaleProvider>(context,
+                                        listen: false)
+                                    .locale
+                                    ?.languageCode)
+                            .format(
+                          DateTime.fromMillisecondsSinceEpoch(state.history![0]
+                              .scheduleDetailInfo!.startPeriodTimestamp!),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 20,
+                        right: 20,
+                        bottom: 20,
+                      ),
+                      child: HistoryCard(schedule: state.history![0]),
+                    ),
+                  ],
+                );
+              }
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Builder(builder: (context) {
+                    final DateTime startTime =
+                        DateTime.fromMillisecondsSinceEpoch(state
+                            .history![index - 1]
+                            .scheduleDetailInfo!
+                            .startPeriodTimestamp!);
+                    final DateTime startTimePrev =
+                        DateTime.fromMillisecondsSinceEpoch(state
+                            .history![index - 2]
+                            .scheduleDetailInfo!
+                            .startPeriodTimestamp!);
+                    bool isSameDay = startTime.day == startTimePrev.day &&
+                        startTime.month == startTimePrev.month &&
+                        startTime.year == startTimePrev.year;
+                    return isSameDay
+                        ? Padding(
+                            padding: const EdgeInsets.only(
+                              left: 20,
+                              right: 20,
+                              bottom: 30,
+                              top: 10,
+                            ),
+                            child: CourseDetailsTitleBig(
+                                text: DateFormat(
+                                        "E, d MMM yyyy",
+                                        Provider.of<LocaleProvider>(context,
+                                                listen: false)
+                                            .locale
+                                            ?.languageCode)
+                                    .format(startTime)),
+                          )
+                        : const SizedBox();
+                  }),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                      right: 20,
+                      bottom: 20,
+                    ),
+                    child: HistoryCard(schedule: state.history![index - 1]),
+                  ),
                 ],
-              ),
-            ),
-          ],
-        ),
+              );
+            },
+          );
+        },
       ),
     );
   }

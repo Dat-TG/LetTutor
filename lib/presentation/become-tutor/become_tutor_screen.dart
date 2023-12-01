@@ -17,13 +17,14 @@ class BecomeTutorScreen extends StatefulWidget {
 
 class _BecomeTutorScreenState extends State<BecomeTutorScreen> {
   int currentStep = 0;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   List<Step> getSteps() {
     return <Step>[
       Step(
         state: currentStep > 0 ? StepState.complete : StepState.indexed,
         isActive: currentStep >= 0,
         title: Text(AppLocalizations.of(context)!.completeProfile),
-        content: const CompleteProfileForm(),
+        content: CompleteProfileForm(formKey: _formKey),
       ),
       Step(
         state: currentStep > 1 ? StepState.complete : StepState.indexed,
@@ -71,7 +72,15 @@ class _BecomeTutorScreenState extends State<BecomeTutorScreen> {
                             //Do something with this information
                           } else {
                             setState(() {
-                              currentStep += 1;
+                              if (currentStep == 0) {
+                                if (_formKey.currentState!.validate()) {
+                                  currentStep += 1;
+                                } else {
+                                  currentStep = currentStep;
+                                }
+                              } else {
+                                currentStep += 1;
+                              }
                             });
                           }
                         }),
@@ -107,7 +116,15 @@ class _BecomeTutorScreenState extends State<BecomeTutorScreen> {
                   });
         },
         onStepTapped: (step) => setState(() {
-          currentStep = step;
+          if (currentStep == 0) {
+            if (_formKey.currentState!.validate()) {
+              currentStep = step;
+            } else {
+              currentStep = currentStep;
+            }
+          } else {
+            currentStep = step;
+          }
         }),
         steps: getSteps(),
       ),

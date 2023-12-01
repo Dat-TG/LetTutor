@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:let_tutor/core/common/video/controls_overlay.dart';
 import 'package:video_player/video_player.dart';
 
-class SingleVideo extends StatefulWidget {
+class VideoFromNetwork extends StatefulWidget {
   final String videoURL;
-  const SingleVideo({super.key, required this.videoURL});
+  const VideoFromNetwork({super.key, required this.videoURL});
 
   @override
-  State<SingleVideo> createState() => _SingleVideoState();
+  State<VideoFromNetwork> createState() => _VideoFromNetworkState();
 }
 
-class _SingleVideoState extends State<SingleVideo> {
+class _VideoFromNetworkState extends State<VideoFromNetwork> {
   late VideoPlayerController controller;
   @override
   void initState() {
@@ -18,6 +18,7 @@ class _SingleVideoState extends State<SingleVideo> {
     // Create and store the VideoPlayerController. The VideoPlayerController
     // offers several different constructors to play videos from assets, files,
     // or the internet.
+
     controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoURL))
       ..initialize().then((value) {
         setState(() {

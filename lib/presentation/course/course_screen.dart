@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:let_tutor/presentation/course/bloc/course_bloc.dart';
 import 'package:let_tutor/presentation/course/widgets/all_courses.dart';
 import 'package:let_tutor/presentation/course/widgets/all_ebooks.dart';
 import 'package:let_tutor/presentation/course/widgets/course_banner.dart';
@@ -14,9 +16,45 @@ class CourseScreen extends StatefulWidget {
 
 class _CourseScreenState extends State<CourseScreen> {
   int index = 0;
+  final ScrollController _scrollController = ScrollController();
+  void _scrollListener() {
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      if (index == 0) {
+        if (context.read<CourseBloc>().state is! CourseCompleted &&
+            context.read<CourseBloc>().state is! CourseNotFound &&
+            context.read<CourseBloc>().state is! CourseLoading) {
+          // Load more data
+          context.read<CourseBloc>().add(
+                CourseFetching(
+                    params: context.read<CourseBloc>().state.params!.copyWith(
+                        page: (context.read<CourseBloc>().state.params?.page ??
+                                0) +
+                            1)),
+              );
+        }
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    _scrollController.addListener(_scrollListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      controller: _scrollController,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
