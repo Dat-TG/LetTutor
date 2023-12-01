@@ -7,6 +7,15 @@
 
 Flutter
 
+## Milestone 2
+
+- Implement all red features and most of other features
+- Check list: https://docs.google.com/document/d/1XcLD6AGi4HD8z-a88oksh12w0pHGqvWv/edit?usp=sharing&ouid=108361665254540682887&rtpof=true&sd=true
+
+### Demo Video
+
+Youtube: https://youtu.be/pCWqAv8tqBM
+
 ## Milestone 1 - Mockup UI
 
 - Implement UI for all screens
