@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -9,13 +8,12 @@ import 'package:let_tutor/core/common/video/video_from_network.dart';
 import 'package:let_tutor/core/utils/constants.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:let_tutor/core/utils/language_local.dart';
-import 'package:let_tutor/domain/entities/course/course_entity.dart';
 import 'package:let_tutor/domain/repositories/review/review_repository.dart';
 import 'package:let_tutor/domain/usecases/review/get_reviews.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/presentation/booking/book_lesson_screen.dart';
-import 'package:let_tutor/presentation/course/widgets/course_card.dart';
 import 'package:let_tutor/core/common/expanded_paragraph.dart';
+import 'package:let_tutor/presentation/details-course/course_details.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/review_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/tutor_details_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/widgets/report_tutor.dart';
@@ -333,38 +331,36 @@ class _TutorDetailsState extends State<TutorDetails> {
                       ],
                     ),
                   ),
-                  CarouselSlider(
-                    items: const [
-                      CourseCard(
-                        course: CourseEntity(),
+                  for (int i = 0;
+                      i < (state.tutorDetails?.user?.courses?.length ?? 0);
+                      i++)
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 10,
+                        left: 20,
+                        right: 20,
                       ),
-                      CourseCard(
-                        course: CourseEntity(),
+                      child: InkWell(
+                        onTap: () {
+                          GoRouter.of(context).pushNamed(
+                            CourseDetails.routeName,
+                            pathParameters: {
+                              'id': state.tutorDetails?.user?.courses?[i].id ??
+                                  '',
+                            },
+                          );
+                        },
+                        child: Text(
+                          state.tutorDetails?.user?.courses?[i].name ??
+                              "Course",
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
                       ),
-                      CourseCard(
-                        course: CourseEntity(),
-                      ),
-                      CourseCard(
-                        course: CourseEntity(),
-                      ),
-                    ],
-                    options: CarouselOptions(
-                      height: 311,
-                      viewportFraction:
-                          250 / (MediaQuery.of(context).size.width) + 0.05,
-                      padEnds: false,
-                      initialPage: 0,
-                      enableInfiniteScroll: true,
-                      reverse: false,
-                      autoPlay: true,
-                      autoPlayInterval: const Duration(seconds: 3),
-                      autoPlayAnimationDuration:
-                          const Duration(milliseconds: 800),
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      scrollDirection: Axis.horizontal,
-                      clipBehavior: Clip.none,
                     ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
@@ -373,7 +369,7 @@ class _TutorDetailsState extends State<TutorDetails> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                         TutorDetailsTitle(
                           text: AppLocalizations.of(context)!.interests,
