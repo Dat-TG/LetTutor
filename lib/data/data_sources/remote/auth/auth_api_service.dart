@@ -42,4 +42,14 @@ abstract class AuthApiService {
   })
   Future<HttpResponse<String>> forgotPassword(
       {@Field("email") required String email});
+
+  @POST('/auth/change-password')
+  @Headers(<String, dynamic>{
+    'Content-Type': 'application/json',
+  })
+  Future<HttpResponse<String>> changePassword({
+    @Header('Authorization') required String token,
+    @Field("password") required String password,
+    @Field("newPassword") required String newPassword,
+  });
 }

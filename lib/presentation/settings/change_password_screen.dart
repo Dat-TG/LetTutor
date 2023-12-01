@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/custom_textfield.dart';
+import 'package:let_tutor/core/providers/auth_provider.dart';
+import 'package:let_tutor/core/resources/data_state.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:let_tutor/core/utils/validators.dart';
+import 'package:let_tutor/domain/usecases/auth/change_password.dart';
+import 'package:let_tutor/injection_container.dart';
+import 'package:let_tutor/presentation/login/login_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   static const String routeName = 'change-password';
@@ -14,11 +23,17 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
+  final ChangePasswordUsecase _changePasswordUsecase =
+      sl<ChangePasswordUsecase>();
+  final String token = sl<SharedPreferences>().getString('access-token') ?? "";
+
   final TextEditingController _password = TextEditingController(),
       _newPassword = TextEditingController(),
       _confirmPassword = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  bool isInProgress = false;
 
   @override
   void initState() {
@@ -87,11 +102,34 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   child: CustomButton(
                     title: AppLocalizations.of(context)!.changePassword,
                     padding: const EdgeInsets.all(20),
+                    isInProgress: isInProgress,
                     borderRadius: 10,
-                    callback: () {
+                    callback: () async {
                       if (!_formKey.currentState!.validate()) {
                         return;
                       }
+                      setState(() {
+                        isInProgress = true;
+                      });
+                      _changePasswordUsecase(
+                              params: ChangePassowrdUsecaseParams(
+                                  token: token,
+                                  newPassword: _newPassword.text,
+                                  password: _password.text))
+                          .then((value) {
+                        if (value is DataSuccess) {
+                          Helpers.showSnackBar(context, value.data!);
+                          Provider.of<AuthProvider>(context, listen: false)
+                              .logOut();
+                          GoRouter.of(context).goNamed(LoginScreen.routeName);
+                        } else {
+                          Helpers.showSnackBar(
+                              context, value.error?.response?.data['message']);
+                        }
+                        setState(() {
+                          isInProgress = false;
+                        });
+                      });
                     },
                   ),
                 ),

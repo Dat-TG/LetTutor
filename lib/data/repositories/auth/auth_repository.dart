@@ -117,4 +117,32 @@ class AuthRepositoryImpl implements AuthRepository {
       return DataFailed(e);
     }
   }
+
+  @override
+  Future<DataState<String>> changePassword({
+    required String token,
+    required String password,
+    required String newPassword,
+  }) async {
+    try {
+      final httpResponse = await _authApiService.changePassword(
+        token: 'Bearer $token',
+        password: password,
+        newPassword: newPassword,
+      );
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResponse.data);
+      } else {
+        return DataFailed(
+          DioException(
+              error: httpResponse.response.statusMessage,
+              response: httpResponse.response,
+              type: DioExceptionType.badResponse,
+              requestOptions: httpResponse.response.requestOptions),
+        );
+      }
+    } on DioException catch (e) {
+      return DataFailed(e);
+    }
+  }
 }
