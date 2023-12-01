@@ -213,7 +213,11 @@ class LanguageLocal {
     if (isoLangs.containsKey(key)) {
       return isoLangs[key];
     } else {
-      throw Exception("Language key incorrect");
+      return {
+        "name": key,
+        "nativeName": key,
+      };
+      //throw Exception("Language key incorrect");
     }
   }
 }

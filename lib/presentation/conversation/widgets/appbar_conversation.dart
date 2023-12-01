@@ -1,13 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/providers/dark_mode_provider.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
+import 'package:let_tutor/domain/entities/message/message_entity.dart';
 import 'package:let_tutor/presentation/details-tutor/tutor_details.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:provider/provider.dart';
 
 class AppBarConversation extends StatelessWidget {
-  const AppBarConversation({super.key});
+  final ReceiverInfoEntity user;
+  const AppBarConversation({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +52,43 @@ class AppBarConversation extends StatelessWidget {
                 color: Colors.green,
               ),
             ),
-            child: const CircleAvatar(
-              backgroundImage: NetworkImage(
-                  'https://sandbox.api.lettutor.com/avatar/4d54d3d7-d2a9-42e5-97a2-5ed38af5789aavatar1684484879187.jpg'),
-              radius: 25,
+            child: CachedNetworkImage(
+              imageUrl: user.avatar ?? Helpers.avatarFromName(user.name),
+              imageBuilder: (context, imageProvider) => CircleAvatar(
+                radius: 25,
+                backgroundImage: imageProvider,
+              ),
+              placeholder: (context, url) => const CircleAvatar(
+                radius: 25,
+                child: SizedBox(
+                  height: 15,
+                  width: 15,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1,
+                  ),
+                ),
+              ),
+              errorWidget: (context, url, error) => CachedNetworkImage(
+                imageUrl: Helpers.avatarFromName(user.name),
+                imageBuilder: (context, imageProvider) => CircleAvatar(
+                  radius: 25,
+                  backgroundImage: imageProvider,
+                ),
+                placeholder: (context, url) => const CircleAvatar(
+                  radius: 25,
+                  child: SizedBox(
+                    height: 15,
+                    width: 15,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 1,
+                    ),
+                  ),
+                ),
+                errorWidget: (context, url, error) => const CircleAvatar(
+                  radius: 40,
+                  child: Icon(Icons.person),
+                ),
+              ),
             ),
           ),
           const SizedBox(
@@ -62,9 +99,9 @@ class AppBarConversation extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                'Keegan',
-                style: TextStyle(
+              Text(
+                user.name ?? 'Username',
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -91,7 +128,10 @@ class AppBarConversation extends StatelessWidget {
           child: IconButton(
             splashRadius: 20,
             onPressed: () {
-              GoRouter.of(context).pushNamed(TutorDetails.routeName);
+              GoRouter.of(context)
+                  .pushNamed(TutorDetails.routeName, pathParameters: {
+                'id': user.id ?? "",
+              });
             },
             icon: Icon(
               Icons.info_rounded,

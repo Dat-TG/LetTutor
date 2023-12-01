@@ -23,12 +23,20 @@ class _ConversationBodyState extends State<ConversationBody> {
   final ScrollController _controller = ScrollController();
   final token = sl<SharedPreferences>().getString("access-token") ?? "";
 
+  double? oldPosition;
+
   void scrollToBottom() {
     if (_controller.hasClients) {
-      _controller.animateTo(
+      _controller.jumpTo(
         _controller.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 1000),
-        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void scrollToPosition(double position) {
+    if (_controller.hasClients) {
+      _controller.jumpTo(
+        position,
       );
     }
   }
@@ -44,6 +52,35 @@ class _ConversationBodyState extends State<ConversationBody> {
                   startTime: DateTime.now().millisecondsSinceEpoch,
                   userId: widget.userId)),
         );
+    _controller.addListener(() {
+      if (_controller.offset >= _controller.position.maxScrollExtent &&
+          !_controller.position.outOfRange) {
+        // scroll to top (reverse) => load more
+        setState(() {
+          oldPosition = _controller.position.pixels;
+        });
+        context.read<ConversationBloc>().add(
+              GetConversationEvent(
+                  params: GetMessagesByUserIdUsecaseParams(
+                      token: token,
+                      page: (context
+                                  .read<ConversationBloc>()
+                                  .state
+                                  .params
+                                  ?.page ??
+                              0) +
+                          1,
+                      perPage: 25,
+                      startTime: context
+                              .read<ConversationBloc>()
+                              .state
+                              .params
+                              ?.startTime ??
+                          DateTime.now().millisecondsSinceEpoch,
+                      userId: widget.userId)),
+            );
+      }
+    });
     super.initState();
   }
 
@@ -54,10 +91,18 @@ class _ConversationBodyState extends State<ConversationBody> {
             (ThemeMode.system == ThemeMode.dark);
     return BlocConsumer<ConversationBloc, ConversationState>(
       listener: (context, state) {
-        if (state is ConversationLoaded) {
-          scrollToBottom();
+        if ((state is ConversationLoaded || state is ConversationDone)) {
+          Future.delayed(const Duration(milliseconds: 100), () {
+            print('Scroll to old position: $oldPosition');
+            if (oldPosition != null) {
+              scrollToPosition(oldPosition!);
+            } else {
+              scrollToBottom();
+            }
+          });
         }
       },
+      buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
         if (state is ConversationLoading) {
           return const Center(
@@ -84,23 +129,37 @@ class _ConversationBodyState extends State<ConversationBody> {
               child: ListView.builder(
                 reverse: true,
                 controller: _controller,
-                itemCount: state.messages?.length ?? 0,
+                itemCount: (state.messages?.length ?? 0) + 1,
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
+                  if (index == state.messages?.length) {
+                    return (state is! ConversationDone)
+                        ? Center(
+                            child: SizedBox(
+                              width: 30,
+                              height: 30,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 1.5,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                          )
+                        : const SizedBox();
+                  }
                   return Container(
                     padding: EdgeInsets.only(
-                        left: (state.messages![index].fromInfo!.id != me!.id)
+                        left: (state.messages?[index].fromInfo?.id != me?.id)
                             ? 14
                             : 56,
-                        right: (state.messages![index].fromInfo!.id != me.id)
+                        right: (state.messages?[index].fromInfo?.id != me?.id)
                             ? 56
                             : 14,
                         top: 10,
                         bottom: 10),
                     child: Column(
                       crossAxisAlignment:
-                          state.messages![index].fromInfo!.id != me.id
+                          state.messages?[index].fromInfo?.id != me?.id
                               ? CrossAxisAlignment.start
                               : CrossAxisAlignment.end,
                       children: [
@@ -130,8 +189,8 @@ class _ConversationBodyState extends State<ConversationBody> {
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: (state.messages![index].fromInfo!.id !=
-                                        me.id
+                                color: (state.messages?[index].fromInfo?.id !=
+                                        me?.id
                                     ? isDark
                                         ? Colors.grey[600]
                                         : Colors.grey.shade200

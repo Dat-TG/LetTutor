@@ -51,7 +51,9 @@ class TutorDetailsModel extends TutorDetailsEntity {
       interests: json['interests'],
       languages: json['languages'],
       specialties: json['specialties'],
-      rating: json['rating'],
+      rating: json['rating'] != null
+          ? double.parse(json['rating'].toString())
+          : null,
       isNative: json['isNative'],
       youtubeVideoId: json['youtubeVideoId'],
       isFavorite: json['isFavorite'],

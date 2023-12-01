@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:let_tutor/core/common/bottom_bar.dart';
 import 'package:let_tutor/domain/entities/course_details/course_details_entity.dart';
+import 'package:let_tutor/domain/entities/message/message_entity.dart';
 import 'package:let_tutor/presentation/become-tutor/become_tutor_screen.dart';
 import 'package:let_tutor/presentation/booking/book_lesson_screen.dart';
 import 'package:let_tutor/presentation/conversation/conversation_screen.dart';
@@ -258,13 +259,13 @@ class MyRouter {
           }),
       GoRoute(
           name: ConversationScreen.routeName,
-          path: '/conversation/:userId',
+          path: '/conversation',
           pageBuilder: (context, state) {
             return Helpers.buildPageWithDefaultTransition<void>(
               context: context,
               state: state,
-              child: ConversationScreen(
-                  userId: state.pathParameters['userId'] ?? ""),
+              child:
+                  ConversationScreen(user: state.extra as ReceiverInfoEntity),
             );
           }),
       GoRoute(
