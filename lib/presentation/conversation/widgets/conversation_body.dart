@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:let_tutor/core/providers/auth_provider.dart';
 import 'package:let_tutor/core/providers/dark_mode_provider.dart';
+import 'package:let_tutor/domain/entities/message/message_entity.dart';
 import 'package:let_tutor/domain/usecases/message/get_message_by_user_id.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/presentation/conversation/bloc/conversation_bloc.dart';
@@ -91,7 +92,7 @@ class _ConversationBodyState extends State<ConversationBody> {
             (ThemeMode.system == ThemeMode.dark);
     return BlocConsumer<ConversationBloc, ConversationState>(
       listener: (context, state) {
-        if ((state is ConversationLoaded || state is ConversationDone)) {
+        /*if ((state is ConversationLoaded || state is ConversationDone)) {
           Future.delayed(const Duration(milliseconds: 100), () {
             print('Scroll to old position: $oldPosition');
             if (oldPosition != null) {
@@ -100,7 +101,7 @@ class _ConversationBodyState extends State<ConversationBody> {
               scrollToBottom();
             }
           });
-        }
+        }*/
       },
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
@@ -214,16 +215,16 @@ class _ConversationBodyState extends State<ConversationBody> {
               ),
             ),
             MessageInput(onSend: (String message) {
-              /*setState(() {
-                messages.insert(
-                  0,
-                  ChatMessage(
-                    messageContent: message,
-                    messageType: 'sender',
-                    time: DateTime.now(),
-                  ),
-                );
-              });*/
+              context.read<ConversationBloc>().add(
+                    SendMessage(
+                      message: MessageEntity(
+                        content: message,
+                        fromInfo: ReceiverInfoEntity(id: me?.id),
+                        toInfo: ReceiverInfoEntity(id: widget.userId),
+                        createdAt: DateTime.now(),
+                      ),
+                    ),
+                  );
             }),
           ],
         );

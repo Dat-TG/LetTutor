@@ -17,3 +17,14 @@ final class GetConversationEvent extends ConversationEvent {
   @override
   List<Object> get props => [params];
 }
+
+final class SendMessage extends ConversationEvent {
+  final MessageEntity message;
+
+  const SendMessage({
+    required this.message,
+  });
+
+  @override
+  List<Object> get props => [message];
+}

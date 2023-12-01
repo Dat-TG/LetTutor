@@ -13,6 +13,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   ConversationBloc(this._getMessagesByUserIdUsecase)
       : super(ConversationInitial()) {
     on<GetConversationEvent>(onMessagesFetched);
+    on<SendMessage>(onSendMessage);
   }
 
   void onMessagesFetched(
@@ -54,5 +55,17 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
         params: event.params,
       ));
     }
+  }
+
+  void onSendMessage(SendMessage event, Emitter<ConversationState> emit) {
+    emit(ConversationLoading(
+      messages: state.messages ?? [],
+      params: state.params!,
+    ));
+    print('send messaage: ${event.message}');
+    emit(ConversationLoaded(
+      messages: [event.message, ...(state.messages ?? [])],
+      params: state.params!,
+    ));
   }
 }
