@@ -20,6 +20,7 @@ import 'package:let_tutor/presentation/home/bloc/home_course_bloc.dart'
     hide CourseFetching;
 import 'package:let_tutor/presentation/home/bloc/home_tutor_bloc.dart';
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
+import 'package:let_tutor/presentation/messenger/bloc/message_bloc.dart';
 import 'package:let_tutor/presentation/schedule/bloc/schedule_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/total_lesson_time_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/tutor_bloc.dart';
@@ -99,6 +100,9 @@ class MyApp extends StatelessWidget {
             create: (context) =>
                 sl<HomeCourseBloc>()..add(const FetchCourse())),
         BlocProvider(create: (context) => sl<BecomeTutorBloc>()),
+        BlocProvider(
+            create: (context) =>
+                sl<MessageBloc>()..add(const GetListMessages())),
       ],
       child: MultiProvider(
         providers: [
