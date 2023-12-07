@@ -80,7 +80,11 @@ class _SingleScheduleState extends State<SingleSchedule> {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(100),
                         onTap: () => GoRouter.of(context)
-                            .pushNamed(TutorDetails.routeName),
+                            .pushNamed(TutorDetails.routeName, pathParameters: {
+                          'id': widget.schedule.scheduleDetailInfo?.scheduleInfo
+                                  ?.tutorInfo?.id ??
+                              '0'
+                        }),
                         child: CachedNetworkImage(
                           imageUrl: widget.schedule.scheduleDetailInfo
                                   ?.scheduleInfo?.tutorInfo?.avatar ??
@@ -146,8 +150,13 @@ class _SingleScheduleState extends State<SingleSchedule> {
                         Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            onTap: () => GoRouter.of(context)
-                                .pushNamed(TutorDetails.routeName),
+                            onTap: () => GoRouter.of(context).pushNamed(
+                                TutorDetails.routeName,
+                                pathParameters: {
+                                  'id': widget.schedule.scheduleDetailInfo
+                                          ?.scheduleInfo?.tutorInfo?.id ??
+                                      '0'
+                                }),
                             child: Text(
                               widget.schedule.scheduleDetailInfo?.scheduleInfo
                                       ?.tutorInfo?.name ??
