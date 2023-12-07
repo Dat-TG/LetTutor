@@ -25,10 +25,9 @@ class JitsiMeetMethods {
       DateTime? nextLessonTime}) async {
     // Define meetings options here
     featureFlags ??= {};
-    serverUrl ??= 'https://meet.lettutor.com';
     var options = JitsiMeetingOptions(
       roomNameOrUrl: roomNameOrUrl,
-      serverUrl: serverUrl,
+      serverUrl: serverUrl ?? 'https://meet.lettutor.com',
       subject: subject,
       token: token,
       isAudioMuted: isAudioMuted,

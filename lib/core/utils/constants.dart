@@ -72,4 +72,5 @@ class AppConstants {
   ];
 
   static const baseUrl = 'https://sandbox.api.lettutor.com';
+  static const meetingServerUrl = "https://meet.lettutor.com";
 }
