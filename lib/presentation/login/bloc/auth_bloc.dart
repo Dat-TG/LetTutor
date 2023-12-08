@@ -10,6 +10,7 @@ import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:let_tutor/domain/entities/auth/auth_entity.dart';
 import 'package:let_tutor/domain/usecases/auth/forgot_password.dart';
 import 'package:let_tutor/domain/usecases/auth/login.dart';
+import 'package:let_tutor/domain/usecases/auth/login_google.dart';
 import 'package:let_tutor/domain/usecases/auth/refresh_token.dart';
 import 'package:let_tutor/domain/usecases/auth/register.dart';
 import 'package:let_tutor/domain/usecases/user/get_user.dart';
@@ -26,18 +27,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final RefreshTokenUsecase refreshTokenUsecase;
   final RegisterUsecase registerUsecase;
   final ForgotPasswordUsecase forgotPasswordUsecase;
+  final LoginGoogleUsecase loginGoogleUsecase;
   AuthBloc(
     this.loginUsecase,
     this.getUserUsecase,
     this.refreshTokenUsecase,
     this.registerUsecase,
     this.forgotPasswordUsecase,
+    this.loginGoogleUsecase,
   ) : super(const AuthInitial()) {
     on<LoginEvent>(onLogin);
     on<InitialEvent>(onInitial);
     on<ResetStateEvent>(onResetState);
     on<RegisterEvent>(onRegister);
     on<ForgotPasswordEvent>(onForgotPassoword);
+    on<LoginGoogleEvent>(onLoginGoogle);
   }
 
   void onLogin(LoginEvent event, Emitter<AuthState> emit) async {
@@ -47,6 +51,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         email: event.email,
         password: event.password,
       ),
+    );
+    if (dataState is DataSuccess &&
+        dataState.data!.tokens!.access!.token!.isNotEmpty) {
+      emit(AuthSuccessful(dataState.data!));
+    }
+
+    if (dataState is DataFailed) {
+      emit(AuthFail(dataState.error!));
+    }
+  }
+
+  void onLoginGoogle(LoginGoogleEvent event, Emitter<AuthState> emit) async {
+    emit(const AuthInProress());
+    final dataState = await loginGoogleUsecase(
+      params: event.accessToken,
     );
     if (dataState is DataSuccess &&
         dataState.data!.tokens!.access!.token!.isNotEmpty) {

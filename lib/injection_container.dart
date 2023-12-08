@@ -40,6 +40,7 @@ import 'package:let_tutor/domain/repositories/user/user_repository.dart';
 import 'package:let_tutor/domain/usecases/auth/change_password.dart';
 import 'package:let_tutor/domain/usecases/auth/forgot_password.dart';
 import 'package:let_tutor/domain/usecases/auth/login.dart';
+import 'package:let_tutor/domain/usecases/auth/login_google.dart';
 import 'package:let_tutor/domain/usecases/auth/refresh_token.dart';
 import 'package:let_tutor/domain/usecases/auth/register.dart';
 import 'package:let_tutor/domain/usecases/course/get_list_courses.dart';
@@ -154,9 +155,11 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<GetReceiversUsecase>(GetReceiversUsecase(sl()));
   sl.registerSingleton<GetMessagesByUserIdUsecase>(
       GetMessagesByUserIdUsecase(sl()));
+  sl.registerSingleton<LoginGoogleUsecase>(LoginGoogleUsecase(sl()));
 
   //Blocs
-  sl.registerFactory<AuthBloc>(() => AuthBloc(sl(), sl(), sl(), sl(), sl()));
+  sl.registerFactory<AuthBloc>(
+      () => AuthBloc(sl(), sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory<TutorBloc>(() => TutorBloc(sl(), sl()));
   sl.registerFactory<TutorDetailsBloc>(
       () => TutorDetailsBloc(sl(), sl(), sl()));

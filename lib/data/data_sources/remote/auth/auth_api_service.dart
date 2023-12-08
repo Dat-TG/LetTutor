@@ -52,4 +52,12 @@ abstract class AuthApiService {
     @Field("password") required String password,
     @Field("newPassword") required String newPassword,
   });
+
+  @POST('/auth/google')
+  @Headers(<String, dynamic>{
+    'Content-Type': 'application/json',
+  })
+  Future<HttpResponse<AuthModel>> loginGoogle({
+    @Field("access_token") required String accessToken,
+  });
 }
