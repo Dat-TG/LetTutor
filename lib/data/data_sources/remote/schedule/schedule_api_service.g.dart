@@ -12,9 +12,7 @@ class _ScheduleApiService implements ScheduleApiService {
   _ScheduleApiService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://sandbox.api.lettutor.com';
-  }
+  });
 
   final Dio _dio;
 
@@ -22,7 +20,6 @@ class _ScheduleApiService implements ScheduleApiService {
 
   @override
   Future<HttpResponse<List<ScheduleModel>>> getSchedules({
-    required String token,
     required int page,
     required int perPage,
     required int inFuture,
@@ -37,8 +34,7 @@ class _ScheduleApiService implements ScheduleApiService {
       r'orderBy': orderBy,
       r'sortBy': sortBy,
     };
-    final _headers = <String, dynamic>{r'Authorization': token};
-    _headers.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<List<ScheduleModel>>>(Options(
@@ -67,7 +63,6 @@ class _ScheduleApiService implements ScheduleApiService {
 
   @override
   Future<HttpResponse<List<ScheduleModel>>> getHistory({
-    required String token,
     required int page,
     required int perPage,
     required int inFuture,
@@ -82,8 +77,8 @@ class _ScheduleApiService implements ScheduleApiService {
       r'orderBy': orderBy,
       r'sortBy': sortBy,
     };
-    final _headers = <String, dynamic>{r'Authorization': token};
-    _headers.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    print('headers: ${_headers}');
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<List<ScheduleModel>>>(Options(
@@ -102,6 +97,7 @@ class _ScheduleApiService implements ScheduleApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
+
     List<ScheduleModel> value = _result.data!['data']['rows']
         .map<ScheduleModel>(
             (dynamic i) => ScheduleModel.fromJson(i as Map<String, dynamic>))

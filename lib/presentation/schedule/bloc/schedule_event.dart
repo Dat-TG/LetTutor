@@ -8,6 +8,6 @@ sealed class ScheduleEvent extends Equatable {
 }
 
 final class ScheduleFetched extends ScheduleEvent {
-  final GetSchedulesUsecaseParams params;
+  final ScheduleParams params;
   const ScheduleFetched(this.params);
 }

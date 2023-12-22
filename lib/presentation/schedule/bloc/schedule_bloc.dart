@@ -3,7 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:let_tutor/core/resources/data_state.dart';
 import 'package:let_tutor/domain/entities/schedule/schedule_entity.dart';
+import 'package:let_tutor/domain/repositories/schedule/schedule_repository.dart';
 import 'package:let_tutor/domain/usecases/schedule/get_schedules.dart';
+import 'package:let_tutor/injection_container.dart';
 
 part 'schedule_event.dart';
 part 'schedule_state.dart';
@@ -13,7 +15,10 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
   ScheduleBloc(this._getSchedulesUsecase)
       : super(ScheduleLoading(
           const [],
-          GetSchedulesUsecaseParams(page: 0, perPage: 0, token: ""),
+          ScheduleParams(
+            page: 0,
+            perPage: 0,
+          ),
         )) {
     on<ScheduleFetched>(onScheduleFetched);
   }
@@ -29,6 +34,7 @@ class ScheduleBloc extends Bloc<ScheduleEvent, ScheduleState> {
       params: event.params,
     );
 
+    print('baseURL: ${sl<Dio>().options.headers}');
     print('Fetch schedule: ${dataState.data.toString()}');
 
     if (dataState is DataSuccess) {

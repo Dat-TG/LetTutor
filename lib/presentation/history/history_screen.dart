@@ -30,7 +30,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         context.read<HistoryBloc>().add(
               HistoryFetched(
                 context.read<HistoryBloc>().state.params!.copyWith(
-                      page: context.read<HistoryBloc>().state.params!.page + 1,
+                      page: context.read<HistoryBloc>().state.params!.page! + 1,
                     ),
               ),
             );

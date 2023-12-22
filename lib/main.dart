@@ -4,8 +4,8 @@ import 'package:let_tutor/core/providers/auth_provider.dart';
 import 'package:let_tutor/core/providers/dark_mode_provider.dart';
 import 'package:let_tutor/core/providers/locale_provider.dart';
 import 'package:let_tutor/core/routers/my_router.dart';
+import 'package:let_tutor/domain/repositories/schedule/schedule_repository.dart';
 import 'package:let_tutor/domain/usecases/course/get_list_courses.dart';
-import 'package:let_tutor/domain/usecases/schedule/get_schedules.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/l10n/l10n.dart';
 import 'package:let_tutor/presentation/become-tutor/bloc/become_tutor_bloc.dart';
@@ -35,6 +35,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
+
   runApp(const MyApp());
 }
 
@@ -73,11 +74,10 @@ class MyApp extends StatelessWidget {
           create: (context) => sl<HistoryBloc>()
             ..add(
               HistoryFetched(
-                GetSchedulesUsecaseParams(
-                    page: 1,
-                    perPage: 10,
-                    token: sl<SharedPreferences>().getString('access-token') ??
-                        ""),
+                ScheduleParams(
+                  page: 1,
+                  perPage: 10,
+                ),
               ),
             ),
         ),
@@ -85,11 +85,10 @@ class MyApp extends StatelessWidget {
           create: (context) => sl<ScheduleBloc>()
             ..add(
               ScheduleFetched(
-                GetSchedulesUsecaseParams(
-                    page: 1,
-                    perPage: 10,
-                    token: sl<SharedPreferences>().getString('access-token') ??
-                        ""),
+                ScheduleParams(
+                  page: 1,
+                  perPage: 10,
+                ),
               ),
             ),
         ),

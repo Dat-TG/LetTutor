@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
+import 'package:let_tutor/core/dio/dio.dart';
 import 'package:let_tutor/core/providers/auth_provider.dart';
 import 'package:let_tutor/data/data_sources/remote/auth/auth_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/course/course_api_service.dart';
@@ -84,7 +85,7 @@ final sl = GetIt.instance;
 
 Future<void> initializeDependencies() async {
   // Dio
-  sl.registerSingleton<Dio>(Dio());
+  sl.registerSingleton<Dio>(DioClient.getInstance());
 
   // Shared Preferences
   sl.registerSingletonAsync<SharedPreferences>(SharedPreferences.getInstance);

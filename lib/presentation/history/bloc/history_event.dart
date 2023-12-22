@@ -8,6 +8,6 @@ sealed class HistoryEvent extends Equatable {
 }
 
 final class HistoryFetched extends HistoryEvent {
-  final GetSchedulesUsecaseParams params;
+  final ScheduleParams params;
   const HistoryFetched(this.params);
 }
