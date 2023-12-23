@@ -12,9 +12,7 @@ class _CourseApiService implements CourseApiService {
   _CourseApiService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://sandbox.api.lettutor.com';
-  }
+  });
 
   final Dio _dio;
 
@@ -22,7 +20,6 @@ class _CourseApiService implements CourseApiService {
 
   @override
   Future<HttpResponse<List<CourseModel>>> getListCourses({
-    required String token,
     required int page,
     required int size,
   }) async {
@@ -31,10 +28,7 @@ class _CourseApiService implements CourseApiService {
       r'page': page,
       r'size': size,
     };
-    final _headers = <String, dynamic>{
-      r'Content-Type': 'application/json',
-      r'Authorization': token,
-    };
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(

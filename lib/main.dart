@@ -30,7 +30,6 @@ import 'package:let_tutor/themes/themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,8 +60,6 @@ class MyApp extends StatelessWidget {
             ..add(
               CourseFetching(
                 params: GetListCoursesUsecaseParams(
-                  token:
-                      sl<SharedPreferences>().getString('access-token') ?? "",
                   page: 1,
                   size: 5,
                 ),

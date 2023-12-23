@@ -13,20 +13,17 @@ class GetListCoursesUsecase
   Future<DataState<List<CourseEntity>>> call(
       {GetListCoursesUsecaseParams? params}) {
     return _courseRepository.getListCourses(
-      token: params!.token,
-      page: params.page,
+      page: params!.page,
       size: params.size,
     );
   }
 }
 
 class GetListCoursesUsecaseParams {
-  final String token;
   final int page;
   final int size;
 
   GetListCoursesUsecaseParams({
-    required this.token,
     required this.page,
     required this.size,
   });
@@ -37,7 +34,6 @@ class GetListCoursesUsecaseParams {
     int? size,
   }) {
     return GetListCoursesUsecaseParams(
-      token: token ?? this.token,
       page: page ?? 1,
       size: size ?? 5,
     );

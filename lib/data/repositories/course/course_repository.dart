@@ -12,13 +12,11 @@ class CourseRepositoryImpl implements CourseRepository {
   CourseRepositoryImpl(this._courseApiService);
   @override
   Future<DataState<List<CourseModel>>> getListCourses({
-    required String token,
     required int page,
     required int size,
   }) async {
     try {
       final httpResponse = await _courseApiService.getListCourses(
-        token: 'Bearer $token',
         page: page,
         size: size,
       );
