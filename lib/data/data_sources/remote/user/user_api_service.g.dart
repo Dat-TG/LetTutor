@@ -12,22 +12,17 @@ class _UserApiService implements UserApiService {
   _UserApiService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://sandbox.api.lettutor.com';
-  }
+  });
 
   final Dio _dio;
 
   String? baseUrl;
 
   @override
-  Future<HttpResponse<UserModel>> getUserInfo({required String token}) async {
+  Future<HttpResponse<UserModel>> getUserInfo() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{
-      r'Content-Type': 'application/json',
-      r'Authorization': token,
-    };
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -54,16 +49,11 @@ class _UserApiService implements UserApiService {
   }
 
   @override
-  Future<HttpResponse<UserModel>> updateUserInfo({
-    required String token,
-    required Map<String, dynamic> userInfoBody,
-  }) async {
+  Future<HttpResponse<UserModel>> updateUserInfo(
+      {required Map<String, dynamic> userInfoBody}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{
-      r'Content-Type': 'application/json',
-      r'Authorization': token,
-    };
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(userInfoBody);
@@ -91,14 +81,10 @@ class _UserApiService implements UserApiService {
   }
 
   @override
-  Future<HttpResponse<UserModel>> uploadAvatar({
-    required String token,
-    required File avatar,
-  }) async {
+  Future<HttpResponse<UserModel>> uploadAvatar({required File avatar}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': token};
-    _headers.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
     final _data = FormData();
     _data.files.add(MapEntry(
       'avatar',

@@ -37,7 +37,7 @@ class EditAccountBloc extends Bloc<EditAccountEvent, EditAccountState> {
       user: state.user,
       selectSubjects: state.selectSubjects,
     ));
-    final dataState = await _getUserUsecase(params: event.accessToken);
+    final dataState = await _getUserUsecase();
     if (dataState is DataSuccess && dataState.data != null) {
       sl<AuthProvider>().setUser(dataState.data!);
       emit(AccountLoaded(
@@ -75,11 +75,7 @@ class EditAccountBloc extends Bloc<EditAccountEvent, EditAccountState> {
       selectSubjects: state.selectSubjects,
     ));
     print('level: ${event.userInfoBody.level}');
-    final dataState = await _updateUserInfoUsecase(
-        params: UpdateUserInfoUsecaseParams(
-      token: event.accessToken,
-      userInfoBody: event.userInfoBody,
-    ));
+    final dataState = await _updateUserInfoUsecase(params: event.userInfoBody);
     if (dataState is DataSuccess && dataState.data != null) {
       sl<AuthProvider>().setUser(dataState.data!);
       emit(AccountLoaded(
@@ -107,9 +103,7 @@ class EditAccountBloc extends Bloc<EditAccountEvent, EditAccountState> {
       user: state.user,
       selectSubjects: state.selectSubjects,
     ));
-    final dataState = await _uploadAvatarUsecase(
-        params: UploadAvatarUsecaseParams(
-            token: event.accessToken, image: event.image));
+    final dataState = await _uploadAvatarUsecase(params: event.image);
     print('upload avatar ${dataState.data}');
     if (dataState is DataSuccess && dataState.data != null) {
       sl<AuthProvider>().setUser(sl<AuthProvider>()

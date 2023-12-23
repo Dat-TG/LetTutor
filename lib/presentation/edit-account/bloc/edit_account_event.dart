@@ -8,8 +8,7 @@ sealed class EditAccountEvent extends Equatable {
 }
 
 final class GetAccount extends EditAccountEvent {
-  final String accessToken;
-  const GetAccount({required this.accessToken});
+  const GetAccount();
 }
 
 final class SelectSubjects extends EditAccountEvent {
@@ -19,10 +18,8 @@ final class SelectSubjects extends EditAccountEvent {
 
 final class UpdateAccount extends EditAccountEvent {
   final BuildContext context;
-  final String accessToken;
   final UserInfoBody userInfoBody;
   const UpdateAccount({
-    required this.accessToken,
     required this.userInfoBody,
     required this.context,
   });
@@ -30,10 +27,8 @@ final class UpdateAccount extends EditAccountEvent {
 
 final class UploadAvatar extends EditAccountEvent {
   final BuildContext context;
-  final String accessToken;
   final File image;
   const UploadAvatar({
-    required this.accessToken,
     required this.image,
     required this.context,
   });

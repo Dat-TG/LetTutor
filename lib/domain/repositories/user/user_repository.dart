@@ -4,13 +4,11 @@ import 'package:let_tutor/core/resources/data_state.dart';
 import 'package:let_tutor/domain/entities/user/user_entity.dart';
 
 abstract class UserRepository {
-  Future<DataState<UserEntity>> getUserInfo(String token);
+  Future<DataState<UserEntity>> getUserInfo();
   Future<DataState<UserEntity>> updateUserInfo(
-    String token,
     UserInfoBody userInfoBody,
   );
   Future<DataState<UserEntity>> uploadAvatar(
-    String token,
     File image,
   );
 }

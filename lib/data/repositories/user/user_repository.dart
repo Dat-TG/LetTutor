@@ -11,10 +11,9 @@ class UserRepositoryImpl implements UserRepository {
 
   UserRepositoryImpl(this._userApiService);
   @override
-  Future<DataState<UserModel>> getUserInfo(String token) async {
+  Future<DataState<UserModel>> getUserInfo() async {
     try {
-      final httpResponse =
-          await _userApiService.getUserInfo(token: 'Bearer $token');
+      final httpResponse = await _userApiService.getUserInfo();
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -32,11 +31,10 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<DataState<UserModel>> updateUserInfo(
-      String token, UserInfoBody userInfoBody) async {
+  Future<DataState<UserModel>> updateUserInfo(UserInfoBody userInfoBody) async {
     try {
       final httpResponse = await _userApiService.updateUserInfo(
-          token: 'Bearer $token', userInfoBody: userInfoBody.toJson());
+          userInfoBody: userInfoBody.toJson());
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -54,10 +52,9 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<DataState<UserModel>> uploadAvatar(String token, File image) async {
+  Future<DataState<UserModel>> uploadAvatar(File image) async {
     try {
-      final httpResponse = await _userApiService.uploadAvatar(
-          token: 'Bearer $token', avatar: image);
+      final httpResponse = await _userApiService.uploadAvatar(avatar: image);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {

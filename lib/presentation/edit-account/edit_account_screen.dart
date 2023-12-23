@@ -45,9 +45,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
   @override
   void initState() {
     context.read<EditAccountBloc>().add(
-          GetAccount(
-            accessToken: accessToken,
-          ),
+          const GetAccount(),
         );
     super.initState();
   }
@@ -71,8 +69,9 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
       var res = await Helpers.pickImage();
       print('result upload image: ${res}');
       if (res != null) {
-        context.read<EditAccountBloc>().add(UploadAvatar(
-            accessToken: accessToken, image: res, context: context));
+        context
+            .read<EditAccountBloc>()
+            .add(UploadAvatar(image: res, context: context));
       }
     }
 
@@ -386,19 +385,21 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                                   .add(state.selectSubjects[i].key[0]);
                             }
                           }
-                          context.read<EditAccountBloc>().add(UpdateAccount(
-                              accessToken: accessToken,
-                              userInfoBody: UserInfoBody(
-                                birthday: _birthDateController.text,
-                                country: _countryCodeController.text,
-                                learnTopics: learnTopics,
-                                level: _levelController.text,
-                                name: _nameController.text,
-                                phone: _phoneController.text,
-                                studySchedule: _scheduleController.text,
-                                testPreparations: testPreparations,
-                              ),
-                              context: context));
+                          context.read<EditAccountBloc>().add(
+                                UpdateAccount(
+                                  userInfoBody: UserInfoBody(
+                                    birthday: _birthDateController.text,
+                                    country: _countryCodeController.text,
+                                    learnTopics: learnTopics,
+                                    level: _levelController.text,
+                                    name: _nameController.text,
+                                    phone: _phoneController.text,
+                                    studySchedule: _scheduleController.text,
+                                    testPreparations: testPreparations,
+                                  ),
+                                  context: context,
+                                ),
+                              );
                         }
                       },
                       icon: const Icon(
