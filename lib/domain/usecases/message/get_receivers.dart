@@ -10,8 +10,6 @@ class GetReceiversUsecase
 
   @override
   Future<DataState<List<MessageEntity>>> call({String? params}) {
-    return _messageRepository.getReceivers(
-      token: params!,
-    );
+    return _messageRepository.getReceivers();
   }
 }

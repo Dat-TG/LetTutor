@@ -5,11 +5,9 @@ import 'package:let_tutor/core/providers/auth_provider.dart';
 import 'package:let_tutor/core/providers/dark_mode_provider.dart';
 import 'package:let_tutor/domain/entities/message/message_entity.dart';
 import 'package:let_tutor/domain/usecases/message/get_message_by_user_id.dart';
-import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/presentation/conversation/bloc/conversation_bloc.dart';
 import 'package:let_tutor/presentation/conversation/widgets/message_input.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ConversationBody extends StatefulWidget {
   final String userId;
@@ -22,7 +20,6 @@ class ConversationBody extends StatefulWidget {
 class _ConversationBodyState extends State<ConversationBody> {
   int showTimeAtIndex = -1;
   final ScrollController _controller = ScrollController();
-  final token = sl<SharedPreferences>().getString("access-token") ?? "";
 
   double? oldPosition;
 
@@ -47,7 +44,6 @@ class _ConversationBodyState extends State<ConversationBody> {
     context.read<ConversationBloc>().add(
           GetConversationEvent(
               params: GetMessagesByUserIdUsecaseParams(
-                  token: token,
                   page: 1,
                   perPage: 25,
                   startTime: DateTime.now().millisecondsSinceEpoch,
@@ -63,7 +59,6 @@ class _ConversationBodyState extends State<ConversationBody> {
         context.read<ConversationBloc>().add(
               GetConversationEvent(
                   params: GetMessagesByUserIdUsecaseParams(
-                      token: token,
                       page: (context
                                   .read<ConversationBloc>()
                                   .state
