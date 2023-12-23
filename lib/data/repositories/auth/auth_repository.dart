@@ -147,13 +147,11 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<DataState<String>> changePassword({
-    required String token,
     required String password,
     required String newPassword,
   }) async {
     try {
       final httpResponse = await _authApiService.changePassword(
-        token: 'Bearer $token',
         password: password,
         newPassword: newPassword,
       );

@@ -12,9 +12,7 @@ class _AuthApiService implements AuthApiService {
   _AuthApiService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://sandbox.api.lettutor.com';
-  }
+  });
 
   final Dio _dio;
 
@@ -160,16 +158,12 @@ class _AuthApiService implements AuthApiService {
 
   @override
   Future<HttpResponse<String>> changePassword({
-    required String token,
     required String password,
     required String newPassword,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{
-      r'Content-Type': 'application/json',
-      r'Authorization': token,
-    };
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
     _headers.removeWhere((k, v) => v == null);
     final _data = {
       'password': password,

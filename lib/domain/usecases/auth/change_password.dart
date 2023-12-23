@@ -10,17 +10,18 @@ class ChangePasswordUsecase
   @override
   Future<DataState<String>> call({ChangePassowrdUsecaseParams? params}) {
     return _authRepository.changePassword(
-        token: params!.token,
-        password: params.password,
-        newPassword: params.newPassword);
+      password: params!.password,
+      newPassword: params.newPassword,
+    );
   }
 }
 
 class ChangePassowrdUsecaseParams {
-  final String token;
   final String password;
   final String newPassword;
 
-  ChangePassowrdUsecaseParams(
-      {required this.token, required this.newPassword, required this.password});
+  ChangePassowrdUsecaseParams({
+    required this.newPassword,
+    required this.password,
+  });
 }

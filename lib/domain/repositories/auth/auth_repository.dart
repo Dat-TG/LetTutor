@@ -10,8 +10,8 @@ abstract class AuthRepository {
   Future<DataState<AuthEntity>> register(
       {required String email, required String password});
   Future<DataState<String>> forgotPassword({required String email});
-  Future<DataState<String>> changePassword(
-      {required String token,
-      required String password,
-      required String newPassword});
+  Future<DataState<String>> changePassword({
+    required String password,
+    required String newPassword,
+  });
 }

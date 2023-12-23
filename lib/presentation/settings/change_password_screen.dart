@@ -12,7 +12,6 @@ import 'package:let_tutor/domain/usecases/auth/change_password.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/presentation/login/login_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   static const String routeName = 'change-password';
@@ -25,7 +24,6 @@ class ChangePasswordScreen extends StatefulWidget {
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final ChangePasswordUsecase _changePasswordUsecase =
       sl<ChangePasswordUsecase>();
-  final String token = sl<SharedPreferences>().getString('access-token') ?? "";
 
   final TextEditingController _password = TextEditingController(),
       _newPassword = TextEditingController(),
@@ -112,11 +110,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         isInProgress = true;
                       });
                       _changePasswordUsecase(
-                              params: ChangePassowrdUsecaseParams(
-                                  token: token,
-                                  newPassword: _newPassword.text,
-                                  password: _password.text))
-                          .then((value) {
+                        params: ChangePassowrdUsecaseParams(
+                          newPassword: _newPassword.text,
+                          password: _password.text,
+                        ),
+                      ).then((value) {
                         if (value is DataSuccess) {
                           Helpers.showSnackBar(context, value.data!);
                           Provider.of<AuthProvider>(context, listen: false)
