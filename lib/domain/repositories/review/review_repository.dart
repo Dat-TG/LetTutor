@@ -3,7 +3,6 @@ import 'package:let_tutor/domain/entities/review/review_entity.dart';
 
 abstract class ReviewRepository {
   Future<DataState<List<ReviewEntity>>> getReviews({
-    required String token,
     required ReviewParams params,
   });
 }
