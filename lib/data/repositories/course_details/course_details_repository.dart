@@ -12,12 +12,10 @@ class CourseDetailsRepositoryImpl implements CourseDetailsRepository {
   CourseDetailsRepositoryImpl(this._courseDetailsApiService);
   @override
   Future<DataState<CourseDetailsModel>> getCourseDetails({
-    required String token,
     required String courseId,
   }) async {
     try {
       final httpResponse = await _courseDetailsApiService.getCourseDetails(
-        token: 'Bearer $token',
         courseId: courseId,
       );
       if (httpResponse.response.statusCode == HttpStatus.ok) {
