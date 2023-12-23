@@ -8,24 +8,21 @@ sealed class TutorDetailsEvent extends Equatable {
 }
 
 final class TutorDetailsLoad extends TutorDetailsEvent {
-  final String token;
   final String tutorId;
 
-  const TutorDetailsLoad(this.token, this.tutorId);
+  const TutorDetailsLoad(this.tutorId);
 }
 
 final class FavoriteTutor extends TutorDetailsEvent {
-  final String token;
   final String tutorId;
   final BuildContext context;
 
-  const FavoriteTutor(this.token, this.tutorId, this.context);
+  const FavoriteTutor(this.tutorId, this.context);
 }
 
 final class ReportTutorEvent extends TutorDetailsEvent {
-  final String token;
   final String tutorId;
   final String content;
 
-  const ReportTutorEvent(this.token, this.tutorId, this.content);
+  const ReportTutorEvent(this.tutorId, this.content);
 }

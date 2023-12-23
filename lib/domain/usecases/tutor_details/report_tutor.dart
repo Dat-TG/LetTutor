@@ -10,8 +10,7 @@ class ReportTutorUsecase
   @override
   Future<DataState<String>> call({ReportTutorUsecaseParams? params}) {
     return _tutorDetailsRepository.reportTutor(
-      token: params!.token,
-      tutorId: params.tutorId,
+      tutorId: params!.tutorId,
       content: params.content,
     );
   }
@@ -19,9 +18,7 @@ class ReportTutorUsecase
 
 class ReportTutorUsecaseParams {
   final String tutorId;
-  final String token;
   final String content;
 
-  ReportTutorUsecaseParams(
-      {required this.tutorId, required this.token, required this.content});
+  ReportTutorUsecaseParams({required this.tutorId, required this.content});
 }

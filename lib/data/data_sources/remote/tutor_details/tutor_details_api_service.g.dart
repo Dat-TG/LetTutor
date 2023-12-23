@@ -12,25 +12,18 @@ class _TutorDetailsApiService implements TutorDetailsApiService {
   _TutorDetailsApiService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://sandbox.api.lettutor.com';
-  }
+  });
 
   final Dio _dio;
 
   String? baseUrl;
 
   @override
-  Future<HttpResponse<TutorDetailsModel>> getTutorDetails({
-    required String token,
-    required String tutorId,
-  }) async {
+  Future<HttpResponse<TutorDetailsModel>> getTutorDetails(
+      {required String tutorId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{
-      r'Content-Type': 'application/json',
-      r'Authorization': token,
-    };
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -58,16 +51,12 @@ class _TutorDetailsApiService implements TutorDetailsApiService {
 
   @override
   Future<HttpResponse<String>> report({
-    required String token,
     required String tutorId,
     required String content,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{
-      r'Content-Type': 'application/json',
-      r'Authorization': token,
-    };
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
     _headers.removeWhere((k, v) => v == null);
     final _data = {
       'tutorId': tutorId,

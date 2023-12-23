@@ -3,12 +3,10 @@ import 'package:let_tutor/domain/entities/tutor_details/tutor_details_entity.dar
 
 abstract class TutorDetailsRepository {
   Future<DataState<TutorDetailsEntity>> getTutorDetails({
-    required String token,
     required String id,
   });
 
   Future<DataState<String>> reportTutor({
-    required String token,
     required String tutorId,
     required String content,
   });
