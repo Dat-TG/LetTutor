@@ -10,13 +10,10 @@ class TotalLessonTimeRepositoryImpl implements TotalLessonTimeRepository {
 
   TotalLessonTimeRepositoryImpl(this._totalLessonTimeApiService);
   @override
-  Future<DataState<int>> getTotalLessonTime({
-    required String token,
-  }) async {
+  Future<DataState<int>> getTotalLessonTime() async {
     try {
-      final httpResponse = await _totalLessonTimeApiService.getTotalLessonTime(
-        token: 'Bearer $token',
-      );
+      final httpResponse =
+          await _totalLessonTimeApiService.getTotalLessonTime();
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {

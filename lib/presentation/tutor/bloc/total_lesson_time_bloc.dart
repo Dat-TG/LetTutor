@@ -3,8 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:let_tutor/core/resources/data_state.dart';
 import 'package:let_tutor/domain/usecases/total_lesson_time/get_total_lesson_time.dart';
-import 'package:let_tutor/injection_container.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 part 'total_lesson_time_event.dart';
 part 'total_lesson_time_state.dart';
@@ -12,7 +10,6 @@ part 'total_lesson_time_state.dart';
 class TotalLessonTimeBloc
     extends Bloc<TotalLessonTimeEvent, TotalLessonTimeState> {
   final GetTotalLessonTimeUsecase _getTotalLessonTime;
-  final token = sl<SharedPreferences>().getString('access-token')!;
   TotalLessonTimeBloc(this._getTotalLessonTime)
       : super(const TotalLessonTimeLoading(0)) {
     on<TotalLessonTimeFetched>(onTotalLessonTimeFetched);
@@ -24,9 +21,7 @@ class TotalLessonTimeBloc
       state.totalLessonTime ?? 0,
     ));
 
-    final dataState = await _getTotalLessonTime(
-      params: token,
-    );
+    final dataState = await _getTotalLessonTime();
 
     print('Fetch total time: ${dataState.data.toString()}');
 
