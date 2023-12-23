@@ -12,26 +12,20 @@ class _UpcomingLessonApiService implements UpcomingLessonApiService {
   _UpcomingLessonApiService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://sandbox.api.lettutor.com';
-  }
+  });
 
   final Dio _dio;
 
   String? baseUrl;
 
   @override
-  Future<HttpResponse<UpcomingLessonModel?>> getUpcomingLesson(
-      {required String token}) async {
+  Future<HttpResponse<UpcomingLessonModel?>> getUpcomingLesson() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{
-      r'Content-Type': 'application/json',
-      r'Authorization': token,
-    };
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
+    final _result = await _dio.fetch<Map<String, dynamic>?>(
         _setStreamType<HttpResponse<UpcomingLessonModel>>(Options(
       method: 'GET',
       headers: _headers,

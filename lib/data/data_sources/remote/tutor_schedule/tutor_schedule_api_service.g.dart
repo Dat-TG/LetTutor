@@ -30,7 +30,7 @@ class _TutorScheduleApiService implements TutorScheduleApiService {
     };
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
+    final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<HttpResponse<List<ScheduleOfTutorModel>>>(Options(
       method: 'GET',
       headers: _headers,
@@ -47,8 +47,8 @@ class _TutorScheduleApiService implements TutorScheduleApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    List<ScheduleOfTutorModel> value = _result.data!['scheduleOfTutor']
-        .map<ScheduleOfTutorModel>((dynamic i) =>
+    var value = _result.data!
+        .map((dynamic i) =>
             ScheduleOfTutorModel.fromJson(i as Map<String, dynamic>))
         .toList();
     final httpResponse = HttpResponse(value, _result);
@@ -64,8 +64,8 @@ class _TutorScheduleApiService implements TutorScheduleApiService {
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<String>>(Options(
+    final _result =
+        await _dio.fetch<String>(_setStreamType<HttpResponse<String>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -82,7 +82,7 @@ class _TutorScheduleApiService implements TutorScheduleApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    String value = _result.data!['message'];
+    final value = _result.data!;
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

@@ -10,6 +10,6 @@ class GetUpcomingLessonUsecase
 
   @override
   Future<DataState<UpcomingLessonEntity?>> call({String? params}) {
-    return _upcomingLessonRepository.getUpcomingLesson(token: params ?? "");
+    return _upcomingLessonRepository.getUpcomingLesson();
   }
 }
