@@ -4,37 +4,14 @@ import 'package:let_tutor/domain/entities/tutor/tutor_entity.dart';
 import 'package:let_tutor/domain/repositories/tutor/tutor_repositoy.dart';
 
 class SearchTutorsUsecase
-    implements
-        UseCase<DataState<List<TutorEntity>>, SearchTutorsUsecaseParams> {
+    implements UseCase<DataState<List<TutorEntity>>, TutorSearchParams> {
   final TutorRepository _tutorRepository;
   SearchTutorsUsecase(this._tutorRepository);
 
   @override
-  Future<DataState<List<TutorEntity>>> call(
-      {SearchTutorsUsecaseParams? params}) {
+  Future<DataState<List<TutorEntity>>> call({TutorSearchParams? params}) {
     return _tutorRepository.getTutors(
-      token: params!.token,
-      params: params.params,
-    );
-  }
-}
-
-class SearchTutorsUsecaseParams {
-  final String token;
-  final TutorSearchParams params;
-
-  SearchTutorsUsecaseParams({
-    required this.token,
-    required this.params,
-  });
-
-  SearchTutorsUsecaseParams copyWith({
-    String? token,
-    TutorSearchParams? params,
-  }) {
-    return SearchTutorsUsecaseParams(
-      token: token ?? this.token,
-      params: params ?? this.params,
+      params: params!,
     );
   }
 }

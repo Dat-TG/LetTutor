@@ -22,12 +22,9 @@ class HomeTutorBloc extends Bloc<HomeTutorEvent, HomeTutorState> {
     emit(const TutorFetching());
 
     final datastate = await _searchTutorsUsecase(
-      params: SearchTutorsUsecaseParams(
-        token: token,
-        params: TutorSearchParams(
-          page: 1,
-          perPage: 5,
-        ),
+      params: TutorSearchParams(
+        page: 1,
+        perPage: 5,
       ),
     );
 

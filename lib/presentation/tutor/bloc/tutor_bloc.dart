@@ -10,8 +10,6 @@ import 'package:let_tutor/domain/entities/tutor/tutor_entity.dart';
 import 'package:let_tutor/domain/repositories/tutor/tutor_repositoy.dart';
 import 'package:let_tutor/domain/usecases/tutor/favorite_tutor.dart';
 import 'package:let_tutor/domain/usecases/tutor/search_tutors.dart';
-import 'package:let_tutor/injection_container.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'tutor_event.dart';
@@ -20,15 +18,11 @@ part 'tutor_state.dart';
 class TutorBloc extends Bloc<TutorEvent, TutorState> {
   final SearchTutorsUsecase _searchTutorsUsecase;
   final FavoriteTutorUsecase _favoriteTutorUsecase;
-  final token = sl<SharedPreferences>().getString('access-token')!;
   TutorBloc(this._searchTutorsUsecase, this._favoriteTutorUsecase)
       : super(
           TutorSearchInProgress(
               const [],
-              SearchTutorsUsecaseParams(
-                token: sl<SharedPreferences>().getString('access-token')!,
-                params: TutorSearchParams(),
-              ),
+              TutorSearchParams(),
               true,
               true,
               true,
@@ -51,11 +45,10 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
     emit(TutorSearchInProgress(
       state.tutors ?? [],
       event.params.copyWith(
-          params: event.params.params.copyWith(
-        page: state.params?.params.page ?? 0,
+        page: state.params?.page ?? 0,
         isNative: state.isEN,
         isVietnamese: state.isVN,
-      )),
+      ),
       state.isVN,
       state.isEN,
       state.isForeign,
@@ -68,11 +61,10 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
 
     final dataState = await _searchTutorsUsecase(params: event.params);
     print(
-        'page ${event.params.params.page} ${state.params?.params.page} ${state.params?.params.specialties} ${dataState.data?.length}');
+        'page ${event.params.page} ${state.params?.page} ${state.params?.specialties} ${dataState.data?.length}');
     if (dataState is DataSuccess) {
       if (dataState.data!.isNotEmpty) {
-        if ((event.params.params.page ?? 0) >
-            (state.params?.params.page ?? 0)) {
+        if ((event.params.page ?? 0) > (state.params?.page ?? 0)) {
           emit(TutorSearchSuccess(
             [...(state.tutors ?? []), ...(dataState.data ?? [])],
             event.params,
@@ -100,12 +92,11 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
           ));
         }
       } else {
-        if (event.params.params.page! == 1 || state.tutors!.isEmpty) {
+        if (event.params.page! == 1 || state.tutors!.isEmpty) {
           emit(TutorNotFound(
             const [],
             state.params!.copyWith(
-                params: state.params!.params.copyWith(
-                    page: 1, isNative: state.isEN, isVietnamese: state.isVN)),
+                page: 1, isNative: state.isEN, isVietnamese: state.isVN),
             state.isVN,
             state.isEN,
             state.isForeign,
@@ -153,12 +144,9 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
     emit(TutorUpdateFilters(
       state.tutors ?? [],
       (state.isVN == event.isEN && event.isEN == state.isForeign)
-          ? state.params!.copyWith(
-              params: state.params!.params
-                  .copyWith(isVietnamese: null, isNative: null, page: 1))
+          ? state.params!.copyWith(isVietnamese: null, isNative: null, page: 1)
           : state.params!.copyWith(
-              params: state.params!.params.copyWith(
-                  isNative: event.isEN, isVietnamese: state.isVN, page: 1)),
+              isNative: event.isEN, isVietnamese: state.isVN, page: 1),
       state.isVN,
       event.isEN,
       state.isForeign,
@@ -174,12 +162,9 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
     emit(TutorUpdateFilters(
       state.tutors ?? [],
       (event.isVN == state.isEN && state.isEN == state.isForeign)
-          ? state.params!.copyWith(
-              params: state.params!.params
-                  .copyWith(isVietnamese: null, isNative: null, page: 1))
+          ? state.params!.copyWith(isVietnamese: null, isNative: null, page: 1)
           : state.params!.copyWith(
-              params: state.params!.params.copyWith(
-                  isVietnamese: event.isVN, isNative: state.isEN, page: 1)),
+              isVietnamese: event.isVN, isNative: state.isEN, page: 1),
       event.isVN,
       state.isEN,
       state.isForeign,
@@ -196,12 +181,11 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
     emit(TutorUpdateFilters(
       state.tutors ?? [],
       state.params!.copyWith(
-          params: state.params!.params.copyWith(
         isVietnamese: state.isVN,
         isNative: state.isEN,
         page: 1,
         specialties: event.selectedSpecialties.map((e) => e.key).toList(),
-      )),
+      ),
       state.isVN,
       state.isEN,
       state.isForeign,
@@ -217,12 +201,9 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
     emit(TutorUpdateFilters(
       state.tutors ?? [],
       (state.isVN == state.isEN && state.isEN == event.isForeign)
-          ? state.params!.copyWith(
-              params: state.params!.params
-                  .copyWith(isVietnamese: null, isNative: null, page: 1))
+          ? state.params!.copyWith(isVietnamese: null, isNative: null, page: 1)
           : state.params!.copyWith(
-              params: state.params!.params.copyWith(
-                  page: 1, isNative: state.isEN, isVietnamese: state.isVN)),
+              page: 1, isNative: state.isEN, isVietnamese: state.isVN),
       state.isVN,
       state.isEN,
       event.isForeign,
@@ -236,7 +217,7 @@ class TutorBloc extends Bloc<TutorEvent, TutorState> {
 
   void onFavoriteTutor(FavoriteTutor event, Emitter<TutorState> emit) async {
     final dataState = await _favoriteTutorUsecase(
-      params: FavoriteTutorUsecaseParams(token: token, tutorId: event.tutorId),
+      params: event.tutorId,
     );
     if (dataState is DataSuccess) {
       if (state.tutors?[event.index].isFavoriteTutor == true) {

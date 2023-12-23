@@ -46,8 +46,7 @@ class TutorDetailsBloc extends Bloc<TutorDetailsEvent, TutorDetailsState> {
   void onFavoriteTutor(
       FavoriteTutor event, Emitter<TutorDetailsState> emit) async {
     final dataState = await _favoriteTutorUsecase(
-      params: FavoriteTutorUsecaseParams(
-          token: event.token, tutorId: event.tutorId),
+      params: event.tutorId,
     );
     if (dataState is DataSuccess) {
       if (state.tutorDetails?.isFavorite == true) {

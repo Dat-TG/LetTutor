@@ -3,12 +3,10 @@ import 'package:let_tutor/domain/entities/tutor/tutor_entity.dart';
 
 abstract class TutorRepository {
   Future<DataState<List<TutorEntity>>> getTutors({
-    required String token,
     required TutorSearchParams params,
   });
 
   Future<DataState<bool>> favoriteTutor({
-    required String token,
     required String tutorId,
   });
 }

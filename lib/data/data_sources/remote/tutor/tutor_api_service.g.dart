@@ -12,25 +12,18 @@ class _TutorApiService implements TutorApiService {
   _TutorApiService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://sandbox.api.lettutor.com';
-  }
+  });
 
   final Dio _dio;
 
   String? baseUrl;
 
   @override
-  Future<HttpResponse<List<TutorModel>>> searchTutors({
-    required String token,
-    required TutorSearchParams params,
-  }) async {
+  Future<HttpResponse<List<TutorModel>>> searchTutors(
+      {required TutorSearchParams params}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{
-      r'Content-Type': 'application/json',
-      r'Authorization': token,
-    };
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(params.toJson());
@@ -61,16 +54,11 @@ class _TutorApiService implements TutorApiService {
   }
 
   @override
-  Future<HttpResponse<bool>> favoriteTutor({
-    required String token,
-    required Map<String, dynamic> body,
-  }) async {
+  Future<HttpResponse<bool>> favoriteTutor(
+      {required Map<String, dynamic> body}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{
-      r'Content-Type': 'application/json',
-      r'Authorization': token,
-    };
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(body);

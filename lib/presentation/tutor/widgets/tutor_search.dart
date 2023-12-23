@@ -179,23 +179,16 @@ class _TutorSearchState extends State<TutorSearch> {
                   context.read<TutorBloc>().add(
                         TutorSearching(
                           context.read<TutorBloc>().state.params!.copyWith(
-                                params: context
-                                    .read<TutorBloc>()
-                                    .state
-                                    .params!
-                                    .params
-                                    .copyWith(
-                                      search: state.nameController.text,
-                                      page: 1,
-                                      isNative: (state.isEN == state.isVN &&
-                                              state.isVN == state.isForeign)
-                                          ? null
-                                          : state.isEN,
-                                      isVietnamese: (state.isEN == state.isVN &&
-                                              state.isVN == state.isForeign)
-                                          ? null
-                                          : state.isVN,
-                                    ),
+                                search: state.nameController.text,
+                                page: 1,
+                                isNative: (state.isEN == state.isVN &&
+                                        state.isVN == state.isForeign)
+                                    ? null
+                                    : state.isEN,
+                                isVietnamese: (state.isEN == state.isVN &&
+                                        state.isVN == state.isForeign)
+                                    ? null
+                                    : state.isVN,
                               ),
                         ),
                       );
