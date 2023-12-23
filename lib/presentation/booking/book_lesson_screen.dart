@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:let_tutor/domain/usecases/tutor_schedule/get_schedule_of_tutor.dart';
-import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/presentation/booking/bloc/booking_bloc.dart';
 import 'package:let_tutor/presentation/booking/widgets/time_table.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -22,12 +20,16 @@ class _BookLessonScreenState extends State<BookLessonScreen> {
   DateTime _selectedDay = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.month;
   var calendarKey = GlobalKey();
-  final token = sl<SharedPreferences>().getString('access-token') ?? "";
   @override
   void initState() {
-    context.read<BookingBloc>().add(BookingScheduleFetched(
-        GetScheduleOfTutorUsecaseParams(
-            page: 0, token: token, tutorId: widget.tutorId)));
+    context.read<BookingBloc>().add(
+          BookingScheduleFetched(
+            GetScheduleOfTutorUsecaseParams(
+              page: 0,
+              tutorId: widget.tutorId,
+            ),
+          ),
+        );
     super.initState();
   }
 
@@ -57,12 +59,16 @@ class _BookLessonScreenState extends State<BookLessonScreen> {
                   _selectedDay = selectedDay;
                   //print(
                   //  'difference in days: ${selectedDay.difference(DateTime.now()).inDays}');
-                  context.read<BookingBloc>().add(BookingScheduleFetched(
-                      GetScheduleOfTutorUsecaseParams(
-                          page: selectedDay.difference(DateTime.now()).inDays ~/
-                              7,
-                          token: token,
-                          tutorId: widget.tutorId)));
+                  context.read<BookingBloc>().add(
+                        BookingScheduleFetched(
+                          GetScheduleOfTutorUsecaseParams(
+                              page: selectedDay
+                                      .difference(DateTime.now())
+                                      .inDays ~/
+                                  7,
+                              tutorId: widget.tutorId),
+                        ),
+                      );
                   // _focusedDay = focusedDay; // update `_focusedDay` here as well
                 });
               },

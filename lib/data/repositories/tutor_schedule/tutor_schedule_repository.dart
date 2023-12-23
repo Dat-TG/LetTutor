@@ -12,13 +12,11 @@ class TutorScheduleRepositoryImpl implements TutorScheduleRepository {
   TutorScheduleRepositoryImpl(this._tutorScheduleApiService);
   @override
   Future<DataState<List<ScheduleOfTutorModel>>> getScheduleOfTutor({
-    required String token,
     required String tutorId,
     required int page,
   }) async {
     try {
       final httpResponse = await _tutorScheduleApiService.getScheduleOfTutor(
-        token: 'Bearer $token',
         tutorId: tutorId,
         page: page,
       );
@@ -40,12 +38,10 @@ class TutorScheduleRepositoryImpl implements TutorScheduleRepository {
 
   @override
   Future<DataState<String>> bookingSchedule({
-    required String token,
     required BookingScheduleBody body,
   }) async {
     try {
       final httpResponse = await _tutorScheduleApiService.bookingSchedule(
-        token: 'Bearer $token',
         body: body,
       );
       if (httpResponse.response.statusCode == HttpStatus.ok) {

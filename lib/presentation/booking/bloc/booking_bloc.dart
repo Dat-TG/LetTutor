@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:let_tutor/core/providers/auth_provider.dart';
 import 'package:let_tutor/core/resources/data_state.dart';
 import 'package:let_tutor/domain/entities/tutor_schedule/tutor_schedule_entity.dart';
+import 'package:let_tutor/domain/repositories/tutor_schedule/tutor_schedule_repository.dart';
 import 'package:let_tutor/domain/usecases/tutor_schedule/booking_schedule.dart';
 import 'package:let_tutor/domain/usecases/tutor_schedule/get_schedule_of_tutor.dart';
 import 'package:let_tutor/domain/usecases/user/get_user.dart';
@@ -58,7 +59,7 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
     print('onBooking: ${dataState.data!}');
 
     if (dataState is DataSuccess) {
-      final user = await _getUserUsecase(params: event.params.token);
+      final user = await _getUserUsecase();
       if (dataState is DataSuccess && dataState.data != null) {
         sl<AuthProvider>().setUser(user.data!);
       }

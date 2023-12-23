@@ -12,9 +12,7 @@ class _TutorScheduleApiService implements TutorScheduleApiService {
   _TutorScheduleApiService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://sandbox.api.lettutor.com';
-  }
+  });
 
   final Dio _dio;
 
@@ -22,7 +20,6 @@ class _TutorScheduleApiService implements TutorScheduleApiService {
 
   @override
   Future<HttpResponse<List<ScheduleOfTutorModel>>> getScheduleOfTutor({
-    required String token,
     required String tutorId,
     required int page,
   }) async {
@@ -31,8 +28,7 @@ class _TutorScheduleApiService implements TutorScheduleApiService {
       r'tutorId': tutorId,
       r'page': page,
     };
-    final _headers = <String, dynamic>{r'Authorization': token};
-    _headers.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<List<ScheduleOfTutorModel>>>(Options(
@@ -60,18 +56,14 @@ class _TutorScheduleApiService implements TutorScheduleApiService {
   }
 
   @override
-  Future<HttpResponse<String>> bookingSchedule({
-    required String token,
-    required BookingScheduleBody body,
-  }) async {
+  Future<HttpResponse<String>> bookingSchedule(
+      {required BookingScheduleBody body}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{
-      r'Content-Type': 'application/json',
-      r'Authorization': token,
-    };
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
     _headers.removeWhere((k, v) => v == null);
-    final _data = body.toJson();
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<String>>(Options(
       method: 'POST',
