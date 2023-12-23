@@ -12,12 +12,10 @@ import 'package:let_tutor/core/common/custom_textfield.dart';
 import 'package:let_tutor/core/common/dropdown_select.dart';
 import 'package:let_tutor/core/utils/validators.dart';
 import 'package:let_tutor/domain/repositories/user/user_repository.dart';
-import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/presentation/edit-account/bloc/edit_account_bloc.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tag_card.dart';
 import 'package:let_tutor/core/utils/constants.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class EditAccountScreen extends StatefulWidget {
   static const String routeName = 'edit-account';
@@ -39,8 +37,6 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
       _levelController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  final accessToken = sl<SharedPreferences>().getString('access-token') ?? "";
 
   @override
   void initState() {
@@ -67,7 +63,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
   Widget build(BuildContext context) {
     void selectImage() async {
       var res = await Helpers.pickImage();
-      print('result upload image: ${res}');
+      print('result upload image: $res');
       if (res != null) {
         context
             .read<EditAccountBloc>()

@@ -36,7 +36,6 @@ class GetMessagesByUserIdUsecaseParams {
   });
 
   GetMessagesByUserIdUsecaseParams copyWith({
-    String? token,
     String? userId,
     int? startTime,
     int? page,

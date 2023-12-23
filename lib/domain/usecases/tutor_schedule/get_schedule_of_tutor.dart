@@ -30,7 +30,6 @@ class GetScheduleOfTutorUsecaseParams {
   GetScheduleOfTutorUsecaseParams copyWith({
     int? page,
     String? tutorId,
-    String? token,
   }) {
     return GetScheduleOfTutorUsecaseParams(
       page: page ?? this.page,

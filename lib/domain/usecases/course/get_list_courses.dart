@@ -29,7 +29,6 @@ class GetListCoursesUsecaseParams {
   });
 
   GetListCoursesUsecaseParams copyWith({
-    String? token,
     int? page,
     int? size,
   }) {
