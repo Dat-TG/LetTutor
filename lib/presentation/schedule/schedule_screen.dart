@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:let_tutor/core/providers/locale_provider.dart';
+import 'package:let_tutor/domain/repositories/schedule/schedule_repository.dart';
 import 'package:let_tutor/presentation/details-course/widgets/course_details_title_big.dart';
 import 'package:let_tutor/presentation/schedule/bloc/schedule_bloc.dart';
 import 'package:let_tutor/presentation/schedule/widgets/schedule_banner.dart';
@@ -9,8 +10,45 @@ import 'package:let_tutor/presentation/schedule/widgets/schedule_not_found_widge
 import 'package:let_tutor/presentation/schedule/widgets/single_schedule.dart';
 import 'package:provider/provider.dart';
 
-class ScheduleScreen extends StatelessWidget {
+class ScheduleScreen extends StatefulWidget {
   const ScheduleScreen({super.key});
+
+  @override
+  State<ScheduleScreen> createState() => _ScheduleScreenState();
+}
+
+class _ScheduleScreenState extends State<ScheduleScreen> {
+  final ScrollController _scrollController = ScrollController();
+  void _scrollListener() {
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        !_scrollController.position.outOfRange) {
+      if (context.read<ScheduleBloc>().state is! ScheduleComplete) {
+        // Load more data
+        context.read<ScheduleBloc>().add(
+              ScheduleFetched(
+                ScheduleParams(
+                  page: context.read<ScheduleBloc>().state.params!.page! + 1,
+                  perPage: 10,
+                ),
+              ),
+            );
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    _scrollController.addListener(_scrollListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +56,7 @@ class ScheduleScreen extends StatelessWidget {
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
         return ListView.builder(
+            controller: _scrollController,
             itemCount: (state.schedules?.length ?? 0) + 2,
             itemBuilder: (context, index) {
               if (index == 0) {
@@ -101,7 +140,7 @@ class ScheduleScreen extends StatelessWidget {
                     bool isSameDay = startTime.day == startTimePrev.day &&
                         startTime.month == startTimePrev.month &&
                         startTime.year == startTimePrev.year;
-                    return isSameDay
+                    return !isSameDay
                         ? Padding(
                             padding: const EdgeInsets.only(
                               left: 20,
