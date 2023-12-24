@@ -140,7 +140,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     bool isSameDay = startTime.day == startTimePrev.day &&
                         startTime.month == startTimePrev.month &&
                         startTime.year == startTimePrev.year;
-                    return isSameDay
+                    return !isSameDay
                         ? Padding(
                             padding: const EdgeInsets.only(
                               left: 20,
