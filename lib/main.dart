@@ -6,12 +6,14 @@ import 'package:let_tutor/core/providers/locale_provider.dart';
 import 'package:let_tutor/core/routers/my_router.dart';
 import 'package:let_tutor/domain/repositories/schedule/schedule_repository.dart';
 import 'package:let_tutor/domain/usecases/course/get_list_courses.dart';
+import 'package:let_tutor/domain/usecases/ebook/get_list_ebooks.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/l10n/l10n.dart';
 import 'package:let_tutor/presentation/become-tutor/bloc/become_tutor_bloc.dart';
 import 'package:let_tutor/presentation/booking/bloc/booking_bloc.dart';
 import 'package:let_tutor/presentation/conversation/bloc/conversation_bloc.dart';
 import 'package:let_tutor/presentation/course/bloc/course_bloc.dart';
+import 'package:let_tutor/presentation/course/bloc/ebook_bloc.dart';
 import 'package:let_tutor/presentation/details-course/bloc/course_details_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/review_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/tutor_details_bloc.dart';
@@ -60,6 +62,17 @@ class MyApp extends StatelessWidget {
             ..add(
               CourseFetching(
                 params: GetListCoursesUsecaseParams(
+                  page: 1,
+                  size: 5,
+                ),
+              ),
+            ),
+        ),
+        BlocProvider(
+          create: (context) => sl<EbookBloc>()
+            ..add(
+              EbookFetching(
+                params: GetListEbooksUsecaseParams(
                   page: 1,
                   size: 5,
                 ),

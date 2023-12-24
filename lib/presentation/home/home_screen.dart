@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:let_tutor/domain/entities/ebook/ebook_entity.dart';
 import 'package:let_tutor/presentation/course/widgets/all_courses.dart';
 import 'package:let_tutor/presentation/course/widgets/all_ebooks.dart';
 import 'package:let_tutor/presentation/course/widgets/course_card.dart';
@@ -188,18 +189,7 @@ class HomeScreen extends StatelessWidget {
           ),
           CarouselSlider(
             items: const [
-              EbookCard(
-                  url:
-                      'https://drive.google.com/drive/folders/1vdnKwSEr9v5yc3gEX90mqeuPdXkx3RY7'),
-              EbookCard(
-                  url:
-                      'https://drive.google.com/drive/folders/1vdnKwSEr9v5yc3gEX90mqeuPdXkx3RY7'),
-              EbookCard(
-                  url:
-                      'https://drive.google.com/drive/folders/1vdnKwSEr9v5yc3gEX90mqeuPdXkx3RY7'),
-              EbookCard(
-                  url:
-                      'https://drive.google.com/drive/folders/1vdnKwSEr9v5yc3gEX90mqeuPdXkx3RY7'),
+              EbookCard(ebook: EbookEntity()),
             ],
             options: CarouselOptions(
               height: 311,

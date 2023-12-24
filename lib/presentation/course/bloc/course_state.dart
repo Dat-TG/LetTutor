@@ -11,7 +11,7 @@ sealed class CourseState extends Equatable {
   });
 
   @override
-  List<Object?> get props => [courses, error];
+  List<Object?> get props => [courses, error, params];
 }
 
 final class CourseLoading extends CourseState {
