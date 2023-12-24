@@ -77,6 +77,7 @@ import 'package:let_tutor/presentation/details-tutor/bloc/tutor_details_bloc.dar
 import 'package:let_tutor/presentation/edit-account/bloc/edit_account_bloc.dart';
 import 'package:let_tutor/presentation/history/bloc/history_bloc.dart';
 import 'package:let_tutor/presentation/home/bloc/home_course_bloc.dart';
+import 'package:let_tutor/presentation/home/bloc/home_ebook_bloc.dart';
 import 'package:let_tutor/presentation/home/bloc/home_tutor_bloc.dart';
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
 import 'package:let_tutor/presentation/messenger/bloc/message_bloc.dart';
@@ -187,4 +188,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<MessageBloc>(() => MessageBloc(sl()));
   sl.registerFactory<ConversationBloc>(() => ConversationBloc(sl()));
   sl.registerFactory<EbookBloc>(() => EbookBloc(sl()));
+  sl.registerFactory<HomeEbookBloc>(() => HomeEbookBloc(sl()));
 }

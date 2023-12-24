@@ -51,7 +51,7 @@ class EbookCard extends StatelessWidget {
             color: Theme.of(context).splashColor,
           ),
           width: isExpanded ? null : 250,
-          height: isExpanded ? null : 311,
+          height: isExpanded ? null : 320,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

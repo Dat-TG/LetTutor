@@ -21,6 +21,8 @@ import 'package:let_tutor/presentation/edit-account/bloc/edit_account_bloc.dart'
 import 'package:let_tutor/presentation/history/bloc/history_bloc.dart';
 import 'package:let_tutor/presentation/home/bloc/home_course_bloc.dart'
     hide CourseFetching;
+import 'package:let_tutor/presentation/home/bloc/home_ebook_bloc.dart'
+    hide EbookFetching;
 import 'package:let_tutor/presentation/home/bloc/home_tutor_bloc.dart';
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
 import 'package:let_tutor/presentation/messenger/bloc/message_bloc.dart';
@@ -109,6 +111,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 sl<HomeCourseBloc>()..add(const FetchCourse())),
+        BlocProvider(
+            create: (context) => sl<HomeEbookBloc>()..add(const FetchEbook())),
         BlocProvider(create: (context) => sl<BecomeTutorBloc>()),
         BlocProvider(
             create: (context) =>
