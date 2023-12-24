@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
+import 'package:let_tutor/presentation/course/bloc/course_bloc.dart';
 import 'package:let_tutor/presentation/course/widgets/choose_sort_option.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tag_card.dart';
 import 'package:let_tutor/core/utils/constants.dart';
@@ -14,148 +16,167 @@ class CourseSearch extends StatefulWidget {
 }
 
 class _CourseSearchState extends State<CourseSearch> {
-  List<MapEntry<int, String>> selectedLevels = [];
-  List<MapEntry<String, String>> selectedCategories = [];
-  final TextEditingController sortOptionController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
-    List<String> sortOptions = [
-      AppLocalizations.of(context)!.notSort,
-      AppLocalizations.of(context)!.levelASC,
-      AppLocalizations.of(context)!.levelDESC,
+    List<MapEntry<String, String>> sortOptions = [
+      MapEntry('', AppLocalizations.of(context)!.notSort),
+      MapEntry('ASC', AppLocalizations.of(context)!.levelASC),
+      MapEntry('DESC', AppLocalizations.of(context)!.levelDESC),
     ];
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TextField(
-          decoration: InputDecoration(
-            hintText: AppLocalizations.of(context)!.enterCourseName,
-            border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
+    return BlocBuilder<CourseBloc, CourseState>(
+      builder: (context, state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                hintText: AppLocalizations.of(context)!.enterCourseName,
+                border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                  borderSide: BorderSide(
+                    color: Colors.black54,
+                    width: 1,
+                  ),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 15,
+                ),
               ),
-              borderSide: BorderSide(
-                color: Colors.black54,
-                width: 1,
+              controller: state.q,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              AppLocalizations.of(context)!.courseLevel,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
               ),
             ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 15,
+            const SizedBox(
+              height: 10,
             ),
-          ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Text(
-          AppLocalizations.of(context)!.courseLevel,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        CustomButton(
-            title: AppLocalizations.of(context)!.chooseLevel,
-            backgroundColor: Theme.of(context).splashColor,
-            titleColor: Theme.of(context).primaryColor,
-            borderColor: Theme.of(context).primaryColor,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 15,
-              vertical: 10,
+            CustomButton(
+                title: AppLocalizations.of(context)!.chooseLevel,
+                backgroundColor: Theme.of(context).splashColor,
+                titleColor: Theme.of(context).primaryColor,
+                borderColor: Theme.of(context).primaryColor,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                  vertical: 10,
+                ),
+                callback: () {
+                  Helpers.openFilterDialog(
+                      context, AppConstants.courseLevels, state.level!,
+                      (List<MapEntry<dynamic, dynamic>> list) {
+                    print('event update level');
+                    context.read<CourseBloc>().add(
+                          CourseUpdateLevel(
+                            level: list
+                                .map(
+                                  (e) =>
+                                      MapEntry(e.key as int, e.value as String),
+                                )
+                                .toList(),
+                          ),
+                        );
+                  });
+                }),
+            const SizedBox(
+              height: 10,
             ),
-            callback: () {
-              Helpers.openFilterDialog(
-                  context, AppConstants.courseLevels, selectedLevels,
-                  (List<MapEntry<int, String>> list) {
-                setState(() {
-                  selectedLevels = list;
-                });
-              });
-            }),
-        const SizedBox(
-          height: 10,
-        ),
-        Wrap(
-          spacing: 10,
-          runSpacing: 10,
-          children: (selectedLevels.length < AppConstants.courseLevels.length)
-              ? selectedLevels.map((e) => TagCard(name: e.value)).toList()
-              : [const TagCard(name: 'All')],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Text(
-          AppLocalizations.of(context)!.courseCategory,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        CustomButton(
-            title: AppLocalizations.of(context)!.chooseCategory,
-            backgroundColor: Theme.of(context).splashColor,
-            titleColor: Theme.of(context).primaryColor,
-            borderColor: Theme.of(context).primaryColor,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 15,
-              vertical: 10,
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: (state.level!.length < AppConstants.courseLevels.length)
+                  ? state.level!.map((e) => TagCard(name: e.value)).toList()
+                  : [TagCard(name: AppLocalizations.of(context)!.all)],
             ),
-            callback: () {
-              Helpers.openFilterDialog(
-                  context, AppConstants.courseCategories, selectedCategories,
-                  (List<MapEntry<String, String>> list) {
-                setState(() {
-                  selectedCategories = list;
-                });
-              });
-            }),
-        const SizedBox(
-          height: 10,
-        ),
-        Wrap(
-          spacing: 10,
-          runSpacing: 10,
-          children: (selectedCategories.length <
-                  AppConstants.courseCategories.length)
-              ? selectedCategories.map((e) => TagCard(name: e.value)).toList()
-              : [const TagCard(name: 'All')],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        ChooseSortOption(
-          sortOptionController: sortOptionController,
-          sortOptions: sortOptions,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: CustomButton(
-            title: AppLocalizations.of(context)!.search,
-            icon: const Icon(
-              Icons.search,
-              color: Colors.white,
-              size: 20,
+            const SizedBox(
+              height: 10,
             ),
-            callback: () {},
-            padding: const EdgeInsets.symmetric(
-              horizontal: 15,
-              vertical: 10,
+            Text(
+              AppLocalizations.of(context)!.courseCategory,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
             ),
-          ),
-        )
-      ],
+            const SizedBox(
+              height: 10,
+            ),
+            CustomButton(
+                title: AppLocalizations.of(context)!.chooseCategory,
+                backgroundColor: Theme.of(context).splashColor,
+                titleColor: Theme.of(context).primaryColor,
+                borderColor: Theme.of(context).primaryColor,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                  vertical: 10,
+                ),
+                callback: () {
+                  Helpers.openFilterDialog(
+                      context, AppConstants.courseCategories, state.categoryId!,
+                      (List<MapEntry<dynamic, dynamic>> list) {
+                    print('event update category');
+                    context.read<CourseBloc>().add(
+                          CourseUpdateCategoryId(
+                            categoryId: list
+                                .map(
+                                  (e) => MapEntry(
+                                      e.key as String, e.value as String),
+                                )
+                                .toList(),
+                          ),
+                        );
+                  });
+                }),
+            const SizedBox(
+              height: 10,
+            ),
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: (state.categoryId!.length <
+                      AppConstants.courseCategories.length)
+                  ? state.categoryId!
+                      .map((e) => TagCard(name: e.value))
+                      .toList()
+                  : [TagCard(name: AppLocalizations.of(context)!.all)],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ChooseSortOption(
+              sortOptionController: state.orderBy!,
+              sortOptions: sortOptions,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: CustomButton(
+                title: AppLocalizations.of(context)!.search,
+                icon: const Icon(
+                  Icons.search,
+                  color: Colors.white,
+                  size: 20,
+                ),
+                callback: () {},
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                  vertical: 10,
+                ),
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 }
