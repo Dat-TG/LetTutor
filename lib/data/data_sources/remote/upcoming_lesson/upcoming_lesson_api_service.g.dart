@@ -43,9 +43,31 @@ class _UpcomingLessonApiService implements UpcomingLessonApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = (_result.data!['data'] as List).isNotEmpty
-        ? UpcomingLessonModel.fromJson(_result.data!['data'][0])
+    List<UpcomingLessonModel> result = _result.data!['data']
+        .map<UpcomingLessonModel>((dynamic i) =>
+            UpcomingLessonModel.fromJson(i as Map<String, dynamic>))
+        .toList();
+    result.sort(
+      (a, b) => a.scheduleDetailInfo!.startPeriodTimestamp!
+          .compareTo(b.scheduleDetailInfo!.startPeriodTimestamp!),
+    );
+    UpcomingLessonModel? value = result.isNotEmpty
+        ? result[0].scheduleDetailInfo!.endPeriodTimestamp! >
+                DateTime.now().millisecondsSinceEpoch
+            ? result[0]
+            : null
         : null;
+
+    if (value == null) {
+      for (int i = 1; i < result.length; i++) {
+        if (result[i].scheduleDetailInfo!.endPeriodTimestamp! >
+            DateTime.now().millisecondsSinceEpoch) {
+          value = result[i];
+          break;
+        }
+      }
+    }
+
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
