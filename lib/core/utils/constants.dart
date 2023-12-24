@@ -28,6 +28,7 @@ class AppConstants {
   };
 
   static const Map<int, String> courseLevels = {
+    0: 'Any Level',
     1: 'Beginner',
     2: 'Upper-Beginner',
     3: 'Pre-Intermediate',

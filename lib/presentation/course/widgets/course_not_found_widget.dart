@@ -14,7 +14,8 @@ class CourseNotFoundWidget extends StatelessWidget {
           height: 10,
         ),
         Text(
-          AppLocalizations.of(context)!.sorryWeCantFindAnyTutorWithThisKeywords,
+          AppLocalizations.of(context)!
+              .sorryWeCantFindAnyCourseWithThisKeywords,
           style: const TextStyle(
             fontSize: 16,
           ),

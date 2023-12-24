@@ -20,12 +20,24 @@ class AuthInterceptor extends Interceptor {
       options.headers['Authorization'] = 'Bearer $token';
     }
 
+    print(
+        'Request: ${options.method} ${options.headers} ${options.path} ${options.queryParameters}');
+
     return handler.next(options);
+  }
+
+  @override
+  Future<void> onResponse(
+      Response response, ResponseInterceptorHandler handler) async {
+    print(
+        'Response: ${response.statusCode} ${response.headers} ${response.data}');
+    return handler.next(response);
   }
 
   @override
   Future<void> onError(
       DioException err, ErrorInterceptorHandler handler) async {
+    print('Error: ${err.response?.statusCode} ${err.response!.headers}');
     if (err.response?.statusCode == 401) {
       // Refresh token
       final String? refreshToken = sl<SharedPreferences>().getString(

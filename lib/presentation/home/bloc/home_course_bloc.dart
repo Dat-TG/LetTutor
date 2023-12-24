@@ -21,6 +21,11 @@ class HomeCourseBloc extends Bloc<HomeCourseEvent, HomeCourseState> {
       params: GetListCoursesUsecaseParams(
         page: 1,
         size: 5,
+        level: null,
+        order: null,
+        orderBy: null,
+        categoryId: null,
+        q: null,
       ),
     );
 

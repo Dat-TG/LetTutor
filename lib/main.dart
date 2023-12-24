@@ -66,6 +66,11 @@ class MyApp extends StatelessWidget {
                 params: GetListCoursesUsecaseParams(
                   page: 1,
                   size: 5,
+                  level: null,
+                  categoryId: null,
+                  order: null,
+                  orderBy: null,
+                  q: null,
                 ),
               ),
             ),

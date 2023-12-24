@@ -15,7 +15,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
       : super(CourseLoading(
           categoryId: const [],
           level: const [],
-          order: '',
+          order: null,
           orderBy: TextEditingController(),
           q: TextEditingController(),
         )) {
@@ -53,7 +53,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
           ));
         } else {
           emit(CourseDone(
-            courses: state.courses ?? [],
+            courses: dataState.data ?? [],
             params: event.params,
             error: state.error,
             level: state.level,
@@ -65,8 +65,9 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
         }
       } else {
         if (event.params.page == 1 || state.courses!.isEmpty) {
+          print('Course not found');
           emit(CourseNotFound(
-            courses: state.courses ?? [],
+            courses: const [],
             params: event.params,
             error: state.error,
             level: state.level,

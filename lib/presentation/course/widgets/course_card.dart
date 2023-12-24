@@ -19,7 +19,8 @@ class CourseCard extends StatelessWidget {
           pathParameters: {"id": course.id ?? ""}),
       child: badges.Badge(
         badgeContent: Text(
-          AppConstants.courseLevels[int.parse(course.level ?? "0")] ?? "",
+          AppConstants.courseLevels[int.parse(course.level ?? "0")] ??
+              "Any Level",
           style: const TextStyle(
             fontSize: 18,
             color: Colors.white,
