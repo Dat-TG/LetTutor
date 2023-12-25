@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: unused_element, prefer_const_declarations
+
 part of 'total_lesson_time_api_service.dart';
 
 // **************************************************************************

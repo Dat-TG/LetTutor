@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: unused_element, prefer_const_declarations
+
 part of 'course_api_service.dart';
 
 // **************************************************************************

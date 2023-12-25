@@ -272,5 +272,6 @@
     "pleaseChooseYourSpecialities": "Please choose your specialities",
     "uploadVideoHere": "Upload video here...",
     "sorryWeCantFindAnyCourseWithThisKeywords":"Sorry we can't find any course with this keywords",
-    "sorryWeCantFindAnyEbookWithThisKeywords":"Sorry we can't find any ebook with this keywords"
+    "sorryWeCantFindAnyEbookWithThisKeywords":"Sorry we can't find any ebook with this keywords",
+    "cancelBooking": "Canceled booking"
 }

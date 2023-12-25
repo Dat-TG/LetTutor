@@ -15,6 +15,7 @@ import 'package:let_tutor/data/data_sources/remote/tutor_details/tutor_details_a
 import 'package:let_tutor/data/data_sources/remote/tutor_schedule/tutor_schedule_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/upcoming_lesson/upcoming_lesson_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/user/user_api_service.dart';
+import 'package:let_tutor/data/data_sources/remote/wallet/wallet_api_service.dart';
 import 'package:let_tutor/data/repositories/auth/auth_repository.dart';
 import 'package:let_tutor/data/repositories/course/course_repository.dart';
 import 'package:let_tutor/data/repositories/course_details/course_details_repository.dart';
@@ -28,6 +29,7 @@ import 'package:let_tutor/data/repositories/tutor_details/tutor_details_reposito
 import 'package:let_tutor/data/repositories/tutor_schedule/tutor_schedule_repository.dart';
 import 'package:let_tutor/data/repositories/upcoming_lesson/upcoming_lesson_repository.dart';
 import 'package:let_tutor/data/repositories/user/user_repository.dart';
+import 'package:let_tutor/data/repositories/wallet/wallet_repository.dart';
 import 'package:let_tutor/domain/repositories/auth/auth_repository.dart';
 import 'package:let_tutor/domain/repositories/course/course_repository.dart';
 import 'package:let_tutor/domain/repositories/course_details/course_details_repository.dart';
@@ -41,6 +43,7 @@ import 'package:let_tutor/domain/repositories/tutor_details/tutor_details_reposi
 import 'package:let_tutor/domain/repositories/tutor_schedule/tutor_schedule_repository.dart';
 import 'package:let_tutor/domain/repositories/upcoming_lesson/upcoming_lesson_repository.dart';
 import 'package:let_tutor/domain/repositories/user/user_repository.dart';
+import 'package:let_tutor/domain/repositories/wallet/wallet_repository.dart';
 import 'package:let_tutor/domain/usecases/auth/change_password.dart';
 import 'package:let_tutor/domain/usecases/auth/forgot_password.dart';
 import 'package:let_tutor/domain/usecases/auth/login.dart';
@@ -66,6 +69,8 @@ import 'package:let_tutor/domain/usecases/upcoming_lesson/get_upcoming_lesson.da
 import 'package:let_tutor/domain/usecases/user/get_user.dart';
 import 'package:let_tutor/domain/usecases/user/update_user_info.dart';
 import 'package:let_tutor/domain/usecases/user/upload_avatar.dart';
+import 'package:let_tutor/domain/usecases/wallet/get_statistics.dart';
+import 'package:let_tutor/domain/usecases/wallet/get_transactions.dart';
 import 'package:let_tutor/presentation/become-tutor/bloc/become_tutor_bloc.dart';
 import 'package:let_tutor/presentation/booking/bloc/booking_bloc.dart';
 import 'package:let_tutor/presentation/conversation/bloc/conversation_bloc.dart';
@@ -81,6 +86,7 @@ import 'package:let_tutor/presentation/home/bloc/home_ebook_bloc.dart';
 import 'package:let_tutor/presentation/home/bloc/home_tutor_bloc.dart';
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
 import 'package:let_tutor/presentation/messenger/bloc/message_bloc.dart';
+import 'package:let_tutor/presentation/my-wallet/bloc/wallet_bloc.dart';
 import 'package:let_tutor/presentation/schedule/bloc/schedule_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/total_lesson_time_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/tutor_bloc.dart';
@@ -115,6 +121,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<TutorScheduleApiService>(TutorScheduleApiService(sl()));
   sl.registerSingleton<MessageApiService>(MessageApiService(sl()));
   sl.registerSingleton<EbookApiService>(EbookApiService(sl()));
+  sl.registerSingleton<WalletApiService>(WalletApiService(sl()));
 
   // Repositories
   sl.registerSingleton<AuthRepository>(AuthRepositoryImpl(sl()));
@@ -135,6 +142,7 @@ Future<void> initializeDependencies() async {
       TutorScheduleRepositoryImpl(sl()));
   sl.registerSingleton<MessageRepository>(MessageRepositoryImpl(sl()));
   sl.registerSingleton<EbookRepository>(EbookRepositoryImpl(sl()));
+  sl.registerSingleton<WalletRepository>(WalletRepositoryImpl(sl()));
 
   //UseCases
   sl.registerSingleton<LoginUsecase>(LoginUsecase(sl()));
@@ -166,6 +174,8 @@ Future<void> initializeDependencies() async {
       GetMessagesByUserIdUsecase(sl()));
   sl.registerSingleton<LoginGoogleUsecase>(LoginGoogleUsecase(sl()));
   sl.registerSingleton<GetListEbooksUsecase>(GetListEbooksUsecase(sl()));
+  sl.registerSingleton<GetStatisticsUsecase>(GetStatisticsUsecase(sl()));
+  sl.registerSingleton<GetTransactionsUsecase>(GetTransactionsUsecase(sl()));
 
   //Blocs
   sl.registerFactory<AuthBloc>(
@@ -189,4 +199,5 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<ConversationBloc>(() => ConversationBloc(sl()));
   sl.registerFactory<EbookBloc>(() => EbookBloc(sl()));
   sl.registerFactory<HomeEbookBloc>(() => HomeEbookBloc(sl()));
+  sl.registerFactory<WalletBloc>(() => WalletBloc(sl(), sl()));
 }

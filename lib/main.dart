@@ -26,6 +26,7 @@ import 'package:let_tutor/presentation/home/bloc/home_ebook_bloc.dart'
 import 'package:let_tutor/presentation/home/bloc/home_tutor_bloc.dart';
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
 import 'package:let_tutor/presentation/messenger/bloc/message_bloc.dart';
+import 'package:let_tutor/presentation/my-wallet/bloc/wallet_bloc.dart';
 import 'package:let_tutor/presentation/schedule/bloc/schedule_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/total_lesson_time_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/tutor_bloc.dart';
@@ -128,6 +129,12 @@ class MyApp extends StatelessWidget {
             create: (context) =>
                 sl<MessageBloc>()..add(const GetListMessages())),
         BlocProvider(create: (context) => sl<ConversationBloc>()),
+        BlocProvider(
+          create: (context) => sl<WalletBloc>()
+            ..add(
+              const GetTransactionsEvent(),
+            ),
+        ),
       ],
       child: MultiProvider(
         providers: [

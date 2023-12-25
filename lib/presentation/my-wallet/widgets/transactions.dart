@@ -1,6 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:let_tutor/presentation/my-wallet/bloc/wallet_bloc.dart';
 import 'package:let_tutor/presentation/my-wallet/transactions_screen.dart';
 import 'package:let_tutor/presentation/my-wallet/widgets/transaction_item.dart';
 
@@ -12,7 +16,7 @@ class Transactions extends StatelessWidget {
     return Container(
       width: double.infinity,
       alignment: Alignment.center,
-      padding: const EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
         color: Theme.of(context).splashColor,
         boxShadow: const [
@@ -46,18 +50,24 @@ class Transactions extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                InkWell(
-                  onTap: () {
-                    GoRouter.of(context)
-                        .pushNamed(TransactionsScreen.routeName);
+                BlocBuilder<WalletBloc, WalletState>(
+                  buildWhen: (previous, current) => previous != current,
+                  builder: (context, state) {
+                    return InkWell(
+                      onTap: () {
+                        GoRouter.of(context).pushNamed(
+                            TransactionsScreen.routeName,
+                            extra: state.transactions);
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)!.viewMore,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    );
                   },
-                  child: Text(
-                    AppLocalizations.of(context)!.viewMore,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
                 ),
               ],
             ),
@@ -65,30 +75,47 @@ class Transactions extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(
+          Padding(
+            padding: const EdgeInsets.symmetric(
               horizontal: 20,
             ),
-            child: Column(
-              children: [
-                TransactionItem(),
-                SizedBox(
-                  height: 20,
-                ),
-                TransactionItem(),
-                SizedBox(
-                  height: 20,
-                ),
-                TransactionItem(),
-                SizedBox(
-                  height: 20,
-                ),
-                TransactionItem(),
-                SizedBox(
-                  height: 20,
-                ),
-                TransactionItem(),
-              ],
+            child: BlocBuilder<WalletBloc, WalletState>(
+              buildWhen: (previous, current) => previous != current,
+              builder: (context, state) {
+                if (state is WalletLoadedTransactions) {
+                  return const Center(
+                    child: SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 1,
+                      ),
+                    ),
+                  );
+                }
+                if (state.errorTransactions != null) {
+                  return Center(
+                      child: Text(
+                          state.errorTransactions!.response!.statusMessage!));
+                }
+                if (state.transactions == null) {
+                  return const Center(
+                    child: Text('No transactions'),
+                  );
+                }
+                return Column(
+                  children: [
+                    for (int i = 0;
+                        i < min(5, state.transactions?.length ?? 0);
+                        i++)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: TransactionItem(
+                            transaction: state.transactions![i]),
+                      ),
+                  ],
+                );
+              },
             ),
           )
         ],
