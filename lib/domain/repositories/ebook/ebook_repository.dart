@@ -5,5 +5,10 @@ abstract class EbookRepository {
   Future<DataState<List<EbookEntity>>> getListEbooks({
     required int page,
     required int size,
+    List<int>? level,
+    String? order,
+    String? orderBy,
+    List<String>? categoryId,
+    String? q,
   });
 }

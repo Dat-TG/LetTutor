@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/domain/usecases/course/get_list_courses.dart';
+import 'package:let_tutor/domain/usecases/ebook/get_list_ebooks.dart';
 import 'package:let_tutor/presentation/course/bloc/course_bloc.dart';
+import 'package:let_tutor/presentation/course/bloc/ebook_bloc.dart';
 import 'package:let_tutor/presentation/course/widgets/choose_sort_option.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tag_card.dart';
 import 'package:let_tutor/core/utils/constants.dart';
@@ -172,6 +174,21 @@ class _CourseSearchState extends State<CourseSearch> {
                   context.read<CourseBloc>().add(
                         CourseFetching(
                           params: GetListCoursesUsecaseParams(
+                            page: 1,
+                            size: 5,
+                            level: state.level!.map((e) => e.key).toList(),
+                            categoryId:
+                                state.categoryId!.map((e) => e.key).toList(),
+                            order:
+                                state.orderBy!.text.isNotEmpty ? 'level' : null,
+                            orderBy: state.orderBy!.text,
+                            q: state.q!.text,
+                          ),
+                        ),
+                      );
+                  context.read<EbookBloc>().add(
+                        EbookFetching(
+                          params: GetListEbooksUsecaseParams(
                             page: 1,
                             size: 5,
                             level: state.level!.map((e) => e.key).toList(),

@@ -22,12 +22,23 @@ class _EbookApiService implements EbookApiService {
   Future<HttpResponse<List<EbookModel>>> getListEbooks({
     required int page,
     required int size,
+    List<int>? level,
+    String? order,
+    String? orderBy,
+    List<String>? categoryId,
+    String? q,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'page': page,
       r'size': size,
+      r'level': level,
+      r'order': order,
+      r'orderBy': orderBy,
+      r'categoryId': categoryId,
+      r'q': q,
     };
+    queryParameters.removeWhere((k, v) => v == null || v == '' || v == []);
     final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;

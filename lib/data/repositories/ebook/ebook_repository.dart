@@ -14,11 +14,21 @@ class EbookRepositoryImpl implements EbookRepository {
   Future<DataState<List<EbookModel>>> getListEbooks({
     required int page,
     required int size,
+    List<int>? level,
+    String? order,
+    String? orderBy,
+    List<String>? categoryId,
+    String? q,
   }) async {
     try {
       final httpResponse = await _ebookApiService.getListEbooks(
         page: page,
         size: size,
+        level: level,
+        order: order,
+        orderBy: orderBy,
+        categoryId: categoryId,
+        q: q,
       );
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);

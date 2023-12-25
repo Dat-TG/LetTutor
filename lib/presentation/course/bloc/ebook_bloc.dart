@@ -32,7 +32,7 @@ class EbookBloc extends Bloc<EbookEvent, EbookState> {
           ));
         } else {
           emit(EbookDone(
-            ebooks: state.ebooks ?? [],
+            ebooks: dataState.data ?? [],
             params: event.params,
             error: state.error,
           ));

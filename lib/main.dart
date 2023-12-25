@@ -82,6 +82,11 @@ class MyApp extends StatelessWidget {
                 params: GetListEbooksUsecaseParams(
                   page: 1,
                   size: 5,
+                  level: null,
+                  categoryId: null,
+                  order: null,
+                  orderBy: null,
+                  q: null,
                 ),
               ),
             ),

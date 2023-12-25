@@ -21,6 +21,11 @@ class HomeEbookBloc extends Bloc<HomeEbookEvent, HomeEbookState> {
       params: GetListEbooksUsecaseParams(
         page: 1,
         size: 5,
+        level: null,
+        categoryId: null,
+        order: null,
+        orderBy: null,
+        q: null,
       ),
     );
 
