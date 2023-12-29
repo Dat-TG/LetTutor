@@ -48,3 +48,10 @@ final class LoginGoogleEvent extends AuthEvent {
     required this.accessToken,
   });
 }
+
+final class LoginFacebookEvent extends AuthEvent {
+  final String accessToken;
+  const LoginFacebookEvent({
+    required this.accessToken,
+  });
+}

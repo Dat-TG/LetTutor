@@ -5,6 +5,7 @@ abstract class AuthRepository {
   Future<DataState<AuthEntity>> login(
       {required String email, required String password});
   Future<DataState<AuthEntity>> loginGoogle({required String accessToken});
+  Future<DataState<AuthEntity>> loginFacebook({required String accessToken});
   Future<DataState<AuthEntity>> refreshToken(
       {required String refreshToken, required int timezone});
   Future<DataState<AuthEntity>> register(

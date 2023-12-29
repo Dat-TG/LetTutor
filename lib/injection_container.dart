@@ -47,6 +47,7 @@ import 'package:let_tutor/domain/repositories/wallet/wallet_repository.dart';
 import 'package:let_tutor/domain/usecases/auth/change_password.dart';
 import 'package:let_tutor/domain/usecases/auth/forgot_password.dart';
 import 'package:let_tutor/domain/usecases/auth/login.dart';
+import 'package:let_tutor/domain/usecases/auth/login_facebook.dart';
 import 'package:let_tutor/domain/usecases/auth/login_google.dart';
 import 'package:let_tutor/domain/usecases/auth/refresh_token.dart';
 import 'package:let_tutor/domain/usecases/auth/register.dart';
@@ -176,10 +177,11 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<GetListEbooksUsecase>(GetListEbooksUsecase(sl()));
   sl.registerSingleton<GetStatisticsUsecase>(GetStatisticsUsecase(sl()));
   sl.registerSingleton<GetTransactionsUsecase>(GetTransactionsUsecase(sl()));
+  sl.registerSingleton<LoginFacebookUsecase>(LoginFacebookUsecase(sl()));
 
   //Blocs
   sl.registerFactory<AuthBloc>(
-      () => AuthBloc(sl(), sl(), sl(), sl(), sl(), sl()));
+      () => AuthBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory<TutorBloc>(() => TutorBloc(sl(), sl()));
   sl.registerFactory<TutorDetailsBloc>(
       () => TutorDetailsBloc(sl(), sl(), sl()));

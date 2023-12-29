@@ -23,9 +23,11 @@ class _SocialLoginState extends State<SocialLogin> {
     _googleSignIn.signIn().then((result) {
       result?.authentication.then((googleKey) {
         print(googleKey.accessToken);
-        context
-            .read<AuthBloc>()
-            .add(LoginGoogleEvent(accessToken: googleKey.accessToken ?? ""));
+        context.read<AuthBloc>().add(
+              LoginGoogleEvent(
+                accessToken: googleKey.accessToken ?? "",
+              ),
+            );
       }).catchError((err) {
         print('inner error: $err');
       });
@@ -42,6 +44,13 @@ class _SocialLoginState extends State<SocialLogin> {
       // you are logged
       final AccessToken accessToken = result.accessToken!;
       print('fb access token: ${accessToken.token}');
+      if (context.mounted) {
+        context.read<AuthBloc>().add(
+              LoginFacebookEvent(
+                accessToken: accessToken.token,
+              ),
+            );
+      }
     } else {
       print(result.status);
       print(result.message);

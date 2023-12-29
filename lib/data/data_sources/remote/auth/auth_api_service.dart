@@ -58,4 +58,12 @@ abstract class AuthApiService {
   Future<HttpResponse<AuthModel>> loginGoogle({
     @Field("access_token") required String accessToken,
   });
+
+  @POST('/auth/facebook')
+  @Headers(<String, dynamic>{
+    'Content-Type': 'application/json',
+  })
+  Future<HttpResponse<AuthModel>> loginFacebook({
+    @Field("access_token") required String accessToken,
+  });
 }
