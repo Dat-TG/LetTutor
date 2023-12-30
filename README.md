@@ -7,10 +7,21 @@
 
 Flutter
 
+## Check list
+
+https://docs.google.com/document/d/1XcLD6AGi4HD8z-a88oksh12w0pHGqvWv/edit?usp=sharing&ouid=108361665254540682887&rtpof=true&sd=true
+
+## Milestone 3
+
+Improve red features and implement some of other features
+
+### Demo Video
+
+Youtube: https://youtu.be/svo_lLd_3vw
+
 ## Milestone 2
 
-- Implement all red features and most of other features
-- Check list: https://docs.google.com/document/d/1XcLD6AGi4HD8z-a88oksh12w0pHGqvWv/edit?usp=sharing&ouid=108361665254540682887&rtpof=true&sd=true
+Implement all red features and most of other features
 
 ### Demo Video
 
