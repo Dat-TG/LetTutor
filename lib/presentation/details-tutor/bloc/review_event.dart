@@ -8,6 +8,6 @@ sealed class ReviewEvent extends Equatable {
 }
 
 final class ReviewFetched extends ReviewEvent {
-  final GetReviewsUsecaseParams params;
+  final ReviewParams params;
   const ReviewFetched(this.params);
 }

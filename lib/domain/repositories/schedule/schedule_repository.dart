@@ -3,12 +3,10 @@ import 'package:let_tutor/domain/entities/schedule/schedule_entity.dart';
 
 abstract class ScheduleRepository {
   Future<DataState<List<ScheduleEntity>>> getSchedules({
-    required String token,
     required ScheduleParams params,
   });
 
   Future<DataState<List<ScheduleEntity>>> getHistory({
-    required String token,
     required ScheduleParams params,
   });
 }

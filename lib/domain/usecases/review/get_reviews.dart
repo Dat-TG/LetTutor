@@ -4,36 +4,14 @@ import 'package:let_tutor/domain/entities/review/review_entity.dart';
 import 'package:let_tutor/domain/repositories/review/review_repository.dart';
 
 class GetReviewsUsecase
-    implements UseCase<DataState<List<ReviewEntity>>, GetReviewsUsecaseParams> {
+    implements UseCase<DataState<List<ReviewEntity>>, ReviewParams> {
   final ReviewRepository _reviewRepository;
   GetReviewsUsecase(this._reviewRepository);
 
   @override
-  Future<DataState<List<ReviewEntity>>> call(
-      {GetReviewsUsecaseParams? params}) {
+  Future<DataState<List<ReviewEntity>>> call({ReviewParams? params}) {
     return _reviewRepository.getReviews(
-      token: params!.token,
-      params: params.params,
-    );
-  }
-}
-
-class GetReviewsUsecaseParams {
-  final String token;
-  final ReviewParams params;
-
-  GetReviewsUsecaseParams({
-    required this.token,
-    required this.params,
-  });
-
-  GetReviewsUsecaseParams copyWith({
-    String? token,
-    ReviewParams? params,
-  }) {
-    return GetReviewsUsecaseParams(
-      token: token ?? this.token,
-      params: params ?? this.params,
+      params: params!,
     );
   }
 }

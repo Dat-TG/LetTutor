@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -8,7 +6,9 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/expanded_paragraph.dart';
+import 'package:let_tutor/core/providers/auth_provider.dart';
 import 'package:let_tutor/core/providers/dark_mode_provider.dart';
+import 'package:let_tutor/core/utils/constants.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:let_tutor/domain/entities/schedule/schedule_entity.dart';
 import 'package:let_tutor/presentation/conversation/conversation_screen.dart';
@@ -48,6 +48,8 @@ class _SingleScheduleState extends State<SingleSchedule> {
 
   @override
   Widget build(BuildContext context) {
+    final user =
+        Provider.of<AuthProvider>(context, listen: false).authEntity.user;
     return Stack(
       children: [
         Container(
@@ -80,7 +82,11 @@ class _SingleScheduleState extends State<SingleSchedule> {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(100),
                         onTap: () => GoRouter.of(context)
-                            .pushNamed(TutorDetails.routeName),
+                            .pushNamed(TutorDetails.routeName, pathParameters: {
+                          'id': widget.schedule.scheduleDetailInfo?.scheduleInfo
+                                  ?.tutorInfo?.id ??
+                              '0'
+                        }),
                         child: CachedNetworkImage(
                           imageUrl: widget.schedule.scheduleDetailInfo
                                   ?.scheduleInfo?.tutorInfo?.avatar ??
@@ -146,8 +152,13 @@ class _SingleScheduleState extends State<SingleSchedule> {
                         Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            onTap: () => GoRouter.of(context)
-                                .pushNamed(TutorDetails.routeName),
+                            onTap: () => GoRouter.of(context).pushNamed(
+                                TutorDetails.routeName,
+                                pathParameters: {
+                                  'id': widget.schedule.scheduleDetailInfo
+                                          ?.scheduleInfo?.tutorInfo?.id ??
+                                      '0'
+                                }),
                             child: Text(
                               widget.schedule.scheduleDetailInfo?.scheduleInfo
                                       ?.tutorInfo?.name ??
@@ -297,14 +308,28 @@ class _SingleScheduleState extends State<SingleSchedule> {
                     CustomButton(
                       title: AppLocalizations.of(context)!.goToMeeting,
                       titleColor: Colors.white,
-                      callback: () => JitsiMeetMethods.joinMeeting(context,
-                          roomNameOrUrl: (Random().nextInt(10000000) + 10000000)
-                              .toString(),
-                          subject: 'Lesson Room',
-                          userDisplayName: 'Hai Pham',
-                          userEmail: 'student@lettutor.com',
-                          userAvatarUrl:
-                              'https://sandbox.api.lettutor.com/avatar/f569c202-7bbf-4620-af77-ecc1419a6b28avatar1686033849227.jpeg'),
+                      callback: () {
+                        print(
+                            'token: ${widget.schedule.studentMeetingLink?.substring(13)}');
+                        JitsiMeetMethods.joinMeeting(
+                          context,
+                          roomNameOrUrl:
+                              '${user?.id}-${widget.schedule.scheduleDetailInfo?.scheduleInfo?.tutorId}',
+                          serverUrl: AppConstants.meetingServerUrl,
+                          subject:
+                              '${widget.schedule.scheduleDetailInfo?.scheduleInfo?.tutorInfo?.name} Lesson Room',
+                          userDisplayName: user?.name ?? 'Student',
+                          userEmail: user?.email,
+                          userAvatarUrl: user?.avatar ??
+                              Helpers.avatarFromName(user?.name),
+                          token:
+                              widget.schedule.studentMeetingLink?.substring(13),
+                          nextLessonTime: DateTime.fromMillisecondsSinceEpoch(
+                              widget.schedule.scheduleDetailInfo
+                                      ?.startPeriodTimestamp ??
+                                  0),
+                        );
+                      },
                       textSize: 16,
                       padding: const EdgeInsets.symmetric(
                         vertical: 10,

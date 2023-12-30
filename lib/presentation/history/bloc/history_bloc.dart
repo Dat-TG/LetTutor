@@ -3,8 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:let_tutor/core/resources/data_state.dart';
 import 'package:let_tutor/domain/entities/schedule/schedule_entity.dart';
+import 'package:let_tutor/domain/repositories/schedule/schedule_repository.dart';
 import 'package:let_tutor/domain/usecases/schedule/get_history.dart';
-import 'package:let_tutor/domain/usecases/schedule/get_schedules.dart';
 
 part 'history_event.dart';
 part 'history_state.dart';
@@ -12,8 +12,12 @@ part 'history_state.dart';
 class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   final GetHistoryUsecase _getHistoryUsecase;
   HistoryBloc(this._getHistoryUsecase)
-      : super(HistoryLoading(const [],
-            GetSchedulesUsecaseParams(page: 0, perPage: 0, token: ""))) {
+      : super(HistoryLoading(
+            const [],
+            ScheduleParams(
+              page: 0,
+              perPage: 0,
+            ))) {
     on<HistoryFetched>(onHistoryFetched);
   }
 
@@ -29,6 +33,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     );
 
     print('Fetch history: ${dataState.data.toString()}');
+    print('Fetch history state: ${dataState.runtimeType}');
 
     if (dataState is DataSuccess) {
       if (dataState.data!.isNotEmpty) {

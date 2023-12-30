@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: unused_element, prefer_const_declarations
+
 part of 'message_api_service.dart';
 
 // **************************************************************************
@@ -12,21 +14,17 @@ class _MessageApiService implements MessageApiService {
   _MessageApiService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://sandbox.api.lettutor.com';
-  }
+  });
 
   final Dio _dio;
 
   String? baseUrl;
 
   @override
-  Future<HttpResponse<List<MessageModel>>> getReceivers(
-      {required String token}) async {
+  Future<HttpResponse<List<MessageModel>>> getReceivers() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': token};
-    _headers.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<List<MessageModel>>>(Options(
@@ -55,7 +53,6 @@ class _MessageApiService implements MessageApiService {
 
   @override
   Future<HttpResponse<List<MessageModel>>> getMessagesByUserId({
-    required String token,
     required String userId,
     required int startTime,
     required int page,
@@ -67,8 +64,7 @@ class _MessageApiService implements MessageApiService {
       r'page': page,
       r'perPage': perPage,
     };
-    final _headers = <String, dynamic>{r'Authorization': token};
-    _headers.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<List<MessageModel>>>(Options(

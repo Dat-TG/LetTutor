@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: unused_element, prefer_const_declarations
+
 part of 'course_api_service.dart';
 
 // **************************************************************************
@@ -12,9 +14,7 @@ class _CourseApiService implements CourseApiService {
   _CourseApiService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://sandbox.api.lettutor.com';
-  }
+  });
 
   final Dio _dio;
 
@@ -22,19 +22,26 @@ class _CourseApiService implements CourseApiService {
 
   @override
   Future<HttpResponse<List<CourseModel>>> getListCourses({
-    required String token,
     required int page,
     required int size,
+    List<int>? level,
+    String? order,
+    String? orderBy,
+    List<String>? categoryId,
+    String? q,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'page': page,
       r'size': size,
+      r'level': level,
+      r'order[]': order,
+      r'orderBy[]': orderBy,
+      r'categoryId': categoryId,
+      r'q': q,
     };
-    final _headers = <String, dynamic>{
-      r'Content-Type': 'application/json',
-      r'Authorization': token,
-    };
+    queryParameters.removeWhere((k, v) => v == null || v == '' || v == []);
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(

@@ -3,7 +3,7 @@ part of 'tutor_bloc.dart';
 abstract class TutorState extends Equatable {
   final List<TutorEntity>? tutors;
   final DioException? error;
-  final SearchTutorsUsecaseParams? params;
+  final TutorSearchParams? params;
   final bool isVN;
   final bool isEN;
   final bool isForeign;
@@ -42,7 +42,7 @@ abstract class TutorState extends Equatable {
 final class TutorSearchInProgress extends TutorState {
   const TutorSearchInProgress(
     List<TutorEntity> tutors,
-    SearchTutorsUsecaseParams params,
+    TutorSearchParams params,
     bool isVN,
     bool isEN,
     bool isForeign,
@@ -68,7 +68,7 @@ final class TutorSearchInProgress extends TutorState {
 final class TutorSearchSuccess extends TutorState {
   const TutorSearchSuccess(
     List<TutorEntity> tutors,
-    SearchTutorsUsecaseParams params,
+    TutorSearchParams params,
     bool isVN,
     bool isEN,
     bool isForeign,
@@ -95,7 +95,7 @@ final class TutorSearchFailure extends TutorState {
   const TutorSearchFailure(
     DioException error,
     List<TutorEntity>? tutors,
-    SearchTutorsUsecaseParams? params,
+    TutorSearchParams? params,
     bool isVN,
     bool isEN,
     bool isForeign,
@@ -122,7 +122,7 @@ final class TutorSearchFailure extends TutorState {
 final class TutorNotFound extends TutorState {
   const TutorNotFound(
     List<TutorEntity> tutors,
-    SearchTutorsUsecaseParams params,
+    TutorSearchParams params,
     bool isVN,
     bool isEN,
     bool isForeign,
@@ -148,7 +148,7 @@ final class TutorNotFound extends TutorState {
 final class TutorSearchComplete extends TutorState {
   const TutorSearchComplete(
     List<TutorEntity> tutors,
-    SearchTutorsUsecaseParams params,
+    TutorSearchParams params,
     bool isVN,
     bool isEN,
     bool isForeign,
@@ -174,7 +174,7 @@ final class TutorSearchComplete extends TutorState {
 final class TutorUpdateFilters extends TutorState {
   const TutorUpdateFilters(
     List<TutorEntity> tutors,
-    SearchTutorsUsecaseParams params,
+    TutorSearchParams params,
     bool isVN,
     bool isEN,
     bool isForeign,
@@ -200,7 +200,7 @@ final class TutorUpdateFilters extends TutorState {
 final class FavoriteTutorDone extends TutorState {
   const FavoriteTutorDone(
     List<TutorEntity> tutors,
-    SearchTutorsUsecaseParams params,
+    TutorSearchParams params,
     bool isVN,
     bool isEN,
     bool isForeign,

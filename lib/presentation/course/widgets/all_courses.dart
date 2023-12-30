@@ -35,19 +35,21 @@ class AllCourses extends StatelessWidget {
                       ),
                     );
                   } else {
-                    return (state is CourseNotFound)
-                        ? const CourseNotFoundWidget()
-                        : (state is CourseCompleted)
-                            ? const SizedBox()
-                            : const Center(
-                                child: SizedBox(
-                                  width: 30,
-                                  height: 30,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                  ),
-                                ),
-                              );
+                    return (state is CourseFailed)
+                        ? const Text('Error')
+                        : (state is CourseNotFound)
+                            ? const CourseNotFoundWidget()
+                            : (state is CourseCompleted)
+                                ? const SizedBox()
+                                : const Center(
+                                    child: SizedBox(
+                                      width: 30,
+                                      height: 30,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      ),
+                                    ),
+                                  );
                   }
                 });
           },

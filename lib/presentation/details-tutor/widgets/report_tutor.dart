@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:let_tutor/core/common/custom_textfield.dart';
-import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/tutor_details_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/widgets/choose_reasons_report.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ReportTutor extends StatefulWidget {
   final BuildContext parentContext;
@@ -147,11 +145,18 @@ class _ReportTutorState extends State<ReportTutor> {
               content += '${reasons[i]}\n';
             }
             content += _noteController.text;
-            context.read<TutorDetailsBloc>().add(ReportTutorEvent(
-                sl<SharedPreferences>().getString('access-token') ?? "",
-                context.read<TutorDetailsBloc>().state.tutorDetails?.user?.id ??
-                    "",
-                content));
+            context.read<TutorDetailsBloc>().add(
+                  ReportTutorEvent(
+                    context
+                            .read<TutorDetailsBloc>()
+                            .state
+                            .tutorDetails
+                            ?.user
+                            ?.id ??
+                        "",
+                    content,
+                  ),
+                );
             Navigator.pop(context);
           },
         ),

@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart' hide Headers;
-import 'package:let_tutor/core/utils/constants.dart';
 import 'package:let_tutor/data/models/auth/auth_model.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'auth_api_service.g.dart';
 
-@RestApi(baseUrl: AppConstants.baseUrl)
+@RestApi()
 abstract class AuthApiService {
   factory AuthApiService(Dio dio) = _AuthApiService;
 
@@ -48,8 +47,23 @@ abstract class AuthApiService {
     'Content-Type': 'application/json',
   })
   Future<HttpResponse<String>> changePassword({
-    @Header('Authorization') required String token,
     @Field("password") required String password,
     @Field("newPassword") required String newPassword,
+  });
+
+  @POST('/auth/google')
+  @Headers(<String, dynamic>{
+    'Content-Type': 'application/json',
+  })
+  Future<HttpResponse<AuthModel>> loginGoogle({
+    @Field("access_token") required String accessToken,
+  });
+
+  @POST('/auth/facebook')
+  @Headers(<String, dynamic>{
+    'Content-Type': 'application/json',
+  })
+  Future<HttpResponse<AuthModel>> loginFacebook({
+    @Field("access_token") required String accessToken,
   });
 }

@@ -12,12 +12,10 @@ import 'package:let_tutor/core/common/custom_textfield.dart';
 import 'package:let_tutor/core/common/dropdown_select.dart';
 import 'package:let_tutor/core/utils/validators.dart';
 import 'package:let_tutor/domain/repositories/user/user_repository.dart';
-import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/presentation/edit-account/bloc/edit_account_bloc.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tag_card.dart';
 import 'package:let_tutor/core/utils/constants.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class EditAccountScreen extends StatefulWidget {
   static const String routeName = 'edit-account';
@@ -40,14 +38,10 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final accessToken = sl<SharedPreferences>().getString('access-token') ?? "";
-
   @override
   void initState() {
     context.read<EditAccountBloc>().add(
-          GetAccount(
-            accessToken: accessToken,
-          ),
+          const GetAccount(),
         );
     super.initState();
   }
@@ -69,10 +63,11 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
   Widget build(BuildContext context) {
     void selectImage() async {
       var res = await Helpers.pickImage();
-      print('result upload image: ${res}');
+      print('result upload image: $res');
       if (res != null) {
-        context.read<EditAccountBloc>().add(UploadAvatar(
-            accessToken: accessToken, image: res, context: context));
+        context
+            .read<EditAccountBloc>()
+            .add(UploadAvatar(image: res, context: context));
       }
     }
 
@@ -386,19 +381,21 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                                   .add(state.selectSubjects[i].key[0]);
                             }
                           }
-                          context.read<EditAccountBloc>().add(UpdateAccount(
-                              accessToken: accessToken,
-                              userInfoBody: UserInfoBody(
-                                birthday: _birthDateController.text,
-                                country: _countryCodeController.text,
-                                learnTopics: learnTopics,
-                                level: _levelController.text,
-                                name: _nameController.text,
-                                phone: _phoneController.text,
-                                studySchedule: _scheduleController.text,
-                                testPreparations: testPreparations,
-                              ),
-                              context: context));
+                          context.read<EditAccountBloc>().add(
+                                UpdateAccount(
+                                  userInfoBody: UserInfoBody(
+                                    birthday: _birthDateController.text,
+                                    country: _countryCodeController.text,
+                                    learnTopics: learnTopics,
+                                    level: _levelController.text,
+                                    name: _nameController.text,
+                                    phone: _phoneController.text,
+                                    studySchedule: _scheduleController.text,
+                                    testPreparations: testPreparations,
+                                  ),
+                                  context: context,
+                                ),
+                              );
                         }
                       },
                       icon: const Icon(

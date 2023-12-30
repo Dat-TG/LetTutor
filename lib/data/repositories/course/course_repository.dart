@@ -12,15 +12,23 @@ class CourseRepositoryImpl implements CourseRepository {
   CourseRepositoryImpl(this._courseApiService);
   @override
   Future<DataState<List<CourseModel>>> getListCourses({
-    required String token,
     required int page,
     required int size,
+    List<int>? level,
+    String? order,
+    String? orderBy,
+    List<String>? categoryId,
+    String? q,
   }) async {
     try {
       final httpResponse = await _courseApiService.getListCourses(
-        token: 'Bearer $token',
         page: page,
         size: size,
+        level: level,
+        order: order,
+        orderBy: orderBy,
+        categoryId: categoryId,
+        q: q,
       );
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);

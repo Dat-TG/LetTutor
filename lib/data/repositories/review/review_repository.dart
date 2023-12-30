@@ -12,12 +12,10 @@ class ReviewRepositoryImpl implements ReviewRepository {
   ReviewRepositoryImpl(this._reviewApiService);
   @override
   Future<DataState<List<ReviewModel>>> getReviews({
-    required String token,
     required ReviewParams params,
   }) async {
     try {
       final httpResponse = await _reviewApiService.getReviews(
-          token: 'Bearer $token',
           tutorId: params.tutorId ?? '',
           page: params.page,
           perPage: params.perPage);

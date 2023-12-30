@@ -14,8 +14,7 @@ class GetMessagesByUserIdUsecase
   Future<DataState<List<MessageEntity>>> call(
       {GetMessagesByUserIdUsecaseParams? params}) {
     return _messageRepository.getMessagesByUserId(
-      token: params!.token,
-      userId: params.userId,
+      userId: params!.userId,
       startTime: params.startTime,
       page: params.page,
       perPage: params.perPage,
@@ -24,14 +23,12 @@ class GetMessagesByUserIdUsecase
 }
 
 class GetMessagesByUserIdUsecaseParams {
-  final String token;
   final String userId;
   final int startTime;
   final int page;
   final int perPage;
 
   GetMessagesByUserIdUsecaseParams({
-    required this.token,
     required this.page,
     required this.perPage,
     required this.startTime,
@@ -39,14 +36,12 @@ class GetMessagesByUserIdUsecaseParams {
   });
 
   GetMessagesByUserIdUsecaseParams copyWith({
-    String? token,
     String? userId,
     int? startTime,
     int? page,
     int? perPage,
   }) {
     return GetMessagesByUserIdUsecaseParams(
-      token: token ?? this.token,
       userId: userId ?? this.userId,
       startTime: startTime ?? this.startTime,
       page: page ?? this.page,

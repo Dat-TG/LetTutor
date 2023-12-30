@@ -41,3 +41,17 @@ final class ForgotPasswordEvent extends AuthEvent {
     required this.context,
   });
 }
+
+final class LoginGoogleEvent extends AuthEvent {
+  final String accessToken;
+  const LoginGoogleEvent({
+    required this.accessToken,
+  });
+}
+
+final class LoginFacebookEvent extends AuthEvent {
+  final String accessToken;
+  const LoginFacebookEvent({
+    required this.accessToken,
+  });
+}

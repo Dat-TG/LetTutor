@@ -12,12 +12,10 @@ class TutorRepositoryImpl implements TutorRepository {
   TutorRepositoryImpl(this._tutorApiService);
   @override
   Future<DataState<List<TutorModel>>> getTutors({
-    required String token,
     required TutorSearchParams params,
   }) async {
     try {
-      final httpResponse = await _tutorApiService.searchTutors(
-          token: 'Bearer $token', params: params);
+      final httpResponse = await _tutorApiService.searchTutors(params: params);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -36,12 +34,11 @@ class TutorRepositoryImpl implements TutorRepository {
 
   @override
   Future<DataState<bool>> favoriteTutor({
-    required String token,
     required String tutorId,
   }) async {
     try {
-      final httpResponse = await _tutorApiService
-          .favoriteTutor(token: 'Bearer $token', body: {'tutorId': tutorId});
+      final httpResponse =
+          await _tutorApiService.favoriteTutor(body: {'tutorId': tutorId});
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {

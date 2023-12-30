@@ -1,9 +1,11 @@
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
+import 'package:let_tutor/core/dio/dio.dart';
 import 'package:let_tutor/core/providers/auth_provider.dart';
 import 'package:let_tutor/data/data_sources/remote/auth/auth_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/course/course_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/course_details/course_details_api_service.dart';
+import 'package:let_tutor/data/data_sources/remote/ebook/ebook_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/message/message_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/review/review_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/schedule/schedule_api_service.dart';
@@ -13,9 +15,11 @@ import 'package:let_tutor/data/data_sources/remote/tutor_details/tutor_details_a
 import 'package:let_tutor/data/data_sources/remote/tutor_schedule/tutor_schedule_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/upcoming_lesson/upcoming_lesson_api_service.dart';
 import 'package:let_tutor/data/data_sources/remote/user/user_api_service.dart';
+import 'package:let_tutor/data/data_sources/remote/wallet/wallet_api_service.dart';
 import 'package:let_tutor/data/repositories/auth/auth_repository.dart';
 import 'package:let_tutor/data/repositories/course/course_repository.dart';
 import 'package:let_tutor/data/repositories/course_details/course_details_repository.dart';
+import 'package:let_tutor/data/repositories/ebook/ebook_repository.dart';
 import 'package:let_tutor/data/repositories/message/message_repository.dart';
 import 'package:let_tutor/data/repositories/review/review_repository.dart';
 import 'package:let_tutor/data/repositories/schedule/schedule_repository.dart';
@@ -25,9 +29,11 @@ import 'package:let_tutor/data/repositories/tutor_details/tutor_details_reposito
 import 'package:let_tutor/data/repositories/tutor_schedule/tutor_schedule_repository.dart';
 import 'package:let_tutor/data/repositories/upcoming_lesson/upcoming_lesson_repository.dart';
 import 'package:let_tutor/data/repositories/user/user_repository.dart';
+import 'package:let_tutor/data/repositories/wallet/wallet_repository.dart';
 import 'package:let_tutor/domain/repositories/auth/auth_repository.dart';
 import 'package:let_tutor/domain/repositories/course/course_repository.dart';
 import 'package:let_tutor/domain/repositories/course_details/course_details_repository.dart';
+import 'package:let_tutor/domain/repositories/ebook/ebook_repository.dart';
 import 'package:let_tutor/domain/repositories/message/message_repository.dart';
 import 'package:let_tutor/domain/repositories/review/review_repository.dart';
 import 'package:let_tutor/domain/repositories/schedule/schedule_repository.dart';
@@ -37,13 +43,17 @@ import 'package:let_tutor/domain/repositories/tutor_details/tutor_details_reposi
 import 'package:let_tutor/domain/repositories/tutor_schedule/tutor_schedule_repository.dart';
 import 'package:let_tutor/domain/repositories/upcoming_lesson/upcoming_lesson_repository.dart';
 import 'package:let_tutor/domain/repositories/user/user_repository.dart';
+import 'package:let_tutor/domain/repositories/wallet/wallet_repository.dart';
 import 'package:let_tutor/domain/usecases/auth/change_password.dart';
 import 'package:let_tutor/domain/usecases/auth/forgot_password.dart';
 import 'package:let_tutor/domain/usecases/auth/login.dart';
+import 'package:let_tutor/domain/usecases/auth/login_facebook.dart';
+import 'package:let_tutor/domain/usecases/auth/login_google.dart';
 import 'package:let_tutor/domain/usecases/auth/refresh_token.dart';
 import 'package:let_tutor/domain/usecases/auth/register.dart';
 import 'package:let_tutor/domain/usecases/course/get_list_courses.dart';
 import 'package:let_tutor/domain/usecases/course_details/get_course_details.dart';
+import 'package:let_tutor/domain/usecases/ebook/get_list_ebooks.dart';
 import 'package:let_tutor/domain/usecases/message/get_message_by_user_id.dart';
 import 'package:let_tutor/domain/usecases/message/get_receivers.dart';
 import 'package:let_tutor/domain/usecases/review/get_reviews.dart';
@@ -60,19 +70,24 @@ import 'package:let_tutor/domain/usecases/upcoming_lesson/get_upcoming_lesson.da
 import 'package:let_tutor/domain/usecases/user/get_user.dart';
 import 'package:let_tutor/domain/usecases/user/update_user_info.dart';
 import 'package:let_tutor/domain/usecases/user/upload_avatar.dart';
+import 'package:let_tutor/domain/usecases/wallet/get_statistics.dart';
+import 'package:let_tutor/domain/usecases/wallet/get_transactions.dart';
 import 'package:let_tutor/presentation/become-tutor/bloc/become_tutor_bloc.dart';
 import 'package:let_tutor/presentation/booking/bloc/booking_bloc.dart';
 import 'package:let_tutor/presentation/conversation/bloc/conversation_bloc.dart';
 import 'package:let_tutor/presentation/course/bloc/course_bloc.dart';
+import 'package:let_tutor/presentation/course/bloc/ebook_bloc.dart';
 import 'package:let_tutor/presentation/details-course/bloc/course_details_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/review_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/tutor_details_bloc.dart';
 import 'package:let_tutor/presentation/edit-account/bloc/edit_account_bloc.dart';
 import 'package:let_tutor/presentation/history/bloc/history_bloc.dart';
 import 'package:let_tutor/presentation/home/bloc/home_course_bloc.dart';
+import 'package:let_tutor/presentation/home/bloc/home_ebook_bloc.dart';
 import 'package:let_tutor/presentation/home/bloc/home_tutor_bloc.dart';
 import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
 import 'package:let_tutor/presentation/messenger/bloc/message_bloc.dart';
+import 'package:let_tutor/presentation/my-wallet/bloc/wallet_bloc.dart';
 import 'package:let_tutor/presentation/schedule/bloc/schedule_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/total_lesson_time_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/tutor_bloc.dart';
@@ -83,7 +98,7 @@ final sl = GetIt.instance;
 
 Future<void> initializeDependencies() async {
   // Dio
-  sl.registerSingleton<Dio>(Dio());
+  sl.registerSingleton<Dio>(DioClient.getInstance());
 
   // Shared Preferences
   sl.registerSingletonAsync<SharedPreferences>(SharedPreferences.getInstance);
@@ -106,6 +121,8 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<ScheduleApiService>(ScheduleApiService(sl()));
   sl.registerSingleton<TutorScheduleApiService>(TutorScheduleApiService(sl()));
   sl.registerSingleton<MessageApiService>(MessageApiService(sl()));
+  sl.registerSingleton<EbookApiService>(EbookApiService(sl()));
+  sl.registerSingleton<WalletApiService>(WalletApiService(sl()));
 
   // Repositories
   sl.registerSingleton<AuthRepository>(AuthRepositoryImpl(sl()));
@@ -125,6 +142,8 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<TutorScheduleRepository>(
       TutorScheduleRepositoryImpl(sl()));
   sl.registerSingleton<MessageRepository>(MessageRepositoryImpl(sl()));
+  sl.registerSingleton<EbookRepository>(EbookRepositoryImpl(sl()));
+  sl.registerSingleton<WalletRepository>(WalletRepositoryImpl(sl()));
 
   //UseCases
   sl.registerSingleton<LoginUsecase>(LoginUsecase(sl()));
@@ -154,9 +173,15 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<GetReceiversUsecase>(GetReceiversUsecase(sl()));
   sl.registerSingleton<GetMessagesByUserIdUsecase>(
       GetMessagesByUserIdUsecase(sl()));
+  sl.registerSingleton<LoginGoogleUsecase>(LoginGoogleUsecase(sl()));
+  sl.registerSingleton<GetListEbooksUsecase>(GetListEbooksUsecase(sl()));
+  sl.registerSingleton<GetStatisticsUsecase>(GetStatisticsUsecase(sl()));
+  sl.registerSingleton<GetTransactionsUsecase>(GetTransactionsUsecase(sl()));
+  sl.registerSingleton<LoginFacebookUsecase>(LoginFacebookUsecase(sl()));
 
   //Blocs
-  sl.registerFactory<AuthBloc>(() => AuthBloc(sl(), sl(), sl(), sl(), sl()));
+  sl.registerFactory<AuthBloc>(
+      () => AuthBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory<TutorBloc>(() => TutorBloc(sl(), sl()));
   sl.registerFactory<TutorDetailsBloc>(
       () => TutorDetailsBloc(sl(), sl(), sl()));
@@ -174,4 +199,7 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<BecomeTutorBloc>(() => BecomeTutorBloc());
   sl.registerFactory<MessageBloc>(() => MessageBloc(sl()));
   sl.registerFactory<ConversationBloc>(() => ConversationBloc(sl()));
+  sl.registerFactory<EbookBloc>(() => EbookBloc(sl()));
+  sl.registerFactory<HomeEbookBloc>(() => HomeEbookBloc(sl()));
+  sl.registerFactory<WalletBloc>(() => WalletBloc(sl(), sl()));
 }

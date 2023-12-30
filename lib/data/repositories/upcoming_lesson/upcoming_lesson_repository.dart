@@ -11,13 +11,9 @@ class UpcomingLessonRepositoryImpl implements UpcomingLessonRepository {
 
   UpcomingLessonRepositoryImpl(this._upcomingLessonApiService);
   @override
-  Future<DataState<UpcomingLessonModel?>> getUpcomingLesson({
-    required String token,
-  }) async {
+  Future<DataState<UpcomingLessonModel?>> getUpcomingLesson() async {
     try {
-      final httpResponse = await _upcomingLessonApiService.getUpcomingLesson(
-        token: 'Bearer $token',
-      );
+      final httpResponse = await _upcomingLessonApiService.getUpcomingLesson();
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {

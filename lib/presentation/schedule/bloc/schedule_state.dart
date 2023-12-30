@@ -3,7 +3,7 @@ part of 'schedule_bloc.dart';
 sealed class ScheduleState extends Equatable {
   final List<ScheduleEntity>? schedules;
   final DioException? error;
-  final GetSchedulesUsecaseParams? params;
+  final ScheduleParams? params;
   const ScheduleState({
     this.schedules,
     this.error,
@@ -15,20 +15,18 @@ sealed class ScheduleState extends Equatable {
 }
 
 final class ScheduleLoading extends ScheduleState {
-  const ScheduleLoading(
-      List<ScheduleEntity> schedules, GetSchedulesUsecaseParams params)
+  const ScheduleLoading(List<ScheduleEntity> schedules, ScheduleParams params)
       : super(schedules: schedules, params: params);
 }
 
 final class ScheduleDone extends ScheduleState {
-  const ScheduleDone(
-      List<ScheduleEntity> schedules, GetSchedulesUsecaseParams params)
+  const ScheduleDone(List<ScheduleEntity> schedules, ScheduleParams params)
       : super(schedules: schedules, params: params);
 }
 
 final class ScheduleFailed extends ScheduleState {
-  const ScheduleFailed(List<ScheduleEntity> schedules,
-      GetSchedulesUsecaseParams params, DioException error)
+  const ScheduleFailed(
+      List<ScheduleEntity> schedules, ScheduleParams params, DioException error)
       : super(
           schedules: schedules,
           params: params,
@@ -37,7 +35,6 @@ final class ScheduleFailed extends ScheduleState {
 }
 
 final class ScheduleComplete extends ScheduleState {
-  const ScheduleComplete(
-      List<ScheduleEntity> schedules, GetSchedulesUsecaseParams params)
+  const ScheduleComplete(List<ScheduleEntity> schedules, ScheduleParams params)
       : super(schedules: schedules, params: params);
 }

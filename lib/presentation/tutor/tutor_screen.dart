@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:let_tutor/domain/repositories/tutor/tutor_repositoy.dart';
-import 'package:let_tutor/domain/usecases/tutor/search_tutors.dart';
-import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/presentation/tutor/bloc/tutor_bloc.dart';
 import 'package:let_tutor/presentation/tutor/widgets/all_tutors.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_search.dart';
 import 'package:let_tutor/presentation/tutor/widgets/upcoming_lesson.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TutorScreen extends StatefulWidget {
   static const String routeName = 'tutorListScreen';
@@ -20,7 +17,6 @@ class TutorScreen extends StatefulWidget {
 
 class _TutorScreenState extends State<TutorScreen> {
   final ScrollController _scrollController = ScrollController();
-  final String accessToken = sl<SharedPreferences>().getString('access-token')!;
   void _scrollListener() {
     if (_scrollController.offset >=
             _scrollController.position.maxScrollExtent &&
@@ -32,34 +28,13 @@ class _TutorScreenState extends State<TutorScreen> {
         context.read<TutorBloc>().add(
               TutorSearching(
                 context.read<TutorBloc>().state.params!.copyWith(
-                      token: accessToken,
-                      params: context
-                          .read<TutorBloc>()
-                          .state
-                          .params!
-                          .params
-                          .copyWith(
-                            page: (context
-                                        .read<TutorBloc>()
-                                        .state
-                                        .params!
-                                        .params
-                                        .page ??
-                                    0) +
-                                1,
-                            isNative: context
-                                .read<TutorBloc>()
-                                .state
-                                .params!
-                                .params
-                                .isNative,
-                            isVietnamese: context
-                                .read<TutorBloc>()
-                                .state
-                                .params!
-                                .params
-                                .isVietnamese,
-                          ),
+                      page:
+                          (context.read<TutorBloc>().state.params!.page ?? 0) +
+                              1,
+                      isNative:
+                          context.read<TutorBloc>().state.params!.isNative,
+                      isVietnamese:
+                          context.read<TutorBloc>().state.params!.isVietnamese,
                     ),
               ),
             );
@@ -69,13 +44,10 @@ class _TutorScreenState extends State<TutorScreen> {
 
   @override
   void initState() {
-    if ((context.read<TutorBloc>().state.params?.params.page ?? 0) < 1) {
+    if ((context.read<TutorBloc>().state.params?.page ?? 0) < 1) {
       context.read<TutorBloc>().add(
             TutorSearching(
-              SearchTutorsUsecaseParams(
-                token: accessToken,
-                params: TutorSearchParams(page: 1),
-              ),
+              TutorSearchParams(page: 1),
             ),
           );
     }

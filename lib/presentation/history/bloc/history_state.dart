@@ -3,7 +3,7 @@ part of 'history_bloc.dart';
 sealed class HistoryState extends Equatable {
   final List<ScheduleEntity>? history;
   final DioException? error;
-  final GetSchedulesUsecaseParams? params;
+  final ScheduleParams? params;
   const HistoryState({
     this.history,
     this.error,
@@ -15,20 +15,18 @@ sealed class HistoryState extends Equatable {
 }
 
 final class HistoryLoading extends HistoryState {
-  const HistoryLoading(
-      List<ScheduleEntity> history, GetSchedulesUsecaseParams params)
+  const HistoryLoading(List<ScheduleEntity> history, ScheduleParams params)
       : super(history: history, params: params);
 }
 
 final class HistoryDone extends HistoryState {
-  const HistoryDone(
-      List<ScheduleEntity> history, GetSchedulesUsecaseParams params)
+  const HistoryDone(List<ScheduleEntity> history, ScheduleParams params)
       : super(history: history, params: params);
 }
 
 final class HistoryFailed extends HistoryState {
-  const HistoryFailed(List<ScheduleEntity> history,
-      GetSchedulesUsecaseParams params, DioException error)
+  const HistoryFailed(
+      List<ScheduleEntity> history, ScheduleParams params, DioException error)
       : super(
           history: history,
           params: params,
@@ -37,7 +35,6 @@ final class HistoryFailed extends HistoryState {
 }
 
 final class HistoryComplete extends HistoryState {
-  const HistoryComplete(
-      List<ScheduleEntity> history, GetSchedulesUsecaseParams params)
+  const HistoryComplete(List<ScheduleEntity> history, ScheduleParams params)
       : super(history: history, params: params);
 }

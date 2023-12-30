@@ -4,37 +4,14 @@ import 'package:let_tutor/domain/entities/course_details/course_details_entity.d
 import 'package:let_tutor/domain/repositories/course_details/course_details_repository.dart';
 
 class GetCourseDetailsUsecase
-    implements
-        UseCase<DataState<CourseDetailsEntity>, GetCourseDetailsUsecaseParams> {
+    implements UseCase<DataState<CourseDetailsEntity>, String> {
   final CourseDetailsRepository _courseDetailsRepository;
   GetCourseDetailsUsecase(this._courseDetailsRepository);
 
   @override
-  Future<DataState<CourseDetailsEntity>> call(
-      {GetCourseDetailsUsecaseParams? params}) {
+  Future<DataState<CourseDetailsEntity>> call({String? params}) {
     return _courseDetailsRepository.getCourseDetails(
-      token: params!.token,
-      courseId: params.courseId,
-    );
-  }
-}
-
-class GetCourseDetailsUsecaseParams {
-  final String token;
-  final String courseId;
-
-  GetCourseDetailsUsecaseParams({
-    required this.token,
-    required this.courseId,
-  });
-
-  GetCourseDetailsUsecaseParams copyWith({
-    String? token,
-    String? courseId,
-  }) {
-    return GetCourseDetailsUsecaseParams(
-      token: token ?? this.token,
-      courseId: courseId ?? this.courseId,
+      courseId: params!,
     );
   }
 }

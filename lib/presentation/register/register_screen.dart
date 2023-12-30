@@ -7,6 +7,7 @@ import 'package:let_tutor/presentation/login/bloc/auth_bloc.dart';
 import 'package:let_tutor/presentation/login/login_screen.dart';
 import 'package:let_tutor/presentation/login/widgets/login_form.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/presentation/login/widgets/social_login.dart';
 
 class RegisterScreen extends StatelessWidget {
   static const String routeName = 'register';
@@ -66,44 +67,7 @@ class RegisterScreen extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/facebook.png',
-                        width: 50,
-                        height: 50,
-                      ),
-                      const SizedBox(
-                        width: 30,
-                      ),
-                      Image.asset(
-                        'assets/images/google.png',
-                        width: 50,
-                        height: 50,
-                      ),
-                      const SizedBox(
-                        width: 30,
-                      ),
-                      Container(
-                        width: 50,
-                        height: 50,
-                        padding: const EdgeInsets.all(7),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.fromBorderSide(
-                            BorderSide(
-                              color: Theme.of(context).primaryColor,
-                              width: 2,
-                            ),
-                          ),
-                        ),
-                        child: Image.asset(
-                          'assets/images/mobile.png',
-                        ),
-                      )
-                    ],
-                  ),
+                  const SocialLogin(),
                   const SizedBox(
                     height: 30,
                   ),

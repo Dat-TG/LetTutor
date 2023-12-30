@@ -30,7 +30,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         context.read<HistoryBloc>().add(
               HistoryFetched(
                 context.read<HistoryBloc>().state.params!.copyWith(
-                      page: context.read<HistoryBloc>().state.params!.page + 1,
+                      page: context.read<HistoryBloc>().state.params!.page! + 1,
                     ),
               ),
             );
@@ -42,6 +42,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
   void initState() {
     _scrollController.addListener(_scrollListener);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -133,7 +140,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     bool isSameDay = startTime.day == startTimePrev.day &&
                         startTime.month == startTimePrev.month &&
                         startTime.year == startTimePrev.year;
-                    return isSameDay
+                    return !isSameDay
                         ? Padding(
                             padding: const EdgeInsets.only(
                               left: 20,

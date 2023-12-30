@@ -31,10 +31,7 @@ class TutorDetailsBloc extends Bloc<TutorDetailsEvent, TutorDetailsState> {
       TutorDetailsLoad event, Emitter<TutorDetailsState> emit) async {
     emit(const TutorDetailsLoading());
     final dataState = await _getTutorDetailsUsecase(
-      params: GetTutorDetailsUsecaseParams(
-        token: event.token,
-        tutorId: event.tutorId,
-      ),
+      params: event.tutorId,
     );
     if (dataState is DataSuccess) {
       emit(TutorDetailsDone(dataState.data!));
@@ -46,8 +43,7 @@ class TutorDetailsBloc extends Bloc<TutorDetailsEvent, TutorDetailsState> {
   void onFavoriteTutor(
       FavoriteTutor event, Emitter<TutorDetailsState> emit) async {
     final dataState = await _favoriteTutorUsecase(
-      params: FavoriteTutorUsecaseParams(
-          token: event.token, tutorId: event.tutorId),
+      params: event.tutorId,
     );
     if (dataState is DataSuccess) {
       if (state.tutorDetails?.isFavorite == true) {
@@ -73,7 +69,6 @@ class TutorDetailsBloc extends Bloc<TutorDetailsEvent, TutorDetailsState> {
       ReportTutorEvent event, Emitter<TutorDetailsState> emit) async {
     final dataState = await _reportTutorUsecase(
       params: ReportTutorUsecaseParams(
-        token: event.token,
         tutorId: event.tutorId,
         content: event.content,
       ),

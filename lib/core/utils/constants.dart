@@ -28,6 +28,7 @@ class AppConstants {
   };
 
   static const Map<int, String> courseLevels = {
+    0: 'Any Level',
     1: 'Beginner',
     2: 'Upper-Beginner',
     3: 'Pre-Intermediate',
@@ -72,4 +73,5 @@ class AppConstants {
   ];
 
   static const baseUrl = 'https://sandbox.api.lettutor.com';
+  static const meetingServerUrl = "https://meet.lettutor.com";
 }

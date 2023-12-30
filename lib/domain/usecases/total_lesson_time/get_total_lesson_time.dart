@@ -8,6 +8,6 @@ class GetTotalLessonTimeUsecase implements UseCase<DataState<int>, String> {
 
   @override
   Future<DataState<int>> call({String? params}) {
-    return _totalLessonTimeRepository.getTotalLessonTime(token: params ?? "");
+    return _totalLessonTimeRepository.getTotalLessonTime();
   }
 }

@@ -11,13 +11,9 @@ class MessageRepositoryImpl implements MessageRepository {
 
   MessageRepositoryImpl(this._messageApiService);
   @override
-  Future<DataState<List<MessageModel>>> getReceivers({
-    required String token,
-  }) async {
+  Future<DataState<List<MessageModel>>> getReceivers() async {
     try {
-      final httpResponse = await _messageApiService.getReceivers(
-        token: 'Bearer $token',
-      );
+      final httpResponse = await _messageApiService.getReceivers();
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -36,7 +32,6 @@ class MessageRepositoryImpl implements MessageRepository {
 
   @override
   Future<DataState<List<MessageModel>>> getMessagesByUserId({
-    required String token,
     required String userId,
     required int startTime,
     required int page,
@@ -44,7 +39,6 @@ class MessageRepositoryImpl implements MessageRepository {
   }) async {
     try {
       final httpResponse = await _messageApiService.getMessagesByUserId(
-        token: 'Bearer $token',
         userId: userId,
         startTime: startTime,
         page: page,

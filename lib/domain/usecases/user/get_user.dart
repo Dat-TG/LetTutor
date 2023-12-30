@@ -9,6 +9,6 @@ class GetUserUsecase implements UseCase<DataState<UserEntity>, String> {
 
   @override
   Future<DataState<UserEntity>> call({String? params}) {
-    return _userRepository.getUserInfo(params!);
+    return _userRepository.getUserInfo();
   }
 }

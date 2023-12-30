@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: unused_element, prefer_const_declarations
+
 part of 'review_api_service.dart';
 
 // **************************************************************************
@@ -12,9 +14,7 @@ class _ReviewApiService implements ReviewApiService {
   _ReviewApiService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://sandbox.api.lettutor.com';
-  }
+  });
 
   final Dio _dio;
 
@@ -22,7 +22,6 @@ class _ReviewApiService implements ReviewApiService {
 
   @override
   Future<HttpResponse<List<ReviewModel>>> getReviews({
-    required String token,
     required String tutorId,
     int? page,
     int? perPage,
@@ -33,10 +32,7 @@ class _ReviewApiService implements ReviewApiService {
       r'perPage': perPage,
     };
     queryParameters.removeWhere((k, v) => v == null);
-    final _headers = <String, dynamic>{
-      r'Content-Type': 'application/json',
-      r'Authorization': token,
-    };
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(

@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/core/providers/auth_provider.dart';
 import 'package:let_tutor/core/providers/dark_mode_provider.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:provider/provider.dart';
 
 class MyBonus extends StatelessWidget {
-  final int points;
-  const MyBonus({super.key, required this.points});
+  const MyBonus({super.key});
 
   @override
   Widget build(BuildContext context) {
     bool isDark =
         Provider.of<DarkModeProvider>(context, listen: false).isDarkModeOn ??
             (ThemeMode.system == ThemeMode.dark);
+    final user =
+        Provider.of<AuthProvider>(context, listen: false).authEntity.user;
     return Container(
       width: double.infinity,
       height: 250,
@@ -47,7 +49,7 @@ class MyBonus extends StatelessWidget {
             height: 20,
           ),
           Text(
-            '$points ₫',
+            '${user?.walletInfo?.bonus} ₫',
             style: TextStyle(
               fontSize: 40,
               color: Theme.of(context).primaryColor,
@@ -75,9 +77,9 @@ class MyBonus extends StatelessWidget {
                 const SizedBox(
                   width: 5,
                 ),
-                const Text(
-                  'RSJYDZYQLE',
-                  style: TextStyle(
+                Text(
+                  user?.referralInfo?.referralCode ?? "",
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -87,8 +89,8 @@ class MyBonus extends StatelessWidget {
                 ),
                 GestureDetector(
                     onTap: () async {
-                      await Clipboard.setData(
-                          const ClipboardData(text: 'RSJYDZYQLE'));
+                      await Clipboard.setData(ClipboardData(
+                          text: user?.referralInfo?.referralCode ?? ""));
                       if (context.mounted) {
                         Helpers.showSnackBar(context,
                             AppLocalizations.of(context)!.copiedToClipboard);

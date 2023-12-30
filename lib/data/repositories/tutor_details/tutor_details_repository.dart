@@ -13,11 +13,10 @@ class TutorDetailsRepositoryImpl implements TutorDetailsRepository {
   @override
   Future<DataState<TutorDetailsModel>> getTutorDetails({
     required String id,
-    required String token,
   }) async {
     try {
-      final httpResponse = await _tutorDetailsApiService.getTutorDetails(
-          token: 'Bearer $token', tutorId: id);
+      final httpResponse =
+          await _tutorDetailsApiService.getTutorDetails(tutorId: id);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);
       } else {
@@ -36,13 +35,11 @@ class TutorDetailsRepositoryImpl implements TutorDetailsRepository {
 
   @override
   Future<DataState<String>> reportTutor({
-    required String token,
     required String tutorId,
     required String content,
   }) async {
     try {
       final httpResponse = await _tutorDetailsApiService.report(
-        token: 'Bearer $token',
         tutorId: tutorId,
         content: content,
       );

@@ -3,7 +3,6 @@ import 'package:let_tutor/domain/entities/course_details/course_details_entity.d
 
 abstract class CourseDetailsRepository {
   Future<DataState<CourseDetailsEntity>> getCourseDetails({
-    required String token,
     required String courseId,
   });
 }

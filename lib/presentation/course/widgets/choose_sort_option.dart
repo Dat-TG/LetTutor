@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChooseSortOption extends StatefulWidget {
   final TextEditingController sortOptionController;
-  final List<String> sortOptions;
+  final List<MapEntry<String, String>> sortOptions;
   const ChooseSortOption(
       {super.key,
       required this.sortOptionController,
@@ -15,11 +15,13 @@ class ChooseSortOption extends StatefulWidget {
 
 class _ChooseSortOptionState extends State<ChooseSortOption> {
   int index = 0;
+  final TextEditingController displayText = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    widget.sortOptionController.text = widget.sortOptions[0];
+    widget.sortOptionController.text = widget.sortOptions[0].key;
+    displayText.text = widget.sortOptions[0].value;
   }
 
   @override
@@ -30,14 +32,16 @@ class _ChooseSortOptionState extends State<ChooseSortOption> {
           (int id) => MenuItemButton(
               onPressed: () => setState(() {
                     index = id;
-                    widget.sortOptionController.text = widget.sortOptions[id];
+                    widget.sortOptionController.text =
+                        widget.sortOptions[id].key;
+                    displayText.text = widget.sortOptions[id].value;
                   }),
               child: SizedBox(
                 width: 200,
                 height: 50,
                 child: ListTile(
                   tileColor: Theme.of(context).splashColor,
-                  title: Text(widget.sortOptions[id]),
+                  title: Text(widget.sortOptions[id].value),
                   titleTextStyle: TextStyle(
                     fontSize: 18,
                     color: Theme.of(context).iconTheme.color,
@@ -48,6 +52,7 @@ class _ChooseSortOptionState extends State<ChooseSortOption> {
         builder:
             (BuildContext context, MenuController controller, Widget? child) {
           return TextField(
+            controller: displayText,
             readOnly: true,
             onTap: () {
               if (controller.isOpen) {
@@ -56,7 +61,6 @@ class _ChooseSortOptionState extends State<ChooseSortOption> {
                 controller.open();
               }
             },
-            controller: widget.sortOptionController,
             style: const TextStyle(fontSize: 16),
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,

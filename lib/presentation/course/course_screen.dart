@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:let_tutor/presentation/course/bloc/course_bloc.dart';
+import 'package:let_tutor/presentation/course/bloc/ebook_bloc.dart';
 import 'package:let_tutor/presentation/course/widgets/all_courses.dart';
 import 'package:let_tutor/presentation/course/widgets/all_ebooks.dart';
 import 'package:let_tutor/presentation/course/widgets/course_banner.dart';
@@ -30,6 +31,19 @@ class _CourseScreenState extends State<CourseScreen> {
                 CourseFetching(
                     params: context.read<CourseBloc>().state.params!.copyWith(
                         page: (context.read<CourseBloc>().state.params?.page ??
+                                0) +
+                            1)),
+              );
+        }
+      } else {
+        if (context.read<EbookBloc>().state is! EbookCompleted &&
+            context.read<EbookBloc>().state is! EbookNotFound &&
+            context.read<EbookBloc>().state is! EbookLoading) {
+          // Load more data
+          context.read<EbookBloc>().add(
+                EbookFetching(
+                    params: context.read<EbookBloc>().state.params!.copyWith(
+                        page: (context.read<EbookBloc>().state.params?.page ??
                                 0) +
                             1)),
               );

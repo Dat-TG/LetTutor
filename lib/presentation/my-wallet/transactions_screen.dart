@@ -2,15 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:let_tutor/core/common/appbar_normal.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:let_tutor/core/providers/auth_provider.dart';
+import 'package:let_tutor/domain/entities/wallet/transaction_entity.dart';
 import 'package:let_tutor/presentation/my-wallet/widgets/cell_content.dart';
 import 'package:let_tutor/presentation/my-wallet/widgets/column_label.dart';
+import 'package:provider/provider.dart';
 
 class TransactionsScreen extends StatelessWidget {
   static const String routeName = 'transactions';
-  const TransactionsScreen({super.key});
+  final List<TransactionEntity> transactions;
+  const TransactionsScreen({super.key, required this.transactions});
 
   @override
   Widget build(BuildContext context) {
+    final user =
+        Provider.of<AuthProvider>(context, listen: false).authEntity.user;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -48,15 +54,15 @@ class TransactionsScreen extends StatelessWidget {
                 ),
               ],
             ),
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < transactions.length; i++)
               Row(
                 children: [
                   Expanded(
                     flex: 3,
                     child: CellContent(
                       content: Text(
-                        DateFormat('y-M-d hh:mm', 'en').format(
-                          DateTime.now(),
+                        DateFormat('y-M-d HH:MM', 'en').format(
+                          transactions[i].time!,
                         ),
                         style: const TextStyle(
                           fontSize: 15,
@@ -68,30 +74,32 @@ class TransactionsScreen extends StatelessWidget {
                     flex: 2,
                     child: CellContent(
                       content: Text(
-                        AppLocalizations.of(context)!.bookTransaction,
+                        transactions[i].type == 'buy'
+                            ? AppLocalizations.of(context)!.bookTransaction
+                            : AppLocalizations.of(context)!.cancelBooking,
                         style: const TextStyle(
                           fontSize: 15,
                         ),
                       ),
                     ),
                   ),
-                  const Expanded(
+                  Expanded(
                     flex: 2,
                     child: CellContent(
                       content: Text(
-                        'Keegan',
-                        style: TextStyle(
+                        transactions[i].tutor!,
+                        style: const TextStyle(
                           fontSize: 15,
                         ),
                       ),
                     ),
                   ),
-                  const Expanded(
+                  Expanded(
                     flex: 2,
                     child: CellContent(
                       content: Text(
-                        'Phhai123',
-                        style: TextStyle(
+                        user!.name!,
+                        style: const TextStyle(
                           fontSize: 15,
                         ),
                       ),

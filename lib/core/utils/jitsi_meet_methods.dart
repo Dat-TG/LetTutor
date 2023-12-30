@@ -25,10 +25,10 @@ class JitsiMeetMethods {
       DateTime? nextLessonTime}) async {
     // Define meetings options here
     featureFlags ??= {};
-    serverUrl ??= 'https://meet.lettutor.com';
+    featureFlags['WATERMARK_ENABLED'] = true;
     var options = JitsiMeetingOptions(
       roomNameOrUrl: roomNameOrUrl,
-      serverUrl: serverUrl,
+      serverUrl: serverUrl ?? 'https://meet.lettutor.com',
       subject: subject,
       token: token,
       isAudioMuted: isAudioMuted,
@@ -57,6 +57,7 @@ class JitsiMeetMethods {
         },
         onConferenceJoined: (url) {
           debugPrint("onConferenceJoined: url: $url");
+
           timer = Timer.periodic(const Duration(seconds: 1), (timer) {
             String strTimeUntil = Helpers.getUntilLessonTime(
                 nextLessonTime ?? DateTime.now(), context);
@@ -65,6 +66,8 @@ class JitsiMeetMethods {
                 DateTime.now().millisecondsSinceEpoch) {
               timer.cancel();
             } else {
+              print('show toast $strTimeUntil');
+
               Fluttertoast.showToast(
                 msg:
                     "$strTimeUntil ${AppLocalizations.of(context)!.untilLessonStart}\n(${DateFormat("EEEE, d MMMM y hh:mm", locale).format(nextLessonTime)})",
@@ -81,6 +84,7 @@ class JitsiMeetMethods {
         onConferenceTerminated: (url, error) {
           debugPrint("onConferenceTerminated: url: $url, error: $error");
           if (timer != null) timer!.cancel();
+
           Fluttertoast.cancel();
         },
         onAudioMutedChanged: (isMuted) {
@@ -120,6 +124,7 @@ class JitsiMeetMethods {
         onClosed: () {
           debugPrint("onClosed");
           if (timer != null) timer!.cancel();
+
           Fluttertoast.cancel();
         },
       ),

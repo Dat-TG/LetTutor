@@ -12,12 +12,10 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
   ScheduleRepositoryImpl(this._scheduleApiService);
   @override
   Future<DataState<List<ScheduleModel>>> getSchedules({
-    required String token,
     required ScheduleParams params,
   }) async {
     try {
       final httpResponse = await _scheduleApiService.getSchedules(
-        token: 'Bearer $token',
         page: params.page ?? 1,
         perPage: params.perPage ?? 10,
         inFuture: 1,
@@ -42,12 +40,10 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
 
   @override
   Future<DataState<List<ScheduleModel>>> getHistory({
-    required String token,
     required ScheduleParams params,
   }) async {
     try {
       final httpResponse = await _scheduleApiService.getHistory(
-        token: 'Bearer $token',
         page: params.page ?? 1,
         perPage: params.perPage ?? 10,
         inFuture: 0,

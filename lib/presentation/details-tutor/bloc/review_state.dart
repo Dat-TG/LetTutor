@@ -3,7 +3,7 @@ part of 'review_bloc.dart';
 sealed class ReviewState extends Equatable {
   final List<ReviewEntity>? reviews;
   final DioException? error;
-  final GetReviewsUsecaseParams? params;
+  final ReviewParams? params;
   const ReviewState({
     this.reviews,
     this.error,
@@ -15,13 +15,12 @@ sealed class ReviewState extends Equatable {
 }
 
 final class ReviewsLoading extends ReviewState {
-  const ReviewsLoading(
-      List<ReviewEntity> reviews, GetReviewsUsecaseParams params)
+  const ReviewsLoading(List<ReviewEntity> reviews, ReviewParams params)
       : super(reviews: reviews, params: params);
 }
 
 final class ReviewsDone extends ReviewState {
-  const ReviewsDone(List<ReviewEntity> reviews, GetReviewsUsecaseParams params)
+  const ReviewsDone(List<ReviewEntity> reviews, ReviewParams params)
       : super(reviews: reviews, params: params);
 }
 
@@ -30,7 +29,6 @@ final class ReviewFailed extends ReviewState {
 }
 
 final class ReviewsComplete extends ReviewState {
-  const ReviewsComplete(
-      List<ReviewEntity> reviews, GetReviewsUsecaseParams params)
+  const ReviewsComplete(List<ReviewEntity> reviews, ReviewParams params)
       : super(reviews: reviews, params: params);
 }

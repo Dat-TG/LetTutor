@@ -7,10 +7,8 @@ import 'package:let_tutor/core/common/custom_textfield.dart';
 import 'package:let_tutor/core/providers/auth_provider.dart';
 import 'package:let_tutor/domain/entities/tutor_schedule/tutor_schedule_entity.dart';
 import 'package:let_tutor/domain/repositories/tutor_schedule/tutor_schedule_repository.dart';
-import 'package:let_tutor/domain/usecases/tutor_schedule/booking_schedule.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/presentation/booking/bloc/booking_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class BookingDetails extends StatefulWidget {
   final ScheduleOfTutorEntity? schedule;
@@ -254,19 +252,17 @@ class _BookingDetailsState extends State<BookingDetails> {
                                   widget.schedule?.startTimestamp ?? 0)
                               .compareTo(DateTime.now()) >=
                           0) {
-                        context.read<BookingBloc>().add(BookingScheduleEvent(
-                              BookingScheduleUsecaseParams(
-                                  token: sl<SharedPreferences>()
-                                          .getString('access-token') ??
-                                      '',
-                                  body: BookingScheduleBody(
-                                      note: _noteController.text,
-                                      scheduleDetailIds: [
-                                        widget.schedule?.scheduleDetails?[0]
-                                                .id ??
-                                            ''
-                                      ])),
-                            ));
+                        context.read<BookingBloc>().add(
+                              BookingScheduleEvent(
+                                BookingScheduleBody(
+                                  note: _noteController.text,
+                                  scheduleDetailIds: [
+                                    widget.schedule?.scheduleDetails?[0].id ??
+                                        ''
+                                  ],
+                                ),
+                              ),
+                            );
                       }
                     }
                   : null,

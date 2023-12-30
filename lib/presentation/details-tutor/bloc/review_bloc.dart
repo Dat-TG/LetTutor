@@ -12,11 +12,16 @@ part 'review_state.dart';
 class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
   final GetReviewsUsecase _getReviewsUsecase;
   ReviewBloc(this._getReviewsUsecase)
-      : super(ReviewsLoading(
+      : super(
+          ReviewsLoading(
             const [],
-            GetReviewsUsecaseParams(
-                token: '',
-                params: ReviewParams(page: 1, perPage: 10, tutorId: '')))) {
+            ReviewParams(
+              page: 1,
+              perPage: 10,
+              tutorId: '',
+            ),
+          ),
+        ) {
     on<ReviewFetched>(onReviewsFetched);
   }
 
@@ -34,7 +39,7 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
 
     if (dataState is DataSuccess) {
       if (dataState.data!.isNotEmpty) {
-        if (event.params.params.page == 1) {
+        if (event.params.page == 1) {
           emit(ReviewsDone(dataState.data ?? [], event.params));
         } else {
           emit(ReviewsDone(

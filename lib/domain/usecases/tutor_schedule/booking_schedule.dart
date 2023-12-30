@@ -3,25 +3,14 @@ import 'package:let_tutor/core/usecase/usecase.dart';
 import 'package:let_tutor/domain/repositories/tutor_schedule/tutor_schedule_repository.dart';
 
 class BookingScheduleUsecase
-    implements UseCase<DataState<String>, BookingScheduleUsecaseParams> {
+    implements UseCase<DataState<String>, BookingScheduleBody> {
   final TutorScheduleRepository _tutorScheduleRepository;
   BookingScheduleUsecase(this._tutorScheduleRepository);
 
   @override
-  Future<DataState<String>> call({BookingScheduleUsecaseParams? params}) {
+  Future<DataState<String>> call({BookingScheduleBody? params}) {
     return _tutorScheduleRepository.bookingSchedule(
-      token: params!.token,
-      body: params.body,
+      body: params!,
     );
   }
-}
-
-class BookingScheduleUsecaseParams {
-  final String token;
-  final BookingScheduleBody body;
-
-  BookingScheduleUsecaseParams({
-    required this.token,
-    required this.body,
-  });
 }

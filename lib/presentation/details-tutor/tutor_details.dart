@@ -9,8 +9,6 @@ import 'package:let_tutor/core/utils/constants.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:let_tutor/core/utils/language_local.dart';
 import 'package:let_tutor/domain/repositories/review/review_repository.dart';
-import 'package:let_tutor/domain/usecases/review/get_reviews.dart';
-import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/presentation/booking/book_lesson_screen.dart';
 import 'package:let_tutor/core/common/expanded_paragraph.dart';
 import 'package:let_tutor/presentation/details-course/course_details.dart';
@@ -23,7 +21,6 @@ import 'package:let_tutor/presentation/details-tutor/widgets/tutor_details_title
 import 'package:let_tutor/presentation/tutor/bloc/tutor_bloc.dart'
     hide FavoriteTutor;
 import 'package:let_tutor/presentation/tutor/widgets/tag_card.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TutorDetails extends StatefulWidget {
   static const String routeName = 'tutorDetails';
@@ -48,7 +45,6 @@ class _TutorDetailsState extends State<TutorDetails> {
     );
   }
 
-  final token = sl<SharedPreferences>().getString('access-token')!;
   final ScrollController _scrollController = ScrollController();
 
   void _scrollListener() {
@@ -60,21 +56,9 @@ class _TutorDetailsState extends State<TutorDetails> {
         context.read<ReviewBloc>().add(
               ReviewFetched(
                 context.read<ReviewBloc>().state.params!.copyWith(
-                      params: context
-                          .read<ReviewBloc>()
-                          .state
-                          .params!
-                          .params
-                          .copyWith(
-                            page: (context
-                                        .read<ReviewBloc>()
-                                        .state
-                                        .params!
-                                        .params
-                                        .page ??
-                                    0) +
-                                1,
-                          ),
+                      page:
+                          (context.read<ReviewBloc>().state.params!.page ?? 0) +
+                              1,
                     ),
               ),
             );
@@ -84,19 +68,16 @@ class _TutorDetailsState extends State<TutorDetails> {
 
   @override
   void initState() {
-    context
-        .read<TutorDetailsBloc>()
-        .add(TutorDetailsLoad(token, widget.tutorId));
-    context.read<ReviewBloc>().add(ReviewFetched(
-          GetReviewsUsecaseParams(
-            token: token,
-            params: ReviewParams(
+    context.read<TutorDetailsBloc>().add(TutorDetailsLoad(widget.tutorId));
+    context.read<ReviewBloc>().add(
+          ReviewFetched(
+            ReviewParams(
               page: 1,
               perPage: 10,
               tutorId: widget.tutorId,
             ),
           ),
-        ));
+        );
     _scrollController.addListener(_scrollListener);
     super.initState();
   }
@@ -197,10 +178,11 @@ class _TutorDetailsState extends State<TutorDetails> {
                                     : AppLocalizations.of(context)!.like,
                                 callback: () {
                                   context.read<TutorDetailsBloc>().add(
-                                      FavoriteTutor(
-                                          token,
+                                        FavoriteTutor(
                                           state.tutorDetails?.user?.id ?? '',
-                                          context));
+                                          context,
+                                        ),
+                                      );
                                 },
                                 borderRadius: 10,
                                 padding: const EdgeInsets.symmetric(

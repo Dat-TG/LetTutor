@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: unused_element, prefer_const_declarations
+
 part of 'upcoming_lesson_api_service.dart';
 
 // **************************************************************************
@@ -12,26 +14,20 @@ class _UpcomingLessonApiService implements UpcomingLessonApiService {
   _UpcomingLessonApiService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://sandbox.api.lettutor.com';
-  }
+  });
 
   final Dio _dio;
 
   String? baseUrl;
 
   @override
-  Future<HttpResponse<UpcomingLessonModel?>> getUpcomingLesson(
-      {required String token}) async {
+  Future<HttpResponse<UpcomingLessonModel?>> getUpcomingLesson() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{
-      r'Content-Type': 'application/json',
-      r'Authorization': token,
-    };
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
     _headers.removeWhere((k, v) => v == null);
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
+    final _result = await _dio.fetch<Map<String, dynamic>?>(
         _setStreamType<HttpResponse<UpcomingLessonModel>>(Options(
       method: 'GET',
       headers: _headers,
@@ -49,9 +45,31 @@ class _UpcomingLessonApiService implements UpcomingLessonApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = (_result.data!['data'] as List).isNotEmpty
-        ? UpcomingLessonModel.fromJson(_result.data!['data'][0])
+    List<UpcomingLessonModel> result = _result.data!['data']
+        .map<UpcomingLessonModel>((dynamic i) =>
+            UpcomingLessonModel.fromJson(i as Map<String, dynamic>))
+        .toList();
+    result.sort(
+      (a, b) => a.scheduleDetailInfo!.startPeriodTimestamp!
+          .compareTo(b.scheduleDetailInfo!.startPeriodTimestamp!),
+    );
+    UpcomingLessonModel? value = result.isNotEmpty
+        ? result[0].scheduleDetailInfo!.endPeriodTimestamp! >
+                DateTime.now().millisecondsSinceEpoch
+            ? result[0]
+            : null
         : null;
+
+    if (value == null) {
+      for (int i = 1; i < result.length; i++) {
+        if (result[i].scheduleDetailInfo!.endPeriodTimestamp! >
+            DateTime.now().millisecondsSinceEpoch) {
+          value = result[i];
+          break;
+        }
+      }
+    }
+
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

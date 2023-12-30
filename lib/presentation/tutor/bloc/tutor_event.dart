@@ -8,7 +8,7 @@ sealed class TutorEvent extends Equatable {
 }
 
 final class TutorSearching extends TutorEvent {
-  final SearchTutorsUsecaseParams params;
+  final TutorSearchParams params;
   const TutorSearching(this.params);
 
   @override

@@ -270,5 +270,8 @@
     "bookSuccessful": "Đặt lịch thành công",
     "bookFailed": "Đặt lịch thất bại",
     "pleaseChooseYourSpecialities": "Vui lòng chọn chuyên môn của bạn",
-    "uploadVideoHere": "Tải lên video..."
+    "uploadVideoHere": "Tải lên video...",
+    "sorryWeCantFindAnyCourseWithThisKeywords":"Xin lỗi, chúng tôi không thể tìm thấy kết quả vớI từ khoá này",
+    "sorryWeCantFindAnyEbookWithThisKeywords":"Xin lỗi, chúng tôi không thể tìm thấy kết quả vớI từ khoá này",
+    "cancelBooking": "Hủy đặt lịch"
 }
