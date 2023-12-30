@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/providers/auth_provider.dart';
 import 'package:let_tutor/core/providers/locale_provider.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:let_tutor/core/utils/jitsi_meet_methods.dart';
 import 'package:let_tutor/presentation/tutor/bloc/total_lesson_time_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/upcoming_lesson_bloc.dart';
@@ -118,10 +119,11 @@ class UpcomingLesson extends StatelessWidget {
                         roomNameOrUrl:
                             '${state.upcomingLesson?.userId}-${state.upcomingLesson?.scheduleDetailInfo?.scheduleInfo?.tutorId}',
                         subject:
-                            '${state.upcomingLesson!.scheduleDetailInfo!.scheduleInfo!.tutorInfo!.name} Meeting Room',
-                        userDisplayName: user.name!,
+                            '${state.upcomingLesson!.scheduleDetailInfo!.scheduleInfo!.tutorInfo!.name} Lesson Room',
+                        userDisplayName: user.name ?? 'Student',
                         userEmail: user.email,
-                        userAvatarUrl: user.avatar,
+                        userAvatarUrl:
+                            user.avatar ?? Helpers.avatarFromName(user.name),
                         nextLessonTime: startTime,
                       ),
                       textSize: 16,

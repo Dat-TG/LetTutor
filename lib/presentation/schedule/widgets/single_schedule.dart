@@ -311,18 +311,24 @@ class _SingleScheduleState extends State<SingleSchedule> {
                       callback: () {
                         print(
                             'token: ${widget.schedule.studentMeetingLink?.substring(13)}');
-                        JitsiMeetMethods.joinMeeting(context,
-                            roomNameOrUrl:
-                                '${user?.id}-${widget.schedule.scheduleDetailInfo?.scheduleInfo?.tutorId}',
-                            serverUrl: AppConstants.meetingServerUrl,
-                            subject:
-                                '${widget.schedule.scheduleDetailInfo?.scheduleInfo?.tutorInfo?.name} Lesson Room',
-                            userDisplayName: user?.name ?? 'Student',
-                            userEmail: user?.email,
-                            userAvatarUrl: user?.avatar ??
-                                Helpers.avatarFromName(user?.name),
-                            token: widget.schedule.studentMeetingLink
-                                ?.substring(13));
+                        JitsiMeetMethods.joinMeeting(
+                          context,
+                          roomNameOrUrl:
+                              '${user?.id}-${widget.schedule.scheduleDetailInfo?.scheduleInfo?.tutorId}',
+                          serverUrl: AppConstants.meetingServerUrl,
+                          subject:
+                              '${widget.schedule.scheduleDetailInfo?.scheduleInfo?.tutorInfo?.name} Lesson Room',
+                          userDisplayName: user?.name ?? 'Student',
+                          userEmail: user?.email,
+                          userAvatarUrl: user?.avatar ??
+                              Helpers.avatarFromName(user?.name),
+                          token:
+                              widget.schedule.studentMeetingLink?.substring(13),
+                          nextLessonTime: DateTime.fromMillisecondsSinceEpoch(
+                              widget.schedule.scheduleDetailInfo
+                                      ?.startPeriodTimestamp ??
+                                  0),
+                        );
                       },
                       textSize: 16,
                       padding: const EdgeInsets.symmetric(
