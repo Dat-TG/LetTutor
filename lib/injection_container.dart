@@ -92,6 +92,7 @@ import 'package:let_tutor/presentation/schedule/bloc/schedule_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/total_lesson_time_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/tutor_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/upcoming_lesson_bloc.dart';
+import 'package:let_tutor/services/socket_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
@@ -106,6 +107,7 @@ Future<void> initializeDependencies() async {
 
   // Dependencies
   sl.registerSingleton<AuthProvider>(AuthProvider());
+  sl.registerSingleton<SocketServices>(SocketServices());
   // API Services
   sl.registerSingleton<AuthApiService>(AuthApiService(sl()));
   sl.registerSingleton<UserApiService>(UserApiService(sl()));
