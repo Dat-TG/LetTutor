@@ -17,6 +17,7 @@ import 'package:let_tutor/domain/usecases/auth/register.dart';
 import 'package:let_tutor/domain/usecases/user/get_user.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/presentation/login/login_screen.dart';
+import 'package:let_tutor/services/socket_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'auth_event.dart';
@@ -30,6 +31,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final ForgotPasswordUsecase forgotPasswordUsecase;
   final LoginGoogleUsecase loginGoogleUsecase;
   final LoginFacebookUsecase loginFacebookUsecase;
+  final SocketServices socketServices;
   AuthBloc(
     this.loginUsecase,
     this.getUserUsecase,
@@ -38,6 +40,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     this.forgotPasswordUsecase,
     this.loginGoogleUsecase,
     this.loginFacebookUsecase,
+    this.socketServices,
   ) : super(const AuthInitial()) {
     on<LoginEvent>(onLogin);
     on<InitialEvent>(onInitial);
@@ -58,6 +61,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
     if (dataState is DataSuccess &&
         dataState.data!.tokens!.access!.token!.isNotEmpty) {
+      Map<String, dynamic>? data = dataState.data!.user!.toJson();
+      data!['currentRole'] = dataState.data!.user!.roles![0];
+      socketServices.sendEvent('connection:login', data);
       emit(AuthSuccessful(dataState.data!));
     }
 
@@ -109,6 +115,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final dataState = await getUserUsecase(params: accessToken);
 
       if (dataState is DataSuccess && dataState.data != null) {
+        Map<String, dynamic>? data = dataState.data!.toJson();
+        data!['currentRole'] = dataState.data!.roles![0];
+        socketServices.sendEvent('connection:login', data);
         emit(
           AuthSuccessful(
             AuthEntity(
@@ -127,6 +136,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ),
         );
         if (dataStateRefresh is DataSuccess && dataStateRefresh.data != null) {
+          Map<String, dynamic>? data = dataState.data!.toJson();
+          data!['currentRole'] = dataState.data!.roles![0];
+          socketServices.sendEvent('connection:login', data);
           emit(
             AuthSuccessful(dataStateRefresh.data!),
           );

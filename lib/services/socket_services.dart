@@ -1,33 +1,56 @@
-import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:web_socket_channel/io.dart'; // Use 'package:web_socket_channel/html.dart' for web applications
+// ignore_for_file: library_prefixes
+
+import 'dart:developer'; // Use 'package:web_socket_channel/html.dart' for web applications
+
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class SocketServices {
-  late WebSocketChannel channel;
+  final IO.Socket socket = IO.io(
+    'wss://sandbox.api.lettutor.com',
+    IO.OptionBuilder()
+        .setTransports(['websocket'])
+        .setPath('/socket.io/')
+        .setQuery({
+          'EIO': 4,
+          'transport': 'websocket',
+        })
+        .build(),
+  );
 
-  void connectToServer() {
-    channel = IOWebSocketChannel.connect(
-        'wss://sandbox.api.lettutor.com/socket.io/?EIO=4&transport=websocket');
-    channel.stream.listen(
-      (data) {
-        print('Socket Received: $data');
-        // Handle received data here
-      },
-      onDone: () {
-        print('Socket closed');
-        // Handle socket closed
-      },
-      onError: (error) {
-        print('Error: $error');
-        // Handle socket error
-      },
-    );
+  void connectToServer() async {
+    socket.on('connect', (_) {
+      log('Connected to Socket.IO server');
+      // Additional actions upon successful connection
+    });
+
+    socket.on('disconnect', (_) {
+      log('Disconnected from Socket.IO server');
+      // Handle disconnection
+    });
+
+    socket.on('event', (data) {
+      log('Received data: $data');
+      // Handle incoming events/data from the server
+    });
+
+    socket.on('chat:returnNewMessage', (data) {
+      log('Received data: $data');
+      // Handle incoming events/data from the server
+    });
   }
 
-  void sendMessage(String message) {
-    channel.sink.add(message);
+  void sendEvent(String eventName, dynamic data) {
+    if (socket.connected) {
+      socket.emit(eventName, data);
+    } else {
+      log('Socket not connected');
+      // Handle not connected state if needed
+    }
   }
 
   void closeConnection() {
-    channel.sink.close();
+    if (socket.connected) {
+      socket.disconnect();
+    }
   }
 }

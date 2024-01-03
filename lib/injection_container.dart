@@ -183,7 +183,7 @@ Future<void> initializeDependencies() async {
 
   //Blocs
   sl.registerFactory<AuthBloc>(
-      () => AuthBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl()));
+      () => AuthBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory<TutorBloc>(() => TutorBloc(sl(), sl()));
   sl.registerFactory<TutorDetailsBloc>(
       () => TutorDetailsBloc(sl(), sl(), sl()));
@@ -200,7 +200,7 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<HomeCourseBloc>(() => HomeCourseBloc(sl()));
   sl.registerFactory<BecomeTutorBloc>(() => BecomeTutorBloc());
   sl.registerFactory<MessageBloc>(() => MessageBloc(sl()));
-  sl.registerFactory<ConversationBloc>(() => ConversationBloc(sl()));
+  sl.registerFactory<ConversationBloc>(() => ConversationBloc(sl(), sl()));
   sl.registerFactory<EbookBloc>(() => EbookBloc(sl()));
   sl.registerFactory<HomeEbookBloc>(() => HomeEbookBloc(sl()));
   sl.registerFactory<WalletBloc>(() => WalletBloc(sl(), sl()));

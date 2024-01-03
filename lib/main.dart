@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:let_tutor/core/providers/auth_provider.dart';
@@ -58,7 +60,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     socketServices.connectToServer();
-    print('socket: ${socketServices.channel}');
+    log('socket: ${socketServices.socket.id}');
     super.initState();
   }
 
