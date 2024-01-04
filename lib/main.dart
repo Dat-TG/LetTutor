@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:let_tutor/core/providers/auth_provider.dart';
@@ -55,12 +53,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
-  final socketServices = SocketServices();
+  final socketServices = sl<SocketServices>();
 
   @override
   void initState() {
     socketServices.connectToServer();
-    log('socket: ${socketServices.socket.id}');
     super.initState();
   }
 
