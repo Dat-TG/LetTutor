@@ -49,9 +49,9 @@ class _CountdownTimerState extends State<CountdownTimer> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final remainingSeconds = snapshot.data!;
-            final hours = (remainingSeconds % (24 * 3600)) ~/ 3600;
+            final hours = remainingSeconds ~/ 3600;
             final minutes = (remainingSeconds % 3600) ~/ 60;
-            final seconds = remainingSeconds % 60;
+            final seconds = (remainingSeconds % 3600) % 60;
 
             return Text(
               '${AppLocalizations.of(context)!.startsIn} ${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}',
