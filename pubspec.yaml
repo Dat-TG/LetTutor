@@ -72,7 +72,6 @@ dependencies:
   json_annotation: ^4.8.1
   google_sign_in: ^6.1.6
   flutter_facebook_auth: ^5.0.11
-  web_socket_channel: ^2.4.0
   socket_io_client: ^2.0.3+1
 
 flutter_launcher_icons:

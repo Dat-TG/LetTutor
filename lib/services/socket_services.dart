@@ -3,6 +3,8 @@
 import 'dart:collection';
 import 'dart:developer'; // Use 'package:web_socket_channel/html.dart' for web applications
 
+import 'package:let_tutor/injection_container.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class SocketMessage {
@@ -22,6 +24,10 @@ class SocketServices {
           'EIO': 4,
           'transport': 'websocket',
         })
+        .setExtraHeaders({
+          'Authorization':
+              'Bearer ${sl<SharedPreferences>().getString('access-token')}'
+        })
         .build(),
   );
 
@@ -30,17 +36,24 @@ class SocketServices {
   void connectToServer() async {
     socket.connect();
 
+    socket.onAny((event, data) {
+      log('Received event: $event, with data: $data');
+      // Handle the received event and data as needed
+    });
+
+    socket.on('ping', (_) {
+      log('Ping from server');
+    });
+
+    socket.on('pong', (_) {
+      log('Pong from server');
+    });
+
     socket.on('connect', (_) {
       log('Connected to Socket.IO server');
       processMessageQueue();
       log(socket.id!); // x8WIv7-mJelg7on_ALbx
       // Additional actions upon successful connection
-    });
-
-    socket.onPing((data) {
-      log('data: $data');
-      log('type: ${data.runtimeType}');
-      socket.emit('pong', data);
     });
 
     socket.on('disconnect', (_) {
@@ -49,13 +62,10 @@ class SocketServices {
     });
 
     socket.on('chat:returnNewMessage', (data) {
-      log('Received data: $data');
-      // Handle incoming events/data from the server
+      // Handle the received message here
+      log('Received new message: $data');
+      // Process the message as needed
     });
-
-    socket.onAny((event, data) => {
-          log('Received event: $event with data: $data'),
-        });
   }
 
   void sendEvent(String eventName, dynamic data) {

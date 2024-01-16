@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,6 +24,7 @@ class AuthInterceptor extends Interceptor {
 
     print(
         'Request: ${options.method} ${options.headers} ${options.path} ${options.queryParameters}');
+    print('Request: ${options.data}');
 
     return handler.next(options);
   }
@@ -37,13 +40,16 @@ class AuthInterceptor extends Interceptor {
   @override
   Future<void> onError(
       DioException err, ErrorInterceptorHandler handler) async {
-    print('Error: ${err.response?.statusCode} ${err.response!.headers}');
+    print('Error: ${err.response?.statusCode} ${err.response?.headers}');
+    print('Error: ${err}');
     if (err.response?.statusCode == 401) {
       // Refresh token
       final String? refreshToken = sl<SharedPreferences>().getString(
           'refresh-token'); // Implement this function to get the token
 
       if (refreshToken != null) {
+        log('Refresh token: $refreshToken');
+        log('Timezone: ${DateTime.now().timeZoneOffset.inHours}');
         final response = await dio.post(
           '/auth/refresh-token',
           data: {
