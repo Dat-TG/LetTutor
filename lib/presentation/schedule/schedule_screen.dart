@@ -55,122 +55,135 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     return BlocBuilder<ScheduleBloc, ScheduleState>(
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
-        return ListView.builder(
-            controller: _scrollController,
-            itemCount: (state.schedules?.length ?? 0) + 2,
-            itemBuilder: (context, index) {
-              if (index == 0) {
-                return const Padding(
-                  padding: EdgeInsets.only(bottom: 20),
-                  child: ScheduleBanner(),
+        return RefreshIndicator(
+          onRefresh: () async {
+            context.read<ScheduleBloc>().add(
+                  ScheduleFetched(
+                    ScheduleParams(
+                      page: 1,
+                      perPage: 10,
+                    ),
+                  ),
                 );
-              }
-              if ((index == (state.schedules?.length ?? 0) + 1)) {
-                return (state.schedules?.isNotEmpty ?? false)
-                    ? state is! ScheduleComplete
-                        ? Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                bottom: 20,
-                              ),
-                              child: SizedBox(
-                                height: 30,
-                                width: 30,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 1.5,
-                                  color: Theme.of(context).primaryColor,
+            return Future.delayed(const Duration(seconds: 1));
+          },
+          child: ListView.builder(
+              controller: _scrollController,
+              itemCount: (state.schedules?.length ?? 0) + 2,
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return const Padding(
+                    padding: EdgeInsets.only(bottom: 20),
+                    child: ScheduleBanner(),
+                  );
+                }
+                if ((index == (state.schedules?.length ?? 0) + 1)) {
+                  return (state.schedules?.isNotEmpty ?? false)
+                      ? state is! ScheduleComplete
+                          ? Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  bottom: 20,
+                                ),
+                                child: SizedBox(
+                                  height: 30,
+                                  width: 30,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 1.5,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                        : const SizedBox()
-                    : const ScheduleNotFoundWidget();
-              }
-              if (index == 1) {
+                            )
+                          : const SizedBox()
+                      : const ScheduleNotFoundWidget();
+                }
+                if (index == 1) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 20,
+                          right: 20,
+                          bottom: 30,
+                          top: 10,
+                        ),
+                        child: CourseDetailsTitleBig(
+                          text: DateFormat(
+                                  "E, d MMM yyyy",
+                                  Provider.of<LocaleProvider>(context,
+                                          listen: false)
+                                      .locale
+                                      ?.languageCode)
+                              .format(
+                            DateTime.fromMillisecondsSinceEpoch(state
+                                .schedules![0]
+                                .scheduleDetailInfo!
+                                .startPeriodTimestamp!),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 20,
+                          right: 20,
+                          bottom: 20,
+                        ),
+                        child: SingleSchedule(schedule: state.schedules![0]),
+                      ),
+                    ],
+                  );
+                }
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20,
-                        right: 20,
-                        bottom: 30,
-                        top: 10,
-                      ),
-                      child: CourseDetailsTitleBig(
-                        text: DateFormat(
-                                "E, d MMM yyyy",
-                                Provider.of<LocaleProvider>(context,
-                                        listen: false)
-                                    .locale
-                                    ?.languageCode)
-                            .format(
+                    Builder(builder: (context) {
+                      final DateTime startTime =
                           DateTime.fromMillisecondsSinceEpoch(state
-                              .schedules![0]
+                              .schedules![index - 1]
                               .scheduleDetailInfo!
-                              .startPeriodTimestamp!),
-                        ),
-                      ),
-                    ),
+                              .startPeriodTimestamp!);
+                      final DateTime startTimePrev =
+                          DateTime.fromMillisecondsSinceEpoch(state
+                              .schedules![index - 2]
+                              .scheduleDetailInfo!
+                              .startPeriodTimestamp!);
+                      bool isSameDay = startTime.day == startTimePrev.day &&
+                          startTime.month == startTimePrev.month &&
+                          startTime.year == startTimePrev.year;
+                      return !isSameDay
+                          ? Padding(
+                              padding: const EdgeInsets.only(
+                                left: 20,
+                                right: 20,
+                                bottom: 30,
+                                top: 10,
+                              ),
+                              child: CourseDetailsTitleBig(
+                                  text: DateFormat(
+                                          "E, d MMM yyyy",
+                                          Provider.of<LocaleProvider>(context,
+                                                  listen: false)
+                                              .locale
+                                              ?.languageCode)
+                                      .format(startTime)),
+                            )
+                          : const SizedBox();
+                    }),
                     Padding(
                       padding: const EdgeInsets.only(
                         left: 20,
                         right: 20,
                         bottom: 20,
                       ),
-                      child: SingleSchedule(schedule: state.schedules![0]),
+                      child:
+                          SingleSchedule(schedule: state.schedules![index - 1]),
                     ),
                   ],
                 );
-              }
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Builder(builder: (context) {
-                    final DateTime startTime =
-                        DateTime.fromMillisecondsSinceEpoch(state
-                            .schedules![index - 1]
-                            .scheduleDetailInfo!
-                            .startPeriodTimestamp!);
-                    final DateTime startTimePrev =
-                        DateTime.fromMillisecondsSinceEpoch(state
-                            .schedules![index - 2]
-                            .scheduleDetailInfo!
-                            .startPeriodTimestamp!);
-                    bool isSameDay = startTime.day == startTimePrev.day &&
-                        startTime.month == startTimePrev.month &&
-                        startTime.year == startTimePrev.year;
-                    return !isSameDay
-                        ? Padding(
-                            padding: const EdgeInsets.only(
-                              left: 20,
-                              right: 20,
-                              bottom: 30,
-                              top: 10,
-                            ),
-                            child: CourseDetailsTitleBig(
-                                text: DateFormat(
-                                        "E, d MMM yyyy",
-                                        Provider.of<LocaleProvider>(context,
-                                                listen: false)
-                                            .locale
-                                            ?.languageCode)
-                                    .format(startTime)),
-                          )
-                        : const SizedBox();
-                  }),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                      right: 20,
-                      bottom: 20,
-                    ),
-                    child:
-                        SingleSchedule(schedule: state.schedules![index - 1]),
-                  ),
-                ],
-              );
-            });
+              }),
+        );
       },
     );
   }
