@@ -1,11 +1,21 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/custom_textfield.dart';
+import 'package:let_tutor/core/utils/helpers.dart';
+import 'package:let_tutor/domain/entities/schedule/schedule_entity.dart';
+
+class Reason {
+  final int id;
+  final String reason;
+  Reason(this.id, this.reason);
+}
 
 class CancelScheduleDialog extends StatefulWidget {
-  const CancelScheduleDialog({super.key});
+  final ScheduleEntity schedule;
+  const CancelScheduleDialog({super.key, required this.schedule});
 
   @override
   State<CancelScheduleDialog> createState() => _CancelScheduleDialogState();
@@ -13,15 +23,16 @@ class CancelScheduleDialog extends StatefulWidget {
 
 class _CancelScheduleDialogState extends State<CancelScheduleDialog> {
   final TextEditingController _noteController = TextEditingController();
-  String reason = '';
+  int reason = 0;
   @override
   Widget build(BuildContext context) {
-    final List<String> reasons = [
-      AppLocalizations.of(context)!.rescheduleAtAnotherTime,
-      AppLocalizations.of(context)!.busyAtThatTime,
-      AppLocalizations.of(context)!.askedByTheTutor,
-      AppLocalizations.of(context)!.other,
+    final List<Reason> reasons = [
+      Reason(1, AppLocalizations.of(context)!.rescheduleAtAnotherTime),
+      Reason(2, AppLocalizations.of(context)!.busyAtThatTime),
+      Reason(3, AppLocalizations.of(context)!.askedByTheTutor),
+      Reason(4, AppLocalizations.of(context)!.other),
     ];
+
     return AlertDialog(
       insetPadding: const EdgeInsets.symmetric(
         horizontal: 30,
@@ -64,17 +75,61 @@ class _CancelScheduleDialogState extends State<CancelScheduleDialog> {
                 ),
               ),
             ),
-            const CircleAvatar(
-              backgroundImage: NetworkImage(
-                  'https://sandbox.api.lettutor.com/avatar/4d54d3d7-d2a9-42e5-97a2-5ed38af5789aavatar1684484879187.jpg'),
-              radius: 30,
+            CachedNetworkImage(
+              imageUrl: widget.schedule.scheduleDetailInfo?.scheduleInfo
+                      ?.tutorInfo?.avatar ??
+                  Helpers.avatarFromName(widget.schedule.scheduleDetailInfo
+                          ?.scheduleInfo?.tutorInfo?.name ??
+                      ''),
+              imageBuilder: (context, imageProvider) => CircleAvatar(
+                radius: 30,
+                backgroundImage: imageProvider,
+              ),
+              placeholder: (context, url) => const CircleAvatar(
+                radius: 30,
+                child: SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1,
+                  ),
+                ),
+              ),
+              errorWidget: (context, url, error) => CachedNetworkImage(
+                imageUrl: Helpers.avatarFromName(widget.schedule
+                        .scheduleDetailInfo?.scheduleInfo?.tutorInfo?.name ??
+                    ''),
+                imageBuilder: (context, imageProvider) => CircleAvatar(
+                  radius: 30,
+                  backgroundImage: imageProvider,
+                ),
+                placeholder: (context, url) => const CircleAvatar(
+                  radius: 30,
+                  child: SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 1,
+                    ),
+                  ),
+                ),
+                errorWidget: (context, url, error) => const CircleAvatar(
+                  radius: 30,
+                  child: Icon(
+                    Icons.person,
+                    size: 20,
+                  ),
+                ),
+              ),
             ),
             const SizedBox(
               height: 5,
             ),
-            const Text(
-              'Keegan',
-              style: TextStyle(
+            Text(
+              widget.schedule.scheduleDetailInfo?.scheduleInfo?.tutorInfo
+                      ?.name ??
+                  '',
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
               ),
@@ -127,18 +182,19 @@ class _CancelScheduleDialogState extends State<CancelScheduleDialog> {
             const SizedBox(
               height: 10,
             ),
-            DropdownMenu<String>(
+            DropdownMenu<int>(
               width: MediaQuery.of(context).size.width - 20 * 2 - 30 * 2,
               initialSelection: null,
-              onSelected: (String? value) {
+              onSelected: (int? value) {
                 // This is called when the user selects an item.
                 setState(() {
                   reason = value!;
                 });
               },
               dropdownMenuEntries:
-                  reasons.map<DropdownMenuEntry<String>>((String value) {
-                return DropdownMenuEntry<String>(value: value, label: value);
+                  reasons.map<DropdownMenuEntry<int>>((Reason value) {
+                return DropdownMenuEntry<int>(
+                    value: value.id, label: value.reason);
               }).toList(),
             ),
             const SizedBox(

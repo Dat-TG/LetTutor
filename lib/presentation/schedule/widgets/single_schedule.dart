@@ -34,7 +34,9 @@ class _SingleScheduleState extends State<SingleSchedule> {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return const CancelScheduleDialog();
+        return CancelScheduleDialog(
+          schedule: widget.schedule,
+        );
       },
     );
   }
