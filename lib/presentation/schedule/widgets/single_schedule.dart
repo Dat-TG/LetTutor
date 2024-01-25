@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -50,6 +52,12 @@ class _SingleScheduleState extends State<SingleSchedule> {
   Widget build(BuildContext context) {
     final user =
         Provider.of<AuthProvider>(context, listen: false).authEntity.user;
+    double timeDifference = DateTime.fromMillisecondsSinceEpoch(
+            widget.schedule.scheduleDetailInfo?.startPeriodTimestamp ?? 0)
+        .difference(DateTime.now())
+        .inHours
+        .toDouble();
+    log('Time difference: $timeDifference');
     return Stack(
       children: [
         Container(
@@ -374,26 +382,27 @@ class _SingleScheduleState extends State<SingleSchedule> {
             ),
           ),
         ),
-        Positioned(
-          right: 10,
-          top: 10,
-          child: CustomButton(
-            title: AppLocalizations.of(context)!.cancel,
-            callback: () {
-              cancelBooking(context);
-            },
-            backgroundColor: Colors.red,
-            titleColor: Colors.white,
-            borderRadius: 5,
-            textSize: 16,
-            icon: const Icon(
-              Icons.cancel_presentation_rounded,
-              size: 20,
-              color: Colors.white,
+        if (timeDifference >= 2)
+          Positioned(
+            right: 10,
+            top: 10,
+            child: CustomButton(
+              title: AppLocalizations.of(context)!.cancel,
+              callback: () {
+                cancelBooking(context);
+              },
+              backgroundColor: Colors.red,
+              titleColor: Colors.white,
+              borderRadius: 5,
+              textSize: 16,
+              icon: const Icon(
+                Icons.cancel_presentation_rounded,
+                size: 20,
+                color: Colors.white,
+              ),
+              padding: const EdgeInsets.all(5),
             ),
-            padding: const EdgeInsets.all(5),
           ),
-        ),
       ],
     );
   }

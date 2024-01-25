@@ -65,7 +65,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                     ),
                   ),
                 );
-            return Future.delayed(const Duration(seconds: 1));
           },
           child: ListView.builder(
               controller: _scrollController,
