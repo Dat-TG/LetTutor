@@ -1,3 +1,6 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:let_tutor/core/providers/auth_provider.dart';
@@ -7,6 +10,7 @@ import 'package:let_tutor/core/routers/my_router.dart';
 import 'package:let_tutor/domain/repositories/schedule/schedule_repository.dart';
 import 'package:let_tutor/domain/usecases/course/get_list_courses.dart';
 import 'package:let_tutor/domain/usecases/ebook/get_list_ebooks.dart';
+import 'package:let_tutor/firebase_options.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/l10n/l10n.dart';
 import 'package:let_tutor/presentation/become-tutor/bloc/become_tutor_bloc.dart';
@@ -41,6 +45,34 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  const fatalError = true;
+  // Non-async exceptions
+  FlutterError.onError = (errorDetails) {
+    if (fatalError) {
+      // If you want to record a "fatal" exception
+      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+      // ignore: dead_code
+    } else {
+      // If you want to record a "non-fatal" exception
+      FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
+    }
+  };
+  // Async exceptions
+  PlatformDispatcher.instance.onError = (error, stack) {
+    if (fatalError) {
+      // If you want to record a "fatal" exception
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      // ignore: dead_code
+    } else {
+      // If you want to record a "non-fatal" exception
+      FirebaseCrashlytics.instance.recordError(error, stack);
+    }
+    return true;
+  };
 
   await SentryFlutter.init(
     (options) {
