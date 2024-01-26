@@ -136,6 +136,10 @@ class UserEntity extends Equatable {
       avgRating,
     ];
   }
+
+  Map<String, dynamic>? toJson() {
+    return {};
+  }
 }
 
 class TutorInfoEntity extends Equatable {
@@ -195,6 +199,10 @@ class TutorInfoEntity extends Equatable {
       youtubeVideoId,
     ];
   }
+
+  Map<String, dynamic>? toJson() {
+    return {};
+  }
 }
 
 class WalletInfoEntity extends Equatable {
@@ -210,6 +218,9 @@ class WalletInfoEntity extends Equatable {
 
   @override
   List<Object?> get props => [amount, isBlocked, bonus];
+  Map<String, dynamic>? toJson() {
+    return {};
+  }
 }
 
 class LearnTopicEntity extends Equatable {
@@ -225,6 +236,9 @@ class LearnTopicEntity extends Equatable {
 
   @override
   List<Object?> get props => [id, key, name];
+  Map<String, dynamic>? toJson() {
+    return {};
+  }
 }
 
 class ReferralInfoEntity extends Equatable {
@@ -238,6 +252,9 @@ class ReferralInfoEntity extends Equatable {
 
   @override
   List<Object?> get props => [referralCode, referralPackInfo];
+  Map<String, dynamic>? toJson() {
+    return {};
+  }
 }
 
 class ReferralPackInfoEntity extends Equatable {
@@ -249,6 +266,14 @@ class ReferralPackInfoEntity extends Equatable {
 
   @override
   List<Object?> get props => [earnPercent];
+
+  Map<String, dynamic>? toJson() {
+    return {};
+  }
 }
 
-class StudentInfoEntity {}
+class StudentInfoEntity {
+  Map<String, dynamic>? toJson() {
+    return {};
+  }
+}

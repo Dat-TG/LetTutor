@@ -4,13 +4,15 @@ import 'package:equatable/equatable.dart';
 import 'package:let_tutor/core/resources/data_state.dart';
 import 'package:let_tutor/domain/entities/message/message_entity.dart';
 import 'package:let_tutor/domain/usecases/message/get_message_by_user_id.dart';
+import 'package:let_tutor/services/socket_services.dart';
 
 part 'conversation_event.dart';
 part 'conversation_state.dart';
 
 class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   final GetMessagesByUserIdUsecase _getMessagesByUserIdUsecase;
-  ConversationBloc(this._getMessagesByUserIdUsecase)
+  final SocketServices socketServices;
+  ConversationBloc(this._getMessagesByUserIdUsecase, this.socketServices)
       : super(ConversationInitial()) {
     on<GetConversationEvent>(onMessagesFetched);
     on<SendMessage>(onSendMessage);
@@ -62,7 +64,17 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       messages: state.messages ?? [],
       params: state.params!,
     ));
-    print('send messaage: ${event.message}');
+
+    Map<String, dynamic> data = {
+      'fromId': event.message.fromInfo!.id,
+      'toId': event.message.toInfo!.id,
+      'content': event.message.content
+    };
+
+    socketServices.sendEvent('chat:sendMessage', data);
+
+    print('send message: ${event.message}');
+
     emit(ConversationLoaded(
       messages: [event.message, ...(state.messages ?? [])],
       params: state.params!,

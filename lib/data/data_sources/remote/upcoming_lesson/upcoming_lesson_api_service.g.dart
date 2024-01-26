@@ -53,20 +53,12 @@ class _UpcomingLessonApiService implements UpcomingLessonApiService {
       (a, b) => a.scheduleDetailInfo!.startPeriodTimestamp!
           .compareTo(b.scheduleDetailInfo!.startPeriodTimestamp!),
     );
-    UpcomingLessonModel? value = result.isNotEmpty
-        ? result[0].scheduleDetailInfo!.endPeriodTimestamp! >
-                DateTime.now().millisecondsSinceEpoch
-            ? result[0]
-            : null
-        : null;
-
-    if (value == null) {
-      for (int i = 1; i < result.length; i++) {
-        if (result[i].scheduleDetailInfo!.endPeriodTimestamp! >
-            DateTime.now().millisecondsSinceEpoch) {
-          value = result[i];
-          break;
-        }
+    UpcomingLessonModel? value;
+    for (int i = 0; i < result.length; i++) {
+      if (result[i].scheduleDetailInfo!.startPeriodTimestamp! >
+          DateTime.now().millisecondsSinceEpoch) {
+        value = result[i];
+        break;
       }
     }
 

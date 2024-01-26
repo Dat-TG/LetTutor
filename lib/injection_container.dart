@@ -57,6 +57,7 @@ import 'package:let_tutor/domain/usecases/ebook/get_list_ebooks.dart';
 import 'package:let_tutor/domain/usecases/message/get_message_by_user_id.dart';
 import 'package:let_tutor/domain/usecases/message/get_receivers.dart';
 import 'package:let_tutor/domain/usecases/review/get_reviews.dart';
+import 'package:let_tutor/domain/usecases/schedule/cancel_schedule.dart';
 import 'package:let_tutor/domain/usecases/schedule/get_history.dart';
 import 'package:let_tutor/domain/usecases/schedule/get_schedules.dart';
 import 'package:let_tutor/domain/usecases/total_lesson_time/get_total_lesson_time.dart';
@@ -92,6 +93,7 @@ import 'package:let_tutor/presentation/schedule/bloc/schedule_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/total_lesson_time_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/tutor_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/upcoming_lesson_bloc.dart';
+import 'package:let_tutor/services/socket_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
@@ -106,6 +108,7 @@ Future<void> initializeDependencies() async {
 
   // Dependencies
   sl.registerSingleton<AuthProvider>(AuthProvider());
+  sl.registerSingleton<SocketServices>(SocketServices());
   // API Services
   sl.registerSingleton<AuthApiService>(AuthApiService(sl()));
   sl.registerSingleton<UserApiService>(UserApiService(sl()));
@@ -178,10 +181,11 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<GetStatisticsUsecase>(GetStatisticsUsecase(sl()));
   sl.registerSingleton<GetTransactionsUsecase>(GetTransactionsUsecase(sl()));
   sl.registerSingleton<LoginFacebookUsecase>(LoginFacebookUsecase(sl()));
+  sl.registerSingleton<CancelScheduleUsecase>(CancelScheduleUsecase(sl()));
 
   //Blocs
   sl.registerFactory<AuthBloc>(
-      () => AuthBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl()));
+      () => AuthBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory<TutorBloc>(() => TutorBloc(sl(), sl()));
   sl.registerFactory<TutorDetailsBloc>(
       () => TutorDetailsBloc(sl(), sl(), sl()));
@@ -191,14 +195,14 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<CourseBloc>(() => CourseBloc(sl()));
   sl.registerFactory<CourseDetailsBloc>(() => CourseDetailsBloc(sl()));
   sl.registerFactory<HistoryBloc>(() => HistoryBloc(sl()));
-  sl.registerFactory<ScheduleBloc>(() => ScheduleBloc(sl()));
+  sl.registerFactory<ScheduleBloc>(() => ScheduleBloc(sl(), sl()));
   sl.registerFactory<BookingBloc>(() => BookingBloc(sl(), sl(), sl()));
   sl.registerFactory<EditAccountBloc>(() => EditAccountBloc(sl(), sl(), sl()));
   sl.registerFactory<HomeTutorBloc>(() => HomeTutorBloc(sl()));
   sl.registerFactory<HomeCourseBloc>(() => HomeCourseBloc(sl()));
   sl.registerFactory<BecomeTutorBloc>(() => BecomeTutorBloc());
   sl.registerFactory<MessageBloc>(() => MessageBloc(sl()));
-  sl.registerFactory<ConversationBloc>(() => ConversationBloc(sl()));
+  sl.registerFactory<ConversationBloc>(() => ConversationBloc(sl(), sl()));
   sl.registerFactory<EbookBloc>(() => EbookBloc(sl()));
   sl.registerFactory<HomeEbookBloc>(() => HomeEbookBloc(sl()));
   sl.registerFactory<WalletBloc>(() => WalletBloc(sl(), sl()));

@@ -11,6 +11,16 @@ Flutter
 
 https://docs.google.com/document/d/1XcLD6AGi4HD8z-a88oksh12w0pHGqvWv/edit?usp=sharing&ouid=108361665254540682887&rtpof=true&sd=true
 
+## Milestone 4
+
+- Improve old features and fix bugs
+- Implement some left features
+- Implement advanced features: CI/CD, Analytics
+
+### Demo Video
+
+Youtube: https://youtu.be/E7eRuvIG9T0
+
 ## Milestone 3
 
 Improve red features and implement some of other features

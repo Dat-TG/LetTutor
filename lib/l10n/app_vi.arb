@@ -273,5 +273,8 @@
     "uploadVideoHere": "Tải lên video...",
     "sorryWeCantFindAnyCourseWithThisKeywords":"Xin lỗi, chúng tôi không thể tìm thấy kết quả vớI từ khoá này",
     "sorryWeCantFindAnyEbookWithThisKeywords":"Xin lỗi, chúng tôi không thể tìm thấy kết quả vớI từ khoá này",
-    "cancelBooking": "Hủy đặt lịch"
+    "cancelBooking": "Hủy đặt lịch",
+    "cancelScheduleSuccessful": "Hủy lịch học thành công",
+    "cancelScheduleFailed": "Hủy lịch học không thành công",
+    "pleaseSelectTheReasonYouCancelThisBooking": "Vui lòng chọn lý do bạn hủy buổi học này"
 }

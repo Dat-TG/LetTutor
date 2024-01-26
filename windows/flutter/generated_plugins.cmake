@@ -4,8 +4,10 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   emoji_picker_flutter
+  firebase_core
   flutter_secure_storage_windows
   pdfx
+  sentry_flutter
   url_launcher_windows
 )
 

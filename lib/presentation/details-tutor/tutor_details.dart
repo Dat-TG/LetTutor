@@ -8,9 +8,11 @@ import 'package:let_tutor/core/common/video/video_from_network.dart';
 import 'package:let_tutor/core/utils/constants.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:let_tutor/core/utils/language_local.dart';
+import 'package:let_tutor/domain/entities/message/message_entity.dart';
 import 'package:let_tutor/domain/repositories/review/review_repository.dart';
 import 'package:let_tutor/presentation/booking/book_lesson_screen.dart';
 import 'package:let_tutor/core/common/expanded_paragraph.dart';
+import 'package:let_tutor/presentation/conversation/conversation_screen.dart';
 import 'package:let_tutor/presentation/details-course/course_details.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/review_bloc.dart';
 import 'package:let_tutor/presentation/details-tutor/bloc/tutor_details_bloc.dart';
@@ -200,7 +202,19 @@ class _TutorDetailsState extends State<TutorDetails> {
                                 title: AppLocalizations.of(context)!.message,
                                 backgroundColor: Colors.grey[300]!,
                                 titleColor: Colors.black,
-                                callback: () {},
+                                callback: () {
+                                  GoRouter.of(context).pushNamed(
+                                    ConversationScreen.routeName,
+                                    extra: ReceiverInfoEntity(
+                                      id: state.tutorDetails?.user?.id ?? '',
+                                      name:
+                                          state.tutorDetails?.user?.name ?? '',
+                                      avatar:
+                                          state.tutorDetails?.user?.avatar ??
+                                              '',
+                                    ),
+                                  );
+                                },
                                 borderRadius: 10,
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 10,

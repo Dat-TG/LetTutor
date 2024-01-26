@@ -88,6 +88,36 @@ class UserModel extends UserEntity {
           : null,
     );
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'email': email,
+      'name': name,
+      'avatar': avatar,
+      'country': country,
+      'phone': phone,
+      'roles': roles,
+      'language': language,
+      'birthday': birthday,
+      'isActivated': isActivated,
+      'tutorInfo': tutorInfo?.toJson(),
+      'walletInfo': walletInfo?.toJson(),
+      'requireNote': requireNote,
+      'level': level,
+      'learnTopics': learnTopics?.map((x) => x.toJson()).toList(),
+      'testPreparations': testPreparations?.map((x) => x.toJson()).toList(),
+      'isPhoneActivated': isPhoneActivated,
+      'timezone': timezone,
+      'referralInfo': referralInfo?.toJson(),
+      'studySchedule': studySchedule,
+      'canSendMessage': canSendMessage,
+      'studentGroup': studentGroup,
+      'studentInfo': studentInfo?.toJson(),
+      'avgRating': avgRating,
+    };
+  }
 }
 
 class TutorInfo extends TutorInfoEntity {
@@ -147,6 +177,28 @@ class TutorInfo extends TutorInfoEntity {
       youtubeVideoId: json['youtubeVideoId'],
     );
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'video': video,
+      'bio': bio,
+      'education': education,
+      'experience': experience,
+      'profession': profession,
+      'accent': accent,
+      'targetStudent': targetStudent,
+      'interests': interests,
+      'languages': languages,
+      'specialties': specialties,
+      'resume': resume,
+      'rating': rating,
+      'isActivated': isActivated,
+      'isNative': isNative,
+      'youtubeVideoId': youtubeVideoId,
+    };
+  }
 }
 
 class WalletInfo extends WalletInfoEntity {
@@ -167,6 +219,15 @@ class WalletInfo extends WalletInfoEntity {
       bonus: json['bonus'],
     );
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'amount': amount,
+      'isBlocked': isBlocked,
+      'bonus': bonus,
+    };
+  }
 }
 
 class LearnTopic extends LearnTopicEntity {
@@ -183,6 +244,15 @@ class LearnTopic extends LearnTopicEntity {
       key: json['key'],
       name: json['name'],
     );
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'key': key,
+      'name': name,
+    };
   }
 }
 
@@ -202,6 +272,13 @@ class ReferralInfo extends ReferralInfoEntity {
           ReferralPackInfo.fromJson(json['referralPackInfo'] ?? {}),
     );
   }
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'referralCode': referralCode,
+      'referralPackInfo': referralPackInfo?.toJson(),
+    };
+  }
 }
 
 class ReferralPackInfo extends ReferralPackInfoEntity {
@@ -216,11 +293,22 @@ class ReferralPackInfo extends ReferralPackInfoEntity {
       earnPercent: json['earnPercent'],
     );
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'earnPercent': earnPercent,
+    };
+  }
 }
 
 class StudentInfo extends StudentInfoEntity {
   StudentInfo() : super();
   factory StudentInfo.fromJson(Map<String, dynamic> json) {
     return StudentInfo();
+  }
+  @override
+  Map<String, dynamic>? toJson() {
+    return null;
   }
 }

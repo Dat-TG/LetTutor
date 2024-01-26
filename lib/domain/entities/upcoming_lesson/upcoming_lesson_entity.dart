@@ -16,9 +16,9 @@ class UpcomingLessonEntity extends Equatable {
   final String? updatedAt;
   final String? recordUrl;
   final String? cancelReasonId;
-  final String? lessonPlanId;
+  final int? lessonPlanId;
   final String? cancelNote;
-  final String? calendarId;
+  final int? calendarId;
   final bool? isDeleted;
   final bool? isTrial;
   final int? convertedLesson;

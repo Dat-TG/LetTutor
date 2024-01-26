@@ -21,24 +21,6 @@ class _ConversationBodyState extends State<ConversationBody> {
   int showTimeAtIndex = -1;
   final ScrollController _controller = ScrollController();
 
-  double? oldPosition;
-
-  void scrollToBottom() {
-    if (_controller.hasClients) {
-      _controller.jumpTo(
-        _controller.position.maxScrollExtent,
-      );
-    }
-  }
-
-  void scrollToPosition(double position) {
-    if (_controller.hasClients) {
-      _controller.jumpTo(
-        position,
-      );
-    }
-  }
-
   @override
   void initState() {
     context.read<ConversationBloc>().add(
@@ -53,9 +35,7 @@ class _ConversationBodyState extends State<ConversationBody> {
       if (_controller.offset >= _controller.position.maxScrollExtent &&
           !_controller.position.outOfRange) {
         // scroll to top (reverse) => load more
-        setState(() {
-          oldPosition = _controller.position.pixels;
-        });
+        print('Load more');
         context.read<ConversationBloc>().add(
               GetConversationEvent(
                   params: GetMessagesByUserIdUsecaseParams(
@@ -85,22 +65,11 @@ class _ConversationBodyState extends State<ConversationBody> {
     bool isDark =
         Provider.of<DarkModeProvider>(context, listen: false).isDarkModeOn ??
             (ThemeMode.system == ThemeMode.dark);
-    return BlocConsumer<ConversationBloc, ConversationState>(
-      listener: (context, state) {
-        /*if ((state is ConversationLoaded || state is ConversationDone)) {
-          Future.delayed(const Duration(milliseconds: 100), () {
-            print('Scroll to old position: $oldPosition');
-            if (oldPosition != null) {
-              scrollToPosition(oldPosition!);
-            } else {
-              scrollToBottom();
-            }
-          });
-        }*/
-      },
+    return BlocBuilder<ConversationBloc, ConversationState>(
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
-        if (state is ConversationLoading) {
+        if ((state is ConversationLoading) &&
+            (state.messages?.isEmpty ?? true)) {
           return const Center(
             child: SizedBox(
                 width: 30,
@@ -123,6 +92,7 @@ class _ConversationBodyState extends State<ConversationBody> {
           children: [
             Expanded(
               child: ListView.builder(
+                key: const Key('messageList'),
                 reverse: true,
                 controller: _controller,
                 itemCount: (state.messages?.length ?? 0) + 1,
@@ -144,6 +114,7 @@ class _ConversationBodyState extends State<ConversationBody> {
                         : const SizedBox();
                   }
                   return Container(
+                    key: ValueKey(state.messages?[index].id),
                     padding: EdgeInsets.only(
                         left: (state.messages?[index].fromInfo?.id != me?.id)
                             ? 14
@@ -165,8 +136,8 @@ class _ConversationBodyState extends State<ConversationBody> {
                               padding: const EdgeInsets.only(
                                 bottom: 5,
                               ),
-                              child: Text(DateFormat(null, 'en')
-                                  .format(state.messages![index].createdAt!)),
+                              child: Text(DateFormat(null, 'en').format(
+                                  state.messages![index].createdAt!.toLocal())),
                             ),
                           ),
                         InkWell(

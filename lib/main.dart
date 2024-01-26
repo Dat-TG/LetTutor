@@ -1,3 +1,6 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:let_tutor/core/providers/auth_provider.dart';
@@ -7,6 +10,7 @@ import 'package:let_tutor/core/routers/my_router.dart';
 import 'package:let_tutor/domain/repositories/schedule/schedule_repository.dart';
 import 'package:let_tutor/domain/usecases/course/get_list_courses.dart';
 import 'package:let_tutor/domain/usecases/ebook/get_list_ebooks.dart';
+import 'package:let_tutor/firebase_options.dart';
 import 'package:let_tutor/injection_container.dart';
 import 'package:let_tutor/l10n/l10n.dart';
 import 'package:let_tutor/presentation/become-tutor/bloc/become_tutor_bloc.dart';
@@ -31,21 +35,89 @@ import 'package:let_tutor/presentation/schedule/bloc/schedule_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/total_lesson_time_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/tutor_bloc.dart';
 import 'package:let_tutor/presentation/tutor/bloc/upcoming_lesson_bloc.dart';
+import 'package:let_tutor/services/socket_services.dart';
 import 'package:let_tutor/themes/themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
 
-  runApp(const MyApp());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  const fatalError = true;
+  // Non-async exceptions
+  FlutterError.onError = (errorDetails) {
+    if (fatalError) {
+      // If you want to record a "fatal" exception
+      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+      // ignore: dead_code
+    } else {
+      // If you want to record a "non-fatal" exception
+      FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
+    }
+  };
+  // Async exceptions
+  PlatformDispatcher.instance.onError = (error, stack) {
+    if (fatalError) {
+      // If you want to record a "fatal" exception
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      // ignore: dead_code
+    } else {
+      // If you want to record a "non-fatal" exception
+      FirebaseCrashlytics.instance.recordError(error, stack);
+    }
+    return true;
+  };
+
+  await SentryFlutter.init(
+    (options) {
+      options.dsn =
+          'https://204e21fa70a37ccd23878bb676b71a35@o4506638351597568.ingest.sentry.io/4506638356643840';
+      // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+      // We recommend adjusting this value in production.
+      options.tracesSampleRate = 1.0;
+    },
+    appRunner: () => runApp(const MyApp()),
+  );
+  // try {
+  //   int? test;
+  //   test! + 1;
+  // } catch (exception, stackTrace) {
+  //   await Sentry.captureException(
+  //     exception,
+  //     stackTrace: stackTrace,
+  //   );
+  // }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+  final socketServices = sl<SocketServices>();
+
+  @override
+  void initState() {
+    socketServices.connectToServer();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    socketServices.closeConnection();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

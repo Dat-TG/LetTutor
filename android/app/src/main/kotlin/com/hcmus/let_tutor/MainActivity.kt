@@ -1,4 +1,4 @@
-package com.example.let_tutor
+package com.hcmus.let_tutor
 
 import io.flutter.embedding.android.FlutterActivity
 

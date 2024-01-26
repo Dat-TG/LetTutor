@@ -65,4 +65,34 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
       return DataFailed(e);
     }
   }
+
+  @override
+  Future<DataState<String>> cancelSchedule({
+    required String scheduleDetailId,
+    required int cancelReasonId,
+    String note = "",
+  }) async {
+    try {
+      final httpResponse = await _scheduleApiService.cancelSchedule(body: {
+        "scheduleDetailId": scheduleDetailId,
+        "cancelInfo": {
+          "cancelReasonId": cancelReasonId,
+          "note": note,
+        },
+      });
+      if (httpResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpResponse.data);
+      } else {
+        return DataFailed(
+          DioException(
+              error: httpResponse.response.statusMessage,
+              response: httpResponse.response,
+              type: DioExceptionType.badResponse,
+              requestOptions: httpResponse.response.requestOptions),
+        );
+      }
+    } on DioException catch (e) {
+      return DataFailed(e);
+    }
+  }
 }
