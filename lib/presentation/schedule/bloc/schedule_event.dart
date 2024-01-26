@@ -11,3 +11,8 @@ final class ScheduleFetched extends ScheduleEvent {
   final ScheduleParams params;
   const ScheduleFetched(this.params);
 }
+
+final class ScheduleCancelled extends ScheduleEvent {
+  final CancelScheduleParams params;
+  const ScheduleCancelled(this.params);
+}

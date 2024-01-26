@@ -9,6 +9,36 @@ abstract class ScheduleRepository {
   Future<DataState<List<ScheduleEntity>>> getHistory({
     required ScheduleParams params,
   });
+
+  Future<DataState<String>> cancelSchedule({
+    required String scheduleDetailId,
+    required int cancelReasonId,
+    String note = "",
+  });
+}
+
+class CancelScheduleParams {
+  final String scheduleDetailId;
+  final int cancelReasonId;
+  final String note;
+
+  CancelScheduleParams({
+    required this.scheduleDetailId,
+    required this.cancelReasonId,
+    required this.note,
+  });
+
+  CancelScheduleParams copyWith({
+    String? scheduleDetailId,
+    int? cancelReasonId,
+    String? note,
+  }) {
+    return CancelScheduleParams(
+      scheduleDetailId: scheduleDetailId ?? this.scheduleDetailId,
+      cancelReasonId: cancelReasonId ?? this.cancelReasonId,
+      note: note ?? this.note,
+    );
+  }
 }
 
 class ScheduleParams {

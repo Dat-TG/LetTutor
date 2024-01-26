@@ -41,7 +41,7 @@ class AuthInterceptor extends Interceptor {
   Future<void> onError(
       DioException err, ErrorInterceptorHandler handler) async {
     print('Error: ${err.response?.statusCode} ${err.response?.headers}');
-    print('Error: ${err}');
+    print('Error: $err');
     if (err.response?.statusCode == 401) {
       // Refresh token
       final String? refreshToken = sl<SharedPreferences>().getString(

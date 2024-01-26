@@ -67,6 +67,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 );
           },
           child: ListView.builder(
+              physics: const AlwaysScrollableScrollPhysics(),
               controller: _scrollController,
               itemCount: (state.schedules?.length ?? 0) + 2,
               itemBuilder: (context, index) {

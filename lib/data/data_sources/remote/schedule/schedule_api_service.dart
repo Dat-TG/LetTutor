@@ -25,4 +25,9 @@ abstract class ScheduleApiService {
     @Query('orderBy') required String orderBy,
     @Query('sortBy') required String sortBy,
   });
+
+  @DELETE('/booking/schedule-detail')
+  Future<HttpResponse<String>> cancelSchedule({
+    @Body() required Map<String, dynamic> body,
+  });
 }

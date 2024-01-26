@@ -1,11 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:let_tutor/core/common/custom_button.dart';
 import 'package:let_tutor/core/common/custom_textfield.dart';
 import 'package:let_tutor/core/utils/helpers.dart';
 import 'package:let_tutor/domain/entities/schedule/schedule_entity.dart';
+import 'package:let_tutor/domain/repositories/schedule/schedule_repository.dart';
+import 'package:let_tutor/presentation/schedule/bloc/schedule_bloc.dart';
 
 class Reason {
   final int id;
@@ -15,7 +19,10 @@ class Reason {
 
 class CancelScheduleDialog extends StatefulWidget {
   final ScheduleEntity schedule;
-  const CancelScheduleDialog({super.key, required this.schedule});
+  const CancelScheduleDialog({
+    super.key,
+    required this.schedule,
+  });
 
   @override
   State<CancelScheduleDialog> createState() => _CancelScheduleDialogState();
@@ -237,6 +244,29 @@ class _CancelScheduleDialogState extends State<CancelScheduleDialog> {
           ),
           borderRadius: 5,
           callback: () {
+            if (reason == 0) {
+              Fluttertoast.showToast(
+                msg: AppLocalizations.of(context)!
+                    .pleaseSelectTheReasonYouCancelThisBooking,
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+              );
+              // Helpers.showSnackBar(
+              //     context,
+              //     AppLocalizations.of(context)!
+              //         .pleaseSelectTheReasonYouCancelThisBooking);
+              return;
+            }
+            context.read<ScheduleBloc>().add(
+                  ScheduleCancelled(
+                    CancelScheduleParams(
+                      scheduleDetailId: widget.schedule.id!,
+                      cancelReasonId: reason,
+                      note: _noteController.text,
+                    ),
+                  ),
+                );
             Navigator.pop(context);
           },
         ),
