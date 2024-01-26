@@ -18,7 +18,6 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: "3.13.8"
-      - run: flutter upgrade
       - run: flutter pub get
       - run: flutter test
       - run: flutter build apk --debug --split-per-abi
