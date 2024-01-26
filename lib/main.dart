@@ -36,12 +36,31 @@ import 'package:let_tutor/themes/themes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
 
-  runApp(const MyApp());
+  await SentryFlutter.init(
+    (options) {
+      options.dsn =
+          'https://204e21fa70a37ccd23878bb676b71a35@o4506638351597568.ingest.sentry.io/4506638356643840';
+      // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+      // We recommend adjusting this value in production.
+      options.tracesSampleRate = 1.0;
+    },
+    appRunner: () => runApp(const MyApp()),
+  );
+  // try {
+  //   int? test;
+  //   test! + 1;
+  // } catch (exception, stackTrace) {
+  //   await Sentry.captureException(
+  //     exception,
+  //     stackTrace: stackTrace,
+  //   );
+  // }
 }
 
 class MyApp extends StatefulWidget {
