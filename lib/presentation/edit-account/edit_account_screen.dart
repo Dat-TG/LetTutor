@@ -267,8 +267,8 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                             textEditingController: _birthDateController,
                             minDate: DateTime(1900),
                             showIcon: false,
-                            initDate: DateTime.parse(
-                                state.user.birthday ?? '2000-01-01'),
+                            initDate: DateTime.parse(Helpers.formatDate(
+                                state.user.birthday ?? '2000-01-01')),
                           ),
                         ),
                         const SizedBox(

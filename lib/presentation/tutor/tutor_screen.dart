@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:let_tutor/domain/repositories/tutor/tutor_repositoy.dart';
 import 'package:let_tutor/presentation/tutor/bloc/tutor_bloc.dart';
+import 'package:let_tutor/presentation/tutor/bloc/upcoming_lesson_bloc.dart';
 import 'package:let_tutor/presentation/tutor/widgets/all_tutors.dart';
 import 'package:let_tutor/presentation/tutor/widgets/tutor_search.dart';
 import 'package:let_tutor/presentation/tutor/widgets/upcoming_lesson.dart';
@@ -67,61 +68,73 @@ class _TutorScreenState extends State<TutorScreen> {
     return BlocBuilder<TutorBloc, TutorState>(
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
-        return SingleChildScrollView(
-          controller: _scrollController,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const UpcomingLesson(),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
+        return RefreshIndicator(
+          onRefresh: () async {
+            context.read<UpcomingLessonBloc>().add(
+                  const UpcomingLessonFetched(),
+                );
+            context.read<TutorBloc>().add(
+                  TutorSearching(
+                    TutorSearchParams(page: 1),
+                  ),
+                );
+          },
+          child: SingleChildScrollView(
+            controller: _scrollController,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const UpcomingLesson(),
+                const SizedBox(
+                  height: 20,
                 ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.search,
-                      size: 25,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      AppLocalizations.of(context)!.findATutor,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w900,
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.search,
+                        size: 25,
+                        color: Theme.of(context).primaryColor,
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: TutorSearch(),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  AppLocalizations.of(context)!.recommendedTutors,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        AppLocalizations.of(context)!.findATutor,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              const AllTutors(),
-            ],
+                const SizedBox(
+                  height: 10,
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: TutorSearch(),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    AppLocalizations.of(context)!.recommendedTutors,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                const AllTutors(),
+              ],
+            ),
           ),
         );
       },

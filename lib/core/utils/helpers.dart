@@ -739,4 +739,23 @@ class Helpers {
       return "$years ${years == 1 ? AppLocalizations.of(context)!.year : AppLocalizations.of(context)!.years} ${AppLocalizations.of(context)!.ago}";
     }
   }
+
+  static String formatDate(String dateString) {
+    // Split the date string by '-'
+    List<String> parts = dateString.split('-');
+
+    // Extract year, month, and day
+    int year = int.parse(parts[0]);
+    int month = int.parse(parts[1]);
+    int day = int.parse(parts[2]);
+
+    // Format month and day to ensure they have two digits
+    String formattedMonth = month.toString().padLeft(2, '0');
+    String formattedDay = day.toString().padLeft(2, '0');
+
+    // Form the final date string in yyyy-mm-dd format
+    String formattedDate = '$year-$formattedMonth-$formattedDay';
+
+    return formattedDate;
+  }
 }
